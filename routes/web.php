@@ -13,18 +13,14 @@ use App\Http\Middleware\LogAcessoMiddleware;
 |
 */
 
-Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
-Route::get('/contato', [App\Http\Controllers\Contato::class, 'contato']);
-Route::get('/boletim', [App\Http\Controllers\Boletim::class, 'boletim']);
-Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno']);
-Route::get('/ocorrencias', [App\Http\Controllers\Ocorrencias::class, 'ocorrencias']);
-Route::get('/grade', [App\Http\Controllers\Grade::class, 'Grade']);
-Route::get('/vidaacademica', [App\Http\Controllers\Vidaacademica::class, 'vidaacademica']);
-Route::get('/vestibulinhoE', [App\Http\Controllers\VestibulinhoE::class, 'vestibulinhoE']);
-Route::get('/progressaop', [App\Http\Controllers\Progressaop::class, 'progressaop']);
-Route::get('/aluno/login', [App\Http\Controllers\Aluno::class, 'login']);
-Route::get('/aluno/matricula', [App\Http\Controllers\Aluno::class, 'matricula']);
-Route::get('/aluno/cancelar-matricula', [App\Http\Controllers\Aluno::class, 'cancelarMatricula']);
+Route::get('/', [App\Http\Controllers\Principal::class, 'index'])->name('pagina-principal');
+Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'index'])->name('sobre');
+Route::get('/contato', [App\Http\Controllers\Contato::class, 'index'])->name('contato');
+Route::get('/home', [App\Http\Controllers\Home::class, 'index'])->name('home');
+Route::get('/ds', [App\Http\Controllers\Ds::class, 'index'])->name('ds');
+Route::get('/adm', [App\Http\Controllers\Adm::class, 'index'])->name('adm');
+Route::get('/ma', [App\Http\Controllers\Ma::class, 'index'])->name('ma');
+Route::get('/fa', [App\Http\Controllers\Fa::class, 'index'])->name('fa');
 
 
 
