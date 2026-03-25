@@ -14,17 +14,19 @@ use App\Http\Middleware\LogAcessoMiddleware;
 */
 
 Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
-Route::get('/contato', [App\Http\Controllers\Contato::class, 'contato']);
-Route::get('/boletim', [App\Http\Controllers\Boletim::class, 'boletim']);
-Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno']);
-Route::get('/ocorrencias', [App\Http\Controllers\Ocorrencias::class, 'ocorrencias']);
-Route::get('/grade', [App\Http\Controllers\Grade::class, 'Grade']);
-Route::get('/vidaacademica', [App\Http\Controllers\Vidaacademica::class, 'vidaacademica']);
-Route::get('/vestibulinhoE', [App\Http\Controllers\VestibulinhoE::class, 'vestibulinhoE']);
-Route::get('/progressaop', [App\Http\Controllers\Progressaop::class, 'progressaop']);
-Route::get('/aluno/login', [App\Http\Controllers\Aluno::class, 'login']);
-Route::get('/aluno/matricula', [App\Http\Controllers\Aluno::class, 'matricula']);
-Route::get('/aluno/cancelar-matricula', [App\Http\Controllers\Aluno::class, 'cancelarMatricula']);
+Route::get('/somar/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'somar']);
+Route::get('/subtrair/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'subtrair']);
+Route::get('/multip/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'multip']);
+Route::get('/dividir/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'dividir']);
+
+Route::get('/produtos/listar', [App\Http\Controllers\Produto::class, 'listar']);
+
+Route::get('/clientes/listar', [App\Http\Controllers\Cliente::class, 'listar']);
+
+
+
+
+
 
 
 
