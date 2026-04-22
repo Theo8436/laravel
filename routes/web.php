@@ -14,18 +14,16 @@ use App\Http\Middleware\LogAcessoMiddleware;
 */
 
 Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
-Route::get('/contato', [App\Http\Controllers\Contato::class, 'contato']);
-Route::get('/boletim', [App\Http\Controllers\Boletim::class, 'boletim']);
-Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno']);
-Route::get('/ocorrencias', [App\Http\Controllers\Ocorrencias::class, 'ocorrencias']);
-Route::get('/grade', [App\Http\Controllers\Grade::class, 'Grade']);
-Route::get('/vidaacademica', [App\Http\Controllers\Vidaacademica::class, 'vidaacademica']);
-Route::get('/vestibulinhoE', [App\Http\Controllers\VestibulinhoE::class, 'vestibulinhoE']);
-Route::get('/progressaop', [App\Http\Controllers\Progressaop::class, 'progressaop']);
-Route::get('/aluno/login', [App\Http\Controllers\Aluno::class, 'login']);
-Route::get('/aluno/matricula', [App\Http\Controllers\Aluno::class, 'matricula']);
-Route::get('/aluno/cancelar-matricula', [App\Http\Controllers\Aluno::class, 'cancelarMatricula']);
 
+
+Route::prefix('/aluno')->group(function(){
+    Route::get('/index', [App\Http\Controllers\AlunoController::class, 'index'])->name('aluno.index');
+    Route::post('/add', [App\Http\Controllers\AlunoController::class, 'add'])->name('aluno.add');
+    Route::post('/remove', [App\Http\Controllers\AlunoController::class, 'remove'])->name('aluno.remove');
+    Route::post('/edit', [App\Http\Controllers\AlunoController::class, 'edit'])->name('aluno.edit');
+    Route::get('/list', [App\Http\Controllers\AlunoController::class, 'list'])->name('aluno.list');
+
+});
 
 
 
