@@ -51,4 +51,4 @@ Route::prefix('/administrador')->group(function(){
     Route::post('/status', [App\Http\Controllers\AdministradorController::class, 'status'])->name('administrador.status');
 }); 
 
-
+Route::get('/scarlet', [App\Http\Controllers\Scarlet::class, 'scarlet'])->name('scarlet');
