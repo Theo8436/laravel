@@ -14,14 +14,45 @@ use App\Http\Middleware\LogAcessoMiddleware;
 */
 
 Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
-Route::get('/somar/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'somar']);
-Route::get('/subtrair/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'subtrair']);
-Route::get('/multip/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'multip']);
-Route::get('/dividir/{p1}/{p2}', [App\Http\Controllers\Principal::class, 'dividir']);
+Route::prefix('/aluno')->group(function(){
+    Route::get('/index', [App\Http\Controllers\AlunoController::class, 'index'])->name('aluno.index');
+    Route::post('/add', [App\Http\Controllers\AlunoController::class, 'add'])->name('aluno.add');
+    Route::get('/remove/{id}', [App\Http\Controllers\AlunoController::class, 'remove'])->name('aluno.remove');
+    Route::get('/atualizar/{id}', [App\Http\Controllers\AlunoController::class, 'atualizar'])->name('aluno.atualizar');
+    Route::post('/save', [App\Http\Controllers\AlunoController::class, 'save'])->name('aluno.save');
+}); 
 
-Route::get('/produtos/listar', [App\Http\Controllers\Produto::class, 'listar']);
+Route::prefix('/curso')->group(function(){
+    Route::get('/index', [App\Http\Controllers\CursoController::class, 'index'])->name('curso.index');
+    Route::post('/add', [App\Http\Controllers\CursoController::class, 'add'])->name('curso.add');
+    Route::get('/remove/{id}', [App\Http\Controllers\CursoController::class, 'remove'])->name('curso.remove');
+    Route::get('/atualizar/{id}', [App\Http\Controllers\CursoController::class, 'atualizar'])->name('curso.atualizar');
+    Route::post('/save', [App\Http\Controllers\CursoController::class, 'save'])->name('curso.save');
+}); 
 
-Route::get('/clientes/listar', [App\Http\Controllers\Cliente::class, 'listar']);
+Route::prefix('/professor')->group(function(){
+    Route::get('/index', [App\Http\Controllers\ProfessoController::class, 'index'])->name('professor.index');
+    Route::post('/add', [App\Http\Controllers\ProfessoController::class, 'add'])->name('professor.add');
+    Route::get('/remove/{id}', [App\Http\Controllers\ProfessoController::class, 'remove'])->name('professor.remove');
+    Route::get('/atualizar/{id}', [App\Http\Controllers\ProfessoController::class, 'atualizar'])->name('professor.atualizar');
+    Route::post('/save', [App\Http\Controllers\ProfessoController::class, 'save'])->name('professor.save');
+}); 
+
+Route::prefix('/componente')->group(function(){
+    Route::get('/index', [App\Http\Controllers\ComponenteController::class, 'index'])->name('componente.index');
+    Route::post('/add', [App\Http\Controllers\ComponenteController::class, 'add'])->name('componente.add');
+    Route::get('/remove/{id}', [App\Http\Controllers\ComponenteController::class, 'remove'])->name('componente.remove');
+    Route::get('/atualizar/{id}', [App\Http\Controllers\ComponenteController::class, 'atualizar'])->name('componente.atualizar');
+    Route::post('/save', [App\Http\Controllers\ComponenteController::class, 'save'])->name('componente.save');
+}); 
+
+Route::prefix('/administrador')->group(function(){
+    Route::get('/index', [App\Http\Controllers\AdministradorController::class, 'index'])->name('administrador.index');
+    Route::post('/add', [App\Http\Controllers\AdministradorController::class, 'add'])->name('administrador.add');
+    Route::get('/remove/{id}', [App\Http\Controllers\AdministradorController::class, 'remove'])->name('dministradoro.remove');
+    Route::get('/atualizar/{id}', [App\Http\Controllers\AdministradorController::class, 'atualizar'])->name('administrador.atualizar');
+    Route::post('/save', [App\Http\Controllers\AdministradorController::class, 'save'])->name('administrador.save');
+}); 
 
 
 
