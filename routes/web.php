@@ -29,5 +29,10 @@ Route::prefix('/about')->group(function(){
 
 }); 
 
+Route::prefix('/buy')->group(function(){
+    Route::get('/comprar', [App\Http\Controllers\ComprarController::class, 'comprar'])->name('buy.comprar');
+
+}); 
+
 
 
