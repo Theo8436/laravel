@@ -231,7 +231,7 @@
         </div>
 
         <div class="card">
-            <img src="img/youdontknowwhatloveis.jpg" class="card-img-top" alt="You Don't Know What Love Is">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9sU6IND04kiONJLS-4I8gcIEnQfSxKzAnpTT9cL7cq8LfeyouTmId5O0&s=10" class="card-img-top" alt="You Don't Know What Love Is">
             <div class="card-body">
                 <h5 class="card-title">You Don't Know What Love Is</h5>
                 <p class="card-text">
@@ -250,7 +250,7 @@
     <div class="cards-container">
 
         <div class="card">
-            <img src="img/kindofblue.jpg" class="card-img-top" alt="Kind of Blue">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlI4TbgK_cX-b28pqLUijVNRSeT9GOSnEZn5CNf-PXKooFMIxriF99bFrU&s=10" class="card-img-top" alt="Kind of Blue">
             <div class="card-body">
                 <h5 class="card-title">A Love Supreme</h5>
                 <p class="card-text">
@@ -261,7 +261,7 @@
         </div>
 
         <div class="card">
-            <img src="img/bluetrain.jpg" class="card-img-top" alt="Blue Train">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3iQ-iggwdzPW9zd-FigYJTlPShwPrkCeftXImG5sQvQ&s=10" class="card-img-top" alt="Blue Train">
             <div class="card-body">
                 <h5 class="card-title">Blue Train</h5>
                 <p class="card-text">
@@ -272,7 +272,7 @@
         </div>
 
         <div class="card">
-            <img src="img/atlast.jpg" class="card-img-top" alt="At Last!">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfsHxEQR3-RnxTHUomEyd4Wk7qTirhmWcX81hV5n_Rz_jH9gfaZoIECwE&s=10" class="card-img-top" alt="At Last!">
             <div class="card-body">
                 <h5 class="card-title">At Last!</h5>
                 <p class="card-text">
@@ -283,7 +283,7 @@
         </div>
 
         <div class="card">
-            <img src="img/moanin.jpg" class="card-img-top" alt="Moanin">
+            <img src="https://imusic.b-cdn.net/images/item/original/164/8436563183164.jpg?art-blakey-2021-moanin-4-bonus-tracks-cd&class=scaled&v=1605818340" class="card-img-top" alt="Moanin">
             <div class="card-body">
                 <h5 class="card-title">Moanin'</h5>
                 <p class="card-text">

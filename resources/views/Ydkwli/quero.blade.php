@@ -183,7 +183,7 @@
 
     <div class="card info-card">
 
-        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800" alt="Vinil">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9sU6IND04kiONJLS-4I8gcIEnQfSxKzAnpTT9cL7cq8LfeyouTmId5O0&s=10" alt="Vinil">
 
         <div class="card-body">
 

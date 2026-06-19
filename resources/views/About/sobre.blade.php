@@ -205,7 +205,7 @@
             <div class="row g-0">
 
                 <div class="col-md-4">
-                    <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800"
+                    <img src="https://i.pinimg.com/736x/89/69/d6/8969d64c662380e74949b6793ec3b6a2.jpg"
                          class="img-fluid rounded-start"
                          alt="Scarlet">
                 </div>
@@ -239,7 +239,7 @@
             <div class="row g-0">
 
                 <div class="col-md-4">
-                    <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=800"
+                    <img src="https://i.pinimg.com/736x/fd/1c/cd/fd1ccd8e611549d65d9ad5e096ff96f2.jpg"
                          class="img-fluid rounded-start"
                          alt="Vynil Records">
                 </div>

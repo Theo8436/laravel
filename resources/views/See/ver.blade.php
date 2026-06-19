@@ -218,7 +218,7 @@
     <section class="hero">
 
         <div class="capa">
-            <img src="https://upload.wikimedia.org/wikipedia/en/9/9c/MilesDavisKindofBlue.jpg" alt="Kind of Blue">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_YjvVfbfayWtSB2afnPVhlOXo3UzWB2eNEGKzDyyI6Q&s=10" alt="Kind of Blue">
         </div>
 
         <div class="hero-info">

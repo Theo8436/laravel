@@ -190,7 +190,7 @@
     <div class="catalogo">
 
         <div class="card">
-            <img src="img/kindofblue.jpg" class="card-img-top" alt="Kind of Blue">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_YjvVfbfayWtSB2afnPVhlOXo3UzWB2eNEGKzDyyI6Q&s=10" class="card-img-top" alt="Kind of Blue">
             <div class="card-body">
                 <h5 class="card-title">Kind of Blue</h5>
                 <p class="card-text">Clássico absoluto do jazz de Miles Davis lançado em 1959.</p>
@@ -199,7 +199,7 @@
         </div>
 
         <div class="card">
-            <img src="img/bluetrain.jpg" class="card-img-top" alt="Blue Train">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/John_Coltrane_-_Blue_Train.jpg" class="card-img-top" alt="Blue Train">
             <div class="card-body">
                 <h5 class="card-title">Blue Train</h5>
                 <p class="card-text">Um dos trabalhos mais importantes de John Coltrane.</p>
@@ -208,7 +208,7 @@
         </div>
 
         <div class="card">
-            <img src="img/takefive.jpg" class="card-img-top" alt="Take Five">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqGBeKGaZwcT_14FFXQIZNqs4hWnN6uLUSsK87f4olRA&s=10" class="card-img-top" alt="Take Five">
             <div class="card-body">
                 <h5 class="card-title">Take Five</h5>
                 <p class="card-text">Faixa histórica do Dave Brubeck Quartet.</p>
@@ -217,7 +217,7 @@
         </div>
 
         <div class="card">
-            <img src="img/atlast.jpg" class="card-img-top" alt="At Last">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvnbHKmimVCfg-zDiUjapG2XOiYeuzekVQVQeqMD5NAA&s=10" class="card-img-top" alt="At Last">
             <div class="card-body">
                 <h5 class="card-title">At Last!</h5>
                 <p class="card-text">Álbum marcante da lendária Etta James.</p>
@@ -226,7 +226,7 @@
         </div>
 
         <div class="card">
-            <img src="img/thrillisgone.jpg" class="card-img-top" alt="The Thrill Is Gone">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpqjgv0brHHM22HXu6WpVXk9ty0SE99UGlswi6O3f7LA&s=10" class="card-img-top" alt="The Thrill Is Gone">
             <div class="card-body">
                 <h5 class="card-title">The Thrill Is Gone</h5>
                 <p class="card-text">Um dos maiores clássicos da carreira de B.B. King.</p>
@@ -235,7 +235,7 @@
         </div>
 
         <div class="card">
-            <img src="img/moanin.jpg" class="card-img-top" alt="Moanin">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPwSQl1v89w6rrxwDvnOlj2vfjPtfkv4qMX4r3fg580g&s=10" class="card-img-top" alt="Moanin">
             <div class="card-body">
                 <h5 class="card-title">Moanin'</h5>
                 <p class="card-text">Jazz vibrante de Art Blakey & The Jazz Messengers.</p>
@@ -244,7 +244,7 @@
         </div>
 
         <div class="card">
-            <img src="img/ladysingstheblues.jpg" class="card-img-top" alt="Lady Sings The Blues">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpg61dxqh3RmXiuUKa3efqDdrqT9MMz6w0nOgNRGZlRQ&s=10" class="card-img-top" alt="Lady Sings The Blues">
             <div class="card-body">
                 <h5 class="card-title">Lady Sings The Blues</h5>
                 <p class="card-text">Obra-prima da inesquecível Billie Holiday.</p>
@@ -253,7 +253,7 @@
         </div>
 
         <div class="card">
-            <img src="img/bornunderabadsign.jpg" class="card-img-top" alt="Born Under a Bad Sign">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwrAJLO-J3m6VzAba7nUPMan-gONxIfEXCx9GoTUdv5Q&s=10" class="card-img-top" alt="Born Under a Bad Sign">
             <div class="card-body">
                 <h5 class="card-title">Born Under a Bad Sign</h5>
                 <p class="card-text">Um dos álbuns mais influentes da história do blues.</p>
