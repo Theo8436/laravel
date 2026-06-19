@@ -183,16 +183,16 @@
 
     <div class="card info-card">
 
-        <img src="https://www.udiscovermusic.com/wp-content/uploads/2016/02/Chuck-Berry-Nadine-1.jpg" alt="Vinil">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJn7PHnnGkGEwpnveZy7XNqZGxCk9YCx1rTg2MJRLnUg&s=10" alt="Vinil">
 
         <div class="card-body">
 
-            <h5 class="card-title">Nadine</h5>
+            <h5 class="card-title">Love Me Or Leave Me</h5>
 
             <p class="card-text">
-            Lançada em 1964, "Nadine" é uma das músicas mais famosas de Chuck Berry. A canção conta a história de um homem que tenta alcançar uma mulher chamada Nadine pelas ruas movimentadas da cidade. Com sua guitarra marcante e letras narrativas, tornou-se um clássico do rock and roll.
+            "Love Me or Leave Me" é uma interpretação icônica de Nina Simone para o clássico composto por Walter Donaldson e Gus Kahn. A versão de Simone mistura jazz, blues e seu estilo único ao piano, transformando a música em uma performance intensa e sofisticada sobre amor e independência.
             </p>
-            <p> Álbum usado: R$50,00</p>
+            <p>  Álbum novo: R$250,00</p>
 
         </div>
 

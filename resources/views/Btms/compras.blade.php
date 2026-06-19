@@ -183,16 +183,16 @@
 
     <div class="card info-card">
 
-        <img src="https://www.udiscovermusic.com/wp-content/uploads/2016/02/Chuck-Berry-Nadine-1.jpg" alt="Vinil">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo2gdITyD13mYeZDoT_9cn-opQUSVYqjl6f4pd_0Gfwg&s=10" alt="Vinil">
 
         <div class="card-body">
 
-            <h5 class="card-title">Nadine</h5>
+            <h5 class="card-title">Believe to My Soul</h5>
 
             <p class="card-text">
-            Lançada em 1964, "Nadine" é uma das músicas mais famosas de Chuck Berry. A canção conta a história de um homem que tenta alcançar uma mulher chamada Nadine pelas ruas movimentadas da cidade. Com sua guitarra marcante e letras narrativas, tornou-se um clássico do rock and roll.
+            Lançada em 1959, "What'd I Say" foi o grande sucesso daquele ano, mas "Believe to My Soul" também se destacou como uma das melhores gravações de Ray Charles. A música combina elementos de gospel, rhythm and blues e soul, apresentando a voz poderosa de Ray Charles em uma canção sobre decepção amorosa e superação.
             </p>
-            <p> Álbum usado: R$50,00</p>
+            <p> Álbum novo: R$130,00</p>
 
         </div>
 

@@ -34,5 +34,24 @@ Route::prefix('/buy')->group(function(){
 
 }); 
 
+Route::prefix('/lmolm')->group(function(){
+    Route::get('/compra', [App\Http\Controllers\CompraController::class, 'compra'])->name('lmolm.compra');
+
+});
+
+Route::prefix('/btms')->group(function(){
+    Route::get('/compras', [App\Http\Controllers\ComprasController::class, 'compras'])->name('btms.compras');
+
+});
+
+Route::prefix('/ydkwli')->group(function(){
+    Route::get('/quero', [App\Http\Controllers\QueroController::class, 'quero'])->name('ydkwli.quero');
+
+});
+
+Route::prefix('/see')->group(function(){
+    Route::get('/ver', [App\Http\Controllers\VerController::class, 'ver'])->name('see.ver');
+
+});
 
 

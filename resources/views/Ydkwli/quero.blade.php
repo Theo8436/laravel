@@ -183,16 +183,16 @@
 
     <div class="card info-card">
 
-        <img src="https://www.udiscovermusic.com/wp-content/uploads/2016/02/Chuck-Berry-Nadine-1.jpg" alt="Vinil">
+        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800" alt="Vinil">
 
         <div class="card-body">
 
-            <h5 class="card-title">Nadine</h5>
+            <h5 class="card-title">You Don't Know What Love Is</h5>
 
             <p class="card-text">
-            Lançada em 1964, "Nadine" é uma das músicas mais famosas de Chuck Berry. A canção conta a história de um homem que tenta alcançar uma mulher chamada Nadine pelas ruas movimentadas da cidade. Com sua guitarra marcante e letras narrativas, tornou-se um clássico do rock and roll.
+            "You Don't Know What Love Is" é um standard de jazz lançado originalmente em 1941. A música tornou-se famosa através de interpretações de artistas como Billie Holiday, Chet Baker e Dinah Washington. Sua letra melancólica fala sobre a dor e os desafios do amor verdadeiro, tornando-a um dos temas mais emocionantes do jazz.
             </p>
-            <p> Álbum usado: R$50,00</p>
+            <p> Álbum usado: R$78,00</p>
 
         </div>
 

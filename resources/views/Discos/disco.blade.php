@@ -6,143 +6,184 @@
     <title>Jazz & Blues Collection | Vynil Records</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@300;400;500&display=swap');
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            background-color:#f5efe6;
+            font-family:'Roboto', sans-serif;
+        }
+
+        /* NAVBAR */
+
+        .navbar{
+            background-color:#5c1d1d !important;
+            padding:15px 30px;
+            box-shadow:0 4px 10px rgba(0,0,0,.2);
+        }
+
+        .navbar-brand{
+            color:#f5e6d3 !important;
+            font-family:'Playfair Display', serif;
+            font-size:2rem;
+            font-weight:700;
+            letter-spacing:2px;
+        }
+
+        .nav-link{
+            color:#f5e6d3 !important;
+            font-size:1.1rem;
+            margin-left:20px;
+            transition:.3s;
+        }
+
+        .nav-link:hover{
+            color:#d9a066 !important;
+        }
+
+        /* TÍTULO */
+
+        .titulo{
+            text-align:center;
+            color:#5c1d1d;
+            font-family:'Playfair Display', serif;
+            font-size:3rem;
+            margin:50px 0;
+        }
+
+        /* CATÁLOGO */
+
+        .catalogo{
+            max-width:1400px;
+            margin:auto;
+            padding:0 20px 50px;
+            display:grid;
+            grid-template-columns:repeat(4, 1fr);
+            gap:35px;
+            justify-items:center;
+        }
+
+        /* CARD */
+
+        .card{
+            width:18rem;
+            background-color:#fff8f0;
+            border:none;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+            transition:.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-10px);
+            box-shadow:0 15px 30px rgba(92,29,29,.25);
+        }
+
+        .card-img-top{
+            height:250px;
+            object-fit:cover;
+            border-bottom:4px solid #7b2d26;
+        }
+
+        .card-body{
+            text-align:center;
+            padding:20px;
+        }
+
+        .card-title{
+            font-family:'Playfair Display', serif;
+            color:#7b2d26;
+            font-size:1.4rem;
+            margin-bottom:10px;
+        }
+
+        .card-text{
+            color:#5d4037;
+            min-height:80px;
+            line-height:1.6;
+        }
+
+        /* BOTÃO */
+
+        .btn-primary{
+            background-color:#7b2d26;
+            border:none;
+            border-radius:25px;
+            padding:10px 25px;
+        }
+
+        .btn-primary:hover{
+            background-color:#5c1d1d;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width:1300px){
+            .catalogo{
+                grid-template-columns:repeat(3,1fr);
+            }
+        }
+
+        @media (max-width:1000px){
+            .catalogo{
+                grid-template-columns:repeat(2,1fr);
+            }
+        }
+
+        @media (max-width:700px){
+
+            .titulo{
+                font-size:2.2rem;
+            }
+
+            .catalogo{
+                grid-template-columns:1fr;
+            }
+
+            .nav-link{
+                margin-left:0;
+            }
+        }
+
+    </style>
+
 </head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@300;400;500&display=swap');
-
-body{
-    background-color: #f5efe6;
-    font-family: 'Roboto', sans-serif;
-    padding: 40px;
-}
-
-/* Navbar */
-.navbar {
-    background-color: #5c1d1d !important;
-    padding: 15px 30px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.navbar-brand {
-    color: #f5e6d3 !important;
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-
-.nav-link {
-    color: #f5e6d3 !important;
-    font-size: 1.1rem;
-    margin-left: 20px;
-    transition: 0.3s;
-}
-
-.nav-link:hover {
-    color: #d9a066 !important;
-}
-
-/* Título */
-.titulo{
-    text-align: center;
-    color: #5c1d1d;
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    margin-bottom: 50px;
-}
-
-/* Catálogo - SEMPRE 4 CARDS POR LINHA */
-.catalogo{
-    display: grid;
-    grid-template-columns: repeat(4, 18rem);
-    gap: 35px;
-    justify-content: center;
-}
-
-/* Cards */
-.card{
-    width: 18rem;
-    background-color: #fff8f0;
-    border: none;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-}
-
-.card:hover{
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(92,29,29,0.25);
-}
-
-.card-img-top{
-    height: 250px;
-    object-fit: cover;
-    border-bottom: 4px solid #7b2d26;
-}
-
-.card-body{
-    text-align: center;
-    padding: 20px;
-}
-
-.card-title{
-    font-family: 'Playfair Display', serif;
-    color: #7b2d26;
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-}
-
-.card-text{
-    color: #5d4037;
-    min-height: 80px;
-}
-
-/* Botão */
-.btn-primary{
-    background-color: #7b2d26;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 25px;
-}
-
-.btn-primary:hover{
-    background-color: #5c1d1d;
-}
-
-/* Responsividade */
-@media (max-width: 1300px){
-    .catalogo{
-        grid-template-columns: repeat(3, 18rem);
-    }
-}
-
-@media (max-width: 1000px){
-    .catalogo{
-        grid-template-columns: repeat(2, 18rem);
-    }
-}
-
-@media (max-width: 700px){
-    .catalogo{
-        grid-template-columns: 18rem;
-    }
-}
-</style>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand"> Vynil Records</a>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="{{route('loja.home')}}">Home</a>
-        <a class="nav-link" href="{{ route('about.sobre')}}">Sobre</a>
-      </div>
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand">Vynil Records</a>
+
+            <button class="navbar-toggler bg-light"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{{route('loja.home')}}">Home</a>
+                    <a class="nav-link" href="{{ route('about.sobre')}}">Sobre</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
 
     <h1 class="titulo">🎷 Jazz & Blues Collection</h1>
 
@@ -153,7 +194,7 @@ body{
             <div class="card-body">
                 <h5 class="card-title">Kind of Blue</h5>
                 <p class="card-text">Clássico absoluto do jazz de Miles Davis lançado em 1959.</p>
-                <a href="#" class="btn btn-primary">Ver Disco</a>
+                <a href="{{route('see.ver')}}" class="btn btn-primary">Ver Disco</a>
             </div>
         </div>
 
@@ -223,8 +264,6 @@ body{
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
-</html>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  </body>
 </html>
