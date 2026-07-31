@@ -20,6 +20,9 @@ Route::get('/login', [App\Http\Controllers\Login::class, 'login']);
 Route::get('/calendario', [App\Http\Controllers\Calendario::class, 'calendario']);
 Route::get('/revisao', [App\Http\Controllers\Revisao::class, 'revisao']);
 
+Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno']);
+
+Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre']);
 
 
 

@@ -1,487 +1,231 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Tela de Revisão</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Baloo 2', cursive;
-}
-
-body{
-    background:#f3edf5;
-}
-
-/* NAVBAR */
-
-.navbar{
-    width:100%;
-    background:#ff6900;
-    padding:14px 40px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-shadow:0 5px 15px rgba(0,0,0,.12);
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo img{
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    border:3px solid white;
-}
-
-.logo-text h1{
-    color:white;
-    font-size:34px;
-    line-height:30px;
-    font-weight:800;
-}
-
-.logo-text span{
-    color:white;
-    font-size:17px;
-    font-weight:600;
-}
-
-.menu{
-    background:#ff7b1e;
-    padding:10px 20px;
-    border-radius:50px;
-    display:flex;
-    gap:25px;
-}
-
-.menu a{
-    color:white;
-    text-decoration:none;
-    font-size:20px;
-    font-weight:700;
-}
-
-.my-area{
-    background:white;
-    color:#9333ea !important;
-    padding:8px 15px;
-    border-radius:10px;
-    border:3px solid #facc15;
-}
-
-/* CONTEÚDO */
-
-.container{
-    width:96%;
-    margin:30px auto;
-}
-
-.title{
-    font-size:50px;
-    color:#1e293b;
-    font-weight:800;
-}
-
-.subtitle{
-    color:#6b7280;
-    font-size:25px;
-    margin-bottom:30px;
-}
-
-/* TABS */
-
-.tabs{
-    width:560px;
-    background:#ddd;
-    padding:5px;
-    border-radius:18px;
-    display:flex;
-    margin-bottom:35px;
-}
-
-.tab{
-    flex:1;
-    text-align:center;
-    padding:10px;
-    border-radius:14px;
-    font-size:21px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.active{
-    background:white;
-}
-
-.notification{
-    background:#ff3b3b;
-    color:white;
-    border-radius:20px;
-    padding:2px 9px;
-    font-size:14px;
-}
-
-/* POSTS */
-
-.section-title{
-    font-size:34px;
-    margin-bottom:20px;
-    color:#1e293b;
-    font-weight:800;
-}
-
-.post-card{
-    background:#f8f8f8;
-    border:1px solid #ddd;
-    border-radius:20px;
-    padding:22px;
-    margin-bottom:20px;
-}
-
-.post-card h2{
-    font-size:30px;
-    margin-bottom:10px;
-    color:#111827;
-}
-
-.post-info{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:#6b7280;
-    font-size:18px;
-    margin-bottom:18px;
-}
-
-.badge{
-    background:#e5e7eb;
-    padding:4px 10px;
-    border-radius:10px;
-    color:#111827;
-    font-size:14px;
-    font-weight:700;
-}
-
-.post-text{
-    background:#efefef;
-    padding:18px;
-    border-radius:14px;
-    color:#6b7280;
-    font-size:20px;
-    margin-bottom:18px;
-}
-
-.buttons{
-    display:flex;
-    gap:15px;
-}
-
-button{
-    flex:1;
-    border:none;
-    padding:12px;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:20px;
-    font-weight:700;
-    transition:.3s;
-}
-
-.approve{
-    background:#09ad3b;
-    color:white;
-}
-
-.approve:hover{
-    transform:scale(1.02);
-}
-
-.adjust{
-    background:white;
-    color:#ff2d2d;
-    border:2px solid #ff2d2d;
-}
-
-.adjust:hover{
-    background:#fff1f1;
-}
-
-.approved{
-    border:3px solid #22c55e;
-}
-
-.adjusted{
-    border:3px solid #ef4444;
-}
-
-.status{
-    margin-top:15px;
-    font-size:18px;
-    font-weight:700;
-}
-
-/* RESPONSIVO */
-
-@media(max-width:1100px){
-
-    .navbar{
-        flex-direction:column;
-        gap:20px;
-    }
-
-    .menu{
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .tabs{
-        width:100%;
-    }
-
-    .buttons{
-        flex-direction:column;
-    }
-
-}
-
-</style>
+<title>Revisar Posts</title>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
+<header>
 
-<nav class="navbar">
+<h2>BETH CIENTISTA</h2>
 
-    <div class="logo">
+<nav>
 
-        <img src="https://i.imgur.com/ZQZSWrt.png">
+<button onclick="abrirPagina('inicio')">Início</button>
 
-        <div class="logo-text">
-            <h1>BETH CIENTISTA</h1>
-            <span>Divulgação Científica</span>
-        </div>
+<button onclick="abrirPagina('sobre')">Sobre Nós</button>
 
-    </div>
+<button onclick="abrirPagina('galeria')">Galeria</button>
 
-    <div class="menu">
-        <a href="#">Início</a>
-        <a href="#">Sobre Nós</a>
-        <a href="#">Galeria</a>
-        <a href="#">Biblioteca</a>
-        <a href="#">Menções Honrosas</a>
-        <a href="#" class="my-area">👤 Minha Área</a>
-        <a href="#">Sair</a>
-    </div>
+<button onclick="abrirPagina('biblioteca')">Biblioteca</button>
+
+<button onclick="abrirPagina('mencoes')">Menções Honrosas</button>
+
+<button onclick="abrirPagina('area')">Minha Área</button>
+
+<button onclick="sair()">Sair</button>
 
 </nav>
 
-<!-- CONTEÚDO -->
+</header>
 
-<div class="container">
+<main>
 
-    <h1 class="title">ÁREA DO PROFESSOR</h1>
+<h1>ÁREA DO PROFESSOR</h1>
 
-    <div class="subtitle">
-        Painel de gerenciamento e aprovação
-    </div>
+<p>Painel de gerenciamento e aprovação</p>
 
-    <!-- TABS -->
+<hr>
 
-    <div class="tabs">
+<section>
 
-        <div class="tab">
-            👥 Alunos
-        </div>
+<button onclick="mostrarAlunos()">Alunos</button>
 
-        <div class="tab active">
-            📋 Revisar Posts
-            <span class="notification">2</span>
-        </div>
+<button onclick="mostrarPosts()">
+Revisar Posts
+(<span id="contador">0</span>)
+</button>
 
-        <div class="tab">
-            📅 Calendário
-        </div>
+<button onclick="mostrarCalendario()">Calendário</button>
 
-    </div>
+</section>
 
-    <h2 class="section-title">
-        POSTS AGUARDANDO APROVAÇÃO
-    </h2>
+<hr>
 
-    <!-- POST -->
+<section id="listaPosts">
 
-    <div class="post-card">
+</section>
 
-        <h2>A EVOLUÇÃO DAS ESTRELAS</h2>
+</main>
 
-        <div class="post-info">
+<script>
 
-            <span>Por Maria Silva</span>
+let posts = [
 
-            •
+{
 
-            <span class="badge">
-                Beth nas Estrelas
-            </span>
+titulo:"A Evolução das Estrelas",
 
-            •
+autor:"Maria Silva",
 
-            <span>05/04/2026</span>
+categoria:"Beth nas Estrelas",
 
-        </div>
+data:"05/04/2026",
 
-        <div class="post-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus lacinia odio vitae vestibulum vestibulum...
-        </div>
+texto:"Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
-        <div class="buttons">
+},
 
-            <button 
-                class="approve"
-                onclick="aprovar(this)"
-            >
-                ✔ Aprovar
-            </button>
+{
 
-            <button 
-                class="adjust"
-                onclick="ajustes(this)"
-            >
-                ✖ Solicitar Ajustes
-            </button>
+titulo:"Sistema Digestivo",
 
-        </div>
+autor:"João Santos",
 
-        <div class="status">
-            Status: Pendente
-        </div>
+categoria:"Beth Anatomy",
 
-    </div>
+data:"06/04/2026",
 
-    <!-- POST -->
+texto:"Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
-    <div class="post-card">
+}
 
-        <h2>SISTEMA DIGESTIVO</h2>
+];
 
-        <div class="post-info">
+function carregarPosts(){
 
-            <span>Por João Santos</span>
+const lista = document.getElementById("listaPosts");
 
-            •
+lista.innerHTML="";
 
-            <span class="badge">
-                Beth Anatomy
-            </span>
+document.getElementById("contador").innerText=posts.length;
 
-            •
+if(posts.length==0){
 
-            <span>06/04/2026</span>
+lista.innerHTML="<h3>Nenhum post aguardando aprovação.</h3>";
 
-        </div>
+return;
 
-        <div class="post-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Vivamus lacinia odio vitae vestibulum vestibulum...
-        </div>
+}
 
-        <div class="buttons">
+posts.forEach((post,index)=>{
 
-            <button 
-                class="approve"
-                onclick="aprovar(this)"
-            >
-                ✔ Aprovar
-            </button>
+lista.innerHTML+=`
 
-            <button 
-                class="adjust"
-                onclick="ajustes(this)"
-            >
-                ✖ Solicitar Ajustes
-            </button>
+<div>
 
-        </div>
+<h2>${post.titulo}</h2>
 
-        <div class="status">
-            Status: Pendente
-        </div>
+<p>
 
-    </div>
+Autor: ${post.autor}
+
+|
+
+Categoria: ${post.categoria}
+
+|
+
+${post.data}
+
+</p>
+
+<p>
+
+${post.texto}
+
+</p>
+
+<button onclick="aprovar(${index})">
+
+Aprovar
+
+</button>
+
+<button onclick="solicitarAjustes(${index})">
+
+Solicitar Ajustes
+
+</button>
+
+<hr>
 
 </div>
 
-<script>
+`;
 
-function aprovar(botao){
-
-    const card = botao.closest('.post-card');
-
-    card.classList.remove('adjusted');
-
-    card.classList.add('approved');
-
-    card.querySelector('.status').innerHTML = 
-    'Status: ✅ Aprovado';
+});
 
 }
 
-function ajustes(botao){
+carregarPosts();
 
-    const card = botao.closest('.post-card');
+function aprovar(indice){
 
-    card.classList.remove('approved');
+if(confirm("Deseja aprovar este post?")){
 
-    card.classList.add('adjusted');
+alert("Post aprovado!");
 
-    card.querySelector('.status').innerHTML = 
-    'Status: ⚠ Ajustes Solicitados';
+posts.splice(indice,1);
+
+carregarPosts();
+
+}
+
+}
+
+function solicitarAjustes(indice){
+
+let observacao = prompt("Digite os ajustes solicitados:");
+
+if(observacao==null) return;
+
+alert("Solicitação enviada ao autor.");
+
+posts.splice(indice,1);
+
+carregarPosts();
+
+}
+
+function mostrarAlunos(){
+
+window.location.href="professor-alunos.html";
+
+}
+
+function mostrarPosts(){
+
+window.location.href="professor-posts.html";
+
+}
+
+function mostrarCalendario(){
+
+window.location.href="professor-calendario.html";
+
+}
+
+function abrirPagina(nome){
+
+window.location.href=nome+".html";
+
+}
+
+function sair(){
+
+if(confirm("Deseja sair?")){
+
+window.location.href="login.html";
+
+}
 
 }
 
 </script>
-<!-- TROCA DE TELAS -->
 
-<script>
-
-  // BOTÕES DAS ABAS
-  const tabs = document.querySelectorAll('.tab');
-
-  tabs[0].addEventListener('click', () => {
-
-    // ALUNOS
-    window.location.href = 'professor';
-
-  });
-
-  tabs[1].addEventListener('click', () => {
-
-    // REVISÃO
-    window.location.href = 'revisao';
-
-  });
-
-  tabs[2].addEventListener('click', () => {
-
-    // CALENDÁRIO
-    window.location.href = 'calendario';
-
-  });
-
-</script>
 </body>
 </html>
