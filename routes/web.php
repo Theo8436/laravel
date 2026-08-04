@@ -26,6 +26,7 @@ Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre'
 
 Route::get('/mencao', [App\Http\Controllers\Mencao::class, 'mencao'])->name('mencao');
 
+Route::get('/incio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
 
 
 
