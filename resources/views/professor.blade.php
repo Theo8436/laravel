@@ -7,195 +7,401 @@
 <title>Área do Professor</title>
 </head>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+
+    background:linear-gradient(180deg,#7000a8 0%,#b400d4 55%,#ef6c73 100%);
+    min-height:100vh;
+
+}
+
+/* ================= HEADER ================= */
+
 header{
+
     width:100%;
-    background:linear-gradient(90deg,#ff6b00,#ff8c29);
-    padding:18px 50px;
+    background:#ff7a00;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+    padding:18px 60px;
+
+    box-shadow:0 5px 18px rgba(0,0,0,.25);
+
+    position:sticky;
+    top:0;
+    z-index:999;
+
 }
 
-header div h2{
-    color:#fff;
-    font-size:30px;
-    font-weight:700;
+header h2{
+
+    color:white;
+    font-size:32px;
+    font-weight:800;
+
 }
 
 nav{
+
     display:flex;
-    gap:8px;
-    background:rgba(255,255,255,.15);
-    padding:10px;
-    border-radius:40px;
+    gap:10px;
+
 }
 
 nav button{
+
     border:none;
-    background:transparent;
-    color:white;
+
+    background:white;
+
+    color:#ff7a00;
+
     padding:10px 18px;
+
     border-radius:30px;
+
     cursor:pointer;
+
+    font-weight:600;
+
     transition:.3s;
+
 }
 
 nav button:hover{
-    background:white;
-    color:#ff6b00;
-}
 
-nav button:nth-child(6){
-    background:white;
-    color:#7b3cff;
-    font-weight:600;
-}
-main > section{
-    display:flex;
-    width:650px;
-    background:#e7e7eb;
-    border-radius:30px;
-    overflow:hidden;
-    margin:35px 0;
-}
+    background:#ffe5cb;
 
-main > section button{
-    flex:1;
-    border:none;
-    background:transparent;
-    padding:15px;
-    cursor:pointer;
-    transition:.3s;
-    font-weight:600;
-}
-
-main > section button:hover{
-    background:white;
-}
-#alunos button:first-of-type{
-
-float:right;
-background:#131329;
-color:white;
-border:none;
-padding:12px 22px;
-border-radius:10px;
-margin-bottom:25px;
-cursor:pointer;
-transition:.3s;
+    transform:translateY(-3px);
 
 }
 
-#alunos button:first-of-type:hover{
+/* ================= MAIN ================= */
 
-background:#ff6b00;
-
-}
-table{
-
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-
-}
-
-table th{
-
-background:white;
-color:#444;
-text-align:left;
-padding:18px;
-border-bottom:1px solid #ddd;
-
-}
-
-table td{
-
-padding:18px;
-border-bottom:1px solid #ececec;
-
-}
-
-table tr:last-child td{
-
-border-bottom:none;
-
-}
-
-table tbody tr:hover{
-
-background:#fafafa;
-
-}
-td button{
-
-padding:8px 14px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-margin-right:6px;
-font-weight:600;
-transition:.3s;
-
-}
-
-td button:first-child{
-
-background:#ededed;
-
-}
-
-td button:first-child:hover{
-
-background:#ffd166;
-
-}
-
-td button:last-child{
-
-background:#ffe4e4;
-color:#ff2b2b;
-
-}
-
-td button:last-child:hover{
-
-background:#ff2b2b;
-color:white;
-
-}
 main{
 
-width:78%;
-margin:45px auto;
+    width:90%;
+    margin:45px auto;
 
 }
 
 main h1{
 
-font-size:45px;
-color:#2c3245;
-margin-bottom:8px;
+    color:white;
+
+    font-size:48px;
+
+    font-weight:700;
 
 }
 
 main p{
 
-color:#6a6a6a;
-margin-bottom:25px;
+    color:#f5f5f5;
+
+    margin-top:8px;
+
+    margin-bottom:30px;
+
+    font-size:18px;
 
 }
-@media (max-width:900px){
+
+hr{
+
+    display:none;
+
+}
+
+/* ================= MENU ================= */
+
+main > section{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:35px;
+
+}
+
+main > section button{
+
+    flex:1;
+
+    border:none;
+
+    background:white;
+
+    color:#444;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+
+}
+
+main > section button:hover{
+
+    background:#ff8b00;
+
+    color:white;
+
+}
+
+/* ================= SEÇÕES ================= */
+
+#alunos,
+#posts,
+#calendario{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.20);
+
+}
+
+#alunos h2,
+#posts h2,
+#calendario h2{
+
+    color:#4b1d91;
+
+    margin-bottom:20px;
+
+}
+
+/* ================= BOTÃO ADICIONAR ================= */
+
+#alunos > button{
+
+    float:right;
+
+    background:#ff7a00;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+#alunos > button:hover{
+
+    background:#ff9500;
+
+}
+
+/* ================= TABELA ================= */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+    overflow:hidden;
+
+    border-radius:15px;
+
+}
+
+table thead{
+
+    background:#ff7a00;
+
+    color:white;
+
+}
+
+table th{
+
+    padding:18px;
+
+    text-align:left;
+
+}
+
+table td{
+
+    padding:18px;
+
+    background:white;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+table tbody tr:hover{
+
+    background:#fafafa;
+
+}
+
+/* ================= BOTÕES DA TABELA ================= */
+
+td button{
+
+    border:none;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    margin-right:8px;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+td button:first-child{
+
+    background:#ffd54f;
+
+    color:#333;
+
+}
+
+td button:first-child:hover{
+
+    background:#ffb300;
+
+}
+
+td button:last-child{
+
+    background:#ef5350;
+
+    color:white;
+
+}
+
+td button:last-child:hover{
+
+    background:#d32f2f;
+
+}
+
+/* ================= POSTS ================= */
+
+#posts p{
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+#posts button{
+
+    background:#4caf50;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 25px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+#posts button:hover{
+
+    background:#388e3c;
+
+}
+
+/* ================= CALENDÁRIO ================= */
+
+#calendario p{
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+#calendario button{
+
+    background:#2196f3;
+
+    color:white;
+
+    border:none;
+
+    padding:14px 25px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+#calendario button:hover{
+
+    background:#1976d2;
+
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media(max-width:1000px){
 
 header{
 
     flex-direction:column;
-    gap:20px;
+
     padding:20px;
 
 }
@@ -203,7 +409,10 @@ header{
 nav{
 
     flex-wrap:wrap;
+
     justify-content:center;
+
+    margin-top:20px;
 
 }
 
@@ -215,20 +424,25 @@ main{
 
 main > section{
 
-    width:100%;
+    flex-direction:column;
 
 }
 
 table{
 
     display:block;
+
     overflow-x:auto;
 
 }
 
+main h1{
+
+    font-size:36px;
+
 }
 
-
+}
 </style>
 <body>
 
