@@ -119,10 +119,10 @@ AVATAR
 
 .avatar img{
 
-    width:100%;
+   width:100%;
     height:100%;
 
-    object-fit:cover;
+    object-fit:cover; 
 
 }
 
@@ -366,7 +366,7 @@ h1{
   <div class="login-box">
 
     <div class="avatar">
-      <img src="https://i.imgur.com/ZQZSWrt.png">
+      <img src="{{ asset('Beth.jpg') }}">
     </div>
 
     <h1>BETH CIENTISTA</h1>

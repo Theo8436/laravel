@@ -540,8 +540,10 @@ main{
 <header>
 
     <div class="logo">
-
-        <img src="img/logo.png" alt="Logo">
+        
+      <img src="{{ asset('Beth.jpg') }}">
+      
+    </div>
 
         <div>
 
