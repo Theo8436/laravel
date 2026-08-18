@@ -1,841 +1,1467 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Área</title>
 
-    <link rel="stylesheet" href="style.css">
+    <title>Minha Área | Beth Cientista</title>
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        rel="icon"
+        type="image/jpeg"
+        href="{{ asset('images/beth-logo.jpeg') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/aluno.css') }}"
+    >
+
+    {{-- FONTES DO PROJETO --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Kavoon&family=Luckiest+Guy&display=swap"
+        rel="stylesheet"
+    >
+
+    {{-- ÍCONES --}}
+    <script src="https://unpkg.com/lucide@latest"></script>
+
 </head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
 
-body{
-    background:linear-gradient(180deg,#7000a8 0%,#b500d6 55%,#ef6b72 100%);
-    min-height:100vh;
-}
-
-/* ================= HEADER ================= */
-
-header{
-
-    width:100%;
-    background:#ff7a00;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:15px 60px;
-
-    box-shadow:0 5px 18px rgba(0,0,0,.25);
-
-    position:sticky;
-    top:0;
-    z-index:999;
-
-}
-
-.logo{
-
-    display:flex;
-    align-items:center;
-    gap:15px;
-
-}
-
-.logo img{
-
-    width:60px;
-    height:60px;
-
-    border-radius:50%;
-
-    background:white;
-
-}
-
-.logo h2{
-
-    color:white;
-    font-size:30px;
-    font-weight:800;
-
-}
-
-.logo p{
-
-    color:white;
-    font-size:13px;
-
-}
-
-/* ================= NAVBAR ================= */
-
-nav{
-
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-}
-
-nav button{
-
-    border:none;
-    background:white;
-
-    color:#ff7a00;
-
-    padding:10px 18px;
-
-    border-radius:30px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-nav button:hover{
-
-    transform:translateY(-3px);
-
-    background:#ffe3cb;
-
-}
-
-nav .ativo{
-
-    background:#ffd84f;
-
-}
-
-/* ================= MAIN ================= */
-
-main{
-
-    width:85%;
-
-    margin:40px auto;
-
-}
-
-/* ================= PERFIL ================= */
-
-.perfil{
-
-    background:white;
-
-    border-radius:25px;
-
-    padding:35px;
-
-    display:flex;
-    align-items:center;
-    gap:30px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.20);
-
-    margin-bottom:35px;
-
-}
-
-.foto{
-
-    width:120px;
-    height:120px;
-
-    border-radius:50%;
-
-    background:linear-gradient(180deg,#cf5df7,#ff70b7);
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    color:white;
-
-    position:relative;
-
-}
-
-.foto i{
-
-    font-size:60px;
-
-}
-
-.foto span{
-
-    position:absolute;
-    bottom:-12px;
-
-    background:#9b4dff;
-
-    color:white;
-
-    padding:6px 14px;
-
-    border-radius:20px;
-
-    font-size:13px;
-
-    font-weight:600;
-
-}
-
-.perfil h1{
-
-    color:#222;
-
-    font-size:42px;
-
-    margin-bottom:10px;
-
-}
-
-.perfil p{
-
-    color:#666;
-
-    font-size:20px;
-
-}
-
-/* ================= MENU ================= */
-
-.menu-area{
-
-    display:flex;
-
-    gap:20px;
-
-    margin-bottom:35px;
-
-}
-
-.menu-area button{
-
-    flex:1;
-
-    border:none;
-
-    background:white;
-
-    color:#333;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    font-size:17px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-
-}
-
-.menu-area button i{
-
-    margin-right:8px;
-
-}
-
-.menu-area button:hover{
-
-    background:#ff8b00;
-
-    color:white;
-
-}
-
-/* ================= TÍTULO ================= */
-
-.titulo{
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin-bottom:25px;
-
-}
-
-.titulo h2{
-
-    color:white;
-
-    font-size:34px;
-
-}
-
-.titulo button{
-
-    border:none;
-
-    background:#111;
-
-    color:white;
-
-    padding:15px 25px;
-
-    border-radius:15px;
-
-    cursor:pointer;
-
-    font-size:16px;
-
-    transition:.3s;
-
-}
-
-.titulo button:hover{
-
-    background:#ff8b00;
-
-}
-
-/* ================= PUBLICAÇÕES ================= */
-
-.card-publicacao{
-
-    background:white;
-
-    border-radius:22px;
-
-    padding:25px;
-
-    margin-bottom:25px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.20);
-
-    transition:.3s;
-
-}
-
-.card-publicacao:hover{
-
-    transform:translateY(-5px);
-
-}
-
-.card-publicacao h3{
-
-    color:#222;
-
-    font-size:27px;
-
-    margin-bottom:12px;
-
-}
-
-.card-publicacao p{
-
-    color:#666;
-
-    margin-bottom:15px;
-
-}
-
-.card-publicacao span{
-
-    background:#1cc95d;
-
-    color:white;
-
-    padding:8px 18px;
-
-    border-radius:20px;
-
-    font-size:14px;
-
-    font-weight:600;
-
-}
-
-.card-publicacao button{
-
-    width:50px;
-    height:50px;
-
-    border:none;
-
-    background:#f5f5f5;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    font-size:20px;
-
-    margin-left:12px;
-
-    transition:.3s;
-
-}
-
-.card-publicacao button:hover{
-
-    background:#ff8b00;
-
-    color:white;
-
-}
-
-/* ================= CALENDÁRIO ================= */
-
-#calendario{
-
-    background:white;
-
-    border-radius:20px;
-
-    padding:40px;
-
-    box-shadow:0 10px 20px rgba(0,0,0,.20);
-
-}
-
-#calendario h2{
-
-    color:#333;
-
-    margin-bottom:25px;
-
-}
-
-#calendario input{
-
-    width:100%;
-
-    padding:18px;
-
-    border:2px solid #ddd;
-
-    border-radius:15px;
-
-    font-size:18px;
-
-}
-
-/* ================= MATERIAL ================= */
-
-#material{
-
-    background:white;
-
-    border-radius:20px;
-
-    padding:40px;
-
-    box-shadow:0 10px 20px rgba(0,0,0,.20);
-
-}
-
-#material h2{
-
-    color:#333;
-
-    margin-bottom:20px;
-
-}
-
-#material p{
-
-    color:#666;
-
-    line-height:28px;
-
-}
-
-/* ================= RESPONSIVO ================= */
-
-@media(max-width:1000px){
-
-header{
-
-    flex-direction:column;
-
-    padding:20px;
-
-}
-
-nav{
-
-    flex-wrap:wrap;
-
-    justify-content:center;
-
-    margin-top:20px;
-
-}
-
-main{
-
-    width:95%;
-
-}
-
-.perfil{
-
-    flex-direction:column;
-
-    text-align:center;
-
-}
-
-.menu-area{
-
-    flex-direction:column;
-
-}
-
-.titulo{
-
-    flex-direction:column;
-
-    gap:20px;
-
-}
-
-.card-publicacao{
-
-    flex-direction:column;
-
-    gap:20px;
-
-    text-align:center;
-
-}
-
-}
-</style>
 <body>
 
-<!-- ================= HEADER ================= -->
 
-<header>
+    {{-- =====================================================
+        HEADER
+    ====================================================== --}}
 
-    <div class="logo">
-        
-      <img src="{{ asset('Beth.jpg') }}">
-      
-    </div>
+    <header class="site-header">
 
-        <div>
+        <div class="header-noise"></div>
 
-            <h2>BETH CIENTISTA</h2>
 
-            <p>Divulgação Científica</p>
+        <div class="header-container">
+
+
+            {{-- LOGO --}}
+
+            <a
+                href="{{ url('/') }}"
+                class="brand"
+            >
+
+                <div class="brand-image-wrapper">
+
+                    <img
+                        src="{{ asset('images/beth-logo.jpeg') }}"
+                        alt="Beth Cientista"
+                        class="brand-image"
+                    >
+
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h1>
+                        Beth Cientista
+                    </h1>
+
+                    <p>
+                        Divulgação Científica
+                    </p>
+
+                </div>
+
+            </a>
+
+
+
+            {{-- MENU DESKTOP --}}
+
+            <nav class="main-navigation">
+
+
+                <a
+                    href="{{ url('/') }}"
+                    class="nav-link"
+                >
+                    Início
+                </a>
+
+
+                <span class="nav-divider"></span>
+
+
+                <a
+                    href="{{ url('/sobre-nos') }}"
+                    class="nav-link"
+                >
+                    Sobre Nós
+                </a>
+
+
+                <span class="nav-divider"></span>
+
+
+                <a
+                    href="{{ url('/galeria') }}"
+                    class="nav-link"
+                >
+                    Galeria
+                </a>
+
+
+                <span class="nav-divider"></span>
+
+
+                <a
+                    href="{{ url('/biblioteca') }}"
+                    class="nav-link"
+                >
+                    Biblioteca
+                </a>
+
+
+                <span class="nav-divider"></span>
+
+
+                <a
+                    href="{{ url('/mencoes-honrosas') }}"
+                    class="nav-link"
+                >
+                    Menções Honrosas
+                </a>
+
+
+
+                {{-- MINHA ÁREA --}}
+
+                <a
+                    href="{{ url('/aluno') }}"
+                    class="nav-area-button active"
+                >
+
+                    <i data-lucide="user"></i>
+
+                    <span>
+                        Minha Área
+                    </span>
+
+                </a>
+
+
+
+                {{-- SAIR
+                    Removido route('logout') porque a rota
+                    ainda não está configurada.
+                --}}
+
+                <a
+                    href="#"
+                    class="logout-button"
+                >
+                    Sair
+                </a>
+
+            </nav>
+
+
+
+            {{-- MENU MOBILE --}}
+
+            <button
+                type="button"
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+            >
+
+                <i data-lucide="menu"></i>
+
+            </button>
+
+        </div>
+
+
+
+        {{-- MENU MOBILE --}}
+
+        <nav
+            class="mobile-navigation"
+            id="mobileNavigation"
+        >
+
+            <a href="{{ url('/') }}">
+                Início
+            </a>
+
+            <a href="{{ url('/sobre-nos') }}">
+                Sobre Nós
+            </a>
+
+            <a href="{{ url('/galeria') }}">
+                Galeria
+            </a>
+
+            <a href="{{ url('/biblioteca') }}">
+                Biblioteca
+            </a>
+
+            <a href="{{ url('/mencoes-honrosas') }}">
+                Menções Honrosas
+            </a>
+
+            <a href="{{ url('/aluno') }}">
+                Minha Área
+            </a>
+
+            <a href="#">
+                Sair
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    {{-- =====================================================
+        CONTEÚDO PRINCIPAL
+    ====================================================== --}}
+
+    <main class="student-page">
+
+        <div class="student-container">
+
+
+            {{-- =================================================
+                PERFIL DO ALUNO
+            ================================================== --}}
+
+            <section class="profile-card">
+
+                <div class="profile-content">
+
+
+                    <div class="profile-avatar-area">
+
+                        <div class="profile-avatar">
+
+                            <i data-lucide="user"></i>
+
+                        </div>
+
+
+                        <span class="clubista-badge">
+                            Clubista
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="profile-text">
+
+                        <h2>
+                            Maria Silva
+                        </h2>
+
+                        <p>
+                            Bem-vindo(a) à sua área!
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            {{-- =================================================
+                ABAS
+            ================================================== --}}
+
+            <section class="student-tabs">
+
+
+                <div class="tabs-list">
+
+
+                    {{-- PUBLICAÇÕES --}}
+
+                    <button
+                        type="button"
+                        class="tab-button active"
+                        data-tab="posts"
+                    >
+
+                        <i data-lucide="file-text"></i>
+
+                        <span>
+                            Minhas Publicações
+                        </span>
+
+                    </button>
+
+
+
+                    {{-- CALENDÁRIO --}}
+
+                    <button
+                        type="button"
+                        class="tab-button"
+                        data-tab="calendar"
+                    >
+
+                        <i data-lucide="calendar"></i>
+
+                        <span>
+                            Calendário
+                        </span>
+
+                    </button>
+
+
+
+                    {{-- MATERIAL --}}
+
+                    <button
+                        type="button"
+                        class="tab-button"
+                        data-tab="materials"
+                    >
+
+                        <i data-lucide="book-open"></i>
+
+                        <span>
+                            Material de Apoio
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+
+                {{-- =================================================
+                    MINHAS PUBLICAÇÕES
+                ================================================== --}}
+
+                <div
+                    class="tab-panel active"
+                    id="posts"
+                >
+
+
+                    <div class="section-heading">
+
+
+                        <h3>
+                            Gerenciar Publicações
+                        </h3>
+
+
+
+                        <button
+                            type="button"
+                            class="new-post-button"
+                            id="openPostModal"
+                        >
+
+                            <i data-lucide="plus"></i>
+
+                            <span>
+                                Nova Publicação
+                            </span>
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <div
+                        class="posts-list"
+                        id="postsList"
+                    >
+
+
+                        {{-- PUBLICAÇÃO APROVADA --}}
+
+                        <article class="publication-card">
+
+
+                            <div class="publication-information">
+
+
+                                <div class="publication-title-row">
+
+                                    <h4>
+                                        A Física dos Buracos Negros
+                                    </h4>
+
+
+                                    <span class="status-badge approved">
+                                        Aprovado
+                                    </span>
+
+                                </div>
+
+
+
+                                <div class="publication-meta">
+
+                                    <span>
+                                        Beth nas Estrelas
+                                    </span>
+
+                                    <span class="bullet">
+                                        •
+                                    </span>
+
+                                    <span>
+                                        15/03/2026
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="publication-actions">
+
+
+                                <button
+                                    type="button"
+                                    class="icon-button"
+                                    title="Editar"
+                                >
+
+                                    <i data-lucide="edit"></i>
+
+                                </button>
+
+
+                            </div>
+
+
+                        </article>
+
+
+
+                        {{-- RASCUNHO --}}
+
+                        <article class="publication-card">
+
+
+                            <div class="publication-information">
+
+
+                                <div class="publication-title-row">
+
+                                    <h4>
+                                        Rascunho sobre DNA
+                                    </h4>
+
+
+                                    <span class="status-badge draft">
+                                        Rascunho
+                                    </span>
+
+                                </div>
+
+
+
+                                <div class="publication-meta">
+
+                                    <span>
+                                        Beth Anatomy
+                                    </span>
+
+                                    <span class="bullet">
+                                        •
+                                    </span>
+
+                                    <span>
+                                        20/03/2026
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <div class="publication-actions">
+
+
+                                <button
+                                    type="button"
+                                    class="icon-button"
+                                    title="Editar"
+                                >
+
+                                    <i data-lucide="edit"></i>
+
+                                </button>
+
+
+
+                                <button
+                                    type="button"
+                                    class="icon-button delete"
+                                    title="Excluir"
+                                >
+
+                                    <i data-lucide="trash-2"></i>
+
+                                </button>
+
+
+                            </div>
+
+
+                        </article>
+
+
+                    </div>
+
+                </div>
+
+
+
+                {{-- =================================================
+                    CALENDÁRIO
+                ================================================== --}}
+
+                <div
+                    class="tab-panel"
+                    id="calendar"
+                >
+
+
+                    <div class="content-card">
+
+
+                        <div class="content-card-header">
+
+                            <h3>
+                                Calendário de Publicações
+                            </h3>
+
+                        </div>
+
+
+
+                        <div class="content-card-body">
+
+                            <div class="calendar-list">
+
+
+                                <div class="calendar-item your-event">
+
+                                    <div>
+
+                                        <strong>
+                                            25/04/2026
+                                        </strong>
+
+                                        <p>
+                                            Maria Silva (Você)
+                                        </p>
+
+                                        <span class="category-badge">
+                                            Beth nas Estrelas
+                                        </span>
+
+                                    </div>
+
+
+                                    <span class="your-turn">
+                                        Sua vez!
+                                    </span>
+
+                                </div>
+
+
+
+                                <div class="calendar-item">
+
+                                    <div>
+
+                                        <strong>
+                                            28/04/2026
+                                        </strong>
+
+                                        <p>
+                                            João Santos
+                                        </p>
+
+                                        <span class="category-badge">
+                                            Beth Anatomy
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="calendar-item">
+
+                                    <div>
+
+                                        <strong>
+                                            02/05/2026
+                                        </strong>
+
+                                        <p>
+                                            Ana Costa
+                                        </p>
+
+                                        <span class="category-badge">
+                                            Beth Indica
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="calendar-item your-event">
+
+                                    <div>
+
+                                        <strong>
+                                            08/05/2026
+                                        </strong>
+
+                                        <p>
+                                            Maria Silva (Você)
+                                        </p>
+
+                                        <span class="category-badge">
+                                            Beth Indica
+                                        </span>
+
+                                    </div>
+
+
+                                    <span class="your-turn">
+                                        Sua vez!
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                {{-- =================================================
+                    MATERIAL DE APOIO
+                ================================================== --}}
+
+                <div
+                    class="tab-panel"
+                    id="materials"
+                >
+
+
+                    <div class="content-card">
+
+
+                        <div class="content-card-header">
+
+                            <h3>
+                                Materiais de Apoio
+                            </h3>
+
+                        </div>
+
+
+
+                        <div class="content-card-body">
+
+
+                            <div class="materials-list">
+
+
+                                <div class="material-item">
+
+
+                                    <div class="material-left">
+
+
+                                        <div class="material-icon">
+
+                                            <i data-lucide="book-open"></i>
+
+                                        </div>
+
+
+
+                                        <div>
+
+                                            <h4>
+                                                Guia de Escrita Científica
+                                            </h4>
+
+
+                                            <div class="material-meta">
+
+                                                <span class="type-badge">
+                                                    PDF
+                                                </span>
+
+                                                <span>
+                                                    •
+                                                </span>
+
+                                                <span>
+                                                    01/04/2026
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    <a
+                                        href="#"
+                                        class="open-material-button"
+                                    >
+                                        Abrir
+                                    </a>
+
+
+                                </div>
+
+
+
+                                <div class="material-item">
+
+
+                                    <div class="material-left">
+
+
+                                        <div class="material-icon">
+
+                                            <i data-lucide="book-open"></i>
+
+                                        </div>
+
+
+
+                                        <div>
+
+                                            <h4>
+                                                Como Citar Fontes Científicas
+                                            </h4>
+
+
+                                            <div class="material-meta">
+
+                                                <span class="type-badge">
+                                                    Vídeo
+                                                </span>
+
+                                                <span>
+                                                    •
+                                                </span>
+
+                                                <span>
+                                                    28/03/2026
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    <a
+                                        href="#"
+                                        class="open-material-button"
+                                    >
+                                        Abrir
+                                    </a>
+
+
+                                </div>
+
+
+
+                                <div class="material-item">
+
+
+                                    <div class="material-left">
+
+
+                                        <div class="material-icon">
+
+                                            <i data-lucide="book-open"></i>
+
+                                        </div>
+
+
+
+                                        <div>
+
+                                            <h4>
+                                                Dicas de Pesquisa em Bases de Dados
+                                            </h4>
+
+
+                                            <div class="material-meta">
+
+                                                <span class="type-badge">
+                                                    Documento
+                                                </span>
+
+                                                <span>
+                                                    •
+                                                </span>
+
+                                                <span>
+                                                    25/03/2026
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    <a
+                                        href="#"
+                                        class="open-material-button"
+                                    >
+                                        Abrir
+                                    </a>
+
+
+                                </div>
+
+
+
+                                <div class="material-item">
+
+
+                                    <div class="material-left">
+
+
+                                        <div class="material-icon">
+
+                                            <i data-lucide="book-open"></i>
+
+                                        </div>
+
+
+
+                                        <div>
+
+                                            <h4>
+                                                Normas de Publicação
+                                            </h4>
+
+
+                                            <div class="material-meta">
+
+                                                <span class="type-badge">
+                                                    PDF
+                                                </span>
+
+                                                <span>
+                                                    •
+                                                </span>
+
+                                                <span>
+                                                    20/03/2026
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+
+
+                                    <a
+                                        href="#"
+                                        class="open-material-button"
+                                    >
+                                        Abrir
+                                    </a>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    {{-- =====================================================
+        MODAL NOVA PUBLICAÇÃO
+    ====================================================== --}}
+
+    <div
+        class="modal-overlay"
+        id="postModal"
+    >
+
+
+        <div class="post-modal">
+
+
+            <div class="modal-header">
+
+                <h2>
+                    Criar Nova Publicação
+                </h2>
+
+
+                <button
+                    type="button"
+                    class="modal-close"
+                    id="closePostModal"
+                >
+
+                    <i data-lucide="x"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <div class="modal-body">
+
+
+                <div class="form-group">
+
+                    <label for="postTitle">
+                        Título
+                    </label>
+
+                    <input
+                        type="text"
+                        id="postTitle"
+                        placeholder="Digite o título da publicação"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="postCategory">
+                        Categoria
+                    </label>
+
+
+                    <select id="postCategory">
+
+                        <option value="">
+                            Selecione uma categoria
+                        </option>
+
+                        <option value="Beth nas Estrelas">
+                            Beth nas Estrelas
+                        </option>
+
+                        <option value="Beth Anatomy">
+                            Beth Anatomy
+                        </option>
+
+                        <option value="Beth Indica">
+                            Beth Indica
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="postContent">
+                        Conteúdo
+                    </label>
+
+
+                    <textarea
+                        id="postContent"
+                        rows="8"
+                        placeholder="Escreva o conteúdo da sua publicação..."
+                    ></textarea>
+
+                </div>
+
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        id="cancelPost"
+                    >
+                        Cancelar
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="save-button"
+                        id="savePost"
+                    >
+                        Salvar Rascunho
+                    </button>
+
+                </div>
+
+
+            </div>
 
         </div>
 
     </div>
 
-    <nav>
 
-        <button onclick="abrirPagina('inicio')">Início</button>
 
-        <button onclick="abrirPagina('sobre')">Sobre Nós</button>
+    {{-- =====================================================
+        JAVASCRIPT
+    ====================================================== --}}
 
-        <button onclick="abrirPagina('galeria')">Galeria</button>
+    <script>
 
-        <button onclick="abrirPagina('biblioteca')">Biblioteca</button>
+        /*
+        |--------------------------------------------------------------------------
+        | ÍCONES
+        |--------------------------------------------------------------------------
+        */
 
-        <button onclick="abrirPagina('mencoes')">Menções Honrosas</button>
+        lucide.createIcons();
 
-        <button class="ativo">Minha Área</button>
 
-        <button onclick="sair()">Sair</button>
 
-    </nav>
+        /*
+        |--------------------------------------------------------------------------
+        | MENU MOBILE
+        |--------------------------------------------------------------------------
+        */
 
-</header>
+        const mobileMenuButton =
+            document.getElementById('mobileMenuButton');
 
-<!-- ================= PERFIL ================= -->
+        const mobileNavigation =
+            document.getElementById('mobileNavigation');
 
-<main>
 
-<section class="perfil">
+        if (mobileMenuButton) {
 
-    <div class="foto">
+            mobileMenuButton.addEventListener(
+                'click',
+                function () {
 
-        <i class="bi bi-person"></i>
+                    mobileNavigation.classList.toggle('show');
 
-        <span>Clubista</span>
+                }
+            );
 
-    </div>
+        }
 
-    <div>
 
-        <h1>MARIA SILVA</h1>
 
-        <p>Bem-vindo(a) à sua área!</p>
+        /*
+        |--------------------------------------------------------------------------
+        | ABAS
+        |--------------------------------------------------------------------------
+        */
 
-    </div>
+        const tabButtons =
+            document.querySelectorAll('.tab-button');
 
-</section>
+        const tabPanels =
+            document.querySelectorAll('.tab-panel');
 
-<!-- ================= MENU ================= -->
 
-<section class="menu-area">
+        tabButtons.forEach(function (button) {
 
-<button onclick="mostrarPublicacoes()">
+            button.addEventListener(
+                'click',
+                function () {
 
-<i class="bi bi-file-earmark-text"></i>
+                    const target =
+                        button.dataset.tab;
 
-Minhas Publicações
 
-</button>
+                    tabButtons.forEach(function (item) {
 
-<button onclick="mostrarCalendario()">
+                        item.classList.remove('active');
 
-<i class="bi bi-calendar3"></i>
+                    });
 
-Calendário
 
-</button>
+                    tabPanels.forEach(function (panel) {
 
-<button onclick="mostrarMateriais()">
+                        panel.classList.remove('active');
 
-<i class="bi bi-book"></i>
+                    });
 
-Material de Apoio
 
-</button>
+                    button.classList.add('active');
 
-</section>
 
-<!-- ================= PUBLICAÇÕES ================= -->
+                    const selectedPanel =
+                        document.getElementById(target);
 
-<section id="publicacoes">
 
-<div class="titulo">
+                    if (selectedPanel) {
 
-<h2>GERENCIAR PUBLICAÇÕES</h2>
+                        selectedPanel.classList.add('active');
 
-<button onclick="novaPublicacao()">
+                    }
 
-<i class="bi bi-plus-lg"></i>
+                }
+            );
 
-Nova Publicação
+        });
 
-</button>
 
-</div>
 
-<div id="listaPublicacoes">
+        /*
+        |--------------------------------------------------------------------------
+        | MODAL
+        |--------------------------------------------------------------------------
+        */
 
-<!-- Publicações criadas pelo JavaScript -->
+        const modal =
+            document.getElementById('postModal');
 
-</div>
+        const openModal =
+            document.getElementById('openPostModal');
 
-</section>
+        const closeModal =
+            document.getElementById('closePostModal');
 
-<!-- ================= CALENDÁRIO ================= -->
+        const cancelModal =
+            document.getElementById('cancelPost');
 
-<section id="calendario" hidden>
 
-<h2>Calendário</h2>
+        function showModal() {
 
-<input type="date">
+            modal.classList.add('show');
 
-</section>
+            document.body.classList.add('modal-open');
 
-<!-- ================= MATERIAL ================= -->
+        }
 
-<section id="material" hidden>
 
-<h2>Material de Apoio</h2>
+        function hideModal() {
 
-<p>Arquivos, PDFs e vídeos ficarão aqui.</p>
+            modal.classList.remove('show');
 
-</section>
+            document.body.classList.remove('modal-open');
 
-</main>
+        }
 
-<script>
 
-let publicacoes=[
+        if (openModal) {
 
-{
+            openModal.addEventListener(
+                'click',
+                showModal
+            );
 
-titulo:"A Física dos Buracos Negros",
+        }
 
-categoria:"Beth nas Estrelas",
 
-data:"15/03/2026",
+        if (closeModal) {
 
-status:"Aprovado"
+            closeModal.addEventListener(
+                'click',
+                hideModal
+            );
 
-},
+        }
 
-{
 
-titulo:"Rascunho sobre DNA",
+        if (cancelModal) {
 
-categoria:"Beth Anatomy",
+            cancelModal.addEventListener(
+                'click',
+                hideModal
+            );
 
-data:"20/03/2026",
+        }
 
-status:"Rascunho"
 
-}
+        if (modal) {
 
-];
+            modal.addEventListener(
+                'click',
+                function (event) {
 
-function carregarPublicacoes(){
+                    if (event.target === modal) {
 
-const lista=document.getElementById("listaPublicacoes");
+                        hideModal();
 
-lista.innerHTML="";
+                    }
 
-publicacoes.forEach((item,index)=>{
+                }
+            );
 
-lista.innerHTML+=`
+        }
 
-<div class="card-publicacao">
 
-<div>
 
-<h3>${item.titulo}</h3>
+        /*
+        |--------------------------------------------------------------------------
+        | SALVAR NOVA PUBLICAÇÃO
+        |--------------------------------------------------------------------------
+        */
 
-<p>
+        const savePost =
+            document.getElementById('savePost');
 
-${item.categoria}
 
-•
+        if (savePost) {
 
-${item.data}
+            savePost.addEventListener(
+                'click',
+                function () {
 
-</p>
 
-<span>${item.status}</span>
+                    const title =
+                        document
+                            .getElementById('postTitle')
+                            .value
+                            .trim();
 
-</div>
 
-<div>
+                    const category =
+                        document
+                            .getElementById('postCategory')
+                            .value;
 
-<button onclick="editar(${index})">
 
-<i class="bi bi-pencil-square"></i>
+                    if (!title || !category) {
 
-</button>
+                        alert(
+                            'Preencha o título e a categoria.'
+                        );
 
-<button onclick="excluir(${index})">
+                        return;
 
-<i class="bi bi-trash"></i>
+                    }
 
-</button>
 
-</div>
+                    const today =
+                        new Date()
+                            .toLocaleDateString('pt-BR');
 
-</div>
 
-`;
+                    const post =
+                        document.createElement('article');
 
-});
 
-}
+                    post.className =
+                        'publication-card';
 
-carregarPublicacoes();
 
-function mostrarPublicacoes(){
+                    post.innerHTML = `
 
-publicacoesSection=document.getElementById("publicacoes");
+                        <div class="publication-information">
 
-calendario=document.getElementById("calendario");
+                            <div class="publication-title-row">
 
-material=document.getElementById("material");
+                                <h4>
+                                    ${title}
+                                </h4>
 
-publicacoesSection.hidden=false;
+                                <span class="status-badge draft">
+                                    Rascunho
+                                </span>
 
-calendario.hidden=true;
+                            </div>
 
-material.hidden=true;
+                            <div class="publication-meta">
 
-}
+                                <span>
+                                    ${category}
+                                </span>
 
-function mostrarCalendario(){
+                                <span class="bullet">
+                                    •
+                                </span>
 
-publicacoes.hidden=true;
+                                <span>
+                                    ${today}
+                                </span>
 
-calendario.hidden=false;
+                            </div>
 
-material.hidden=true;
+                        </div>
 
-}
+                        <div class="publication-actions">
 
-function mostrarMateriais(){
+                            <button
+                                type="button"
+                                class="icon-button"
+                                title="Editar"
+                            >
 
-publicacoes.hidden=true;
+                                <i data-lucide="edit"></i>
 
-calendario.hidden=true;
+                            </button>
 
-material.hidden=false;
+                            <button
+                                type="button"
+                                class="icon-button delete"
+                                title="Excluir"
+                            >
 
-}
+                                <i data-lucide="trash-2"></i>
 
-function novaPublicacao(){
+                            </button>
 
-window.location.href="nova-publicacao.html";
+                        </div>
 
-}
+                    `;
 
-function editar(id){
 
-window.location.href="editar-publicacao.html?id="+id;
+                    document
+                        .getElementById('postsList')
+                        .prepend(post);
 
-}
 
-function excluir(id){
+                    document
+                        .getElementById('postTitle')
+                        .value = '';
 
-if(confirm("Deseja excluir esta publicação?")){
 
-publicacoes.splice(id,1);
+                    document
+                        .getElementById('postCategory')
+                        .value = '';
 
-carregarPublicacoes();
 
-}
+                    document
+                        .getElementById('postContent')
+                        .value = '';
 
-}
 
-function abrirPagina(nome){
+                    hideModal();
 
-window.location.href=nome+".html";
 
-}
+                    lucide.createIcons();
 
-function sair(){
+                }
+            );
 
-window.location.href="login.html";
+        }
 
-}
 
-</script>
+
+        /*
+        |--------------------------------------------------------------------------
+        | EXCLUIR PUBLICAÇÃO
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            'click',
+            function (event) {
+
+
+                const button =
+                    event.target.closest(
+                        '.icon-button.delete'
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                const card =
+                    button.closest(
+                        '.publication-card'
+                    );
+
+
+                if (
+                    confirm(
+                        'Deseja realmente excluir esta publicação?'
+                    )
+                ) {
+
+                    card.remove();
+
+                }
+
+            }
+        );
+
+    </script>
 
 </body>
+
 </html>

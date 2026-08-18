@@ -27,7 +27,7 @@ Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre'
 
 Route::get('/mencao', [App\Http\Controllers\Mencao::class, 'mencao'])->name('mencao');
 
-Route::get('/incio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
+Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
 
 
 // Rota principal da Área do Aluno (Carrega a página com as publicações vindas do banco)

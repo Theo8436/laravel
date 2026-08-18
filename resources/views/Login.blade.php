@@ -1,451 +1,620 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Beth Cientista</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
 
-  <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
+    <title>Login | Beth Cientista</title>
 
-body{
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    {{-- FAVICON --}}
 
-    min-height:100vh;
+    <link
+        rel="icon"
+        type="image/jpeg"
+        href="{{ asset('images/beth-logo.jpeg') }}"
+    >
 
-    background:linear-gradient(180deg,#6f00a8 0%,#b316d1 55%,#ef6b72 100%);
 
-    overflow:hidden;
-    position:relative;
+    {{-- FONTES --}}
 
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-/*==========================
-BOLINHAS DO FUNDO
-==========================*/
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-body::before,
-body::after{
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Kavoon&family=Luckiest+Guy&display=swap"
+        rel="stylesheet"
+    >
 
-    content:"";
 
-    position:absolute;
+    {{-- ÍCONES --}}
 
-    width:10px;
-    height:10px;
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    background:white;
 
-    border-radius:50%;
+    {{-- CSS --}}
 
-    opacity:.7;
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/login.css') }}"
+    >
 
-}
-
-body::before{
-
-    top:12%;
-    left:15%;
-
-    box-shadow:
-    200px 80px white,
-    500px 150px white,
-    800px 50px white,
-    950px 320px white,
-    120px 500px white,
-    650px 620px white,
-    980px 700px white;
-
-}
-
-body::after{
-
-    bottom:8%;
-    right:12%;
-
-}
-
-/*==========================
-CARD LOGIN
-==========================*/
-
-.login-box{
-
-    width:430px;
-
-    background:linear-gradient(180deg,#f8d7ff,#ffe2d2);
-
-    padding:35px;
-
-    border-radius:30px;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
-
-}
-
-/*==========================
-AVATAR
-==========================*/
-
-.avatar{
-
-    width:110px;
-    height:110px;
-
-    margin:auto;
-
-    border-radius:50%;
-
-    overflow:hidden;
-
-    border:5px solid white;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.20);
-
-}
-
-.avatar img{
-
-   width:100%;
-    height:100%;
-
-    object-fit:cover; 
-
-}
-
-/*==========================
-TEXTOS
-==========================*/
-
-h1{
-
-    text-align:center;
-
-    margin-top:20px;
-
-    font-size:40px;
-
-    color:#1e1e1e;
-
-    font-weight:800;
-
-}
-
-.subtitle{
-
-    text-align:center;
-
-    color:#555;
-
-    font-size:18px;
-
-    margin:12px 0 30px;
-
-}
-
-label{
-
-    display:block;
-
-    color:#333;
-
-    font-weight:700;
-
-    margin-bottom:8px;
-
-    font-size:18px;
-
-}
-
-/*==========================
-TIPO DE ACESSO
-==========================*/
-
-.access{
-
-    display:flex;
-
-    gap:15px;
-
-    margin-bottom:25px;
-
-}
-
-.access button{
-
-    flex:1;
-
-    border:none;
-
-    padding:12px;
-
-    border-radius:25px;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.student{
-
-    background:#8b2cf5;
-
-    color:white;
-
-}
-
-.teacher{
-
-    background:#ececec;
-
-    color:#333;
-
-}
-
-.access button:hover{
-
-    transform:translateY(-3px);
-
-}
-
-/*==========================
-INPUTS
-==========================*/
-
-input{
-
-    width:100%;
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:15px;
-
-    background:#f2f2f2;
-
-    margin-bottom:22px;
-
-    font-size:16px;
-
-    outline:none;
-
-    transition:.3s;
-
-}
-
-input:focus{
-
-    background:white;
-
-    box-shadow:0 0 0 2px #ff8b00;
-
-}
-
-/*==========================
-BOTÃO LOGIN
-==========================*/
-
-.login-btn{
-
-    width:100%;
-
-    border:none;
-
-    background:#ff7a00;
-
-    color:white;
-
-    padding:15px;
-
-    border-radius:30px;
-
-    font-size:22px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    box-shadow:0 8px 18px rgba(255,122,0,.35);
-
-}
-
-.login-btn:hover{
-
-    background:#ff9500;
-
-    transform:translateY(-3px);
-
-}
-
-/*==========================
-CAIXA DEMO
-==========================*/
-
-.demo{
-
-    margin-top:25px;
-
-    background:white;
-
-    border-left:6px solid #ff8b00;
-
-    padding:18px;
-
-    border-radius:15px;
-
-}
-
-.demo p{
-
-    color:#555;
-
-    font-size:15px;
-
-    line-height:26px;
-
-}
-
-/*==========================
-RESPONSIVO
-==========================*/
-
-@media(max-width:768px){
-
-.login-box{
-
-    width:92%;
-
-    padding:25px;
-
-}
-
-h1{
-
-    font-size:32px;
-
-}
-
-.subtitle{
-
-    font-size:16px;
-
-}
-
-.access{
-
-    flex-direction:column;
-
-}
-
-}
-  </style>
 </head>
+
+
 <body>
 
-  <div class="login-box">
 
-    <div class="avatar">
-      <img src="{{ asset('Beth.jpg') }}">
-    </div>
+    {{-- =====================================================
+        PÁGINA DE LOGIN
+    ====================================================== --}}
 
-    <h1>BETH CIENTISTA</h1>
+    <main class="login-page">
 
-    <div class="subtitle">
-      Área exclusiva para clubistas e professores
-    </div>
 
-    <label>Tipo de Acesso</label>
+        {{-- =================================================
+            TEXTURA
+        ================================================== --}}
 
-    <div class="access">
-      <button class="student">Aluno</button>
-      <button class="teacher">Professor</button>
-    </div>
+        <div class="grain-texture"></div>
 
-    <label>Email</label>
-    <input type="email" placeholder="seu.email@exemplo.com">
 
-    <label>Senha</label>
-    <input type="password" placeholder="******">
 
-    <button class="login-btn">
-      ↗ Entrar
-    </button>
+        {{-- =================================================
+            ESTRELAS
+        ================================================== --}}
 
-    <div class="demo">
-      <p>Demo: use qualquer email e senha</p>
-      <p>
-        Aluno: acessa área de publicações | 
-        Professor: acessa área administrativa
-      </p>
-    </div>
+        <div class="sparkles">
 
-  </div>
+
+            <span class="sparkle sparkle-1"></span>
+
+            <span class="sparkle sparkle-2"></span>
+
+            <span class="sparkle sparkle-3"></span>
+
+            <span class="sparkle sparkle-4"></span>
+
+            <span class="sparkle sparkle-5"></span>
+
+            <span class="sparkle sparkle-6"></span>
+
+            <span class="sparkle sparkle-7"></span>
+
+            <span class="sparkle sparkle-8"></span>
+
+            <span class="sparkle sparkle-9"></span>
+
+            <span class="sparkle sparkle-10"></span>
+
+            <span class="sparkle sparkle-11"></span>
+
+            <span class="sparkle sparkle-12"></span>
+
+            <span class="sparkle sparkle-13"></span>
+
+            <span class="sparkle sparkle-14"></span>
+
+            <span class="sparkle sparkle-15"></span>
+
+
+        </div>
+
+
+
+        {{-- =================================================
+            CARD DE LOGIN
+        ================================================== --}}
+
+        <section class="login-card-wrapper">
+
+
+            <div class="login-glow"></div>
+
+
+            <div class="login-card">
+
+
+                {{-- =================================================
+                    CABEÇALHO
+                ================================================== --}}
+
+                <header class="login-header">
+
+
+                    <div class="login-logo">
+
+                        <img
+                            src="{{ asset('images/beth-logo.jpeg') }}"
+                            alt="Beth Cientista"
+                        >
+
+                    </div>
+
+
+                    <h1>
+                        Beth Cientista
+                    </h1>
+
+
+                    <p class="login-description">
+                        Área exclusiva para clubistas e professores
+                    </p>
+
+
+                </header>
+
+
+
+                {{-- =================================================
+                    FORMULÁRIO
+                ================================================== --}}
+
+                <form
+                    action="{{ url('/login') }}"
+                    method="POST"
+                    class="login-form"
+                >
+
+                    @csrf
+
+
+
+                    {{-- =================================================
+                        TIPO DE ACESSO
+                    ================================================== --}}
+
+                    <div class="form-group">
+
+
+                        <label>
+                            Tipo de Acesso
+                        </label>
+
+
+                        <div class="access-type">
+
+
+                            <label
+                                class="access-option selected"
+                                id="studentOption"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="tipo"
+                                    value="aluno"
+                                    checked
+                                >
+
+                                <span>
+                                    Aluno
+                                </span>
+
+                            </label>
+
+
+
+                            <label
+                                class="access-option"
+                                id="teacherOption"
+                            >
+
+                                <input
+                                    type="radio"
+                                    name="tipo"
+                                    value="professor"
+                                >
+
+                                <span>
+                                    Professor
+                                </span>
+
+                            </label>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    {{-- =================================================
+                        EMAIL
+                    ================================================== --}}
+
+                    <div class="form-group">
+
+
+                        <label for="email">
+                            Email
+                        </label>
+
+
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="seu.email@exemplo.com"
+                            value="{{ old('email') }}"
+                            required
+                            autocomplete="email"
+                        >
+
+
+                        @error('email')
+
+                            <span class="form-error">
+                                {{ $message }}
+                            </span>
+
+                        @enderror
+
+
+                    </div>
+
+
+
+                    {{-- =================================================
+                        SENHA
+                    ================================================== --}}
+
+                    <div class="form-group">
+
+
+                        <label for="password">
+                            Senha
+                        </label>
+
+
+                        <div class="password-wrapper">
+
+
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="••••••••"
+                                required
+                                autocomplete="current-password"
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                                aria-label="Mostrar senha"
+                            >
+
+                                <i
+                                    data-lucide="eye"
+                                    id="passwordIcon"
+                                ></i>
+
+                            </button>
+
+
+                        </div>
+
+
+                        @error('password')
+
+                            <span class="form-error">
+                                {{ $message }}
+                            </span>
+
+                        @enderror
+
+
+                    </div>
+
+
+
+                    {{-- =================================================
+                        BOTÃO
+                    ================================================== --}}
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                    >
+
+                        <i data-lucide="log-in"></i>
+
+                        <span>
+                            Entrar
+                        </span>
+
+                    </button>
+
+
+
+                    {{-- =================================================
+                        DEMONSTRAÇÃO
+                    ================================================== --}}
+
+                    <div class="demo-box">
+
+
+                        <p class="demo-title">
+                            Demo: use qualquer email e senha
+                        </p>
+
+
+                        <p class="demo-description">
+                            Aluno: acessa área de publicações |
+                            Professor: acessa área administrativa
+                        </p>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    {{-- =====================================================
+        JAVASCRIPT
+    ====================================================== --}}
+
+    <script>
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ÍCONES
+        |--------------------------------------------------------------------------
+        */
+
+        lucide.createIcons();
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | TIPO DE ACESSO
+        |--------------------------------------------------------------------------
+        */
+
+        const studentOption =
+            document.getElementById('studentOption');
+
+        const teacherOption =
+            document.getElementById('teacherOption');
+
+        const accessInputs =
+            document.querySelectorAll(
+                'input[name="tipo"]'
+            );
+
+
+        accessInputs.forEach(function (input) {
+
+            input.addEventListener(
+                'change',
+                function () {
+
+                    studentOption.classList.remove(
+                        'selected'
+                    );
+
+                    teacherOption.classList.remove(
+                        'selected'
+                    );
+
+
+                    if (this.value === 'aluno') {
+
+                        studentOption.classList.add(
+                            'selected'
+                        );
+
+                    }
+
+
+                    if (this.value === 'professor') {
+
+                        teacherOption.classList.add(
+                            'selected'
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MOSTRAR / ESCONDER SENHA
+        |--------------------------------------------------------------------------
+        */
+
+        const password =
+            document.getElementById('password');
+
+        const passwordToggle =
+            document.getElementById('passwordToggle');
+
+        const passwordIcon =
+            document.getElementById('passwordIcon');
+
+
+        passwordToggle.addEventListener(
+            'click',
+            function () {
+
+                if (
+                    password.type === 'password'
+                ) {
+
+                    password.type = 'text';
+
+                    passwordIcon.setAttribute(
+                        'data-lucide',
+                        'eye-off'
+                    );
+
+                    passwordToggle.setAttribute(
+                        'aria-label',
+                        'Ocultar senha'
+                    );
+
+                } else {
+
+                    password.type = 'password';
+
+                    passwordIcon.setAttribute(
+                        'data-lucide',
+                        'eye'
+                    );
+
+                    passwordToggle.setAttribute(
+                        'aria-label',
+                        'Mostrar senha'
+                    );
+
+                }
+
+
+                lucide.createIcons();
+
+            }
+        );
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ESTRELAS INTERATIVAS
+        |--------------------------------------------------------------------------
+        |
+        | Cada tecla pressionada faz com que as estrelas
+        | mudem para novas posições aleatórias.
+        |
+        */
+
+        const sparkles =
+            document.querySelectorAll('.sparkle');
+
+
+
+        function randomNumber(min, max) {
+
+            return Math.random() * (max - min) + min;
+
+        }
+
+
+
+        function moveSparkles() {
+
+
+            sparkles.forEach(function (sparkle) {
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | NOVA POSIÇÃO
+                |--------------------------------------------------------------------------
+                */
+
+                const newTop =
+                    randomNumber(3, 94);
+
+
+                const newLeft =
+                    randomNumber(3, 94);
+
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | NOVO TAMANHO
+                |--------------------------------------------------------------------------
+                */
+
+                const newScale =
+                    randomNumber(0.65, 1.25);
+
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | NOVA OPACIDADE
+                |--------------------------------------------------------------------------
+                */
+
+                const newOpacity =
+                    randomNumber(0.35, 0.90);
+
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | APLICA AS ALTERAÇÕES
+                |--------------------------------------------------------------------------
+                */
+
+                sparkle.style.top =
+                    `${newTop}%`;
+
+                sparkle.style.left =
+                    `${newLeft}%`;
+
+                sparkle.style.transform =
+                    `scale(${newScale})`;
+
+                sparkle.style.opacity =
+                    newOpacity;
+
+            });
+
+        }
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | QUALQUER TECLA
+        |--------------------------------------------------------------------------
+        */
+
+        document.addEventListener(
+            'keydown',
+            function () {
+
+                moveSparkles();
+
+            }
+        );
+
+
+    </script>
 
 </body>
 
-
-<script>
-
-  const alunoBtn = document.querySelector('.student');
-  const professorBtn = document.querySelector('.teacher');
-
-  let tipoAcesso = 'aluno';
-
-  alunoBtn.addEventListener('click', () => {
-
-    tipoAcesso = 'aluno';
-
-    alunoBtn.style.background = 'linear-gradient(90deg,#b23cff,#8d2cff)';
-    alunoBtn.style.color = 'white';
-
-    professorBtn.style.background = '#f3f4f6';
-    professorBtn.style.color = '#000';
-
-  });
-
-  professorBtn.addEventListener('click', () => {
-
-    tipoAcesso = 'professor';
-
-    professorBtn.style.background = 'linear-gradient(90deg,#b23cff,#8d2cff)';
-    professorBtn.style.color = 'white';
-
-    alunoBtn.style.background = '#f3f4f6';
-    alunoBtn.style.color = '#000';
-
-  });
-
-  // exemplo do botão entrar
-  document.querySelector('.login-btn').addEventListener('click', () => {
-
-    if(tipoAcesso === 'aluno'){
-      alert('Login como ALUNO');
-    } else {
-      alert('Login como PROFESSOR');
-    }
-
-  });
-
-</script>
 </html>
