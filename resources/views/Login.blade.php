@@ -363,89 +363,275 @@ h1{
 </head>
 <body>
 
-  <div class="login-box">
+<body>
 
-    <div class="avatar">
-      <img src="{{ asset('Beth.jpg') }}">
+    <div class="login-box">
+
+        <div class="avatar">
+            <img src="{{ asset('Beth.jpg') }}" alt="Beth Cientista">
+        </div>
+
+        <h1>BETH CIENTISTA</h1>
+
+        <div class="subtitle">
+            Área exclusiva para clubistas e professores
+        </div>
+
+        <label>Tipo de Acesso</label>
+
+        <div class="access">
+
+            <button
+                type="button"
+                class="student selected"
+                id="alunoBtn">
+                Aluno
+            </button>
+
+            <button
+                type="button"
+                class="teacher"
+                id="professorBtn">
+                Professor
+            </button>
+
+        </div>
+
+        <label for="email">Email</label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="seu.email@exemplo.com"
+        >
+
+        <label for="senha">Senha</label>
+
+        <input
+            type="password"
+            id="senha"
+            placeholder="******"
+        >
+
+        <button
+            type="button"
+            class="login-btn"
+            id="entrarBtn">
+
+            ↗ Entrar
+
+        </button>
+
+        <div class="demo">
+
+            <p>
+                Demo: use qualquer email e senha
+            </p>
+
+            <p>
+                Aluno: acessa área de publicações |
+                Professor: acessa área administrativa
+            </p>
+
+        </div>
+
     </div>
-
-    <h1>BETH CIENTISTA</h1>
-
-    <div class="subtitle">
-      Área exclusiva para clubistas e professores
-    </div>
-
-    <label>Tipo de Acesso</label>
-
-    <div class="access">
-      <button class="student">Aluno</button>
-      <button class="teacher">Professor</button>
-    </div>
-
-    <label>Email</label>
-    <input type="email" placeholder="seu.email@exemplo.com">
-
-    <label>Senha</label>
-    <input type="password" placeholder="******">
-
-    <button class="login-btn">
-      ↗ Entrar
-    </button>
-
-    <div class="demo">
-      <p>Demo: use qualquer email e senha</p>
-      <p>
-        Aluno: acessa área de publicações | 
-        Professor: acessa área administrativa
-      </p>
-    </div>
-
-  </div>
-
-</body>
 
 
 <script>
 
-  const alunoBtn = document.querySelector('.student');
-  const professorBtn = document.querySelector('.teacher');
+const alunoBtn = document.getElementById("alunoBtn");
+const professorBtn = document.getElementById("professorBtn");
+const entrarBtn = document.getElementById("entrarBtn");
 
-  let tipoAcesso = 'aluno';
+let tipoAcesso = "aluno";
 
-  alunoBtn.addEventListener('click', () => {
 
-    tipoAcesso = 'aluno';
+/* ==========================
+   SELECIONAR ALUNO
+========================== */
 
-    alunoBtn.style.background = 'linear-gradient(90deg,#b23cff,#8d2cff)';
-    alunoBtn.style.color = 'white';
+alunoBtn.addEventListener("click", function(){
 
-    professorBtn.style.background = '#f3f4f6';
-    professorBtn.style.color = '#000';
+    tipoAcesso = "aluno";
 
-  });
+    alunoBtn.classList.add("selected");
 
-  professorBtn.addEventListener('click', () => {
+    professorBtn.classList.remove("selected");
 
-    tipoAcesso = 'professor';
+});
 
-    professorBtn.style.background = 'linear-gradient(90deg,#b23cff,#8d2cff)';
-    professorBtn.style.color = 'white';
 
-    alunoBtn.style.background = '#f3f4f6';
-    alunoBtn.style.color = '#000';
+/* ==========================
+   SELECIONAR PROFESSOR
+========================== */
 
-  });
+professorBtn.addEventListener("click", function(){
 
-  // exemplo do botão entrar
-  document.querySelector('.login-btn').addEventListener('click', () => {
+    tipoAcesso = "professor";
 
-    if(tipoAcesso === 'aluno'){
-      alert('Login como ALUNO');
-    } else {
-      alert('Login como PROFESSOR');
+    professorBtn.classList.add("selected");
+
+    alunoBtn.classList.remove("selected");
+
+});
+
+
+/* ==========================
+   BOTÃO ENTRAR
+========================== */
+
+entrarBtn.addEventListener("click", function(){
+
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+
+    /* Verifica se os campos estão preenchidos */
+
+    if(email === "" || senha === ""){
+
+        mostrarMensagem("Preencha o email e a senha.");
+
+        return;
+
     }
 
-  });
+
+    /* ==========================
+       ALUNO
+    ========================== */
+
+    if(tipoAcesso === "aluno"){
+
+        window.location.href = "{{ route('aluno') }}";
+
+    }
+
+
+    /* ==========================
+       PROFESSOR
+    ========================== */
+
+    else if(tipoAcesso === "professor"){
+
+        window.location.href = "{{ route('professor') }}";
+
+    }
+
+});
+
+
+/* ==========================
+   MENSAGEM NA TELA
+========================== */
+
+function mostrarMensagem(texto){
+
+    let mensagem = document.getElementById("mensagem");
+
+    if(!mensagem){
+
+        mensagem = document.createElement("div");
+
+        mensagem.id = "mensagem";
+
+        document.querySelector(".login-box").appendChild(mensagem);
+
+    }
+
+    mensagem.innerText = texto;
+
+}
+
+const alunoBtn = document.getElementById("alunoBtn");
+const professorBtn = document.getElementById("professorBtn");
+const entrarBtn = document.getElementById("entrarBtn");
+
+let tipoAcesso = "aluno";
+
+/* ==========================
+   ALUNO
+========================== */
+
+alunoBtn.addEventListener("click", function () {
+
+    tipoAcesso = "aluno";
+
+    alunoBtn.classList.add("selected");
+    professorBtn.classList.remove("selected");
+
+});
+
+
+/* ==========================
+   PROFESSOR
+========================== */
+
+professorBtn.addEventListener("click", function () {
+
+    tipoAcesso = "professor";
+
+    professorBtn.classList.add("selected");
+    alunoBtn.classList.remove("selected");
+
+});
+
+
+/* ==========================
+   ENTRAR
+========================== */
+
+entrarBtn.addEventListener("click", function () {
+
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+    if (email === "" || senha === "") {
+
+        mostrarMensagem("Preencha o email e a senha.");
+
+        return;
+
+    }
+
+    if (tipoAcesso === "aluno") {
+
+        window.location.href = "{{ route('aluno') }}";
+
+    } else {
+
+        window.location.href = "{{ route('professor') }}";
+
+    }
+
+});
+
+
+/* ==========================
+   MENSAGEM
+========================== */
+
+function mostrarMensagem(texto) {
+
+    let mensagem = document.getElementById("mensagem");
+
+    if (!mensagem) {
+
+        mensagem = document.createElement("div");
+
+        mensagem.id = "mensagem";
+
+        document.querySelector(".login-box").appendChild(mensagem);
+
+    }
+
+    mensagem.innerText = texto;
+
+}
+
+
+</body>
 
 </script>
 </html>
