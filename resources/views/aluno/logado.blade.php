@@ -557,15 +557,15 @@ main{
 
     <nav>
 
-        <button onclick="abrirPagina('inicio')">Início</button>
+        <a href="{{ route('inicio') }}">Início</a>
 
-        <button onclick="abrirPagina('sobre')">Sobre Nós</button>
+        <a href="{{ route('sobre') }}">Sobre</a>
 
-        <button onclick="abrirPagina('galeria')">Galeria</button>
+        <a href="{{ route('galeria') }}">Galeria</a>
 
-        <button onclick="abrirPagina('biblioteca')">Biblioteca</button>
+        <a href="{{ route('biblioteca') }}">Biblioteca</a>
 
-        <button onclick="abrirPagina('mencoes')">Menções Honrosas</button>
+        <a href="{{ route('mencao') }}">Menções honrosas</a>
 
         <button class="ativo">Minha Área</button>
 

@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class Professor extends Controller
 {
     function professor(){
-        return view('professor');
+        return view('professor.professor');
     }
 }

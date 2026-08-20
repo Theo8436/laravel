@@ -17,9 +17,26 @@ use App\Http\Controllers\PublicacaoController;
 Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
 
 Route::get('/professor', [App\Http\Controllers\Professor::class, 'professor'])->name('professor');
-Route::get('/login', [App\Http\Controllers\Login::class, 'login'])->name('login');
+Route::get('/professor/logado', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.logado');
+Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.inicio');
+Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.sobre');
+Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.galeria');
+Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.biblioteca');
+Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.mencao');
+
+
 
 Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno'])->name('aluno');
+Route::get('/aluno/logado', [App\Http\Controllers\Aluno::class, 'logado'])->name('aluno.logado');
+Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
+Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
+Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->name('aluno.galeria');
+Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
+Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
+
+
+Route::get('/login', [App\Http\Controllers\Login::class, 'login'])->name('login');
+
 
 Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre');
 

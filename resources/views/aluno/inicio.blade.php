@@ -80,15 +80,6 @@
                     Menções Honrosas
                 </a>
 
-                <a href="{{ route('cadastro') }}" class="btn-participe">
-                    Faça Parte
-                </a>
-
-                <a href="{{ route('login') }}" class="btn-login">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    Entrar
-                </a>
-
             </nav>
 
             {{-- Menu mobile --}}

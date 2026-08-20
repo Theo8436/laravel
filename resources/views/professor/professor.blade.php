@@ -885,15 +885,13 @@ td button{
 
         <a href="{{ route('inicio') }}">Início</a>
 
-        <a href="{{ route('sobre') }}">Sobre</a>
+        <a href="{{ route('sobre') }}">Sobre Nós</a>
 
-        <button onclick="abrirPagina('galeria')">Galeria</button>
+        <a href="{{ route('galeria') }}">Galeria</a>
 
-        <button onclick="abrirPagina('biblioteca')">Biblioteca</button>
+        <a href="{{ route('biblioteca') }}">Biblioteca</a>
 
-        <button onclick="abrirPagina('mencoes')">Menções Honrosas</button>
-
-        <button onclick="abrirPagina('area')">Minha Área</button>
+        <a href="{{ route('mencao') }}">Menções honrosas</a>
 
         <button onclick="sair()">Sair</button>
 

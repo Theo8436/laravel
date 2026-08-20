@@ -480,25 +480,19 @@ main{
 
     <nav>
 
-        <button onclick="abrirPagina('index.html')">Início</button>
+        <a href="{{ route('inicio') }}">Início</a>
 
-        <button onclick="abrirPagina('sobre.html')">Sobre Nós</button>
+        <a href="{{ route('sobre') }}">Sobre Nós</a>
 
-        <button onclick="abrirPagina('galeria.html')">Galeria</button>
+        <a href="{{ route('galeria') }}">Galeria</a>
 
-        <button onclick="abrirPagina('biblioteca.html')">Biblioteca</button>
+        <a href="{{ route('biblioteca') }}">Biblioteca</a>
 
-        <button class="ativo">Menções Honrosas</button>
+        <a class="active" href="{{ route('mencao') }}">Menções honrosas</a>
 
-        <button onclick="abrirPagina('cadastro.html')">Faça Parte</button>
+        <a href="{{ route('cadastro') }}">Faça Parte</a>
 
-        <button onclick="abrirPagina('login.html')">
-
-            <i class="bi bi-box-arrow-in-right"></i>
-
-            Entrar
-
-        </button>
+        <a href="{{ route('login') }}">Entrar</a>
 
     </nav>
 
