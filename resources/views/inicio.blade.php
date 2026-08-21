@@ -80,11 +80,11 @@
                     Menções Honrosas
                 </a>
 
-                <a href="{{ route('cadastro') }}" class="btn-participe">
+                <a href="{{ route('escolha') }}" class="btn-participe">
                     Faça Parte
                 </a>
 
-                <a href="{{ route('login') }}" class="btn-login">
+                <a href="{{ route('entrar') }}" class="btn-login">
                     <i class="fa-solid fa-right-to-bracket"></i>
                     Entrar
                 </a>

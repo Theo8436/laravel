@@ -17,16 +17,20 @@ use App\Http\Controllers\PublicacaoController;
 Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
 
 Route::get('/professor', [App\Http\Controllers\Professor::class, 'professor'])->name('professor');
-Route::get('/professor/logado', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.logado');
-Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.inicio');
-Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.sobre');
-Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.galeria');
-Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.biblioteca');
-Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'professor'])->name('professor.mencao');
+Route::get('/professor/cadastro', [App\Http\Controllers\Professor::class, 'cadastro'])->name('professor.cadastro');
+Route::get('/professor/entrar', [App\Http\Controllers\Professor::class, 'entrar'])->name('professor.entrar');
+Route::get('/professor/logado', [App\Http\Controllers\Professor::class, 'logado'])->name('professor.logado');
+Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'inicio'])->name('professor.inicio');
+Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
+Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'galeria'])->name('professor.galeria');
+Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'biblioteca'])->name('professor.biblioteca');
+Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
 
 
 
 Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno'])->name('aluno');
+Route::get('/aluno/cadastro', [App\Http\Controllers\Aluno::class, 'cadastro'])->name('aluno.cadastro');
+Route::get('/aluno/entrar', [App\Http\Controllers\Aluno::class, 'entrar'])->name('aluno.entrar');
 Route::get('/aluno/logado', [App\Http\Controllers\Aluno::class, 'logado'])->name('aluno.logado');
 Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
@@ -34,8 +38,9 @@ Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->na
 Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
 Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
 
+Route::get('/escolha', [App\Http\Controllers\Escolha::class, 'escolha'])->name('escolha');
 
-Route::get('/login', [App\Http\Controllers\Login::class, 'login'])->name('login');
+Route::get('/entrar', [App\Http\Controllers\Entrar::class, 'entrar'])->name('entrar');
 
 
 Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre');
@@ -43,8 +48,6 @@ Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre'
 Route::get('/mencao', [App\Http\Controllers\Mencao::class, 'mencao'])->name('mencao');
 
 Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
-
-Route::get('/cadastro', [App\Http\Controllers\Cadastro::class, 'cadastro'])->name('cadastro');
 
 Route::get('/galeria', [App\Http\Controllers\Galeria::class, 'galeria'])->name('galeria');
 
