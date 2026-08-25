@@ -557,19 +557,20 @@ main{
 
     <nav>
 
-        <a href="{{ route('inicio') }}">Início</a>
+        <a href="{{ route('aluno.inicio') }}">Início</a>
 
-        <a href="{{ route('sobre') }}">Sobre</a>
+        <a href="{{ route('aluno.sobre') }}">Sobre</a>
 
-        <a href="{{ route('galeria') }}">Galeria</a>
+        <a href="{{ route('aluno.galeria') }}">Galeria</a>
 
-        <a href="{{ route('biblioteca') }}">Biblioteca</a>
+        <a href="{{ route('aluno.biblioteca') }}">Biblioteca</a>
 
-        <a href="{{ route('mencao') }}">Menções honrosas</a>
+        <a href="{{ route('aluno.mencao') }}">Menções honrosas</a>
 
         <button class="ativo">Minha Área</button>
 
-        <button onclick="sair()">Sair</button>
+        <a href="{{ route('inicio')}}">Sair</a>
+
 
     </nav>
 

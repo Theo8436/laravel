@@ -466,14 +466,6 @@ h1{
         <div class="botoes">
 
             <button
-                type="button"
-                class="btn btn-voltar"
-                onclick="voltar()"
-            >
-                Voltar
-            </button>
-
-            <button
                 type="submit"
                 class="btn btn-cadastrar"
             >
@@ -548,17 +540,6 @@ formulario.addEventListener("submit", function(event){
 });
 
 
-/*
-=========================
-BOTÃO VOLTAR
-=========================
-*/
-
-function voltar(){
-
-    window.location.href = "{{ route('login') }}";
-
-}
 
 </script>
 

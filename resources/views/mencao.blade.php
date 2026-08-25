@@ -490,9 +490,9 @@ main{
 
         <a class="active" href="{{ route('mencao') }}">Menções honrosas</a>
 
-        <a href="{{ route('cadastro') }}">Faça Parte</a>
+        <a href="{{ route('escolha') }}">Faça Parte</a>
 
-        <a href="{{ route('login') }}">Entrar</a>
+        <a href="{{ route('entrar') }}">Entrar</a>
 
     </nav>
 

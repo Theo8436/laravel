@@ -569,7 +569,7 @@ main{
 
         <button class="ativo">Minha Área</button>
 
-        <button onclick="sair()">Sair</button>
+        <a href="{{ route('inicio')}}">Sair</a>
 
     </nav>
 

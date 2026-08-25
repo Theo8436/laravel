@@ -52,50 +52,43 @@
             {{-- Navegação --}}
             <nav class="main-nav">
 
-                <a href="{{ route ('aluno.inicio')}}" class="nav-link active">
+                <a href="{{ route ('professor.inicio')}}" class="nav-link active">
                     Início
                 </a>
 
                 <span class="nav-divider"></span>
 
-                <a href="{{ route('aluno.sobre') }}" class="nav-link">
+                <a href="{{ route('professor.sobre') }}" class="nav-link">
                     Sobre Nós
                 </a>
 
                 <span class="nav-divider"></span>
 
-                <a href="{{ route ('aluno.galeria') }}" class="nav-link">
+                <a href="{{ route ('professor.galeria') }}" class="nav-link">
                     Galeria
                 </a>
 
                 <span class="nav-divider"></span>
 
-                <a href="{{ route('aluno.biblioteca') }}" class="nav-link">
+                <a href="{{ route('professor.biblioteca') }}" class="nav-link">
                     Biblioteca
                 </a>
 
                 <span class="nav-divider"></span>
 
-                <a href="{{ route('aluno.mencao') }}" class="nav-link">
+                <a href="{{ route('professor.mencao') }}" class="nav-link">
                     Menções Honrosas
                 </a>
 
-                
-                <a href="{{ route('aluno.logado') }}" class="nav-link">
-                    Minha area
+                <a href="{{ route('professor.logado') }}" class="nav-link">
+                    Minha Area
                 </a>
 
                 <a href="{{ route('inicio')}}">Sair</a>
+
             </nav>
 
-            {{-- Menu mobile --}}
-            <button class="mobile-menu-button" id="mobileMenuButton">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
         </div>
-
-
 
     </header>
 

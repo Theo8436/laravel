@@ -883,17 +883,17 @@ td button{
 
     <nav>
 
-        <a href="{{ route('inicio') }}">Início</a>
+        <a href="{{ route('professor.inicio') }}">Início</a>
 
-        <a href="{{ route('sobre') }}">Sobre Nós</a>
+        <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
 
-        <a href="{{ route('galeria') }}">Galeria</a>
+        <a href="{{ route('professor.galeria') }}">Galeria</a>
 
-        <a href="{{ route('biblioteca') }}">Biblioteca</a>
+        <a href="{{ route('professor.biblioteca') }}">Biblioteca</a>
 
-        <a href="{{ route('mencao') }}">Menções honrosas</a>
+        <a href="{{ route('professor.mencao') }}">Menções honrosas</a>
 
-        <button onclick="sair()">Sair</button>
+        <a href="{{ route('inicio')}}">Sair</a>
 
     </nav>
 

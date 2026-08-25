@@ -578,16 +578,6 @@ formulario.addEventListener("submit", function(event){
 });
 
 
-/* =========================
-   BOTÃO VOLTAR
-========================= */
-
-function voltar(){
-
-    window.location.href =
-        "{{ route('login') }}";
-
-}
 
 </script>
 
