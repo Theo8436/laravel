@@ -1,0 +1,784 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Kavoon&family=Fredoka:wght@400;500;600;700&display=swap');
+
+
+/* =========================================================
+   PÁGINA
+   ========================================================= */
+
+.doacoes-page {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    padding: 48px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #58127d 0%,
+            #bc10c0 48%,
+            #f97316 100%
+        );
+
+    font-family: 'Fredoka', sans-serif;
+}
+
+
+/* =========================================================
+   TEXTURA
+   ========================================================= */
+
+.doacoes-grain {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .50;
+
+    mix-blend-mode: overlay;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   PARTÍCULAS
+   ========================================================= */
+
+.doacoes-sparkles {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.doacoes-sparkles span {
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    opacity: .5;
+
+    animation:
+        sparkle 2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.doacoes-container {
+    position: relative;
+    z-index: 10;
+
+    width: min(100% - 64px, 1024px);
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   VOLTAR
+   ========================================================= */
+
+.back-library-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 24px;
+
+    padding: 12px 20px;
+
+    border: 2px solid rgba(255, 255, 255, .30);
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, .10);
+
+    backdrop-filter: blur(8px);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .10);
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
+}
+
+.back-library-button:hover {
+    transform: scale(1.05);
+
+    background: rgba(255, 255, 255, .20);
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.doacoes-header {
+    text-align: center;
+
+    margin-bottom: 48px;
+}
+
+.doacoes-header h1 {
+    margin: 0 0 16px;
+
+    color: white;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: clamp(48px, 7vw, 64px);
+
+    line-height: 1;
+
+    letter-spacing: -.02em;
+
+    text-shadow:
+        0 5px 0 rgba(88, 18, 125, .35),
+        0 10px 25px rgba(0, 0, 0, .30);
+}
+
+.doacoes-header p {
+    margin: 0;
+
+    color: #ffedd5;
+
+    font-size: clamp(20px, 3vw, 26px);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CARD WHATSAPP
+   ========================================================= */
+
+.whatsapp-card {
+    position: relative;
+
+    overflow: hidden;
+
+    margin-bottom: 32px;
+
+    padding: 40px;
+
+    text-align: center;
+
+    border: 2px solid rgba(255, 255, 255, .30);
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .20);
+
+    backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, .25);
+
+    transition:
+        transform .35s ease;
+}
+
+.whatsapp-card:hover {
+    transform: scale(1.05);
+}
+
+
+/* Glow */
+
+.card-hover-glow {
+    position: absolute;
+
+    inset: -3px;
+
+    z-index: -1;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #bc10c0,
+            #fb923c
+        );
+
+    filter: blur(20px);
+
+    opacity: 0;
+
+    transition:
+        opacity .4s ease;
+}
+
+.whatsapp-card:hover .card-hover-glow {
+    opacity: .40;
+}
+
+
+/* =========================================================
+   ELEMENTOS DECORATIVOS
+   ========================================================= */
+
+.decorative-star,
+.decorative-sparkle,
+.decorative-book,
+.decorative-heart {
+    position: absolute;
+
+    width: 32px;
+    height: 32px;
+}
+
+.decorative-star {
+    top: 16px;
+    left: 32px;
+
+    color: #fde047;
+
+    animation:
+        sparkle 2s ease-in-out infinite;
+}
+
+.decorative-sparkle {
+    top: 16px;
+    right: 32px;
+
+    color: #fdba74;
+
+    animation:
+        sparkle 2s ease-in-out infinite;
+
+    animation-delay: .5s;
+}
+
+.decorative-book {
+    bottom: 16px;
+    left: 32px;
+
+    color: #d8b4fe;
+
+    opacity: .30;
+}
+
+.decorative-heart {
+    right: 32px;
+    bottom: 16px;
+
+    color: #f9a8d4;
+
+    animation:
+        pulseGrow 2s ease-in-out infinite;
+
+    animation-delay: 1s;
+}
+
+
+/* =========================================================
+   ÍCONE WHATSAPP
+   ========================================================= */
+
+.whatsapp-icon {
+    width: 80px;
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 16px;
+
+    border-radius: 50%;
+
+    background: #fb923c;
+
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, .25);
+
+    animation:
+        pulseGrow 2s ease-in-out infinite;
+}
+
+.whatsapp-icon svg {
+    width: 48px;
+    height: 48px;
+
+    color: white;
+}
+
+
+/* =========================================================
+   TÍTULO DO CARD
+   ========================================================= */
+
+.whatsapp-card h2 {
+    position: relative;
+
+    margin: 0 0 8px;
+
+    color: white;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: 36px;
+
+    line-height: 1;
+
+    text-shadow:
+        0 5px 15px rgba(0, 0, 0, .30);
+}
+
+.whatsapp-description {
+    margin: 0 0 24px;
+
+    color: rgba(255, 255, 255, .80);
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 3px 8px rgba(0, 0, 0, .25);
+}
+
+
+/* =========================================================
+   BOTÃO WHATSAPP
+   ========================================================= */
+
+.whatsapp-button {
+    position: relative;
+    z-index: 10;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    min-height: 80px;
+
+    padding: 0 48px;
+
+    border-radius: 999px;
+
+    background: #22c55e;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 26px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 20px 35px rgba(0, 0, 0, .25);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.whatsapp-button:hover {
+    background: #16a34a;
+
+    transform: scale(1.10);
+
+    box-shadow:
+        0 25px 45px rgba(0, 0, 0, .30);
+}
+
+.whatsapp-button svg {
+    width: 32px;
+    height: 32px;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.donation-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 24px;
+
+    margin-bottom: 32px;
+}
+
+
+/* =========================================================
+   INFO CARD
+   ========================================================= */
+
+.info-card {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 24px;
+
+    text-align: center;
+
+    border: 2px solid rgba(255, 255, 255, .30);
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .20);
+
+    backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, .20);
+
+    transition:
+        transform .35s ease;
+}
+
+.info-card:hover {
+    transform: scale(1.05);
+}
+
+.info-card-glow {
+    position: absolute;
+
+    inset: -3px;
+
+    z-index: -1;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #bc10c0,
+            #fb923c
+        );
+
+    filter: blur(18px);
+
+    opacity: 0;
+
+    transition:
+        opacity .4s ease;
+}
+
+.info-card:hover .info-card-glow {
+    opacity: .40;
+}
+
+
+/* =========================================================
+   ÍCONES
+   ========================================================= */
+
+.info-icon {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 12px;
+
+    border-radius: 50%;
+
+    background: #fb923c;
+
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, .20);
+
+    transition:
+        transform .3s ease;
+}
+
+.info-card:hover .info-icon {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+.info-icon svg {
+    width: 40px;
+    height: 40px;
+
+    color: white;
+}
+
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+.info-card h3 {
+    margin: 0 0 12px;
+
+    color: white;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: 24px;
+
+    text-shadow:
+        0 5px 12px rgba(0, 0, 0, .30);
+}
+
+.info-card p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, .90);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 3px 8px rgba(0, 0, 0, .25);
+}
+
+
+/* =========================================================
+   AGRADECIMENTO
+   ========================================================= */
+
+.thank-you {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 40px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255, 255, 255, .30);
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .10);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .25);
+}
+
+.thank-you-glow {
+    position: absolute;
+
+    inset: -2px;
+
+    z-index: -1;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #bc10c0,
+            #fb923c
+        );
+
+    filter: blur(15px);
+
+    opacity: .20;
+}
+
+.thank-you h2 {
+    position: relative;
+
+    margin: 0 0 16px;
+
+    color: white;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: 42px;
+
+    text-shadow:
+        0 5px 15px rgba(0, 0, 0, .30);
+}
+
+.thank-you p {
+    position: relative;
+
+    margin: 0;
+
+    color: #fed7aa;
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes pulseGrow {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: .3;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .doacoes-page {
+        padding: 32px 0;
+    }
+
+    .doacoes-container {
+        width: calc(100% - 32px);
+    }
+
+    .doacoes-header h1 {
+        font-size: 46px;
+    }
+
+    .doacoes-header p {
+        font-size: 20px;
+    }
+
+    .whatsapp-card {
+        padding: 32px 20px;
+    }
+
+    .whatsapp-card h2 {
+        font-size: 30px;
+    }
+
+    .whatsapp-button {
+        width: 100%;
+
+        padding: 0 24px;
+
+        font-size: 21px;
+    }
+
+    .donation-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .thank-you {
+        padding: 32px 20px;
+    }
+
+    .thank-you h2 {
+        font-size: 36px;
+    }
+
+    .thank-you p {
+        font-size: 17px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .doacoes-header h1 {
+        font-size: 38px;
+    }
+
+    .whatsapp-icon {
+        width: 72px;
+        height: 72px;
+    }
+
+    .whatsapp-icon svg {
+        width: 42px;
+        height: 42px;
+    }
+
+    .whatsapp-button {
+        min-height: 68px;
+
+        font-size: 18px;
+    }
+
+    .whatsapp-button svg {
+        width: 27px;
+        height: 27px;
+    }
+
+    .decorative-star,
+    .decorative-sparkle,
+    .decorative-book,
+    .decorative-heart {
+        width: 25px;
+        height: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+

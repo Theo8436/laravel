@@ -1,0 +1,1036 @@
+
+/* =========================================================
+   BIBLIOTECA - BETH CIENTISTA
+   Adaptado do layout do Figma enviado
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   FONTES
+   --------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Kavoon&family=Fredoka:wght@400;500;600;700&display=swap');
+
+
+/* ---------------------------------------------------------
+   VARIÁVEIS
+   --------------------------------------------------------- */
+
+:root {
+    --purple-dark: #58127d;
+    --purple: #bc10c0;
+    --purple-light: #a855f7;
+
+    --pink: #ec4899;
+
+    --orange: #f97316;
+    --orange-light: #fb923c;
+    --orange-yellow: #fbbf24;
+
+    --white: #ffffff;
+
+    --green: #22c55e;
+    --red: #ef4444;
+
+    --text-dark: #111827;
+    --text-gray: #6b7280;
+}
+
+
+/* ---------------------------------------------------------
+   PÁGINA
+   --------------------------------------------------------- */
+
+.biblioteca-page {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    padding: 48px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #58127d 0%,
+            #bc10c0 48%,
+            #f97316 100%
+        );
+
+    font-family: 'Fredoka', sans-serif;
+}
+
+
+/* ---------------------------------------------------------
+   CONTAINER
+   --------------------------------------------------------- */
+
+.biblioteca-container {
+    width: min(1400px, calc(100% - 64px));
+    margin: 0 auto;
+
+    position: relative;
+    z-index: 10;
+}
+
+
+/* ---------------------------------------------------------
+   TEXTURA GRANULADA
+   --------------------------------------------------------- */
+
+.grain-overlay {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .45;
+
+    mix-blend-mode: overlay;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+
+/* ---------------------------------------------------------
+   SPARKLES
+   --------------------------------------------------------- */
+
+.sparkles {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+.sparkles span {
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    opacity: .5;
+
+    animation:
+        sparkle 2s ease-in-out infinite;
+}
+
+
+/* ---------------------------------------------------------
+   CABEÇALHO
+   --------------------------------------------------------- */
+
+.biblioteca-heading {
+    text-align: center;
+
+    margin-bottom: 48px;
+}
+
+.biblioteca-heading h1 {
+    margin: 0 0 16px;
+
+    color: #fff;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: clamp(42px, 5vw, 64px);
+
+    line-height: 1.05;
+
+    letter-spacing: -0.02em;
+
+    text-shadow:
+        0 4px 0 rgba(88, 18, 125, .35),
+        0 8px 20px rgba(0, 0, 0, .35);
+
+    animation:
+        titleFloat 4s ease-in-out infinite;
+}
+
+.biblioteca-heading > p {
+    margin: 0 0 32px;
+
+    color: #ffedd5;
+
+    font-size: clamp(20px, 2.5vw, 28px);
+
+    font-weight: 700;
+}
+
+
+/* ---------------------------------------------------------
+   PESQUISA
+   --------------------------------------------------------- */
+
+.search-wrapper {
+    position: relative;
+
+    width: min(100%, 768px);
+
+    margin: 0 auto;
+
+    padding: 8px;
+
+    border: 1px solid rgba(255, 255, 255, .3);
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .20);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .25);
+}
+
+.search-glow {
+    position: absolute;
+
+    inset: -2px;
+
+    z-index: -1;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f472b6,
+            #a855f7,
+            #fb923c
+        );
+
+    filter: blur(14px);
+
+    opacity: .30;
+}
+
+.search-box {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 64px;
+
+    background: rgba(255, 255, 255, .94);
+
+    border-radius: 16px;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.search-box:focus-within {
+    transform: scale(1.01);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .18);
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+
+    margin-left: 24px;
+
+    flex-shrink: 0;
+
+    color: #a855f7;
+}
+
+.search-box input {
+    width: 100%;
+    height: 100%;
+
+    padding: 0 24px 0 16px;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: #111827;
+
+    font-family: 'Fredoka', sans-serif;
+
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.search-box input::placeholder {
+    color: #6b7280;
+}
+
+
+/* ---------------------------------------------------------
+   BANNER DE DOAÇÃO
+   --------------------------------------------------------- */
+
+.donation-banner {
+    position: relative;
+
+    margin-bottom: 48px;
+
+    padding: 32px;
+
+    border: 1px solid rgba(255, 255, 255, .3);
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .10);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .25);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.donation-banner:hover {
+    transform: scale(1.03);
+
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, .3);
+}
+
+.donation-glow {
+    position: absolute;
+
+    inset: -2px;
+
+    z-index: -1;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #bc10c0,
+            #fb923c
+        );
+
+    filter: blur(16px);
+
+    opacity: .2;
+}
+
+.donation-content {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 24px;
+
+    flex-wrap: wrap;
+}
+
+.donation-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+.heart-icon {
+    width: 80px;
+    height: 80px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fb923c;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .2);
+
+    animation:
+        pulseGrow 2s ease-in-out infinite;
+}
+
+.heart-icon svg {
+    width: 48px;
+    height: 48px;
+
+    color: #fff;
+
+    filter:
+        drop-shadow(0 4px 5px rgba(0, 0, 0, .2));
+}
+
+.donation-info h2 {
+    margin: 0 0 4px;
+
+    color: #fff;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: 32px;
+
+    line-height: 1.1;
+
+    text-shadow:
+        0 4px 10px rgba(0, 0, 0, .3);
+}
+
+.donation-info p {
+    margin: 0;
+
+    color: #fed7aa;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+.donation-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 56px;
+
+    padding: 0 32px;
+
+    border-radius: 999px;
+
+    background: #f97316;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, .25);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.donation-button:hover {
+    background: #ea580c;
+
+    transform:
+        scale(1.10)
+        rotate(1deg);
+
+    box-shadow:
+        0 18px 35px rgba(0, 0, 0, .3);
+}
+
+
+/* ---------------------------------------------------------
+   GRID DOS LIVROS
+   --------------------------------------------------------- */
+
+.books-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 32px;
+}
+
+
+/* ---------------------------------------------------------
+   CARD
+   --------------------------------------------------------- */
+
+.book-card {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .95);
+
+    border: 2px solid rgba(255, 255, 255, .20);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, .20);
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform .35s cubic-bezier(.2, .8, .2, 1),
+        box-shadow .35s ease,
+        opacity .25s ease;
+
+    animation:
+        cardAppear .6s ease both;
+}
+
+.book-card:hover {
+    transform:
+        translateY(-8px)
+        scale(1.04);
+
+    box-shadow:
+        0 30px 55px rgba(0, 0, 0, .30);
+}
+
+.book-card:nth-child(1) {
+    animation-delay: .05s;
+}
+
+.book-card:nth-child(2) {
+    animation-delay: .10s;
+}
+
+.book-card:nth-child(3) {
+    animation-delay: .15s;
+}
+
+.book-card:nth-child(4) {
+    animation-delay: .20s;
+}
+
+.book-card:nth-child(5) {
+    animation-delay: .25s;
+}
+
+.book-card:nth-child(6) {
+    animation-delay: .30s;
+}
+
+
+/* ---------------------------------------------------------
+   GLOW DO CARD
+   --------------------------------------------------------- */
+
+.book-glow {
+    position: absolute;
+
+    inset: -3px;
+
+    z-index: 0;
+
+    border-radius: 26px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #bc10c0,
+            #fb923c
+        );
+
+    filter: blur(18px);
+
+    opacity: 0;
+
+    transition:
+        opacity .35s ease;
+}
+
+.book-card:hover .book-glow {
+    opacity: .40;
+}
+
+
+/* ---------------------------------------------------------
+   CAPA
+   --------------------------------------------------------- */
+
+.book-cover {
+    position: relative;
+
+    height: 256px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c084fc,
+            #fdba74
+        );
+
+    overflow: hidden;
+}
+
+.book-cover::before {
+    content: '';
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .12);
+
+    filter: blur(2px);
+
+    animation:
+        float 4s ease-in-out infinite;
+}
+
+.book-icon {
+    position: relative;
+
+    font-size: 88px;
+
+    filter:
+        drop-shadow(0 8px 10px rgba(0, 0, 0, .25));
+
+    transition:
+        transform .4s ease;
+}
+
+.book-card:hover .book-icon {
+    transform:
+        scale(1.12)
+        rotate(-4deg);
+}
+
+
+/* ---------------------------------------------------------
+   CONTEÚDO
+   --------------------------------------------------------- */
+
+.book-content {
+    position: relative;
+
+    padding: 24px;
+}
+
+.book-tags {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
+}
+
+.category-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 30px;
+
+    padding: 4px 12px;
+
+    border-radius: 999px;
+
+    background: #f97316;
+
+    color: #fff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.availability {
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 30px;
+
+    padding: 4px 12px;
+
+    border-radius: 999px;
+
+    color: #fff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.availability.available {
+    background: #22c55e;
+}
+
+.availability.borrowed {
+    background: #ef4444;
+}
+
+.book-content h2 {
+    margin: 8px 0 4px;
+
+    color: #111827;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: 27px;
+
+    line-height: 1.15;
+}
+
+.author {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+.book-footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-top: 22px;
+}
+
+.copies {
+    color: #374151;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+/* ---------------------------------------------------------
+   BOTÃO EMPRESTAR
+   --------------------------------------------------------- */
+
+.borrow-button {
+    min-height: 40px;
+
+    padding: 0 18px;
+
+    border: 0;
+
+    border-radius: 999px;
+
+    background: #a855f7;
+
+    color: #fff;
+
+    font-family: 'Fredoka', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, .15);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+.borrow-button:hover {
+    background: #9333ea;
+
+    transform:
+        scale(1.10);
+
+    box-shadow:
+        0 12px 24px rgba(0, 0, 0, .2);
+}
+
+.borrow-button.disabled {
+    background: #9ca3af;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+.borrow-button.disabled:hover {
+    transform: none;
+}
+
+
+/* ---------------------------------------------------------
+   FILTRO / ANIMAÇÃO DE SAÍDA
+   --------------------------------------------------------- */
+
+.book-card.book-hidden {
+    opacity: 0;
+
+    transform:
+        scale(.92)
+        translateY(10px);
+}
+
+
+/* ---------------------------------------------------------
+   SEM RESULTADOS
+   --------------------------------------------------------- */
+
+.no-results {
+    padding: 64px 20px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255, 255, 255, .30);
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, .10);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, .25);
+}
+
+.no-results p {
+    margin: 0 0 8px;
+
+    color: #fff;
+
+    font-family: 'Luckiest Guy', cursive;
+
+    font-size: 32px;
+}
+
+.no-results span {
+    color: rgba(255, 255, 255, .70);
+
+    font-size: 18px;
+
+    font-weight: 500;
+}
+
+
+/* ---------------------------------------------------------
+   ANIMAÇÕES
+   --------------------------------------------------------- */
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: .3;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+
+@keyframes pulseGrow {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+
+@keyframes titleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVIDADE
+   --------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+
+    .books-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .biblioteca-page {
+        padding: 32px 0;
+    }
+
+    .biblioteca-container {
+        width: min(100% - 32px, 700px);
+    }
+
+    .biblioteca-heading {
+        margin-bottom: 32px;
+    }
+
+    .biblioteca-heading h1 {
+        font-size: 42px;
+    }
+
+    .biblioteca-heading > p {
+        font-size: 20px;
+    }
+
+    .search-box {
+        height: 58px;
+    }
+
+    .search-box input {
+        font-size: 15px;
+    }
+
+    .donation-banner {
+        padding: 24px;
+    }
+
+    .donation-content {
+        align-items: stretch;
+    }
+
+    .donation-info {
+        width: 100%;
+    }
+
+    .donation-button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .books-grid {
+        grid-template-columns: 1fr;
+
+        gap: 24px;
+    }
+
+    .biblioteca-heading h1 {
+        font-size: 36px;
+    }
+
+    .heart-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .heart-icon svg {
+        width: 38px;
+        height: 38px;
+    }
+
+    .donation-info h2 {
+        font-size: 26px;
+    }
+
+    .donation-info p {
+        font-size: 15px;
+    }
+
+    .book-cover {
+        height: 230px;
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+   
+}

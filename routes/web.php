@@ -25,6 +25,9 @@ Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])
 Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'galeria'])->name('professor.galeria');
 Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'biblioteca'])->name('professor.biblioteca');
 Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
+Route::get('/professor/doar', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
+Route::get('/professor/doacoes', [App\Http\Controllers\Professor::class, 'doacoes'])->name('professor.doacoes');
+
 
 
 
@@ -37,6 +40,7 @@ Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('
 Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->name('aluno.galeria');
 Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
 Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
+Route::get('/aluno/doacoes', [App\Http\Controllers\Aluno::class, 'doacoes'])->name('aluno.doacoes');
 
 Route::get('/escolha', [App\Http\Controllers\Escolha::class, 'escolha'])->name('escolha');
 
@@ -61,6 +65,8 @@ Route::get('/minha-area', [PublicacaoController::class, 'index'])->name('aluno.m
 Route::post('/publicacoes/store', [PublicacaoController::class, 'store'])->name('publicacoes.store');
 Route::put('/publicacoes/update/{id}', [PublicacaoController::class, 'update'])->name('publicacoes.update');
 Route::delete('/publicacoes/destroy/{id}', [PublicacaoController::class, 'destroy'])->name('publicacoes.destroy');
+
+
 
 
 
