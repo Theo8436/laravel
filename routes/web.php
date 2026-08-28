@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LogAcessoMiddleware;
 use App\Http\Controllers\PublicacaoController;
+use App\Http\Controllers\MencaoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +25,19 @@ Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'inicio'
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'galeria'])->name('professor.galeria');
 Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'biblioteca'])->name('professor.biblioteca');
-Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
-Route::get('/professor/doar', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
-Route::get('/professor/doacoes', [App\Http\Controllers\Professor::class, 'doacoes'])->name('professor.doacoes');
+/* ========================================================
+   ROTAS DE MENÇÃO HONROSA
+   ======================================================== */
+// Exibe a tela de menções do ALUNO (Apenas visualização)
+Route::get('/mencao', [MencaoController::class, 'index'])->name('mencao');
+
+// Exibe a tela de menções do PROFESSOR (Com botão e formulário)
+Route::get('/professor/mencao', [MencaoController::class, 'professorIndex'])->name('professor.mencao');
+
+// Salva o formulário enviado pelo professor
+Route::post('/mencao', [MencaoController::class, 'store'])->name('mencao.store');
+
+Route::get('/professor/doacoes', [Professor::class, 'doacoes'])->name('professor.doacoes');
 
 
 
