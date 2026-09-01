@@ -384,7 +384,7 @@
                                 </span>
 
                                 <button class="read-more stars-button">
-                                    Ler mais
+                                   <a href="{{ route ('professor.publi')}}">Ler mais</a>
                                 </button>
 
                             </div>

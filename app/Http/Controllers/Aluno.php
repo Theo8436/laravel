@@ -8,8 +8,6 @@ class Aluno extends Controller
 
 
 {
-
-
     function aluno(){
         return view('aluno.aluno');
     }
@@ -40,6 +38,13 @@ class Aluno extends Controller
     function mencao(){
         return view('aluno.mencao');
     }
+    function doacao(){
+        return view('aluno.doacao');
+    }
+    function publi(){
+        return view('aluno.publi');
+    }
+
 
 
 

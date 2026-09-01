@@ -27,4 +27,14 @@ class Professor extends Controller
     function mencao(){
         return view('professor.mencao');
     }
+    function biblioteca(){
+        return view('professor.biblioteca');
+    }
+    function galeria(){
+        return view('professor.galeria');
+    }
+    function publi(){
+        return view('professor.publi');
+    }
+
 }

@@ -98,30 +98,6 @@
 
         </div>
 
-        {{-- Menu mobile --}}
-        <div class="mobile-menu" id="mobileMenu">
-
-            <a href="{{ url('/') }}">Início</a>
-            <a href="{{ url('/sobre') }}">Sobre Nós</a>
-            <a href="{{ url('/galeria') }}">Galeria</a>
-            <a href="{{ url('/biblioteca') }}">Biblioteca</a>
-            <a href="{{ url('/mencoes-honrosas') }}">Menções Honrosas</a>
-
-            <div class="mobile-menu-buttons">
-
-                <a href="{{ url('/login') }}" class="btn-participe">
-                    Faça Parte
-                </a>
-
-                <a href="{{ url('/login') }}" class="btn-login">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    Entrar
-                </a>
-
-            </div>
-
-        </div>
-
     </header>
 
 
@@ -416,7 +392,7 @@
                                 </span>
 
                                 <button class="read-more stars-button">
-                                    Ler mais
+                                <a href="{{ route ('publi')}}">Ler mais</a>
                                 </button>
 
                             </div>

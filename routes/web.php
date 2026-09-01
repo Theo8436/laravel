@@ -25,21 +25,8 @@ Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'inicio'
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'galeria'])->name('professor.galeria');
 Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'biblioteca'])->name('professor.biblioteca');
-/* ========================================================
-   ROTAS DE MENÇÃO HONROSA
-   ======================================================== */
-// Exibe a tela de menções do ALUNO (Apenas visualização)
-Route::get('/mencao', [MencaoController::class, 'index'])->name('mencao');
-
-// Exibe a tela de menções do PROFESSOR (Com botão e formulário)
-Route::get('/professor/mencao', [MencaoController::class, 'professorIndex'])->name('professor.mencao');
-
-// Salva o formulário enviado pelo professor
-Route::post('/mencao', [MencaoController::class, 'store'])->name('mencao.store');
-
-Route::get('/professor/doacoes', [Professor::class, 'doacoes'])->name('professor.doacoes');
-
-
+Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
+Route::get('/professor/publi', [App\Http\Controllers\Professor::class, 'publi'])->name('professor.publi');
 
 
 Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno'])->name('aluno');
@@ -51,7 +38,10 @@ Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('
 Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->name('aluno.galeria');
 Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
 Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
-Route::get('/aluno/doacoes', [App\Http\Controllers\Aluno::class, 'doacoes'])->name('aluno.doacoes');
+Route::get('/aluno/doacao', [App\Http\Controllers\Aluno::class, 'doacao'])->name('aluno.doacao');
+Route::get('/aluno/publi', [App\Http\Controllers\Aluno::class, 'publi'])->name('aluno.publi');
+
+Route::get('/doacao', [App\Http\Controllers\Doacao::class, 'doacao'])->name('doacao');
 
 Route::get('/escolha', [App\Http\Controllers\Escolha::class, 'escolha'])->name('escolha');
 
@@ -68,6 +58,7 @@ Route::get('/galeria', [App\Http\Controllers\Galeria::class, 'galeria'])->name('
 
 Route::get('/biblioteca', [App\Http\Controllers\Biblioteca::class, 'biblioteca'])->name('biblioteca');
 
+Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi');
 
 // Rota principal da Área do Aluno (Carrega a página com as publicações vindas do banco)
 Route::get('/minha-area', [PublicacaoController::class, 'index'])->name('aluno.minha_area');
