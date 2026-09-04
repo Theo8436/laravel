@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'alunos' => [
+        'driver' => 'session',
+        'provider' => 'alunos', // Aponta para o provider que criamos no passo 1
+    ],
+        'professores' => [
+        'driver' => 'session',
+        'provider' => 'professores', // Aponta para o provider que criamos no passo 1
+    ],
     ],
 
     /*
@@ -69,6 +77,14 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'alunos' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\AlunoModel::class, // Seu model de aluno
+    ],
+    'professores' => [
+    'driver' => 'eloquent',
+    'model' => App\Models\ProfessorModel::class, // Seu model de aluno
+],
     ],
 
     /*

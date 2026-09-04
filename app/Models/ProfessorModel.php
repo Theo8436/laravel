@@ -3,11 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class ProfessorModel extends Model
+class ProfessorModel extends Authenticatable
 {
     use HasFactory;
-    protected $table = 'professor';
-    protected $fillable = ['nome','email','telefone'];
+
+    protected $table = 'professores';
+    protected $fillable = ['nome', 'email', 'senha', 'code']; 
+
+    public function getAuthPassword()
+    {
+        return $this->senha;
+    }
 }

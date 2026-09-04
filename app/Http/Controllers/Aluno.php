@@ -12,9 +12,6 @@ class Aluno extends Controller
         return view('aluno.aluno');
     }
 
-    function cadastro(){
-        return view('aluno.cadastro');
-    }
     function entrar(){
         return view('aluno.entrar');
     }

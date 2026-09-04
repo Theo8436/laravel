@@ -218,42 +218,16 @@
     </p>
 
     <div class="botoes">
-
-        <button
-            class="botao professor"
-            onclick="irParaProfessor()"
-        >
-            Professor
-        </button>
-
-        <button
-            class="botao aluno"
-            onclick="irParaAluno()"
-        >
-            Aluno
-        </button>
-
+      <a href="{{ route('aluno.entrar') }}" class="link-botao">
+        <button type="button" class="botao aluno">Aluno</button>
+      </a>
+      
+      <a href="{{ route('professor.entrar') }}" class="link-botao">
+        <button type="button" class="botao professor">Professor</button>
+      </a>
     </div>
 
 </div>
-
-<script>
-
-function irParaProfessor(){
-
-    window.location.href =
-        "{{ route('professor.entrar') }}";
-
-}
-
-function irParaAluno(){
-
-    window.location.href =
-        "{{ route('aluno.entrar') }}";
-
-}
-
-</script>
 
 </body>
 

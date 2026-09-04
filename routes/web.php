@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LogAcessoMiddleware;
 use App\Http\Controllers\PublicacaoController;
 use App\Http\Controllers\MencaoController;
+use App\Http\Controllers\LoginAlunoController;  
+use App\Http\Controllers\LoginProfessorController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,10 +30,25 @@ Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'bib
 Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
 Route::get('/professor/publi', [App\Http\Controllers\Professor::class, 'publi'])->name('professor.publi');
 
+// Autenticação e Fluxo de Cadastro do Professor
+Route::post('/logar', [LoginProfessorController::class, 'logar'])->name('logar'); // Mudado de /login para /login-professor
+Route::post('/logout', [LoginProfessorController::class, 'logout'])->name('professor.logout');
+Route::post('/professor/adicionar', [LoginProfessorController::class, 'adicionar'])->name('professor.adicionar');
+
+// Verificação de Código do Aluno
+Route::get('professor/verificar-codigo', [LoginProfessorController::class, 'telaCodigo'])->name('professor.verificar_codigo');
+Route::post('professor/confirmar-codigo', [LoginProfessorController::class, 'confirmarCodigo'])->name('professor.confirmar_codigo');
+Route::post('professor/reenviar-codigo', [LoginProfessorController::class, 'reenviarCodigo'])->name('professor.reenviar_codigo');
+
+// CRUD Professor
+Route::post('/professor/remover', [LoginProfessorController::class, 'remover'])->name('loginprofessor.remover');
+Route::post('/professor/atualizar', [LoginProfessorController::class, 'atualizar'])->name('loginprofessor.atualizar');
+Route::get('/professor/consultar', [LoginProfessorController::class, 'consultar'])->name('loginprofessor.consultar');
+
 
 Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno'])->name('aluno');
-Route::get('/aluno/cadastro', [App\Http\Controllers\Aluno::class, 'cadastro'])->name('aluno.cadastro');
-Route::get('/aluno/entrar', [App\Http\Controllers\Aluno::class, 'entrar'])->name('aluno.entrar');
+Route::get('/aluno/cadastro', [App\Http\Controllers\LoginAlunoController::class, 'cadastro'])->name('aluno.cadastro');
+Route::get('/aluno/entrar', [App\Http\Controllers\LoginAlunoController::class, 'entrar'])->name('aluno.entrar');
 Route::get('/aluno/logado', [App\Http\Controllers\Aluno::class, 'logado'])->name('aluno.logado');
 Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
@@ -40,6 +57,20 @@ Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'
 Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
 Route::get('/aluno/doacao', [App\Http\Controllers\Aluno::class, 'doacao'])->name('aluno.doacao');
 Route::get('/aluno/publi', [App\Http\Controllers\Aluno::class, 'publi'])->name('aluno.publi');
+
+Route::post('/aluno/logar', [LoginAlunoController::class, 'logar'])->name('aluno.logar'); // Mudado de /login para /login-aluno
+Route::post('/aluno/logout', [LoginAlunoController::class, 'logout'])->name('aluno.logout');
+Route::post('/aluno/adicionar', [LoginAlunoController::class, 'adicionar'])->name('aluno.adicionar'); // CORRIGIDO: Adicionado o ponto!
+
+// Verificação de Código do Aluno
+Route::get('/aluno/verificar-codigo', [LoginAlunoController::class, 'telaCodigo'])->name('aluno.verificar_codigo');
+Route::post('/aluno/confirmar-codigo', [LoginAlunoController::class, 'confirmarCodigo'])->name('aluno.confirmar_codigo');
+Route::post('/aluno/reenviar-codigo', [LoginAlunoController::class, 'reenviarCodigo'])->name('aluno.reenviar_codigo');
+
+// CRUD Aluno
+Route::post('/remover', [LoginAlunoController::class, 'remover'])->name('aluno.remover');
+Route::post('/atualizar', [LoginAlunoController::class, 'atualizar'])->name('aluno.atualizar');
+Route::get('/consultar', [LoginAlunoController::class, 'consultar'])->name('aluno.consultar');
 
 Route::get('/doacao', [App\Http\Controllers\Doacao::class, 'doacao'])->name('doacao');
 
