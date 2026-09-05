@@ -262,7 +262,6 @@
       </div>
 
       <div class="botoes">
-        <!-- <button type="button" class="btn btn-voltar" onclick="window.location.href='{{ route('fp') }}'">Voltar</button> -->
         <a href="{{ route('escolha') }}" class="btn btn-voltar">Voltar</a>
         <button type="submit" class="btn btn-cadastrar">Cadastrar Professor</button>
       </div>
