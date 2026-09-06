@@ -592,7 +592,7 @@ main{
 
     <div>
 
-        <h1>MARIA SILVA</h1>
+        <h1>{{ Auth::guard('alunos')->user()->nome }}</h1>
 
         <p>Bem-vindo(a) à sua área!</p>
 
