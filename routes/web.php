@@ -6,6 +6,7 @@ use App\Http\Controllers\PublicacaoController;
 use App\Http\Controllers\MencaoController;
 use App\Http\Controllers\LoginAlunoController;  
 use App\Http\Controllers\LoginProfessorController; 
+use App\Http\Controllers\BibliotecaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +27,14 @@ Route::get('/professor/logado', [App\Http\Controllers\Professor::class, 'logado'
 Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'inicio'])->name('professor.inicio');
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'galeria'])->name('professor.galeria');
+
 Route::get('/professor/biblioteca', [App\Http\Controllers\Professor::class, 'biblioteca'])->name('professor.biblioteca');
+
+Route::post('/livro/adicionar', [App\Http\Controllers\LivroController::class, 'adicionar'])->name('livro.adicionar');
+Route::get('/livro/{id}', [App\Http\Controllers\LivroController::class, 'detalhes'])->name('livro.detalhes');
+Route::post('/livro/atualizar/{id}', [App\Http\Controllers\LivroController::class, 'atualizar'])->name('livro.atualizar');
+Route::post('/livro/remover/{id}', [App\Http\Controllers\LivroController::class, 'remover'])->name('livro.remover');
+
 Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
 Route::get('/professor/publi', [App\Http\Controllers\Professor::class, 'publi'])->name('professor.publi');
 
