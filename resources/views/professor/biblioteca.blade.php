@@ -855,701 +855,325 @@ footer{
 <!-- =========================
      HEADER
 ========================= -->
-
 <header>
-
     <div class="logo">
-
         <img src="{{ asset('Beth.jpg') }}">
-
         <div>
-
             <h2>BETH CIENTISTA</h2>
-
             <p>Divulgação Científica</p>
-
         </div>
-
     </div>
 
-
     <nav>
-
-        <a href="{{ route('professor.inicio') }}">
-            Início
-        </a>
-
-        <a href="{{ route('professor.sobre') }}">
-            Sobre Nós
-        </a>
-
-        <a href="{{ route('professor.galeria') }}">
-            Galeria
-        </a>
-
-        <a href="{{ route('professor.biblioteca') }}"
-           class="ativo">
-            Biblioteca
-        </a>
-
-        <a href="{{ route('professor.mencao') }}">
-            Menções Honrosas
-        </a>
-
-        <a href="{{ route('professor.logado') }}">
-            Minha area
-        </a>
-
-        <a href="{{ route('inicio') }}">
-            Sair
-        </a>
-
+        <a href="{{ route('professor.inicio') }}">Início</a>
+        <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
+        <a href="{{ route('professor.galeria') }}">Galeria</a>
+        <a href="{{ route('professor.biblioteca') }}" class="ativo">Biblioteca</a>
+        <a href="{{ route('professor.mencao') }}">Menções Honrosas</a>
+        <a href="{{ route('professor.logado') }}">Minha area</a>
+        <a href="{{ route('inicio') }}">Sair</a>
+        <a href="{{ route('professor.inicio') }}">Início</a>
     </nav>
-
 </header>
-
 
 <!-- =========================
      CONTEÚDO
 ========================= -->
-
 <main>
+    <section class="titulo">
+        <h1>BIBLIOTECA BETH CIENTISTA</h1>
+        <p>Acervo de livros científicos para os Clubistas!</p>
+    </section>
 
+    <!-- ALERTAS DE SUCESSO OU ERRO DO LARAVEL -->
+    @if(session('sucesso'))
+        <div style="color: green; background: #e6ffe6; padding: 10px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+            {{ session('sucesso') }}
+        </div>
+    @endif
 
-<section class="titulo">
-
-    <h1>
-        BIBLIOTECA BETH CIENTISTA
-    </h1>
-
-    <p>
-        Acervo de livros científicos para os Clubistas!
-    </p>
-
-</section>
-
-
-<!-- PESQUISA -->
-
-<div class="pesquisa">
-
-    <div class="pesquisa-box">
-
-        <i class="bi bi-search"></i>
-
-        <input
-            type="text"
-            id="pesquisa"
-            placeholder="Buscar livros por título ou autor..."
-            onkeyup="pesquisarLivros()"
-        >
-
+    <!-- PESQUISA -->
+    <div class="pesquisa">
+        <div class="pesquisa-box">
+            <i class="bi bi-search"></i>
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="Buscar livros por título ou autor..."
+                onkeyup="pesquisarLivros()"
+            >
+        </div>
     </div>
 
-</div>
-
-
-<!-- ÁREA DO PROFESSOR -->
-
-<div class="area-professor">
-
-    <div>
-
-        <h3>
-            <i class="bi bi-book"></i>
-            Gerenciar Biblioteca
-        </h3>
-
-        <p>
-            Professor, cadastre novos livros no acervo.
-        </p>
-
+    <!-- ÁREA DO PROFESSOR -->
+    <div class="area-professor">
+        <div>
+            <h3><i class="bi bi-book"></i> Gerenciar Biblioteca</h3>
+            <p>Professor, cadastre novos livros no acervo.</p>
+        </div>
+        <button class="btn-cadastrar" onclick="abrirFormulario()">
+            <i class="bi bi-plus-lg"></i> Cadastrar Livro
+        </button>
     </div>
 
-    <button
-        class="btn-cadastrar"
-        onclick="abrirFormulario()">
+    <!-- LIVROS (DINÂMICOS DO BANCO DE DADOS) -->
+    <section class="livros" id="listaLivros">
+        @forelse($livros as $livro)
+            <div class="card card-livro" data-titulo="{{ strtolower($livro->titulo) }}" data-autor="{{ strtolower($livro->autor) }}">
+                <div class="capa">
+                    <i class="bi bi-book"></i>
+                </div>
 
-        <i class="bi bi-plus-lg"></i>
+                <div class="conteudo">
+                    <h2>{{ $livro->titulo }}</h2>
+                    <p class="autor">{{ $livro->autor }} • {{ $livro->categoria }}</p>
 
-        Cadastrar Livro
+                    <div class="status">
+                        <span class="{{ $livro->status }}">
+                            {{ ucfirst($livro->status) }}
+                        </span>
+                    </div>
 
-    </button>
+                    <div class="controles" style="display: flex; gap: 10px; margin-top: 15px;">
+                        <!-- Botão Editar que abre o Modal de Edição preenchido -->
+                        <button class="salvar" style="padding: 5px 10px; cursor: pointer;" onclick="abrirEdicao({{ json_encode($livro) }})">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
 
-</div>
-
-
-<!-- LIVROS -->
-
-<section
-    class="livros"
-    id="listaLivros">
-
-
-</section>
-
-
+                        <!-- Botão Excluir integrado diretamente ao back-end -->
+                        <form action="{{ route('livros.destroy', $livro->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir o livro {{ $livro->titulo }}?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="cancelar" style="padding: 5px 10px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 4px;" 
+                                onclick="abrirConfirmacaoExcluir({{ $livro->id }}, '{{ $livro->titulo }}')">
+                                <i class="bi bi-trash"></i> Excluir
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="vazio">
+                <i class="bi bi-book" style="font-size:40px"></i>
+                <h3>Nenhum livro cadastrado</h3>
+                <p>O banco de dados está vazio. Cadastre o seu primeiro livro acima.</p>
+            </div>
+        @endforelse
+    </section>
 </main>
 
-
 <footer>
-
     © 2026 Beth Cientista
-
 </footer>
-
-
 
 <!-- =========================
      MODAL CADASTRO
 ========================= -->
-
-<div
-    class="modal"
-    id="modalCadastro">
-
+<div class="modal" id="modalCadastro">
     <div class="formulario">
+        <h2><i class="bi bi-book"></i> Cadastrar Livro</h2>
 
-        <h2>
-            <i class="bi bi-book"></i>
-            Cadastrar Livro
-        </h2>
-
-
-        <form
-            id="formLivro">
-
-
+        <form id="formLivro" action="{{ route('livros.store') }}" method="POST">
+            @csrf
             <div class="campo">
-
-                <label for="tituloLivro">
-                    Título do livro
-                </label>
-
-                <input
-                    type="text"
-                    id="tituloLivro"
-                    placeholder="Digite o título"
-                    required>
-
+                <label for="tituloLivro">Título do livro</label>
+                <input type="text" id="tituloLivro" name="titulo" placeholder="Digite o título" required>
             </div>
 
-
             <div class="campo">
-
-                <label for="autorLivro">
-                    Autor
-                </label>
-
-                <input
-                    type="text"
-                    id="autorLivro"
-                    placeholder="Digite o autor"
-                    required>
-
+                <label for="autorLivro">Autor</label>
+                <input type="text" id="autorLivro" name="autor" placeholder="Digite o autor" required>
             </div>
 
-
             <div class="campo">
-
-                <label for="categoriaLivro">
-                    Categoria
-                </label>
-
-                <select id="categoriaLivro" required>
-
-                    <option value="">
-                        Selecione uma categoria
-                    </option>
-
-                    <option>
-                        Astronomia
-                    </option>
-
-                    <option>
-                        Biologia
-                    </option>
-
-                    <option>
-                        Física
-                    </option>
-
-                    <option>
-                        Química
-                    </option>
-
-                    <option>
-                        Ciências
-                    </option>
-
+                <label for="categoriaLivro">Categoria</label>
+                <select id="categoriaLivro" name="categoria" required>
+                    <option value="">Selecione uma categoria</option>
+                    <option value="Astronomia">Astronomia</option>
+                    <option value="Biologia">Biologia</option>
+                    <option value="Física">Física</option>
+                    <option value="Química">Química</option>
+                    <option value="Ciências">Ciências</option>
                 </select>
-
             </div>
-
 
             <div class="campo">
-
-                <label for="statusLivro">
-                    Status
-                </label>
-
-                <select id="statusLivro">
-
-                    <option value="livre">
-                        Livre
-                    </option>
-
-                    <option value="emprestado">
-                        Emprestado
-                    </option>
-
-                    <option value="reservado">
-                        Reservado
-                    </option>
-
+                <label for="statusLivro">Status</label>
+                <select id="statusLivro" name="status" required>
+                    <option value="livre">Livre</option>
+                    <option value="emprestado">Emprestado</option>
+                    <option value="reservado">Reservado</option>
                 </select>
-
             </div>
-
-
-            <div
-                class="mensagem"
-                id="mensagem">
-
-                Livro cadastrado com sucesso!
-
-            </div>
-
 
             <div class="botoes">
+                <button type="button" class="cancelar" onclick="fecharFormulario()">Cancelar</button>
+                <button type="submit" class="salvar"><i class="bi bi-check-lg"></i> Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-                <button
-                    type="button"
-                    class="cancelar"
-                    onclick="fecharFormulario()">
+<!-- =========================
+     MODAL EDIÇÃO
+========================= -->
+<div class="modal" id="modalEdicao" style="display: none;">
+    <div class="formulario">
+        <h2><i class="bi bi-pencil"></i> Editar Livro</h2>
 
-                    Cancelar
-
-                </button>
-
-
-                <button
-                    type="submit"
-                    class="salvar">
-
-                    <i class="bi bi-check-lg"></i>
-
-                    Cadastrar
-
-                </button>
-
+        <form id="formEdicao" action="" method="POST">
+            @csrf
+            @method('PUT')
+            
+            <div class="campo">
+                <label for="editTituloLivro">Título do livro</label>
+                <input type="text" id="editTituloLivro" name="titulo" required>
             </div>
 
+            <div class="campo">
+                <label for="editAutorLivro">Autor</label>
+                <input type="text" id="editAutorLivro" name="autor" required>
+            </div>
 
+            <div class="campo">
+                <label for="editCategoriaLivro">Categoria</label>
+                <select id="editCategoriaLivro" name="categoria" required>
+                    <option value="Astronomia">Astronomia</option>
+                    <option value="Biologia">Biologia</option>
+                    <option value="Física">Física</option>
+                    <option value="Química">Química</option>
+                    <option value="Ciências">Ciências</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="editStatusLivro">Status</label>
+                <select id="editStatusLivro" name="status" required>
+                    <option value="livre">Livre</option>
+                    <option value="emprestado">Emprestado</option>
+                    <option value="reservado">Reservado</option>
+                </select>
+            </div>
+
+            <div class="botoes">
+                <button type="button" class="cancelar" onclick="fecharEdicao()">Cancelar</button>
+                <button type="submit" class="salvar"><i class="bi bi-check-lg"></i> Salvar Alterações</button>
+            </div>
         </form>
-
     </div>
+</div>
+<!-- =========================
+     MODAL CONFIRMAÇÃO DE EXCLUSÃO
+========================= -->
+<div class="modal" id="modalExcluir" style="display: none;">
+    <div class="formulario" style="text-align: center; max-width: 400px;">
+        <h2><i class="bi bi-exclamation-triangle" style="color: #dc3545;"></i> Excluir Livro</h2>
+        
+        <p style="margin: 20px 0; font-size: 16px;">
+            Tem certeza que deseja excluir o livro <strong id="nomeLivroExcluir"></strong>? Esta ação não poderá ser desfeita.
+        </p>
 
+        <!-- Formulário real que será disparado após o clique em Confirmar -->
+        <form id="formExcluir" action="" method="POST">
+            @csrf
+            @method('DELETE')
+            
+            <div class="botoes" style="justify-content: center; gap: 15px;">
+                <button type="button" class="salvar" style="background-color: #6c757d;" onclick="fecharConfirmacaoExcluir()">
+                    Cancelar
+                </button>
+                <button type="submit" class="cancelar" style="background-color: #dc3545; color: white;">
+                    Sim, Excluir
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 
-
 <script>
-
 /* =========================
-   LIVROS INICIAIS
+   SCRIPTS JAVASCRIPT
 ========================= */
 
-let livros = [
-
-    {
-        titulo:"Uma Breve História do Tempo",
-        autor:"Stephen Hawking",
-        categoria:"Física",
-        status:"livre"
-    },
-
-    {
-        titulo:"Cosmos",
-        autor:"Carl Sagan",
-        categoria:"Astronomia",
-        status:"livre"
-    },
-
-    {
-        titulo:"O Gene Egoísta",
-        autor:"Richard Dawkins",
-        categoria:"Biologia",
-        status:"livre"
-    },
-
-    {
-        titulo:"Sapiens",
-        autor:"Yuval Noah Harari",
-        categoria:"Ciências",
-        status:"esgotado"
-    },
-
-    {
-        titulo:"O Universo Numa Casca de Noz",
-        autor:"Stephen Hawking",
-        categoria:"Astronomia",
-        status:"livre"
-    },
-
-    {
-        titulo:"A Origem das Espécies",
-        autor:"Charles Darwin",
-        categoria:"Biologia",
-        status:"livre"
-    }
-
-];
-
-
-/* =========================
-   CARREGAR LIVROS
-========================= */
-
-function carregarLivros(lista = livros){
-
-    const container =
-        document.getElementById("listaLivros");
-
-    container.innerHTML = "";
-
-
-    if(lista.length === 0){
-
-        container.innerHTML = `
-
-            <div class="vazio">
-
-                <i class="bi bi-book"
-                   style="font-size:40px">
-                </i>
-
-                <h3>
-                    Nenhum livro encontrado
-                </h3>
-
-                <p>
-                    Tente pesquisar outro título ou autor.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    lista.forEach((livro,index)=>{
-
-        container.innerHTML += `
-
-        <div class="card">
-
-            <div class="capa">
-
-                <i class="bi bi-book"></i>
-
-            </div>
-
-
-            <div class="conteudo">
-
-                <h2>
-                    ${livro.titulo}
-                </h2>
-
-                <p class="autor">
-
-                    ${livro.autor}
-
-                    • ${livro.categoria}
-
-                </p>
-
-
-                <div class="status">
-
-                    <span class="${livro.status}">
-
-                        ${nomeStatus(livro.status)}
-
-                    </span>
-
-                </div>
-
-
-                <div class="controles">
-
-                    <select
-                        onchange="alterarStatus(${index},this.value)">
-
-                        <option
-                            value="livre"
-                            ${livro.status === "livre" ? "selected" : ""}>
-
-                            Livre
-
-                        </option>
-
-                        <option
-                            value="emprestado"
-                            ${livro.status === "emprestado" ? "selected" : ""}>
-
-                            Emprestado
-
-                        </option>
-
-                        <option
-                            value="reservado"
-                            ${livro.status === "reservado" ? "selected" : ""}>
-
-                            Reservado
-
-                        </option>
-
-                    </select>
-
-
-                    <button
-                        class="btn-excluir"
-                        onclick="excluirLivro(${index})">
-
-                        <i class="bi bi-trash"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        `;
-
+// Controle do Modal de Cadastro
+function abrirFormulario() {
+    document.getElementById("modalCadastro").style.display = "flex";
+}
+
+function fecharFormulario() {
+    document.getElementById("modalCadastro").style.display = "none";
+}
+
+// Controle do Modal de Edição Dinâmica
+function abrirEdicao(livro) {
+    // Altera a rota do form para o ID correto do livro selecionado
+    document.getElementById("formEdicao").action = `/professor/biblioteca/atualizar/${livro.id}`;
+    
+    // Atribui os valores atuais do banco aos campos de edição
+    document.getElementById("editTituloLivro").value = livro.titulo;
+    document.getElementById("editAutorLivro").value = livro.autor;
+    document.getElementById("editCategoriaLivro").value = livro.categoria;
+    document.getElementById("editStatusLivro").value = livro.status;
+    
+    // Exibe o modal na tela
+    document.getElementById("modalEdicao").style.display = "flex";
+}
+
+function fecharEdicao() {
+    document.getElementById("modalEdicao").style.display = "none";
+}
+
+// Filtro em tempo real de Pesquisa (Front-end rápido)
+function pesquisarLivros() {
+    const termo = document.getElementById("pesquisa").value.toLowerCase();
+    const cards = document.querySelectorAll(".card-livro");
+
+    cards.forEach(card => {
+        const titulo = card.getAttribute("data-titulo");
+        const autor = card.getAttribute("data-autor");
+
+        if (titulo.includes(termo) || autor.includes(termo)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
     });
-
+}
+// Controle do Modal de Confirmação de Exclusão
+function abrirConfirmacaoExcluir(id, titulo) {
+    // Define dinamicamente o link de exclusão com o ID correto do livro
+    document.getElementById("formExcluir").action = `/professor/biblioteca/excluir/${id}`;
+    
+    // Insere o nome do livro no texto do modal
+    document.getElementById("nomeLivroExcluir").innerText = titulo;
+    
+    // Exibe o modal na tela
+    document.getElementById("modalExcluir").style.display = "flex";
 }
 
-
-/* =========================
-   NOME DO STATUS
-========================= */
-
-function nomeStatus(status){
-
-    if(status === "livre")
-        return "Livre";
-
-    if(status === "emprestado")
-        return "Emprestado";
-
-    if(status === "reservado")
-        return "Reservado";
-
+function fecharConfirmacaoExcluir() {
+    document.getElementById("modalExcluir").style.display = "none";
 }
 
-
-/* =========================
-   ALTERAR STATUS
-========================= */
-
-function alterarStatus(index,status){
-
-    livros[index].status = status;
-
-    carregarLivros();
-
+// Atualize também a sua função window.onclick existente para incluir o novo modal:
+window.onclick = function(event) {
+    const modalCad = document.getElementById("modalCadastro");
+    const modalEdi = document.getElementById("modalEdicao");
+    const modalExc = document.getElementById("modalExcluir"); // Nova linha
+    
+    if (event.target === modalCad) modalCad.style.display = "none";
+    if (event.target === modalEdi) modalEdi.style.display = "none";
+    if (event.target === modalExc) modalExc.style.display = "none"; // Nova linha
 }
 
-
-/* =========================
-   EXCLUIR
-========================= */
-
-function excluirLivro(index){
-
-    if(!confirm("Deseja excluir este livro?")){
-
-        return;
-
-    }
-
-    livros.splice(index,1);
-
-    carregarLivros();
-
+// Fecha os modais se clicar fora do conteúdo
+window.onclick = function(event) {
+    const modalCad = document.getElementById("modalCadastro");
+    const modalEdi = document.getElementById("modalEdicao");
+    if (event.target === modalCad) modalCad.style.display = "none";
+    if (event.target === modalEdi) modalEdi.style.display = "none";
 }
-
-
-/* =========================
-   PESQUISA
-========================= */
-
-function pesquisarLivros(){
-
-    const texto =
-        document
-        .getElementById("pesquisa")
-        .value
-        .toLowerCase();
-
-
-    const resultado =
-        livros.filter(livro =>
-
-            livro.titulo
-                .toLowerCase()
-                .includes(texto)
-
-            ||
-
-            livro.autor
-                .toLowerCase()
-                .includes(texto)
-
-            ||
-
-            livro.categoria
-                .toLowerCase()
-                .includes(texto)
-
-        );
-
-
-    carregarLivros(resultado);
-
-}
-
-
-/* =========================
-   ABRIR FORMULÁRIO
-========================= */
-
-function abrirFormulario(){
-
-    document
-        .getElementById("modalCadastro")
-        .classList.add("ativo");
-
-}
-
-
-/* =========================
-   FECHAR FORMULÁRIO
-========================= */
-
-function fecharFormulario(){
-
-    document
-        .getElementById("modalCadastro")
-        .classList.remove("ativo");
-
-    document
-        .getElementById("formLivro")
-        .reset();
-
-    document
-        .getElementById("mensagem")
-        .style.display="none";
-
-}
-
-
-/* =========================
-   CADASTRAR LIVRO
-========================= */
-
-document
-.getElementById("formLivro")
-.addEventListener("submit",function(event){
-
-    event.preventDefault();
-
-
-    const titulo =
-        document
-        .getElementById("tituloLivro")
-        .value
-        .trim();
-
-
-    const autor =
-        document
-        .getElementById("autorLivro")
-        .value
-        .trim();
-
-
-    const categoria =
-        document
-        .getElementById("categoriaLivro")
-        .value;
-
-
-    const status =
-        document
-        .getElementById("statusLivro")
-        .value;
-
-
-    if(
-        titulo === "" ||
-        autor === "" ||
-        categoria === ""
-    ){
-
-        return;
-
-    }
-
-
-    livros.push({
-
-        titulo:titulo,
-
-        autor:autor,
-
-        categoria:categoria,
-
-        status:status
-
-    });
-
-
-    carregarLivros();
-
-
-    const mensagem =
-        document.getElementById("mensagem");
-
-    mensagem.style.display="block";
-
-
-    setTimeout(function(){
-
-        fecharFormulario();
-
-    },1000);
-
-});
-
-
-/* =========================
-   INICIAR
-========================= */
-
-carregarLivros();
-
 </script>
-
-
 </body>
-
 </html>

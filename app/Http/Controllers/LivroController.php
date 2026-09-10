@@ -2,89 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LivroModel; // Importação correta do seu model
 use Illuminate\Http\Request;
-use App\Models\LivroModel; // Aqui está correto como LivroModel
 
 class LivroController extends Controller
 {
-    // 1. Lista os livros com filtro de busca
-    public function index(Request $request)
+    // Exibe a página da biblioteca com a lista de livros do banco
+    public function biblioteca()
     {
-        $busca = $request->input('busca');
-
-        if ($busca) {
-            // CORRIGIDO: Mudado de Livro para LivroModel
-            $livros = LivroModel::where('titulo', 'LIKE', "%{$busca}%")
-                ->orWhere('autor', 'LIKE', "%{$busca}%")
-                ->orWhere('categoria', 'LIKE', "%{$busca}%")
-                ->orderBy('id', 'desc')
-                ->get();
-        } else {
-            // CORRIGIDO: Mudado de Livro para LivroModel
-            $livros = LivroModel::orderBy('id', 'desc')->get();
-        }
-
-        return view('professor/biblioteca', compact('livros', 'busca'));
+        // Alterado de Livro para LivroModel
+        $livros = LivroModel::all(); 
+        return view('professor.biblioteca', compact('livros'));
     }
 
-    // 2. Salva um novo livro vindo do formulário
-    public function adicionar(Request $request)
+    // Salva um novo livro via Modal
+    public function store(Request $request)
     {
         $request->validate([
             'titulo'    => 'required|string|max:255',
             'autor'     => 'required|string|max:255',
-            'categoria' => 'required|string',
-            'status'    => 'required|string',
+            'categoria' => 'required|string|max:255',
+            'status'    => 'required|string|max:255',
         ]);
 
-        // CORRIGIDO: Mudado de Livro para LivroModel
-        LivroModel::create([
-            'titulo'    => $request->titulo,
-            'autor'     => $request->autor,
-            'categoria' => $request->categoria,
-            'status'    => $request->status,
-        ]);
+        // Alterado de Livro para LivroModel
+        LivroModel::create($request->all());
 
-        return redirect()->route('professor.biblioteca')->with('success', 'Livro cadastrado com sucesso!');
+        return redirect()->back()->with('sucesso');
     }
 
-    // 3. Exibe a página de detalhes/gerenciamento do livro clicado
-    public function detalhes($id)
-    {
-        // CORRIGIDO: Mudado de Livro para LivroModel
-        $livro = LivroModel::findOrFail($id);
-        return view('detalhes_livro', compact('livro'));
-    }
-
-    // 4. Salva as alterações completas de edição do livro
-    public function atualizar(Request $request, $id)
+    // Atualiza os dados de um livro existente via Modal de Edição
+    public function update(Request $request, $id)
     {
         $request->validate([
             'titulo'    => 'required|string|max:255',
             'autor'     => 'required|string|max:255',
-            'categoria' => 'required|string',
-            'status'    => 'required|string',
+            'categoria' => 'required|string|max:255',
+            'status'    => 'required|string|max:255',
         ]);
 
-        // CORRIGIDO: Mudado de Livro para LivroModel
+        // Alterado de Livro para LivroModel
         $livro = LivroModel::findOrFail($id);
-        $livro->update([
-            'titulo'    => $request->titulo,
-            'autor'     => $request->autor,
-            'categoria' => $request->categoria,
-            'status'    => $request->status,
-        ]);
+        $livro->update($request->all());
 
-        return redirect()->route('professor.biblioteca')->with('success', 'Livro atualizado com sucesso!');
+        return redirect()->back()->with('sucesso');
     }
 
-    // 5. Exclui o livro do banco de dados
-    public function remover($id)
+    // Exclui um livro do banco de dados
+    public function destroy($id)
     {
-        // CORRIGIDO: Mudado de Livro para LivroModel
-        $aluno = LivroModel::findOrFail($id);
-        $aluno->delete();
+        // Alterado de Livro para LivroModel
+        $livro = LivroModel::findOrFail($id);
+        $livro->delete();
 
-        return redirect()->route('professor.biblioteca')->with('success', 'Livro excluído com sucesso!');
+        return redirect()->back()->with('sucesso');
     }
 }

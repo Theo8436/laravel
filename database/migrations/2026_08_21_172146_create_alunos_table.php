@@ -9,22 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('alunos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome');
-            $table->string('email');
-            $table->enum('nivel_acesso', ['Clubista', 'Monitor'])->default('Clubista');
-            $table->timestamps();
-        });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('alunos', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->string('nome');
+    //         $table->string('email');
+    //         $table->enum('nivel_acesso', ['Clubista', 'Monitor'])->default('Clubista');
+    //         $table->timestamps();
+    //     });
+    // }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('alunos');
-    }
+    // /**
+    //  * Reverse the migrations.
+    //  */
+    // public function down(): void
+    // {
+    //     Schema::dropIfExists('alunos');
+    // }
 };
