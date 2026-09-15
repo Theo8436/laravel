@@ -9,22 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    // public function up(): void
-    // {
-    //     Schema::create('alunos', function (Blueprint $table) {
-    //         $table->id();
-    //         $table->string('nome');
-    //         $table->string('email');
-    //         $table->enum('nivel_acesso', ['Clubista', 'Monitor'])->default('Clubista');
-    //         $table->timestamps();
-    //     });
-    // }
+    public function up(): void
+    {
+        // Usa table em vez de create para apenas alterar a tabela existente
+        Schema::table('alunos', function (Blueprint $table) {
+            if (!Schema::hasColumn('alunos', 'nivel_acesso')) {
+                $table->enum('nivel_acesso', ['Clubista', 'Monitor'])->default('Clubista')->after('email');
+            }
+        });
+    }
 
-    // /**
-    //  * Reverse the migrations.
-    //  */
-    // public function down(): void
-    // {
-    //     Schema::dropIfExists('alunos');
-    // }
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('alunos', function (Blueprint $table) {
+            if (Schema::hasColumn('alunos', 'nivel_acesso')) {
+                $table->dropColumn('nivel_acesso');
+            }
+        });
+    }
 };

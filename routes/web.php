@@ -7,6 +7,8 @@ use App\Http\Controllers\MencaoController;
 use App\Http\Controllers\LoginAlunoController;  
 use App\Http\Controllers\LoginProfessorController; 
 use App\Http\Controllers\LivroController;
+use App\Http\Controllers\AdicionaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,7 +25,11 @@ Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
 Route::get('/professor', [App\Http\Controllers\Professor::class, 'professor'])->name('professor');
 Route::get('/professor/cadastro', [App\Http\Controllers\Professor::class, 'cadastro'])->name('professor.cadastro');
 Route::get('/professor/entrar', [App\Http\Controllers\Professor::class, 'entrar'])->name('professor.entrar');
-Route::get('/professor/logado', [App\Http\Controllers\Professor::class, 'logado'])->name('professor.logado');
+
+// ROTA DO PROFESSOR LOGADO (Adicionado o nome alunos.index para o formulário de busca da Blade funcionar)
+Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('professor.logado');
+Route::get('/alunos', [AdicionaController::class, 'index'])->name('alunos.index');
+
 Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'inicio'])->name('professor.inicio');
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'galeria'])->name('professor.galeria');
@@ -32,8 +38,6 @@ Route::get('/professor/biblioteca', [App\Http\Controllers\LivroController::class
 Route::post('/professor/biblioteca/salvar', [LivroController::class, 'store'])->name('livros.store');
 Route::put('/professor/biblioteca/atualizar/{id}', [LivroController::class, 'update'])->name('livros.update');
 Route::delete('/professor/biblioteca/excluir/{id}', [LivroController::class, 'destroy'])->name('livros.destroy');
-
-
 
 Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
 Route::get('/professor/publi', [App\Http\Controllers\Professor::class, 'publi'])->name('professor.publi');
@@ -53,6 +57,13 @@ Route::post('/professor/remover', [LoginProfessorController::class, 'remover'])-
 Route::post('/professor/atualizar', [LoginProfessorController::class, 'atualizar'])->name('loginprofessor.atualizar');
 Route::get('/professor/consultar', [LoginProfessorController::class, 'consultar'])->name('loginprofessor.consultar');
 
+// Área do Professor (Listagem de Alunos + Painel)
+Route::get('/professor/index', [AdicionaController::class, 'index'])->name('professor.index');
+
+// Operações do CRUD de Alunos (Modais e Ações)
+Route::post('/alunos', [AdicionaController::class, 'store'])->name('alunos.store');
+Route::put('/alunos/{aluno}', [AdicionaController::class, 'update'])->name('alunos.update');
+Route::delete('/alunos/{aluno}', [AdicionaController::class, 'destroy'])->name('alunos.destroy');
 
 Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno'])->name('aluno');
 Route::get('/aluno/cadastro', [App\Http\Controllers\LoginAlunoController::class, 'cadastro'])->name('aluno.cadastro');
@@ -86,7 +97,6 @@ Route::get('/escolha', [App\Http\Controllers\Escolha::class, 'escolha'])->name('
 
 Route::get('/entrar', [App\Http\Controllers\Entrar::class, 'entrar'])->name('entrar');
 
-
 Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre');
 
 Route::get('/mencao', [App\Http\Controllers\Mencao::class, 'mencao'])->name('mencao');
@@ -106,10 +116,3 @@ Route::get('/minha-area', [PublicacaoController::class, 'index'])->name('aluno.m
 Route::post('/publicacoes/store', [PublicacaoController::class, 'store'])->name('publicacoes.store');
 Route::put('/publicacoes/update/{id}', [PublicacaoController::class, 'update'])->name('publicacoes.update');
 Route::delete('/publicacoes/destroy/{id}', [PublicacaoController::class, 'destroy'])->name('publicacoes.destroy');
-
-
-
-
-
-
-
