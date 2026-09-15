@@ -24,7 +24,7 @@ class LoginProfessorController extends Controller
     public function adicionar(Request $request) { 
         $request->validate([
             'nome'            => 'required|string|max:255',
-            'email'           => 'required|email|unique:professores,email',
+            'email'           => 'required|email|unique:professores,email|unique:alunos,email',
             'senha'           => 'required|min:6',
             'code'            => 'required|string|min:7|max:7'
         ], [
