@@ -72,7 +72,8 @@ Route::get('/aluno/logado', [App\Http\Controllers\Aluno::class, 'logado'])->name
 Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
 Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->name('aluno.galeria');
-Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
+// Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
+Route::get('/aluno/biblioteca', [App\Http\Controllers\LivroController::class, 'bibliotecaAluno'])->name('aluno.biblioteca');
 Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
 Route::get('/aluno/doacao', [App\Http\Controllers\Aluno::class, 'doacao'])->name('aluno.doacao');
 Route::get('/aluno/publi', [App\Http\Controllers\Aluno::class, 'publi'])->name('aluno.publi');
@@ -105,7 +106,8 @@ Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('ini
 
 Route::get('/galeria', [App\Http\Controllers\Galeria::class, 'galeria'])->name('galeria');
 
-Route::get('/biblioteca', [App\Http\Controllers\Biblioteca::class, 'biblioteca'])->name('biblioteca');
+// Route::get('/biblioteca', [App\Http\Controllers\Biblioteca::class, 'biblioteca'])->name('biblioteca');
+Route::get('/biblioteca', [App\Http\Controllers\LivroController::class, 'bibliotecaa'])->name('biblioteca');
 
 Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi');
 

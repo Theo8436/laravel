@@ -57,4 +57,23 @@ class LivroController extends Controller
 
         return redirect()->back()->with('sucesso');
     }
+    // Adicione este método dentro da classe LivroController
+    public function bibliotecaAluno()
+    {
+    // Busca todos os livros cadastrados no banco de dados
+    $livros = LivroModel::all(); 
+    
+    // Retorna a view da biblioteca do aluno passando os livros (ajuste o caminho da view se necessário)
+    return view('aluno.biblioteca', compact('livros')); 
+    }
+    // Adicione este método dentro da classe LivroController
+    public function bibliotecaa()
+    {
+    // Busca todos os livros cadastrados no banco de dados
+    $livros = LivroModel::all(); 
+    
+    // Retorna a view da biblioteca do aluno passando os livros (ajuste o caminho da view se necessário)
+    return view('biblioteca', compact('livros')); 
+    }
+
 }

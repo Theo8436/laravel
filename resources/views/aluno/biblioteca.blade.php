@@ -914,320 +914,75 @@ footer p{
     </section>
 
 
-    <!-- LIVROS -->
-
+    <!-- LIVROS (DINÂMICOS DO BANCO DE DADOS) -->
     <section class="livros" id="listaLivros">
 
+        @forelse($livros as $livro)
+            <!-- O atributo data-busca foi automatizado para funcionar com o script de pesquisa do front-end -->
+            <div class="card-livro"
+                 data-busca="{{ strtolower($livro->titulo) }} {{ strtolower($livro->autor) }} {{ strtolower($livro->categoria) }}">
 
-        <!-- LIVRO 1 -->
+                <div class="capa">
+                    <i class="bi bi-book"></i>
+                </div>
 
-        <div class="card-livro"
-             data-busca="uma breve história do tempo stephen hawking física">
+                <div class="card-conteudo">
 
-            <div class="capa">
+                    <div class="card-topo">
+                        <span class="categoria">
+                            {{ $livro->categoria }}
+                        </span>
 
-                <i class="bi bi-book"></i>
+                        <!-- Define a classe CSS do status de acordo com o banco -->
+                        <span class="{{ $livro->status == 'livre' ? 'disponivel' : 'esgotado' }}">
+                            {{ $livro->status == 'livre' ? 'Disponível' : ucfirst($livro->status) }}
+                        </span>
+                    </div>
 
-            </div>
+                    <h2>
+                        {{ mb_strtoupper($livro->titulo, 'UTF-8') }}
+                    </h2>
 
-            <div class="card-conteudo">
+                    <p class="autor">
+                        {{ $livro->autor }}
+                    </p>
 
-                <div class="card-topo">
+                    <!-- Como a migration não possui coluna de cópias, adaptamos baseado no status
+                    <p class="copias">
+                        {{ $livro->status == 'livre' ? '1 cópia' : '0 cópias' }}
+                    </p> -->
 
-                    <span class="categoria">
-                        Física
-                    </span>
-
-                    <span class="disponivel">
-                        Disponível
-                    </span>
+                    <!-- Define qual função do front-end será chamada baseada na disponibilidade do livro -->
+                    @if($livro->status == 'livre')
+                        <button
+                            class="btn-livro"
+                            onclick="emprestar('{{ addslashes($livro->titulo) }}')">
+                            Emprestar
+                        </button>
+                    @else
+                        <button
+                            class="btn-livro"
+                            onclick="indisponivel()">
+                            Aguardando
+                        </button>
+                    @endif
 
                 </div>
 
-                <h2>
-                    UMA BREVE HISTÓRIA DO TEMPO
-                </h2>
-
-                <p class="autor">
-                    Stephen Hawking
-                </p>
-
-                <p class="copias">
-                    2 cópias
-                </p>
-
-                <button
-                    class="btn-livro"
-                    onclick="emprestar('Uma Breve História do Tempo')"
-                >
-
-                    Emprestar
-
-                </button>
-
             </div>
-
-        </div>
-
-
-        <!-- LIVRO 2 -->
-
-        <div class="card-livro"
-             data-busca="cosmos carl sagan astronomia">
-
-            <div class="capa">
-
-                <i class="bi bi-book"></i>
-
+        @empty
+            <!-- Mensagem caso nenhum livro tenha sido cadastrado no banco ainda -->
+            <div class="vazio" style="text-align: center; width: 100%; padding: 40px 0;">
+                <i class="bi bi-book" style="font-size:40px; color: #ccc;"></i>
+                <h3 style="margin-top: 15px; color: #666;">Nenhum livro disponível no momento</h3>
+                <p style="color: #999;">O acervo científico está sendo atualizado pelos professores.</p>
             </div>
-
-            <div class="card-conteudo">
-
-                <div class="card-topo">
-
-                    <span class="categoria">
-                        Astronomia
-                    </span>
-
-                    <span class="disponivel">
-                        Disponível
-                    </span>
-
-                </div>
-
-                <h2>
-                    COSMOS
-                </h2>
-
-                <p class="autor">
-                    Carl Sagan
-                </p>
-
-                <p class="copias">
-                    3 cópias
-                </p>
-
-                <button
-                    class="btn-livro"
-                    onclick="emprestar('Cosmos')"
-                >
-
-                    Emprestar
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- LIVRO 3 -->
-
-        <div class="card-livro"
-             data-busca="o gene egoísta richard dawkins biologia">
-
-            <div class="capa">
-
-                <i class="bi bi-book"></i>
-
-            </div>
-
-            <div class="card-conteudo">
-
-                <div class="card-topo">
-
-                    <span class="categoria">
-                        Biologia
-                    </span>
-
-                    <span class="disponivel">
-                        Disponível
-                    </span>
-
-                </div>
-
-                <h2>
-                    O GENE EGOÍSTA
-                </h2>
-
-                <p class="autor">
-                    Richard Dawkins
-                </p>
-
-                <p class="copias">
-                    1 cópia
-                </p>
-
-                <button
-                    class="btn-livro"
-                    onclick="emprestar('O Gene Egoísta')"
-                >
-
-                    Emprestar
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- LIVRO 4 -->
-
-        <div class="card-livro"
-             data-busca="sapiens yuval noah harari história">
-
-            <div class="capa">
-
-                <i class="bi bi-book"></i>
-
-            </div>
-
-            <div class="card-conteudo">
-
-                <div class="card-topo">
-
-                    <span class="categoria">
-                        História
-                    </span>
-
-                    <span class="esgotado">
-                        Esgotado
-                    </span>
-
-                </div>
-
-                <h2>
-                    SAPIENS
-                </h2>
-
-                <p class="autor">
-                    Yuval Noah Harari
-                </p>
-
-                <p class="copias">
-                    0 cópias
-                </p>
-
-                <button
-                    class="btn-livro"
-                    onclick="indisponivel()"
-                >
-
-                    Aguardando
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- LIVRO 5 -->
-
-        <div class="card-livro"
-             data-busca="o universo numa casca de noz stephen hawking física">
-
-            <div class="capa">
-
-                <i class="bi bi-book"></i>
-
-            </div>
-
-            <div class="card-conteudo">
-
-                <div class="card-topo">
-
-                    <span class="categoria">
-                        Física
-                    </span>
-
-                    <span class="disponivel">
-                        Disponível
-                    </span>
-
-                </div>
-
-                <h2>
-                    O UNIVERSO NUMA CASCA DE NOZ
-                </h2>
-
-                <p class="autor">
-                    Stephen Hawking
-                </p>
-
-                <p class="copias">
-                    1 cópia
-                </p>
-
-                <button
-                    class="btn-livro"
-                    onclick="emprestar('O Universo Numa Casca de Noz')"
-                >
-
-                    Emprestar
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- LIVRO 6 -->
-
-        <div class="card-livro"
-             data-busca="a origem das espécies charles darwin biologia evolução">
-
-            <div class="capa">
-
-                <i class="bi bi-book"></i>
-
-            </div>
-
-            <div class="card-conteudo">
-
-                <div class="card-topo">
-
-                    <span class="categoria">
-                        Biologia
-                    </span>
-
-                    <span class="disponivel">
-                        Disponível
-                    </span>
-
-                </div>
-
-                <h2>
-                    A ORIGEM DAS ESPÉCIES
-                </h2>
-
-                <p class="autor">
-                    Charles Darwin
-                </p>
-
-                <p class="copias">
-                    2 cópias
-                </p>
-
-                <button
-                    class="btn-livro"
-                    onclick="emprestar('A Origem das Espécies')"
-                >
-
-                    Emprestar
-
-                </button>
-
-            </div>
-
-        </div>
-
+        @endforelse
 
     </section>
 
 </main>
+
 
 
 <!-- =========================

@@ -22,7 +22,7 @@ class LoginAlunoController extends Controller
     public function adicionar(Request $request) { 
         $request->validate([
             'nome'            => 'required|string|max:255',
-            'email'           => 'required|email|unique:alunos,email',
+            'email'           => 'required|email|unique:alunos,email|unique:professores,email',
             'senha'           => 'required|min:6'
         ], [
             'email.unique'    => 'Este e-mail já está cadastrado.',

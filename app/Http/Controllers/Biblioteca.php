@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class Biblioteca extends Controller
 {
-    function biblioteca(){
+    function bibliotecaa(){
         return view('biblioteca');
     }
 }
