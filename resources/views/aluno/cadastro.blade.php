@@ -235,56 +235,68 @@
 
 <body>
 
-    <div class="cadastro">
+<div class="cadastro">
 
-        <div class="logo">
-            <img src="{{ asset('Beth.jpg') }}" alt="Beth Cientista">
-        </div>
-
-        <h1>CADASTRO</h1>
-
-        <p class="subtitulo">
-            Crie sua conta de aluno
-        </p>
-
-        <div class="tipo">
-            <span>ALUNO CLUBISTA</span>
-        </div>
-
-        @if ($errors->any())
-            <div id="mensagem" class="erro">
-                @foreach ($errors->all() as $error)
-                    <p>⚠️ {{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
-
-        <form action="{{ route('aluno.adicionar') }}" method="POST">
-            @csrf
-
-            <div class="campo">
-                <label>Nome Completo</label>
-                <input type="text" name="nome" value="{{ old('nome') }}" placeholder="Digite seu nome" required>
-            </div>
-
-            <div class="campo">
-                <label>Email</label>
-                <input type="email" name="email" value="{{ old('email') }}" placeholder="seu.email@exemplo.com" required>
-            </div>
-
-            <div class="campo">
-                <label>Senha</label>
-                <input type="password" name="senha" placeholder="********" required>
-            </div>
-
-            <div class="botoes">
-                <a href="{{ route('escolha') }}" class="btn btn-voltar">Voltar</a>
-                <button type="submit" class="btn btn-cadastrar">Cadastrar Aluno</button>
-            </div>
-
-        </form>
-
+    <div class="logo">
+        <img src="{{ asset('Beth.jpg') }}" alt="Beth Cientista">
     </div>
+
+    <h1>CADASTRO</h1>
+
+    <p class="subtitulo">
+        Crie sua conta de aluno
+    </p>
+
+    <!-- ATUALIZADO: Bloco de tipo removido/substituído pelo seletor abaixo para manter a harmonia do layout -->
+
+    @if ($errors->any())
+        <div id="mensagem" class="erro">
+            @foreach ($errors->all() as $error)
+                <p>⚠️ {{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+
+    <form action="{{ route('aluno.adicionar') }}" method="POST">
+        @csrf
+
+        <div class="campo">
+            <label>Nome Completo</label>
+            <input type="text" name="nome" value="{{ old('nome') }}" placeholder="Digite seu nome" required>
+        </div>
+
+        <div class="campo">
+            <label>Email</label>
+            <input type="email" name="email" value="{{ old('email') }}" placeholder="seu.email@exemplo.com" required>
+        </div>
+
+        <div class="campo">
+            <label>Senha</label>
+            <input type="password" name="senha" placeholder="********" required>
+        </div>
+
+        <!-- NOVO CAMPO: Nível de acesso estilizado seguindo o padrão dos seus campos -->
+        <div class="campo">
+    <label>Tipo de Aluno</label>
+    <select name="nivel_acesso" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: white; font-family: inherit;">
+        <!-- Opção padrão que aparece em branco/texto informativo -->
+        <option value="" disabled {{ old('nivel_acesso') == '' ? 'selected' : '' }}></option>
+        
+        <option value="clubista" {{ old('nivel_acesso') == 'clubista' ? 'selected' : '' }}>Aluno Clubista</option>
+        <option value="monitor" {{ old('nivel_acesso') == 'monitor' ? 'selected' : '' }}>Aluno Monitor</option>
+    </select>
+</div>
+
+
+        <div class="botoes">
+            <a href="{{ route('escolha') }}" class="btn btn-voltar">Voltar</a>
+            <button type="submit" class="btn btn-cadastrar">Cadastrar Aluno</button>
+        </div>
+
+    </form>
+
+</div>
+
 
 </body>
 </html>

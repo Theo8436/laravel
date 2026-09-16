@@ -10,11 +10,15 @@ return new class extends Migration
     {
         Schema::create('alunos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('nome');
             $table->string('email')->unique();
             $table->string('senha');
+            
+            // ATUALIZADO: Removido o valor default. O banco agora exige a resposta do formulário.
+            $table->string('nivel_acesso'); 
+            
             $table->rememberToken();
+            $table->timestamps();
         });
     }
 

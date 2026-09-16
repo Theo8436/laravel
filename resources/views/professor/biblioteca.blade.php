@@ -916,8 +916,8 @@ footer{
         </button>
     </div>
 
-    <!-- LIVROS (DINÂMICOS DO BANCO DE DADOS) -->
-    <section class="livros" id="listaLivros">
+<!-- LIVROS (DINÂMICOS DO BANCO DE DADOS) -->
+<section class="livros" id="listaLivros">
         @forelse($livros as $livro)
             <div class="card card-livro" data-titulo="{{ strtolower($livro->titulo) }}" data-autor="{{ strtolower($livro->autor) }}">
                 <div class="capa">
@@ -928,10 +928,23 @@ footer{
                     <h2>{{ $livro->titulo }}</h2>
                     <p class="autor">{{ $livro->autor }} • {{ $livro->categoria }}</p>
 
-                    <div class="status">
-                        <span class="{{ $livro->status }}">
-                            {{ ucfirst($livro->status) }}
-                        </span>
+                    <!-- AQUI É O LUGAR CORRETO DAS TAGS VISÍVEIS DO CARD -->
+                    <div class="status" style="margin-bottom: 10px; min-height: 25px;">
+                        @if(strtolower($livro->status) == 'livre')
+                            <span class="livre">Livre</span>
+                        @elseif(strtolower($livro->status) == 'emprestado')
+                            <span class="emprestado" style="background-color: #e06e00; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block;">
+                                Emprestado
+                            </span>
+                        @elseif(strtolower($livro->status) == 'reservado')
+                            <span class="reservado" style="background-color: #007bff; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block;">
+                                Reservado
+                            </span>
+                        @else
+                            <span style="background-color: #6c757d; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block;">
+                                {{ ucfirst($livro->status) }}
+                            </span>
+                        @endif
                     </div>
 
                     <div class="controles" style="display: flex; gap: 10px; margin-top: 15px;">
@@ -940,15 +953,11 @@ footer{
                             <i class="bi bi-pencil"></i> Editar
                         </button>
 
-                        <!-- Botão Excluir integrado diretamente ao back-end -->
-                        <form action="{{ route('livros.destroy', $livro->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir o livro {{ $livro->titulo }}?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="cancelar" style="padding: 5px 10px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 4px;" 
-                                onclick="abrirConfirmacaoExcluir({{ $livro->id }}, '{{ $livro->titulo }}')">
-                                <i class="bi bi-trash"></i> Excluir
-                            </button>
-                        </form>
+                        <!-- Botão Excluir -->
+                        <button type="button" class="cancelar" style="padding: 5px 10px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 4px;" 
+                            onclick="abrirConfirmacaoExcluir({{ $livro->id }}, '{{ addslashes($livro->titulo) }}')">
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1046,6 +1055,7 @@ footer{
                 </select>
             </div>
 
+            <!-- RESTAURADO: Campo select correto para alterar o status no banco -->
             <div class="campo">
                 <label for="editStatusLivro">Status</label>
                 <select id="editStatusLivro" name="status" required>
@@ -1062,6 +1072,7 @@ footer{
         </form>
     </div>
 </div>
+
 <!-- =========================
      MODAL CONFIRMAÇÃO DE EXCLUSÃO
 ========================= -->
@@ -1073,7 +1084,6 @@ footer{
             Tem certeza que deseja excluir o livro <strong id="nomeLivroExcluir"></strong>? Esta ação não poderá ser desfeita.
         </p>
 
-        <!-- Formulário real que será disparado após o clique em Confirmar -->
         <form id="formExcluir" action="" method="POST">
             @csrf
             @method('DELETE')
@@ -1089,6 +1099,7 @@ footer{
         </form>
     </div>
 </div>
+
 
 
 <script>
@@ -1107,16 +1118,13 @@ function fecharFormulario() {
 
 // Controle do Modal de Edição Dinâmica
 function abrirEdicao(livro) {
-    // Altera a rota do form para o ID correto do livro selecionado
     document.getElementById("formEdicao").action = `/professor/biblioteca/atualizar/${livro.id}`;
     
-    // Atribui os valores atuais do banco aos campos de edição
     document.getElementById("editTituloLivro").value = livro.titulo;
     document.getElementById("editAutorLivro").value = livro.autor;
     document.getElementById("editCategoriaLivro").value = livro.categoria;
     document.getElementById("editStatusLivro").value = livro.status;
     
-    // Exibe o modal na tela
     document.getElementById("modalEdicao").style.display = "flex";
 }
 
@@ -1140,15 +1148,11 @@ function pesquisarLivros() {
         }
     });
 }
+
 // Controle do Modal de Confirmação de Exclusão
 function abrirConfirmacaoExcluir(id, titulo) {
-    // Define dinamicamente o link de exclusão com o ID correto do livro
     document.getElementById("formExcluir").action = `/professor/biblioteca/excluir/${id}`;
-    
-    // Insere o nome do livro no texto do modal
     document.getElementById("nomeLivroExcluir").innerText = titulo;
-    
-    // Exibe o modal na tela
     document.getElementById("modalExcluir").style.display = "flex";
 }
 
@@ -1156,23 +1160,15 @@ function fecharConfirmacaoExcluir() {
     document.getElementById("modalExcluir").style.display = "none";
 }
 
-// Atualize também a sua função window.onclick existente para incluir o novo modal:
+// UNIFICADO: Fecha qualquer um dos três modais se clicar no fundo escuro fora deles
 window.onclick = function(event) {
     const modalCad = document.getElementById("modalCadastro");
     const modalEdi = document.getElementById("modalEdicao");
-    const modalExc = document.getElementById("modalExcluir"); // Nova linha
+    const modalExc = document.getElementById("modalExcluir");
     
     if (event.target === modalCad) modalCad.style.display = "none";
     if (event.target === modalEdi) modalEdi.style.display = "none";
-    if (event.target === modalExc) modalExc.style.display = "none"; // Nova linha
-}
-
-// Fecha os modais se clicar fora do conteúdo
-window.onclick = function(event) {
-    const modalCad = document.getElementById("modalCadastro");
-    const modalEdi = document.getElementById("modalEdicao");
-    if (event.target === modalCad) modalCad.style.display = "none";
-    if (event.target === modalEdi) modalEdi.style.display = "none";
+    if (event.target === modalExc) modalExc.style.display = "none";
 }
 </script>
 </body>

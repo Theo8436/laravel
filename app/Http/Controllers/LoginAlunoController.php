@@ -19,25 +19,29 @@ class LoginAlunoController extends Controller
         return view('aluno.cadastro');
     }
 
+    // 1. Processa o formulário de cadastro inicial e envia o e-mail
     public function adicionar(Request $request) { 
         $request->validate([
             'nome'            => 'required|string|max:255',
             'email'           => 'required|email|unique:alunos,email|unique:professores,email',
-            'senha'           => 'required|min:6'
+            'senha'           => 'required|min:6',
+            'nivel_acesso'    => 'required|in:monitor,clubista' // VALIDAÇÃO: Garante que só aceite uma das duas opções
         ], [
             'email.unique'    => 'Este e-mail já está cadastrado.',
-            'senha.min'       => 'A senha deve ter pelo menos 6 caracteres.'
+            'senha.min'       => 'A senha deve ter pelo menos 6 caracteres.',
+            'nivel_acesso.in' => 'O nível de acesso selecionado é inválido.'
         ]);
 
         // Gera um código aleatório de 6 dígitos
         $codigo = rand(100000, 999999);
 
-        // Guarda temporariamente os dados do formulário e o código na SESSÃO
+        // Guarda temporariamente os dados, incluindo o nível de acesso escolhido na SESSÃO
         session([
             'cadastro_temporario' => [
                 'nome'            => $request->nome,
                 'email'           => $request->email,
                 'senha'           => Hash::make($request->senha),
+                'nivel_acesso'    => $request->nivel_acesso, // CAPTURA: Salva a escolha do formulário
             ],
             'codigo_verificacao' => $codigo
         ]);
@@ -57,14 +61,14 @@ class LoginAlunoController extends Controller
         return view('aluno.verificar_codigo');
     }
 
-    // 3. Valida o código e CRIA a conta definitiva salvando no banco
+    // 3. Valida o código de e-mail e CRIA a conta definitiva salvando no banco
     public function confirmarCodigo(Request $request) {
         $request->validate([
             'codigo_digitado' => 'required|numeric|digits:6',
         ]);
 
         $codigoCorreto = session('codigo_verificacao');
-        $dadosAluno = session('cadastro_temporario'); // CORRIGIDO: Buscando a chave certa da sessão
+        $dadosAluno = session('cadastro_temporario');
 
         if (!$dadosAluno) {
             return redirect()->route('aluno.entrar')->withErrors(['error' => 'Sessão expirada. Tente o cadastro novamente.']);
@@ -73,20 +77,18 @@ class LoginAlunoController extends Controller
         // Verifica se o código bate
         if ($request->codigo_digitado == $codigoCorreto) {
             
-            // ---- CÓDIGO CERTO ----
-            
-            // Grava o aluno definitivamente no banco usando seu Model
-            // IMPORTANTE: Ajuste os campos abaixo de acordo com as colunas da sua tabela 'alunos'
+            // Grava o aluno definitivamente no banco com o seu nível correspondente
             $aluno = AlunoModel::create([
                 'nome'            => $dadosAluno['nome'],
                 'email'           => $dadosAluno['email'],
-                'senha'           => $dadosAluno['senha'], // Já está com o Hash
+                'senha'           => $dadosAluno['senha'], 
+                'nivel_acesso'    => $dadosAluno['nivel_acesso'], // GRAVAÇÃO: Insere no banco
             ]);
             
             // Limpa as sessões temporárias
             session()->forget(['codigo_verificacao', 'cadastro_temporario']);
 
-            // Faz o login automático do Aluno real recém-criado no Guard correto
+            // Faz o login automático do Aluno recém-criado
             Auth::guard('alunos')->login($aluno, true);
 
             // Redireciona para a página interna/logada do aluno
@@ -97,10 +99,9 @@ class LoginAlunoController extends Controller
         return redirect()->back()->withErrors(['codigo_digitado' => 'O código de verificação digitado está incorreto.']);
     }
 
-    // 4. Método de Reenvio Corrigido
+    // 4. Método de Reenvio do Código por e-mail
     public function reenviarCodigo(Request $request)
     {
-        // CORRIGIDO: Recupera o e-mail de dentro da estrutura correta na sessão
         $dadosAluno = session('cadastro_temporario');
         $email = $dadosAluno['email'] ?? null; 
 
@@ -115,44 +116,35 @@ class LoginAlunoController extends Controller
         session(['codigo_verificacao' => $novoCodigo]);
 
         try {
-            // Dispara o e-mail real com o novo código
             Mail::to($email)->send(new CodigoVerificacaoMail($novoCodigo));
-            
             return redirect()->back()->with('status', 'Um novo código de 6 dígitos foi enviado para o seu e-mail!');
-            
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Não foi possível reenviar o e-mail. Verifique suas configurações de servidor de e-mail.']);
         }
-    } // CORRIGIDO: Chave de fechamento reposicionada corretamente aqui
+    }
     
-// Processa o Login
-public function logar(Request $request) {
-    $credenciais = $request->validate([
-        'email' => 'required|email',
-        'senha' => 'required'
-    ]);
+    // 5. Processa o Login convencional
+    public function logar(Request $request) {
+        $credenciais = $request->validate([
+            'email' => 'required|email',
+            'senha' => 'required'
+        ]);
 
-    // CORRIGIDO: Mudamos a chave para 'password'. 
-    // O Laravel vai ler isso e comparar com o método getAuthPassword() que criamos no Model!
-    $tentativa = [
-        'email'    => $credenciais['email'],
-        'password' => $credenciais['senha'] // Mudar de 'senha' para 'password' aqui é obrigatório
-    ];
+        $tentativa = [
+            'email'    => $credenciais['email'],
+            'password' => $credenciais['senha']
+        ];
 
-    // Executa a tentativa de login guardando a sessão (true)
-    if (Auth::guard('alunos')->attempt($tentativa, true)) {
-        $request->session()->regenerate();
-        
-        // Redireciona para a rota protegida do aluno (ajustado de /dashboard para /aluno)
-        return redirect()->route('aluno.logado'); 
+        // Executa a tentativa de login guardando a sessão (true)
+        if (Auth::guard('alunos')->attempt($tentativa, true)) {
+            $request->session()->regenerate();
+            return redirect()->route('aluno.logado'); 
+        }
+
+        return back()->withErrors(['email' => 'E-mail ou senha incorretos.'])->withInput();
     }
 
-    // Se errar, volta com a mensagem de erro
-    return back()->withErrors(['email' => 'E-mail ou senha incorretos.'])->withInput();
-}
-
-
-
+    // 6. Processa o Logout
     public function logout(Request $request) {
         Auth::guard('alunos')->logout();
         $request->session()->invalidate();
