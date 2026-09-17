@@ -22,6 +22,30 @@ use App\Http\Controllers\AdicionaController;
 
 Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
 
+// Rotas de gerenciamento de menção (Professor)
+Route::get('/professor/mencao/{id}/edit', [MencaoController::class, 'edit'])->name('mencao.edit');
+Route::put('/professor/mencao/{id}', [MencaoController::class, 'update'])->name('mencao.update');
+Route::delete('/professor/mencao/{id}', [MencaoController::class, 'destroy'])->name('mencao.destroy');
+
+// Rota inicial redireciona para a tela do Professor
+// Route::get('/', function () {
+//     return redirect()->route('professor.mencao');
+// });
+
+// Área do Professor (Painel de Criação e Listagem)
+Route::get('/professor/mencao', [MencaoController::class, 'indexProfessor'])->name('professor.mencao');
+Route::post('/professor/mencao', [MencaoController::class, 'store'])->name('mencao.store');
+
+// Área do Aluno
+Route::get('/aluno/mencao', [MencaoController::class, 'indexAluno'])->name('aluno.mencao');
+
+// Área Pública (Visitantes)
+Route::get('/mencao', [App\Http\Controllers\MencaoController::class, 'indexPublico'])->name('publico.mencao');
+
+// Visualizar detalhes da menção
+Route::get('/mencao/{id}', [MencaoController::class, 'show'])->name('mencao.show');
+
+
 Route::get('/professor', [App\Http\Controllers\Professor::class, 'professor'])->name('professor');
 Route::get('/professor/cadastro', [App\Http\Controllers\Professor::class, 'cadastro'])->name('professor.cadastro');
 Route::get('/professor/entrar', [App\Http\Controllers\Professor::class, 'entrar'])->name('professor.entrar');
@@ -39,7 +63,7 @@ Route::post('/professor/biblioteca/salvar', [LivroController::class, 'store'])->
 Route::put('/professor/biblioteca/atualizar/{id}', [LivroController::class, 'update'])->name('livros.update');
 Route::delete('/professor/biblioteca/excluir/{id}', [LivroController::class, 'destroy'])->name('livros.destroy');
 
-Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
+//Route::get('/professor/mencao', [App\Http\Controllers\Professor::class, 'mencao'])->name('professor.mencao');
 Route::get('/professor/publi', [App\Http\Controllers\Professor::class, 'publi'])->name('professor.publi');
 
 // Autenticação e Fluxo de Cadastro do Professor
@@ -74,7 +98,7 @@ Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('
 Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->name('aluno.galeria');
 // Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
 Route::get('/aluno/biblioteca', [App\Http\Controllers\LivroController::class, 'bibliotecaAluno'])->name('aluno.biblioteca');
-Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
+//Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
 Route::get('/aluno/doacao', [App\Http\Controllers\Aluno::class, 'doacao'])->name('aluno.doacao');
 Route::get('/aluno/publi', [App\Http\Controllers\Aluno::class, 'publi'])->name('aluno.publi');
 
@@ -100,7 +124,7 @@ Route::get('/entrar', [App\Http\Controllers\Entrar::class, 'entrar'])->name('ent
 
 Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre');
 
-Route::get('/mencao', [App\Http\Controllers\Mencao::class, 'mencao'])->name('mencao');
+Route::get('/mencao', [App\Http\Controllers\MencaoController::class, 'IndexPublico'])->name('mencao');
 
 Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
 
