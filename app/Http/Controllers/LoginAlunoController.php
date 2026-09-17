@@ -24,11 +24,11 @@ class LoginAlunoController extends Controller
         $request->validate([
             'nome'            => 'required|string|max:255',
             'email'           => 'required|email|unique:alunos,email|unique:professores,email',
-            'senha'           => 'required|min:6',
+            'senha'           => 'required|size:8',
             'nivel_acesso'    => 'required|in:monitor,clubista' // VALIDAÇÃO: Garante que só aceite uma das duas opções
         ], [
             'email.unique'    => 'Este e-mail já está cadastrado.',
-            'senha.min'       => 'A senha deve ter pelo menos 6 caracteres.',
+            'senha.size'       => 'A senha deve ter 8 caracteres.',
             'nivel_acesso.in' => 'O nível de acesso selecionado é inválido.'
         ]);
 

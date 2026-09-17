@@ -25,11 +25,11 @@ class LoginProfessorController extends Controller
         $request->validate([
             'nome'            => 'required|string|max:255',
             'email'           => 'required|email|unique:professores,email|unique:alunos,email',
-            'senha'           => 'required|min:6',
+            'senha'           => 'required|size:8',
             'code'            => 'required|string|min:7|max:7'
         ], [
             'email.unique'    => 'Este e-mail já está cadastrado.',
-            'senha.min'       => 'A senha deve ter pelo menos 6 caracteres.',
+            'senha.size'       => 'A senha deve ter 8 caracteres.',
             'code.required'   => 'O código de acesso é obrigatório.'
         ]);
         
