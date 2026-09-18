@@ -2,61 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Publicacao;
+use Illuminate\Http\Request;
 
 class PublicacaoController extends Controller
 {
-    // Lista as publicações reais na página do aluno
+    // Tela pública com a lista de postagens (Visão Aluno)
     public function index()
     {
-        $publicacoes = Publicacao::orderBy('data', 'asc')->get();
-        return view('loginaluno.alunologado', compact('publicacoes'));
+        $publicacoes = Publicacao::latest()->get();
+
+        return view('publicacao.index', compact('publicacoes'));
     }
 
-    // Salva uma nova publicação
+    // Tela detalhada da postagem enviada pelo "Ler mais"
+    public function show($id)
+    {
+        $publicacao = Publicacao::findOrFail($id);
+
+        return view('publicacao.show', compact('publicacao'));
+    }
+
+    // Tela do Professor com o formulário de criar nova postagem
+    public function professorIndex()
+    {
+        $publicacoes = Publicacao::latest()->get();
+
+        return view('professor.publicacao', compact('publicacoes'));
+    }
+
+    // Processa e salva a publicação com foto no banco de dados
     public function store(Request $request)
     {
         $request->validate([
             'titulo'    => 'required|string|max:255',
             'autor'     => 'required|string|max:255',
-            'categoria' => 'required|string',
-            'data'      => 'required|date',
+            'conteudo'  => 'required|string',
+            'imagem'    => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+
+        $caminhoImagem = null;
+
+        if ($request->hasFile('imagem') && $request->file('imagem')->isValid()) {
+            $caminhoImagem = $request->file('imagem')->store('publicacoes', 'public');
+        }
 
         Publicacao::create([
-            'titulo'    => $request->titulo,
-            'autor'     => $request->autor,
-            'categoria' => $request->categoria,
-            'data'      => $request->data,
-            'status'    => 'Pendente' // Todo post novo começa como pendente
+            'titulo'   => $request->titulo,
+            'autor'    => $request->autor,
+            'conteudo' => $request->conteudo,
+            'imagem'   => $caminhoImagem,
         ]);
 
-        return redirect()->back()->with('success', 'Publicação agendada com sucesso!');
-    }
-
-    // Atualiza uma publicação existente
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'titulo'    => 'required|string|max:255',
-            'autor'     => 'required|string|max:255',
-            'categoria' => 'required|string',
-            'data'      => 'required|date',
-        ]);
-
-        $publicacao = Publicacao::findOrFail($id);
-        $publicacao->update($request->all());
-
-        return redirect()->back()->with('success', 'Publicação atualizada com sucesso!');
-    }
-
-    // Remove uma publicação do banco
-    public function destroy($id)
-    {
-        $publicacao = Publicacao::findOrFail($id);
-        $publicacao->delete();
-
-        return redirect()->back()->with('success', 'Publicação excluída com sucesso!');
+        return redirect()->back()->with('sucesso', 'Publicação cadastrada com sucesso!');
     }
 }
