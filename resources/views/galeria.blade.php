@@ -803,310 +803,81 @@ footer p{
 
 <main>
 
-
     <!-- TÍTULO -->
-
     <section class="titulo">
-
-        <h1>
-            GALERIA DE FOTOS
-        </h1>
-
-        <p>
-            Momentos especiais e atividades do grupo Beth Cientista!
-        </p>
-
+        <h1>GALERIA DE FOTOS</h1>
+        <p>Momentos especiais e atividades do grupo Beth Cientista!</p>
     </section>
-
 
     <!-- =================================================
-         GALERIA
+         GALERIA DINÂMICA (DO BANCO DE DADOS)
     ================================================== -->
-
     <section class="galeria">
 
+        @forelse($fotos as $key => $foto)
+            <div class="foto-card">
 
-        <!-- FOTO 1 -->
+                <!-- Carrega a imagem do seeder ou do upload do professor de forma transparente -->
+                <img 
+                    src="{{ str_contains($foto->imagem, 'imagem') ? asset($foto->imagem) : asset('storage/' . $foto->imagem) }}" 
+                    alt="{{ $foto->titulo }}"
+                >
 
-        <div class="foto-card">
+                <!-- ÍCONE DO CARD: Aplica os mesmos ícones originais do seu front-end baseados na ordem das fotos -->
+                <div class="icone-foto">
+                    @php
+                        $icones = [
+                            0 => 'bi-camera-fill',
+                            1 => 'bi-flask-fill',
+                            2 => 'bi-mortarboard-fill',
+                            3 => 'bi-book-fill',
+                            4 => 'bi-stars',
+                            5 => 'bi-lightbulb-fill',
+                            6 => 'bi-journal-bookmark-fill',
+                            7 => 'bi-people-fill'
+                        ];
+                        $iconeAtual = $icones[$key % 8];
+                    @endphp
+                    <i class="bi {{ $iconeAtual }}"></i>
+                </div>
 
-            <img
-                src="{{ asset('img/galeria/foto1.jpg') }}"
-                alt="Atividade científica"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-camera-fill"></i>
-
-            </div>
-
-            <div class="info">
-
-                <h3>
-                    Atividades Científicas
-                </h3>
-
-                <p>
-                    Momentos de aprendizado e descobertas.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- FOTO 2 -->
-
-        <div class="foto-card">
-
-            <img
-                src="{{ asset('img/galeria/foto2.jpg') }}"
-                alt="Experimento científico"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-flask-fill"></i>
+                <div class="info">
+                    <h3>{{ $foto->titulo }}</h3>
+                    <p>{{ $foto->descricao }}</p>
+                </div>
 
             </div>
-
-            <div class="info">
-
-                <h3>
-                    Experimentos
-                </h3>
-
-                <p>
-                    Experiências realizadas pelos clubistas.
-                </p>
-
+        @empty
+            <!-- Mensagem amigável caso não existam linhas na tabela 'galeria' -->
+            <div class="vazio" style="text-align: center; width: 100%; padding: 40px 0;">
+                <i class="bi bi-camera" style="font-size: 40px; color: #ccc;"></i>
+                <h3 style="color: #666; margin-top: 15px;">Nenhuma foto na galeria</h3>
+                <p style="color: #999;">O acervo de momentos está sendo atualizado pelos professores.</p>
             </div>
-
-        </div>
-
-
-        <!-- FOTO 3 -->
-
-        <div class="foto-card">
-
-            <img
-                src="{{ asset('img/galeria/foto3.jpg') }}"
-                alt="Aula de ciências"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-mortarboard-fill"></i>
-
-            </div>
-
-            <div class="info">
-
-                <h3>
-                    Aulas e Encontros
-                </h3>
-
-                <p>
-                    Momentos de interação e conhecimento.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- FOTO 4 -->
-
-        <div class="foto-card">
-
-            <img
-                src="{{ asset('img/galeria/foto4.jpg') }}"
-                alt="Estudos"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-book-fill"></i>
-
-            </div>
-
-            <div class="info">
-
-                <h3>
-                    Estudos
-                </h3>
-
-                <p>
-                    Clubistas estudando e compartilhando conhecimento.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- FOTO 5 -->
-
-        <div class="foto-card">
-
-            <img
-                src="{{ asset('img/galeria/foto5.jpg') }}"
-                alt="Evento científico"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-stars"></i>
-
-            </div>
-
-            <div class="info">
-
-                <h3>
-                    Eventos
-                </h3>
-
-                <p>
-                    Participação em eventos e atividades especiais.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- FOTO 6 -->
-
-        <div class="foto-card">
-
-            <img
-                src="{{ asset('img/galeria/foto6.jpg') }}"
-                alt="Projeto científico"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-lightbulb-fill"></i>
-
-            </div>
-
-            <div class="info">
-
-                <h3>
-                    Projetos
-                </h3>
-
-                <p>
-                    Projetos desenvolvidos pelos participantes.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- FOTO 7 -->
-
-        <div class="foto-card">
-
-            <img
-                src="{{ asset('img/galeria/foto7.jpg') }}"
-                alt="Biblioteca"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-journal-bookmark-fill"></i>
-
-            </div>
-
-            <div class="info">
-
-                <h3>
-                    Biblioteca
-                </h3>
-
-                <p>
-                    Momentos de leitura e pesquisa científica.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- FOTO 8 -->
-
-        <div class="foto-card">
-
-            <img
-                src="{{ asset('img/galeria/foto8.jpg') }}"
-                alt="Grupo Beth Cientista"
-            >
-
-            <div class="icone-foto">
-
-                <i class="bi bi-people-fill"></i>
-
-            </div>
-
-            <div class="info">
-
-                <h3>
-                    Beth Cientista
-                </h3>
-
-                <p>
-                    Nossa comunidade reunida em busca de conhecimento.
-                </p>
-
-            </div>
-
-        </div>
-
+        @endforelse
 
     </section>
-
 
     <!-- =================================================
          MENSAGEM FINAL
     ================================================== -->
-
     <section class="mensagem-final">
-
         <div class="caixa-final">
-
             <i class="bi bi-camera-fill"></i>
-
-            <h2>
-                MOMENTOS QUE INSPIRAM!
-            </h2>
-
-            <p>
-                Cada foto representa um momento de aprendizado,
-                curiosidade e paixão pela ciência.
-            </p>
-
+            <h2>MOMENTOS QUE INSPIRAM!</h2>
+            <p>Cada foto representa um momento de aprendizado, curiosidade e paixão pela ciência.</p>
         </div>
-
     </section>
 
-
 </main>
-
 
 <!-- =====================================================
      FOOTER
 ===================================================== -->
-
 <footer>
-
-    <p>
-        © 2026 Beth Cientista
-    </p>
-
+    <p>© 2026 Beth Cientista</p>
 </footer>
+
 
 
 </body>
