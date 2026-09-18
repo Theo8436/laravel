@@ -6,25 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('foto', function (Blueprint $table) {
+        Schema::create('galeria', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('descricao');
-            $table->string('caminho');
+            $table->text('descricao');
+            $table->string('imagem'); // Salva o caminho do arquivo (Ex: galeria/foto.jpg)
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('foto');
+        Schema::dropIfExists('galeria');
     }
 };

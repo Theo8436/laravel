@@ -791,556 +791,234 @@ footer{
 </header>
 
 
-<!-- =========================
-     CONTEÚDO
-========================= -->
-
 <main>
 
     <section class="titulo">
-
         <h1>GALERIA DE FOTOS</h1>
-
-        <p>
-            Momentos especiais e atividades do grupo Beth Cientista!
-        </p>
-
+        <p>Momentos especiais e atividades do grupo Beth Cientista!</p>
     </section>
 
+    <!-- ALERTAS LARAVEL -->
+    @if(session('sucesso'))
+        <div style="color: green; background: #e6ffe6; padding: 10px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+            {{ session('sucesso') }}
+        </div>
+    @endif
 
     <!-- =========================
          BOTÃO PROFESSOR
     ========================= -->
-
     <div class="area-professor">
-
-        <button
-            class="btn-adicionar"
-            onclick="abrirFormulario()"
-        >
-
-            <i class="bi bi-plus-circle"></i>
-
-            Adicionar Nova Foto
-
+        <button class="btn-adicionar" onclick="abrirFormulario()">
+            <i class="bi bi-plus-circle"></i> Adicionar Nova Foto
         </button>
-
     </div>
 
-
     <!-- =========================
-         FORMULÁRIO
+         FORMULÁRIO CADASTRO (Mantendo as classes originais)
     ========================= -->
+    <section id="formulario" class="formulario">
+        <h2><i class="bi bi-camera"></i> Adicionar Nova Foto</h2>
 
-    <section
-        id="formulario"
-        class="formulario"
-    >
-
-        <h2>
-            <i class="bi bi-camera"></i>
-            Adicionar Nova Foto
-        </h2>
-
-        <form id="formFoto">
+        <form id="formFoto" action="{{ route('galeria.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
             <div class="campo">
-
-                <label for="tituloFoto">
-                    Título da foto
-                </label>
-
-                <input
-                    type="text"
-                    id="tituloFoto"
-                    placeholder="Ex: Feira de Ciências 2026"
-                    required
-                >
-
+                <label for="tituloFoto">Título da foto</label>
+                <input type="text" id="tituloFoto" name="titulo" placeholder="Ex: Feira de Ciências 2026" required>
             </div>
-
 
             <div class="campo">
-
-                <label for="descricaoFoto">
-                    Descrição
-                </label>
-
-                <textarea
-                    id="descricaoFoto"
-                    placeholder="Digite uma descrição para a foto..."
-                    required
-                ></textarea>
-
+                <label for="descricaoFoto">Descrição</label>
+                <textarea id="descricaoFoto" name="descricao" placeholder="Digite uma descrição para a foto..." required></textarea>
             </div>
-
 
             <div class="campo">
-
-                <label for="arquivoFoto">
-                    Escolha a foto
-                </label>
-
-                <input
-                    type="file"
-                    id="arquivoFoto"
-                    accept="image/*"
-                    required
-                >
-
+                <label for="arquivoFoto">Escolha a foto</label>
+                <input type="file" id="arquivoFoto" name="arquivoFoto" accept="image/*" required>
             </div>
-
 
             <div class="botoes-form">
-
-                <button
-                    type="submit"
-                    class="btn-salvar"
-                >
-
-                    <i class="bi bi-check-lg"></i>
-
-                    Adicionar Foto
-
+                <button type="submit" class="btn-salvar">
+                    <i class="bi bi-check-lg"></i> Adicionar Foto
                 </button>
-
-                <button
-                    type="button"
-                    class="btn-cancelar"
-                    onclick="fecharFormulario()"
-                >
-
+                <button type="button" class="btn-cancelar" onclick="fecharFormulario()">
                     Cancelar
-
                 </button>
-
             </div>
 
             <div id="mensagem"></div>
-
         </form>
-
     </section>
+
+<!-- =========================
+     GALERIA DINÂMICA
+========================= -->
+<section class="galeria" id="galeria">
+
+    @forelse($fotos as $foto)
+
+        <div class="foto-card">
+
+            <!-- IMAGEM -->
+            <img
+                src="{{ str_contains($foto->imagem, 'imagem') ? asset($foto->imagem) : asset('storage/' . $foto->imagem) }}"
+                alt="{{ $foto->titulo }}"
+            >
+
+            <!-- INFORMAÇÕES -->
+            <div class="foto-info">
+
+                <h3>{{ $foto->titulo }}</h3>
+
+                <p>{{ $foto->descricao }}</p>
+
+                <!-- BOTÕES -->
+                <div style="display: flex; gap: 10px; margin-top: auto; padding-top: 15px;">
+
+                    <!-- EDITAR -->
+                    <button
+                        type="button"
+                        class="btn-salvar"
+                        style="
+                            padding: 9px 16px;
+                            border-radius: 10px;
+                            font-size: 14px;
+                            background: #ffc107;
+                            color: #222;
+                        "
+                        onclick='abrirEdicaoGaleria(@json($foto))'
+                    >
+                        <i class="bi bi-pencil"></i>
+                        Editar
+                    </button>
+
+                    <!-- EXCLUIR -->
+                    <form
+                        action="{{ route('galeria.destroy', $foto->id) }}"
+                        method="POST"
+                        onsubmit="return confirm('Deseja realmente remover esta foto?')"
+                    >
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            type="submit"
+                            class="btn-excluir"
+                            style="
+                                margin-top: 0;
+                                padding: 9px 16px;
+                            "
+                        >
+                            <i class="bi bi-trash"></i>
+                            Excluir
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    @empty
+
+        <p style="
+            text-align: center;
+            grid-column: span 4;
+            color: white;
+            opacity: 0.8;
+            font-weight: 500;
+        ">
+            Nenhuma foto cadastrada na galeria.
+        </p>
+
+    @endforelse
+
+</section>
 
 
     <!-- =========================
-         GALERIA
+         MODAL DE EDIÇÃO DA GALERIA (Estilizado como o de Cadastro)
     ========================= -->
+    <section id="modalEdicaoGaleria" class="formulario" style="margin-top: 35px;">
+        <h2><i class="bi bi-pencil"></i> Editar Foto</h2>
 
-    <section
-        class="galeria"
-        id="galeria"
-    >
+        <form id="formEdicaoGaleria" action="" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-        <div class="foto-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80"
-                alt="Atividade científica"
-            >
-
-            <div class="foto-info">
-
-                <h3>
-                    Atividades do Grupo
-                </h3>
-
-                <p>
-                    Momentos de aprendizado e
-                    interação entre os clubistas.
-                </p>
-
+            <div class="campo">
+                <label for="editTituloFoto">Título da foto</label>
+                <input type="text" id="editTituloFoto" name="titulo" required>
             </div>
 
-        </div>
-
-
-        <div class="foto-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80"
-                alt="Laboratório"
-            >
-
-            <div class="foto-info">
-
-                <h3>
-                    Experimentos
-                </h3>
-
-                <p>
-                    Experimentos científicos
-                    realizados pelo grupo.
-                </p>
-
+            <div class="campo">
+                <label for="editDescricaoFoto">Descrição</label>
+                <textarea id="editDescricaoFoto" name="descricao" required></textarea>
             </div>
 
-        </div>
-
-
-        <div class="foto-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80"
-                alt="Sala de aula"
-            >
-
-            <div class="foto-info">
-
-                <h3>
-                    Aula Especial
-                </h3>
-
-                <p>
-                    Aula e atividades realizadas
-                    pelos clubistas.
-                </p>
-
+            <div class="campo">
+                <label for="editArquivoFoto">Substituir foto (opcional)</label>
+                <input type="file" id="editArquivoFoto" name="arquivoFoto" accept="image/*">
             </div>
 
-        </div>
-
-
-        <div class="foto-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
-                alt="Estudantes"
-            >
-
-            <div class="foto-info">
-
-                <h3>
-                    Encontro dos Clubistas
-                </h3>
-
-                <p>
-                    Momento de integração e
-                    troca de conhecimentos.
-                </p>
-
+            <div class="botoes-form">
+                <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                <button type="button" class="btn-cancelar" onclick="fecharEdicaoGaleria()">Cancelar</button>
             </div>
-
-        </div>
-
+        </form>
     </section>
 
 </main>
 
-
 <footer>
-
-    <p>
-        © 2026 Beth Cientista
-    </p>
-
+    <p>© 2026 Beth Cientista</p>
 </footer>
 
-
+<!-- =========================
+     SCRIPTS JAVASCRIPT CORRIGIDOS
+========================= -->
 <script>
+const formulario = document.getElementById("formulario");
+const formFoto = document.getElementById("formFoto");
+const mensagem = document.getElementById("mensagem");
+const modalEdicao = document.getElementById("modalEdicaoGaleria");
 
-/* =========================
-   ELEMENTOS
-========================= */
-
-const formulario =
-    document.getElementById("formulario");
-
-const formFoto =
-    document.getElementById("formFoto");
-
-const galeria =
-    document.getElementById("galeria");
-
-const mensagem =
-    document.getElementById("mensagem");
-
-
-/* =========================
-   ABRIR FORMULÁRIO
-========================= */
-
+// Cadastro de fotos
 function abrirFormulario(){
-
     formulario.classList.add("aberto");
-
-    formulario.scrollIntoView({
-        behavior:"smooth",
-        block:"center"
-    });
-
+    if(modalEdicao) fecharEdicaoGaleria(); // Fecha a edição se abrir o cadastro
 }
-
-
-/* =========================
-   FECHAR FORMULÁRIO
-========================= */
 
 function fecharFormulario(){
-
     formulario.classList.remove("aberto");
-
     formFoto.reset();
-
-    mensagem.style.display="none";
-
+    mensagem.style.display = "none";
 }
 
-
-/* =========================
-   CARREGAR FOTOS SALVAS
-========================= */
-
-function carregarFotos(){
-
-    const fotos =
-        JSON.parse(
-            localStorage.getItem("fotosBeth")
-        ) || [];
-
-    fotos.forEach(function(foto){
-
-        criarCard(
-            foto.titulo,
-            foto.descricao,
-            foto.imagem,
-            false
-        );
-
+// Edição de fotos
+function abrirEdicaoGaleria(foto) {
+    document.getElementById("formEdicaoGaleria").action = `/professor/galeria/atualizar/${foto.id}`;
+    document.getElementById("editTituloFoto").value = foto.titulo;
+    document.getElementById("editDescricaoFoto").value = foto.descricao;
+    
+    if(formulario) fecharFormulario(); // Fecha o cadastro se abrir a edição
+    
+    modalEdicao.classList.add("aberto");
+    modalEdicao.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
     });
-
 }
 
-
-/* =========================
-   CRIAR CARD
-========================= */
-
-function criarCard(
-    titulo,
-    descricao,
-    imagem,
-    salvar = true
-){
-
-    const card =
-        document.createElement("div");
-
-    card.className =
-        "foto-card";
-
-    card.innerHTML = `
-
-        <img
-            src="${imagem}"
-            alt="${titulo}"
-        >
-
-        <div class="foto-info">
-
-            <h3>
-                ${titulo}
-            </h3>
-
-            <p>
-                ${descricao}
-            </p>
-
-            <button
-                class="btn-excluir"
-                onclick="excluirFoto(this)"
-            >
-
-                <i class="bi bi-trash"></i>
-
-                Excluir
-
-            </button>
-
-        </div>
-
-    `;
-
-    galeria.appendChild(card);
-
-
-    /* =========================
-       SALVAR
-    ========================= */
-
-    if(salvar){
-
-        const fotos =
-            JSON.parse(
-                localStorage.getItem("fotosBeth")
-            ) || [];
-
-        fotos.push({
-
-            titulo:titulo,
-
-            descricao:descricao,
-
-            imagem:imagem
-
-        });
-
-        localStorage.setItem(
-            "fotosBeth",
-            JSON.stringify(fotos)
-        );
-
-    }
-
+function fecharEdicaoGaleria() {
+    modalEdicao.classList.remove("aberto");
+    document.getElementById("formEdicaoGaleria").reset();
 }
-
-
-/* =========================
-   CADASTRAR FOTO
-========================= */
-
-formFoto.addEventListener(
-    "submit",
-    function(event){
-
-        event.preventDefault();
-
-
-        const titulo =
-            document
-            .getElementById("tituloFoto")
-            .value
-            .trim();
-
-
-        const descricao =
-            document
-            .getElementById("descricaoFoto")
-            .value
-            .trim();
-
-
-        const arquivo =
-            document
-            .getElementById("arquivoFoto")
-            .files[0];
-
-
-        if(!arquivo){
-
-            mostrarMensagem(
-                "Escolha uma imagem.",
-                "erro"
-            );
-
-            return;
-
-        }
-
-
-        /* =========================
-           LER IMAGEM
-        ========================= */
-
-        const leitor =
-            new FileReader();
-
-
-        leitor.onload =
-            function(e){
-
-                criarCard(
-                    titulo,
-                    descricao,
-                    e.target.result,
-                    true
-                );
-
-
-                mostrarMensagem(
-                    "Foto adicionada com sucesso!",
-                    "sucesso"
-                );
-
-
-                formFoto.reset();
-
-
-                setTimeout(function(){
-
-                    fecharFormulario();
-
-                },1200);
-
-            };
-
-
-        leitor.readAsDataURL(arquivo);
-
-    }
-);
-
-
-/* =========================
-   MENSAGEM
-========================= */
-
-function mostrarMensagem(
-    texto,
-    tipo
-){
-
-    mensagem.innerText =
-        texto;
-
-    mensagem.className =
-        tipo;
-
-}
-
-
-/* =========================
-   EXCLUIR FOTO
-========================= */
-
-function excluirFoto(botao){
-
-    const card =
-        botao.closest(".foto-card");
-
-    const imagem =
-        card.querySelector("img").src;
-
-    const fotos =
-        JSON.parse(
-            localStorage.getItem("fotosBeth")
-        ) || [];
-
-
-    const novasFotos =
-        fotos.filter(
-            foto => foto.imagem !== imagem
-        );
-
-
-    localStorage.setItem(
-        "fotosBeth",
-        JSON.stringify(novasFotos)
-    );
-
-
-    card.remove();
-
-}
-
-
-/* =========================
-   CARREGAR
-========================= */
-
-carregarFotos();
-
 </script>
+
 
 </body>
 

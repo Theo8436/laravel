@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginAlunoController;
 use App\Http\Controllers\LoginProfessorController; 
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\AdicionaController;
+use App\Http\Controllers\GaleriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,17 @@ Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'inicio'
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 Route::get('/professor/galeria', [App\Http\Controllers\Professor::class, 'galeria'])->name('professor.galeria');
 
+
+// Rotas da Galeria do Professor
+Route::get('/professor/galeria', [GaleriaController::class, 'index'])->name('professor.galeria');
+Route::post('/professor/galeria/salvar', [GaleriaController::class, 'store'])->name('galeria.store');
+Route::put('/professor/galeria/atualizar/{id}', [GaleriaController::class, 'update'])->name('galeria.update');
+Route::delete('/professor/galeria/excluir/{id}', [GaleriaController::class, 'destroy'])->name('galeria.destroy');
+
+// Rota da Galeria do Aluno (Visualização)
+Route::get('/aluno/galeria', [GaleriaController::class, 'indexAluno'])->name('aluno.galeria');
+
+
 Route::get('/professor/biblioteca', [App\Http\Controllers\LivroController::class, 'biblioteca'])->name('professor.biblioteca');
 Route::post('/professor/biblioteca/salvar', [LivroController::class, 'store'])->name('livros.store');
 Route::put('/professor/biblioteca/atualizar/{id}', [LivroController::class, 'update'])->name('livros.update');
@@ -95,7 +107,8 @@ Route::get('/aluno/entrar', [App\Http\Controllers\LoginAlunoController::class, '
 Route::get('/aluno/logado', [App\Http\Controllers\Aluno::class, 'logado'])->name('aluno.logado');
 Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
-Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->name('aluno.galeria');
+// Route::get('/aluno/galeria', [App\Http\Controllers\Aluno::class, 'galeria'])->name('aluno.galeria');
+Route::get('/aluno/galeria', [GaleriaController::class, 'indexAluno'])->name('aluno.galeria');
 // Route::get('/aluno/biblioteca', [App\Http\Controllers\Aluno::class, 'biblioteca'])->name('aluno.biblioteca');
 Route::get('/aluno/biblioteca', [App\Http\Controllers\LivroController::class, 'bibliotecaAluno'])->name('aluno.biblioteca');
 //Route::get('/aluno/mencao', [App\Http\Controllers\Aluno::class, 'mencao'])->name('aluno.mencao');
@@ -128,7 +141,8 @@ Route::get('/mencao', [App\Http\Controllers\MencaoController::class, 'IndexPubli
 
 Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
 
-Route::get('/galeria', [App\Http\Controllers\Galeria::class, 'galeria'])->name('galeria');
+Route::get('/galeria', [App\Http\Controllers\GaleriaController::class, 'galeriaa'])->name('galeria');
+// Route::get('/aluno/galeria', [GaleriaController::class, 'indexAluno'])->name('aluno.galeria');
 
 // Route::get('/biblioteca', [App\Http\Controllers\Biblioteca::class, 'biblioteca'])->name('biblioteca');
 Route::get('/biblioteca', [App\Http\Controllers\LivroController::class, 'bibliotecaa'])->name('biblioteca');
