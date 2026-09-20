@@ -9,6 +9,8 @@ class Postagem extends Model
 {
     use HasFactory;
 
+    protected $table = 'postagems';
+
     protected $fillable = [
         'titulo',
         'categoria',
@@ -17,8 +19,9 @@ class Postagem extends Model
         'user_id'
     ];
 
+    // Relacionamento com o Aluno
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(AlunoModel::class, 'user_id');
     }
 }

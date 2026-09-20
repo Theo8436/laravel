@@ -7,28 +7,29 @@ use Illuminate\Http\Request;
 
 class PublicacaoController extends Controller
 {
-    // Tela pública com a lista de postagens (Visão Aluno)
+    // Tela pública com a lista de postagens (Visão Visitante/Aluno)
     public function index()
     {
         $publicacoes = Publicacao::latest()->get();
 
-        return view('publicacao.index', compact('publicacoes'));
+        // Direciona para a view 'publi.blade.php' na raiz de views
+        return view('publi', compact('publicacoes'));
     }
 
-    // Tela detalhada da postagem enviada pelo "Ler mais"
+    // Tela detalhada da publicação ("Ler mais")
     public function show($id)
     {
         $publicacao = Publicacao::findOrFail($id);
 
-        return view('publicacao.show', compact('publicacao'));
+        return view('show', compact('publicacao'));
     }
 
-    // Tela do Professor com o formulário de criar nova postagem
+    // Tela do Professor com o formulário de criar nova publicação
     public function professorIndex()
     {
         $publicacoes = Publicacao::latest()->get();
 
-        return view('professor.publicacao', compact('publicacoes'));
+        return view('professor.publi', compact('publicacoes'));
     }
 
     // Processa e salva a publicação com foto no banco de dados

@@ -160,7 +160,7 @@
             font-weight: 600;
         }
 
-        /* Conteúdo do Texto (Com quebras de linha e texto ajustados) */
+        /* Conteúdo do Texto */
         .artigo-conteudo {
             font-size: 17px;
             line-height: 1.8;
@@ -175,8 +175,8 @@
 <body>
 
     <div class="container">
-        <!-- BOTÃO VOLTAR -->
-        <a href="{{ route('postagens.index') }}" class="btn-voltar">
+        <!-- BOTÃO VOLTAR (Rota atualizada) -->
+        <a href="{{ route('aluno.logado') }}" class="btn-voltar">
             <i class="bi bi-arrow-left"></i> Voltar para a lista
         </a>
 
@@ -190,7 +190,7 @@
             <h1>{{ $postagem->titulo }}</h1>
 
             <div class="artigo-meta">
-                <span><i class="bi bi-person-circle"></i> {{ $postagem->user->name ?? 'Anônimo' }}</span>
+                <span><i class="bi bi-person-circle"></i> {{ $postagem->user->nome ?? 'Anônimo' }}</span>
                 <span><i class="bi bi-calendar3"></i> {{ $postagem->created_at ? $postagem->created_at->format('d/m/Y') : 'Data não informada' }}</span>
             </div>
 

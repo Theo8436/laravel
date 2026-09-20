@@ -13,18 +13,17 @@ class PostagemController extends Controller
     {
         $postagens = Postagem::with('user')->latest()->get();
 
-        return view('postagens.index', compact('postagens'));
+        return view('aluno.logado', compact('postagens'));
     }
 
     public function store(Request $request)
     {
-        // Define mensagens customizadas para o limite de imagens
         $rules = [
-            'titulo' => 'required',
-            'categoria' => 'required|in:Beth Indica,Beth nas Estrelas,Beth Anatomy',
+            'titulo'     => 'required',
+            'categoria'  => 'required|in:Beth Indica,Beth nas Estrelas,Beth Anatomy',
             'comentario' => 'required',
-            'imagens' => 'required|array|min:1|max:10',
-            'imagens.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048'
+            'imagens'    => 'required|array|min:1|max:10',
+            'imagens.*'  => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048'
         ];
 
         $messages = [
@@ -33,6 +32,20 @@ class PostagemController extends Controller
         ];
 
         $request->validate($rules, $messages);
+
+        // ✅ CAPTURA CORRETA DO ID:
+        // Prioriza o guard 'alunos', depois 'web', e fallbacks de sessão
+        $userId = Auth::guard('alunos')->id() 
+            ?? Auth::id() 
+            ?? session('aluno_id') 
+            ?? session('user_id');
+
+        // Se por algum motivo o usuário não estiver autenticado no guard
+        if (!$userId) {
+            return redirect()->back()
+                ->withInput()
+                ->with('erro', 'Sessão não encontrada ou expirada. Por favor, faça login novamente.');
+        }
 
         $imagensSalvas = [];
 
@@ -44,41 +57,39 @@ class PostagemController extends Controller
         }
 
         Postagem::create([
-            'titulo' => $request->titulo,
-            'categoria' => $request->categoria,
+            'titulo'     => $request->titulo,
+            'categoria'  => $request->categoria,
             'comentario' => $request->comentario,
-            'imagem' => json_encode($imagensSalvas),
-            'user_id' => Auth::id()
+            'imagem'     => json_encode($imagensSalvas),
+            'user_id'    => $userId
         ]);
 
-        return redirect()->route('postagens.index')->with('sucesso', 'Postagem criada com sucesso!');
+        return redirect()->route('aluno.logado')->with('sucesso', 'Postagem criada com sucesso!');
     }
 
     public function show(Postagem $postagem)
     {
-        return view('postagens.show', compact('postagem'));
+        return view('aluno.showPostagem', compact('postagem'));
     }
 
     public function update(Request $request, Postagem $postagem)
     {
         $request->validate([
-            'titulo' => 'required',
-            'categoria' => 'required|in:Beth Indica,Beth nas Estrelas,Beth Anatomy',
-            'comentario' => 'required',
-            'imagens' => 'nullable|array|max:10',
-            'imagens.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'titulo'          => 'required',
+            'categoria'       => 'required|in:Beth Indica,Beth nas Estrelas,Beth Anatomy',
+            'comentario'      => 'required',
+            'imagens'         => 'nullable|array|max:10',
+            'imagens.*'       => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'remover_imagens' => 'nullable|array'
         ], [
             'imagens.max' => 'Você só pode enviar no máximo 10 imagens novas.'
         ]);
 
-        // 1. Obtém a lista atual de fotos da postagem
         $fotosAtuais = json_decode($postagem->imagem, true) ?? [];
         if (!is_array($fotosAtuais)) {
             $fotosAtuais = $postagem->imagem ? [$postagem->imagem] : [];
         }
 
-        // 2. Apaga fotos marcadas para remoção
         if ($request->has('remover_imagens')) {
             $fotosParaRemover = $request->input('remover_imagens');
 
@@ -93,17 +104,15 @@ class PostagemController extends Controller
             }));
         }
 
-        // 3. Valida se a soma (existentes + novas) ultrapassa o limite de 10
         $novasImagens = $request->file('imagens') ? count($request->file('imagens')) : 0;
         $totalFinal = count($fotosAtuais) + $novasImagens;
 
         if ($totalFinal > 10) {
             return redirect()->back()
                 ->withInput()
-                ->with('erro', 'Limite excedido! A postagem pode ter no máximo 10 imagens no total (Você já possui ' . count($fotosAtuais) . ' e tentou adicionar ' . $novasImagens . ').');
+                ->with('erro', 'Limite excedido! A postagem pode ter no máximo 10 imagens no total.');
         }
 
-        // 4. Salva as novas imagens
         if ($request->hasFile('imagens')) {
             foreach ($request->file('imagens') as $file) {
                 $path = $file->store('postagens', 'public');
@@ -112,13 +121,13 @@ class PostagemController extends Controller
         }
 
         $postagem->update([
-            'titulo' => $request->titulo,
-            'categoria' => $request->categoria,
+            'titulo'     => $request->titulo,
+            'categoria'  => $request->categoria,
             'comentario' => $request->comentario,
-            'imagem' => json_encode($fotosAtuais)
+            'imagem'     => json_encode($fotosAtuais)
         ]);
 
-        return redirect()->route('postagens.index')->with('sucesso', 'Postagem atualizada com sucesso!');
+        return redirect()->route('aluno.logado')->with('sucesso', 'Postagem atualizada com sucesso!');
     }
 
     public function destroy(Postagem $postagem)
@@ -134,6 +143,6 @@ class PostagemController extends Controller
 
         $postagem->delete();
 
-        return redirect()->route('postagens.index')->with('sucesso', 'Postagem removida!');
+        return redirect()->route('aluno.logado')->with('sucesso', 'Postagem removida!');
     }
 }
