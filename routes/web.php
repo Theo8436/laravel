@@ -11,6 +11,7 @@ use App\Http\Controllers\LivroController;
 use App\Http\Controllers\AdicionaController;
 use App\Http\Controllers\GaleriaController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -134,13 +135,19 @@ Route::delete('/alunos/{aluno}', [AdicionaController::class, 'destroy'])->name('
 Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno'])->name('aluno');
 Route::get('/aluno/cadastro', [LoginAlunoController::class, 'cadastro'])->name('aluno.cadastro');
 Route::get('/aluno/entrar', [LoginAlunoController::class, 'entrar'])->name('aluno.entrar');
-Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
+Route::get('/aluno/inicio', [PostagemController::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
 
+
+
+
+// Área do aluno
+Route::get('/aluno/inicio', [PostagemController::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/galeria', [GaleriaController::class, 'indexAluno'])->name('aluno.galeria');
 Route::get('/aluno/biblioteca', [LivroController::class, 'bibliotecaAluno'])->name('aluno.biblioteca');
-Route::get('/aluno/doacao', [App\Http\Controllers\Aluno::class, 'doacao'])->name('aluno.doacao');
-Route::get('/aluno/publi', [App\Http\Controllers\Aluno::class, 'publi'])->name('aluno.publi');
+
+// Rota para ver os detalhes da postagem pelo PostagemController
+Route::get('/aluno/postagem/{postagem}', [PostagemController::class, 'show'])->name('aluno.showPostagem');
 
 // Autenticação Aluno
 Route::post('/aluno/logar', [LoginAlunoController::class, 'logar'])->name('aluno.logar');

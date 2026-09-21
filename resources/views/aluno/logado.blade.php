@@ -215,9 +215,24 @@
             transform: translateY(-2px);
         }
 
-        /* ================= ALERTAS ================= */
+        /* ================= ALERTAS ESTILIZADOS COM CORES DO TEMA ================= */
+        .alerta-sucesso {
+            background: #6f0ea7;
+            color: #ffffff;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 6px solid #ffd84f;
+        }
+
         .alerta-erro {
-            background-color: #fee2e2;
+            background: #fee2e2;
             color: #991b1b;
             padding: 14px 20px;
             border-radius: 12px;
@@ -496,6 +511,16 @@
             font-weight: 600;
         }
 
+        .btn-confirmar-deletar {
+            background: #dc2626;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
         .fotos-atuais-grid, .preview-grid {
             display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;
         }
@@ -519,6 +544,29 @@
             background: red; color: white; border: none;
             border-radius: 50%; width: 20px; height: 20px;
             font-size: 11px; cursor: pointer;
+        }
+
+        /* MODAL EXCLUIR ESTILIZADO */
+        .modal-excluir-body {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .modal-excluir-body i {
+            font-size: 55px;
+            color: #ea6b72;
+            margin-bottom: 12px;
+        }
+
+        .modal-excluir-body h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .modal-excluir-body p {
+            color: #666;
+            font-size: 14px;
         }
 
         /* RESPONSIVO */
@@ -590,6 +638,14 @@
             </button>
         </div>
 
+        <!-- MENSAGEM DE SUCESSO ESTILIZADA -->
+        @if(session('sucesso'))
+            <div class="alerta-sucesso">
+                <i class="bi bi-check-circle-fill" style="font-size: 22px; color: #ffd84f;"></i>
+                <span>{{ session('sucesso') }}</span>
+            </div>
+        @endif
+
         <!-- MENSAGENS DE ERRO -->
         @if(session('erro'))
             <div class="alerta-erro">
@@ -611,7 +667,7 @@
         @foreach($postagens as $postagem)
             <article class="post-card">
                 <div class="post-header">
-                    <span class="post-autor"><i class="bi bi-person-circle"></i> {{ $postagem->user->name ?? 'Anônimo' }}</span>
+                    <span class="post-autor"><i class="bi bi-person-circle"></i> {{ $postagem->user->nome ?? 'Anônimo' }}</span>
                     <span class="categoria-badge">{{ $postagem->categoria ?? 'Geral' }}</span>
                 </div>
 
@@ -661,13 +717,10 @@
                         <i class="bi bi-pencil"></i> Editar
                     </button>
 
-                    <form action="{{ route('postagens.destroy', ['postagem' => $postagem->id]) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn-acao btn-excluir-post" onclick="return confirm('Tem certeza que deseja excluir esta publicação?')">
-                            <i class="bi bi-trash"></i> Excluir
-                        </button>
-                    </form>
+                    <!-- BOTÃO EXCLUIR USANDO MODAL FORMATADO -->
+                    <button type="button" class="btn-acao btn-excluir-post" onclick="abrirModalExcluir({{ $postagem->id }})">
+                        <i class="bi bi-trash"></i> Excluir
+                    </button>
                 </div>
             </article>
         @endforeach
@@ -685,6 +738,27 @@
         <p>Arquivos, PDFs e vídeos ficarão aqui.</p>
     </section>
 </main>
+
+<!-- MODAL CONFIRMAR EXCLUSÃO -->
+<div id="modalExcluir" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+        <div class="modal-excluir-body">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <h3>Excluir Publicação</h3>
+            <p>Tem certeza de que deseja apagar esta publicação? Esta ação não pode ser desfeita.</p>
+        </div>
+        
+        <form id="formExcluir" method="POST" style="margin: 0;">
+            @csrf
+            @method('DELETE')
+
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button>
+                <button type="submit" class="btn-confirmar-deletar">Sim, Excluir</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- MODAL CRIAR -->
 <div id="modalCriar" class="modal-overlay" style="display: none;">
@@ -798,6 +872,16 @@
         if(abaId === 'publicacoes') document.getElementById('btnPubs').classList.add('btn-menu-ativo');
         if(abaId === 'calendario') document.getElementById('btnCal').classList.add('btn-menu-ativo');
         if(abaId === 'material') document.getElementById('btnMat').classList.add('btn-menu-ativo');
+    }
+
+    /* --- MODAL EXCLUIR --- */
+    function abrirModalExcluir(id) {
+        document.getElementById('formExcluir').action = `/postagens/${id}`;
+        document.getElementById('modalExcluir').style.display = 'flex';
+    }
+
+    function fecharModalExcluir() {
+        document.getElementById('modalExcluir').style.display = 'none';
     }
 
     /* --- MODAIS --- */
@@ -919,8 +1003,10 @@
     window.onclick = function(event) {
         const modalCriar = document.getElementById('modalCriar');
         const modalEditar = document.getElementById('modalEditar');
+        const modalExcluir = document.getElementById('modalExcluir');
         if (event.target === modalCriar) fecharModalCriar();
         if (event.target === modalEditar) fecharModalEditar();
+        if (event.target === modalExcluir) fecharModalExcluir();
     }
 
     /* --- CARROSSEL DE FOTOS --- */

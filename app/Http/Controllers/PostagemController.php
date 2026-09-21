@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PostagemController extends Controller
 {
+    // Método que resolve o erro $publicacoes na tela aluno.inicio
+    public function inicio()
+    {
+        $publicacoes = Postagem::with('user')->latest()->get();
+
+        return view('aluno.inicio', compact('publicacoes'));
+    }
+
     public function index()
     {
         $postagens = Postagem::with('user')->latest()->get();
@@ -33,14 +41,11 @@ class PostagemController extends Controller
 
         $request->validate($rules, $messages);
 
-        // ✅ CAPTURA CORRETA DO ID:
-        // Prioriza o guard 'alunos', depois 'web', e fallbacks de sessão
         $userId = Auth::guard('alunos')->id() 
             ?? Auth::id() 
             ?? session('aluno_id') 
             ?? session('user_id');
 
-        // Se por algum motivo o usuário não estiver autenticado no guard
         if (!$userId) {
             return redirect()->back()
                 ->withInput()

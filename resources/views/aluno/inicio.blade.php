@@ -80,9 +80,8 @@
                     Menções Honrosas
                 </a>
 
-                
                 <a href="{{ route('aluno.logado') }}" class="nav-link">
-                    Minha area
+                    Minha área
                 </a>
 
                 <a href="{{ route('inicio')}}">Sair</a>
@@ -94,8 +93,6 @@
             </button>
 
         </div>
-
-
 
     </header>
 
@@ -337,387 +334,116 @@
 
                 <div class="posts-grid" id="postsGrid">
 
+                    @forelse($publicacoes as $post)
 
-                    {{-- POST 1 --}}
-                    <article
-                        class="post-card"
-                        data-category="Beth nas Estrelas"
-                        data-date="2026-03-15"
-                    >
+                        @php
+                            // Mapeia estilos e ícones conforme a categoria
+                            $catClass = 'stars';
+                            $catIcon = 'fa-star';
+                            $btnClass = 'stars-button';
+                            $bgClass = 'stars-bg';
 
-                        <div class="post-image-wrapper">
+                            if ($post->categoria == 'Beth Anatomy') {
+                                $catClass = 'anatomy';
+                                $catIcon = 'fa-microscope';
+                                $btnClass = 'anatomy-button';
+                                $bgClass = 'anatomy-bg';
+                            } elseif ($post->categoria == 'Beth Indica') {
+                                $catClass = 'indica';
+                                $catIcon = 'fa-book';
+                                $btnClass = 'indica-button';
+                                $bgClass = 'indica-bg';
+                            }
 
-                            <div class="post-category-icon stars">
-                                <i class="fa-solid fa-star"></i>
+                            // Trata o JSON das imagens
+                            $imagensDecodificadas = json_decode($post->imagem, true);
+                            
+                            if (is_array($imagensDecodificadas) && count($imagensDecodificadas) > 0) {
+                                $caminhoImagem = $imagensDecodificadas[0];
+                            } else {
+                                $caminhoImagem = $post->imagem;
+                            }
+
+                            if (filter_var($caminhoImagem, FILTER_VALIDATE_URL)) {
+                                $urlFinalImagem = $caminhoImagem;
+                            } elseif ($caminhoImagem) {
+                                $urlFinalImagem = asset('storage/' . $caminhoImagem);
+                            } else {
+                                $urlFinalImagem = asset('images/default.png');
+                            }
+                        @endphp
+
+                        <article
+                            class="post-card"
+                            data-category="{{ $post->categoria }}"
+                            data-date="{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}"
+                        >
+
+                            <div class="post-image-wrapper">
+
+                                <div class="post-category-icon {{ $catClass }}">
+                                    <i class="fa-solid {{ $catIcon }}"></i>
+                                </div>
+
+                                <img
+                                    src="{{ $urlFinalImagem }}"
+                                    alt="{{ $post->titulo }}"
+                                >
+
+                                <div class="image-overlay"></div>
+
                             </div>
 
-                            <img
-                                src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&q=80"
-                                alt="A Física dos Buracos Negros"
-                            >
+                            <div class="post-content">
 
-                            <div class="image-overlay"></div>
+                                <div class="post-meta">
 
+                                    <span class="post-category {{ $bgClass }}">
+                                        {{ $post->categoria }}
+                                    </span>
+
+                                    <span class="post-date">
+                                        {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
+                                    </span>
+
+                                </div>
+
+                                <h4>
+                                    {{ $post->titulo }}
+                                </h4>
+
+                                <p>
+                                    {{ Str::limit($post->comentario ?? $post->descricao ?? $post->conteudo, 120) }}
+                                </p>
+
+                                <div class="post-footer">
+
+                                    <span>
+                                        Por {{ $post->user->name ?? $post->aluno->nome ?? $post->autor ?? 'Aluno' }}
+                                    </span>
+
+                                    <a href="{{ route('aluno.showPostagem', $post->id) }}" class="read-more {{ $btnClass }}">
+                                        Ler mais
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    @empty
+
+                        <div class="no-results" style="grid-column: 1 / -1; text-align: center;">
+                            <h4>Nenhuma publicação encontrada no momento.</h4>
                         </div>
 
-                        <div class="post-content">
-
-                            <div class="post-meta">
-
-                                <span class="post-category stars-bg">
-                                    Beth nas Estrelas
-                                </span>
-
-                                <span class="post-date">
-                                    15/03/2026
-                                </span>
-
-                            </div>
-
-                            <h4>
-                                A Física dos Buracos Negros
-                            </h4>
-
-                            <p>
-                                Descubra os mistérios fascinantes dos
-                                buracos negros e como eles dobram o
-                                espaço-tempo.
-                            </p>
-
-                            <div class="post-footer">
-
-                                <span>
-                                    Por Maria Silva
-                                </span>
-
-                                <button class="read-more stars-button">
-                                    <a href="{{ route ('aluno.publi')}}">Ler mais</a>
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    {{-- POST 2 --}}
-                    <article
-                        class="post-card"
-                        data-category="Beth Anatomy"
-                        data-date="2026-03-12"
-                    >
-
-                        <div class="post-image-wrapper">
-
-                            <div class="post-category-icon anatomy">
-                                <i class="fa-solid fa-microscope"></i>
-                            </div>
-
-                            <img
-                                src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=800&q=80"
-                                alt="Sistema Cardiovascular Humano"
-                            >
-
-                            <div class="image-overlay"></div>
-
-                        </div>
-
-                        <div class="post-content">
-
-                            <div class="post-meta">
-
-                                <span class="post-category anatomy-bg">
-                                    Beth Anatomy
-                                </span>
-
-                                <span class="post-date">
-                                    12/03/2026
-                                </span>
-
-                            </div>
-
-                            <h4>
-                                O Sistema Cardiovascular Humano
-                            </h4>
-
-                            <p>
-                                Uma viagem pelos vasos sanguíneos e o
-                                coração, explorando como nosso corpo
-                                mantém a vida.
-                            </p>
-
-                            <div class="post-footer">
-
-                                <span>
-                                    Por João Santos
-                                </span>
-
-                                <button class="read-more anatomy-button">
-                                    Ler mais
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    {{-- POST 3 --}}
-                    <article
-                        class="post-card"
-                        data-category="Beth Indica"
-                        data-date="2026-03-10"
-                    >
-
-                        <div class="post-image-wrapper">
-
-                            <div class="post-category-icon indica">
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-
-                            <img
-                                src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800&q=80"
-                                alt="Uma Breve História do Tempo"
-                            >
-
-                            <div class="image-overlay"></div>
-
-                        </div>
-
-                        <div class="post-content">
-
-                            <div class="post-meta">
-
-                                <span class="post-category indica-bg">
-                                    Beth Indica
-                                </span>
-
-                                <span class="post-date">
-                                    10/03/2026
-                                </span>
-
-                            </div>
-
-                            <h4>
-                                Livro: Uma Breve História do Tempo
-                            </h4>
-
-                            <p>
-                                Stephen Hawking nos leva a uma jornada
-                                pelo cosmos nesta obra essencial.
-                            </p>
-
-                            <div class="post-footer">
-
-                                <span>
-                                    Por Ana Costa
-                                </span>
-
-                                <button class="read-more indica-button">
-                                    Ler mais
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    {{-- POST 4 --}}
-                    <article
-                        class="post-card"
-                        data-category="Beth nas Estrelas"
-                        data-date="2026-03-08"
-                    >
-
-                        <div class="post-image-wrapper">
-
-                            <div class="post-category-icon stars">
-                                <i class="fa-solid fa-star"></i>
-                            </div>
-
-                            <img
-                                src="https://images.unsplash.com/photo-1466781783364-36c955e42a7f?w=800&q=80"
-                                alt="Importância da Fotossíntese"
-                            >
-
-                            <div class="image-overlay"></div>
-
-                        </div>
-
-                        <div class="post-content">
-
-                            <div class="post-meta">
-
-                                <span class="post-category stars-bg">
-                                    Beth nas Estrelas
-                                </span>
-
-                                <span class="post-date">
-                                    08/03/2026
-                                </span>
-
-                            </div>
-
-                            <h4>
-                                A Importância da Fotossíntese
-                            </h4>
-
-                            <p>
-                                Como as plantas convertem luz solar em
-                                energia e por que isso é crucial para a
-                                vida na Terra.
-                            </p>
-
-                            <div class="post-footer">
-
-                                <span>
-                                    Por Pedro Almeida
-                                </span>
-
-                                <button class="read-more stars-button">
-                                    Ler mais
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    {{-- POST 5 --}}
-                    <article
-                        class="post-card"
-                        data-category="Beth Anatomy"
-                        data-date="2026-03-05"
-                    >
-
-                        <div class="post-image-wrapper">
-
-                            <div class="post-category-icon anatomy">
-                                <i class="fa-solid fa-microscope"></i>
-                            </div>
-
-                            <img
-                                src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80"
-                                alt="Neurociência"
-                            >
-
-                            <div class="image-overlay"></div>
-
-                        </div>
-
-                        <div class="post-content">
-
-                            <div class="post-meta">
-
-                                <span class="post-category anatomy-bg">
-                                    Beth Anatomy
-                                </span>
-
-                                <span class="post-date">
-                                    05/03/2026
-                                </span>
-
-                            </div>
-
-                            <h4>
-                                Neurociência: O Cérebro em Ação
-                            </h4>
-
-                            <p>
-                                Entenda como bilhões de neurônios
-                                trabalham juntos para criar pensamentos
-                                e memórias.
-                            </p>
-
-                            <div class="post-footer">
-
-                                <span>
-                                    Por Carla Mendes
-                                </span>
-
-                                <button class="read-more anatomy-button">
-                                    Ler mais
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    {{-- POST 6 --}}
-                    <article
-                        class="post-card"
-                        data-category="Beth Indica"
-                        data-date="2026-03-01"
-                    >
-
-                        <div class="post-image-wrapper">
-
-                            <div class="post-category-icon indica">
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-
-                            <img
-                                src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=800&q=80"
-                                alt="Cosmos"
-                            >
-
-                            <div class="image-overlay"></div>
-
-                        </div>
-
-                        <div class="post-content">
-
-                            <div class="post-meta">
-
-                                <span class="post-category indica-bg">
-                                    Beth Indica
-                                </span>
-
-                                <span class="post-date">
-                                    01/03/2026
-                                </span>
-
-                            </div>
-
-                            <h4>
-                                Documentário: Cosmos -
-                                Uma Odisseia do Espaço-Tempo
-                            </h4>
-
-                            <p>
-                                Neil deGrasse Tyson nos guia através do
-                                universo nesta série imperdível.
-                            </p>
-
-                            <div class="post-footer">
-
-                                <span>
-                                    Por Lucas Ferreira
-                                </span>
-
-                                <button class="read-more indica-button">
-                                    Ler mais
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </article>
+                    @endforelse
 
                 </div>
 
 
-                {{-- Nenhum resultado --}}
+                {{-- Nenhum resultado (Filtro JS) --}}
                 <div
                     class="no-results"
                     id="noResults"
@@ -1053,15 +779,16 @@
                 );
 
 
-            mobileButton.addEventListener(
-                'click',
-                function () {
+            if (mobileButton && mobileMenu) {
+                mobileButton.addEventListener(
+                    'click',
+                    function () {
 
-                    mobileMenu.classList.toggle('open');
+                        mobileMenu.classList.toggle('open');
 
-                }
-            );
-
+                    }
+                );
+            }
 
         });
 

@@ -175,9 +175,9 @@
 <body>
 
     <div class="container">
-        <!-- BOTÃO VOLTAR (Rota atualizada) -->
-        <a href="{{ route('aluno.logado') }}" class="btn-voltar">
-            <i class="bi bi-arrow-left"></i> Voltar para a lista
+        <!-- BOTÃO VOLTAR (Direciona de volta dinamicamente para a página de onde veio) -->
+        <a href="javascript:history.back()" class="btn-voltar">
+            <i class="bi bi-arrow-left"></i> Voltar
         </a>
 
         <!-- CARTÃO DA PUBLICAÇÃO -->

@@ -3,10 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publicacao;
+use App\Models\Postagem;
 use Illuminate\Http\Request;
 
 class PublicacaoController extends Controller
 {
+    // Método responsável por carregar a página inicial do aluno (aluno.inicio)
+    public function inicio()
+    {
+        // Caso queira exibir as Publicações principais:
+        $publicacoes = Publicacao::latest()->get();
+
+        // NOTA: Se você quiser exibir as Postagens enviadas pelos alunos (com as categorias "Beth Indica", etc),
+        // basta trocar a linha acima por:
+        // $publicacoes = Postagem::with('user')->latest()->get();
+
+        return view('aluno.inicio', compact('publicacoes'));
+    }
+
     // Tela pública com a lista de postagens (Visão Visitante/Aluno)
     public function index()
     {
