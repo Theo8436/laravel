@@ -83,6 +83,16 @@ Route::get('/mencao/{id}', [MencaoController::class, 'show'])->name('mencao.show
 | ÁREA DO PROFESSOR (LOGIN, CADASTRO, GALERIA, BIBLIOTECA, ALUNOS)
 |--------------------------------------------------------------------------
 */
+Route::put(
+    '/professor/postagens/{postagem}/aprovar',
+    [PostagemController::class, 'aprovar']
+)->name('postagens.aprovar');
+
+Route::put(
+    '/professor/postagens/{postagem}/rejeitar',
+    [PostagemController::class, 'rejeitar']
+)->name('postagens.rejeitar');
+
 Route::get('/professor', [App\Http\Controllers\Professor::class, 'professor'])->name('professor');
 Route::get('/professor/cadastro', [App\Http\Controllers\Professor::class, 'cadastro'])->name('professor.cadastro');
 Route::get('/professor/entrar', [App\Http\Controllers\Professor::class, 'entrar'])->name('professor.entrar');

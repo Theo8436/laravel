@@ -16,10 +16,10 @@ class Postagem extends Model
         'categoria',
         'comentario',
         'imagem',
-        'user_id'
+        'user_id',
+        'status'
     ];
 
-    // Relacionamento com o Aluno
     public function user()
     {
         return $this->belongsTo(AlunoModel::class, 'user_id');

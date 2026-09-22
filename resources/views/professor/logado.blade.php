@@ -702,7 +702,9 @@
             </button>
             <button type="button" onclick="mostrarPosts()">
                 📝 Revisar Posts
-                <span id="contadorPosts">2</span>
+                <span id="contadorPosts">
+    {{ $postagens->count() }}
+</span>
             </button>
             <button type="button" onclick="mostrarCalendario()">
                 📅 Calendário
@@ -782,17 +784,129 @@
             </div>
         </section>
 
-        <!-- ================= POSTS ================= -->
         <section id="posts" class="painel" hidden>
-            <h2>Revisão de Posts</h2>
-            <p>Posts aguardando aprovação:</p>
 
-            <div id="listaPosts"></div>
+<h2>Revisão de Posts</h2>
 
-            <button type="button" class="btn-aprovar" onclick="aprovarTodos()">
-                Aprovar Todos
-            </button>
-        </section>
+<p>Posts aguardando aprovação:</p>
+
+<div id="listaPosts">
+
+    @forelse($postagens as $postagem)
+
+        <div class="post-card">
+
+            <h3>
+                {{ $postagem->titulo }}
+            </h3>
+
+            <p>
+                <strong>Autor:</strong>
+                {{ $postagem->user->nome ?? 'Aluno não encontrado' }}
+            </p>
+
+            <p>
+                <strong>Categoria:</strong>
+                {{ $postagem->categoria }}
+            </p>
+
+            <p>
+                <strong>Comentário:</strong>
+                {{ $postagem->comentario }}
+            </p>
+
+            {{-- IMAGENS --}}
+            @if($postagem->imagem)
+
+                @php
+                    $fotos = json_decode($postagem->imagem, true) ?? [];
+
+                    if (!is_array($fotos)) {
+                        $fotos = [$postagem->imagem];
+                    }
+                @endphp
+
+                @if(count($fotos) > 0)
+
+                    <div style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 12px;
+                        margin: 15px 0;
+                    ">
+
+                        @foreach($fotos as $foto)
+
+                            <img
+                                src="{{ asset('storage/' . $foto) }}"
+                                alt="Imagem da publicação"
+                                style="
+                                    width: 140px;
+                                    height: 100px;
+                                    object-fit: cover;
+                                    border-radius: 12px;
+                                    border: 2px solid #eee;
+                                "
+                            >
+
+                        @endforeach
+
+                    </div>
+
+                @endif
+
+            @endif
+
+            {{-- AÇÕES --}}
+            <div style="margin-top: 15px;">
+
+                <form
+                    action="{{ route('postagens.aprovar', $postagem->id) }}"
+                    method="POST"
+                    style="display: inline;"
+                >
+                    @csrf
+                    @method('PUT')
+
+                    <button
+                        type="submit"
+                        class="btn-aprovar"
+                    >
+                        ✓ Aprovar
+                    </button>
+                </form>
+
+                <form
+                    action="{{ route('postagens.rejeitar', $postagem->id) }}"
+                    method="POST"
+                    style="display: inline;"
+                >
+                    @csrf
+                    @method('PUT')
+
+                    <button
+                        type="submit"
+                        class="btn-ajustes"
+                    >
+                        ✕ Rejeitar
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    @empty
+
+        <div class="mensagem sucesso">
+            Não existem posts aguardando aprovação.
+        </div>
+
+    @endforelse
+
+</div>
+
+</section>
 
         <!-- ================= CALENDÁRIO ================= -->
         <section id="calendario" class="painel" hidden>
@@ -1055,10 +1169,9 @@ if (event.target === modalExcluir) {
         }
 
         function mostrarPosts() {
-            esconderTudo();
-            document.getElementById("posts").hidden = false;
-            carregarPosts();
-        }
+    esconderTudo();
+    document.getElementById("posts").hidden = false;
+}
 
         function mostrarCalendario() {
             esconderTudo();
@@ -1067,54 +1180,7 @@ if (event.target === modalExcluir) {
             carregarEventos();
         }
 
-        /* ================= POSTS ================= */
-        let posts = [
-            { titulo: "A Evolução das Estrelas", autor: "Maria Silva", categoria: "Beth nas Estrelas" },
-            { titulo: "Sistema Digestivo", autor: "João Santos", categoria: "Beth Anatomy" }
-        ];
 
-        function carregarPosts() {
-            const lista = document.getElementById("listaPosts");
-            lista.innerHTML = "";
-            document.getElementById("contadorPosts").innerText = posts.length;
-
-            if (posts.length === 0) {
-                lista.innerHTML = `<div class="mensagem sucesso">Não existem posts aguardando aprovação.</div>`;
-                return;
-            }
-
-            posts.forEach((post, index) => {
-                lista.innerHTML += `
-                <div class="post-card">
-                    <h3>${post.titulo}</h3>
-                    <p><strong>Autor:</strong> ${post.autor}</p>
-                    <p><strong>Categoria:</strong> ${post.categoria}</p>
-                    <button type="button" class="btn-aprovar" onclick="aprovarPost(${index})">Aprovar</button>
-                    <button type="button" class="btn-ajustes" onclick="solicitarAjustes(${index})">Solicitar Ajustes</button>
-                </div>
-                `;
-            });
-        }
-
-        function aprovarPost(indice) {
-            posts.splice(indice, 1);
-            carregarPosts();
-            mostrarMensagemJS("Post aprovado com sucesso!", "sucesso");
-        }
-
-        function solicitarAjustes(indice) {
-            let observacao = prompt("Digite os ajustes solicitados:");
-            if (observacao == null) return;
-            alert("Solicitação enviada ao autor.");
-            posts.splice(indice, 1);
-            carregarPosts();
-        }
-
-        function aprovarTodos() {
-            posts = [];
-            carregarPosts();
-            mostrarMensagemJS("Todos os posts foram aprovados!", "sucesso");
-        }
 
         /* ================= CALENDÁRIO ================= */
         let dataAtual = new Date();

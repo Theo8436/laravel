@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AdicionaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Postagem;
 
 class AdicionaController extends Controller
 {
