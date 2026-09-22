@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginProfessorController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\AdicionaController;
 use App\Http\Controllers\GaleriaController;
+use App\Http\Controllers\Professor;
+use App\Http\Controllers\Inicio;
 
 
 /*
@@ -89,7 +91,7 @@ Route::get('/professor/entrar', [App\Http\Controllers\Professor::class, 'entrar'
 Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('professor.logado');
 Route::get('/alunos', [AdicionaController::class, 'index'])->name('alunos.index');
 
-Route::get('/professor/inicio', [App\Http\Controllers\Professor::class, 'inicio'])->name('professor.inicio');
+Route::get('/professor/inicio', [Professor::class, 'inicio'])->name('professor.inicio');
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 
 // Galeria Professor
@@ -173,7 +175,9 @@ Route::get('/doacao', [App\Http\Controllers\Doacao::class, 'doacao'])->name('doa
 Route::get('/escolha', [App\Http\Controllers\Escolha::class, 'escolha'])->name('escolha');
 Route::get('/entrar', [App\Http\Controllers\Entrar::class, 'entrar'])->name('entrar');
 Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre');
-Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
+// Garanta que a rota inicial (/) e a /inicio usem o Controller
+Route::get('/', [Inicio::class, 'inicio'])->name('home');
+Route::get('/inicio', [Inicio::class, 'inicio'])->name('inicio');
 Route::get('/galeria', [GaleriaController::class, 'galeriaa'])->name('galeria');
 Route::get('/biblioteca', [LivroController::class, 'bibliotecaa'])->name('biblioteca');
 Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi');
