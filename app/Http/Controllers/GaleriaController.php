@@ -78,7 +78,7 @@ public function update(Request $request, $id)
 
     $foto->save();
 
-    return redirect()->back()->with('sucesso', 'Foto atualizada com sucesso!');
+    return redirect()->back()->with('sucesso');
 }
 
     // Remove do banco e o arquivo físico do servidor
@@ -93,7 +93,7 @@ public function update(Request $request, $id)
 
         $foto->delete();
 
-        return redirect()->back()->with('sucesso', 'Foto removida da galeria com sucesso!');
+        return redirect()->back()->with('sucesso');
     }
 }
 

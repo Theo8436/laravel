@@ -263,6 +263,106 @@
             padding: 28px;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
+        /* ================= MODAL EXCLUSÃO ================= */
+
+.modal-exclusao-card {
+    background: linear-gradient(135deg, #f8d8ff, #ffe2dc);
+    width: 100%;
+    max-width: 625px;
+    border-radius: 30px;
+    padding: 42px 50px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .35);
+    text-align: center;
+}
+
+.modal-exclusao-titulo {
+    color: #4b1d91;
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 28px;
+}
+
+.modal-exclusao-titulo i {
+    color: #ef3340;
+    margin-right: 10px;
+}
+
+.modal-exclusao-texto {
+    color: #333;
+    font-size: 19px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.modal-exclusao-texto strong {
+    font-weight: 800;
+    color: #222;
+}
+
+.modal-exclusao-botoes {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-modal-cancelar,
+.btn-modal-excluir {
+    border: none;
+    min-width: 210px;
+    padding: 17px 30px;
+    border-radius: 35px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-modal-cancelar {
+    background: #7d858b;
+    color: white;
+}
+
+.btn-modal-cancelar:hover {
+    background: #687077;
+    transform: translateY(-2px);
+}
+
+.btn-modal-excluir {
+    background: #ef3340;
+    color: white;
+    border: 2px solid #ffb000;
+}
+
+.btn-modal-excluir:hover {
+    background: #d92532;
+    transform: translateY(-2px);
+}
+
+@media(max-width:600px) {
+
+    .modal-exclusao-card {
+        width: 92%;
+        padding: 30px 20px;
+    }
+
+    .modal-exclusao-titulo {
+        font-size: 27px;
+    }
+
+    .modal-exclusao-texto {
+        font-size: 16px;
+    }
+
+    .modal-exclusao-botoes {
+        flex-direction: column;
+    }
+
+    .btn-modal-cancelar,
+    .btn-modal-excluir {
+        width: 100%;
+    }
+}
+
 
         .modal-header-custom {
             display: flex;
@@ -654,11 +754,17 @@
                                     ✏️
                                 </button>
 
-                                <form action="{{ route('alunos.destroy', $aluno->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-acao" onclick="return confirm('Deseja realmente excluir este aluno do banco de dados?')">🗑️</button>
-                                </form>
+                                <button
+    type="button"
+    class="btn-acao"
+    onclick='abrirConfirmacaoExcluirAluno(
+        {{ $aluno->id }},
+        @json($aluno->nome)
+    )'
+>
+    🗑️
+</button>
+
                             </td>
                         </tr>
                     @empty
@@ -820,6 +926,59 @@
             </form>
         </div>
     </div>
+    <!-- ================= MODAL EXCLUIR ALUNO ================= -->
+
+<div
+    id="modalExcluirAluno"
+    class="modal-overlay"
+    style="display: none;"
+>
+    <div class="modal-exclusao-card">
+
+        <h2 class="modal-exclusao-titulo">
+            <i class="bi bi-exclamation-triangle"></i>
+            Excluir Aluno
+        </h2>
+
+        <p class="modal-exclusao-texto">
+            Tem certeza que deseja excluir o aluno
+            <strong id="nomeAlunoExcluir"></strong>?
+            <br>
+            Esta ação não poderá ser desfeita.
+        </p>
+
+        <form
+            id="formExcluirAluno"
+            method="POST"
+        >
+            @csrf
+            @method('DELETE')
+
+            <div class="modal-exclusao-botoes">
+
+                <button
+                    type="button"
+                    class="btn-modal-cancelar"
+                    onclick="fecharConfirmacaoExcluirAluno()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-modal-excluir"
+                >
+                    <i class="bi bi-trash"></i>
+                    Excluir
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
 
     <script>
         /* ================= AUXILIARES ================= */
@@ -864,11 +1023,24 @@
         }
 
         window.onclick = function(event) {
-            const modalCriar = document.getElementById('modalCriar');
-            const modalEditar = document.getElementById('modalEditar');
-            if (event.target === modalCriar) fecharModalCriar();
-            if (event.target === modalEditar) fecharModalEditar();
-        };
+
+const modalCriar = document.getElementById('modalCriar');
+const modalEditar = document.getElementById('modalEditar');
+const modalExcluir = document.getElementById('modalExcluirAluno');
+
+if (event.target === modalCriar) {
+    fecharModalCriar();
+}
+
+if (event.target === modalEditar) {
+    fecharModalEditar();
+}
+
+if (event.target === modalExcluir) {
+    fecharConfirmacaoExcluirAluno();
+}
+};
+
 
         /* ================= NAVEGAÇÃO DAS SEÇÕES ================= */
         function esconderTudo() {
@@ -1057,6 +1229,35 @@
             renderizarCalendario();
             mostrarMensagemJS("Evento removido com sucesso!", "sucesso");
         }
+        /* ================= EXCLUSÃO DE ALUNO ================= */
+
+function abrirConfirmacaoExcluirAluno(id, nome) {
+
+const modal = document.getElementById('modalExcluirAluno');
+const form = document.getElementById('formExcluirAluno');
+const nomeElemento = document.getElementById('nomeAlunoExcluir');
+
+// Define EXATAMENTE o aluno que foi clicado
+form.action = `/alunos/${id}`;
+
+// Mostra o nome no modal
+nomeElemento.innerText = nome;
+
+// Abre o modal
+modal.style.display = 'flex';
+}
+
+
+function fecharConfirmacaoExcluirAluno() {
+
+const modal = document.getElementById('modalExcluirAluno');
+
+modal.style.display = 'none';
+
+// Limpa o formulário
+document.getElementById('formExcluirAluno').reset();
+}
+
 
         function carregarEventos() {
             const lista = document.getElementById("listaEventos");

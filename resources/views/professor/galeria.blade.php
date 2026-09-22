@@ -731,6 +731,285 @@ footer{
     }
 
 }
+/* =========================
+   MODAIS
+========================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    z-index: 9999;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+/* Caixa interna do modal */
+
+.modal > .formulario {
+    display: block;
+
+    width: 100%;
+    max-width: 500px;
+
+    margin: 0;
+
+    padding: 40px;
+
+    border-radius: 30px;
+
+    background: linear-gradient(
+        135deg,
+        #f5d6ff 0%,
+        #ffe4dc 100%
+    );
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.45);
+
+    animation: aparecerModal 0.25s ease;
+}
+
+/* Animação */
+
+@keyframes aparecerModal {
+
+    from {
+        opacity: 0;
+        transform: scale(0.90) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+
+/* =========================
+   TÍTULO DO MODAL
+========================= */
+
+.modal .formulario h2 {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #4b1d91;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 25px;
+
+    text-align: center;
+}
+
+
+/* Ícone de alerta */
+
+.modal .formulario h2 .bi-exclamation-triangle {
+
+    color: #ef3340;
+
+    font-size: 30px;
+
+}
+
+
+/* =========================
+   TEXTO DO MODAL
+========================= */
+
+.modal .formulario > p {
+
+    color: #292929 !important;
+
+    font-size: 17px !important;
+
+    line-height: 1.5 !important;
+
+    text-align: center;
+
+    margin: 20px auto 30px !important;
+
+}
+
+.modal .formulario > p strong {
+
+    color: #252525 !important;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================
+   BOTÕES DO MODAL
+========================= */
+
+.modal .botoes-form {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-top: 25px;
+
+}
+
+
+/* Cancelar */
+
+.modal .btn-cancelar {
+
+    min-width: 195px;
+
+    border: none;
+
+    background: #747d84 !important;
+
+    color: white !important;
+
+    padding: 15px 30px;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+.modal .btn-cancelar:hover {
+
+    background: #626a70 !important;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* Excluir */
+
+.modal .btn-excluir {
+
+    min-width: 195px;
+
+    margin-top: 0;
+
+    border: 2px solid #ffb000;
+
+    background: #ed3340 !important;
+
+    color: white !important;
+
+    padding: 15px 30px;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+.modal .btn-excluir:hover {
+
+    background: #d92532 !important;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================
+   MODAL DE EDIÇÃO
+========================= */
+
+#modalEdicaoGaleria .formulario {
+
+    max-width: 650px;
+
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 600px) {
+
+    .modal {
+
+        padding: 15px;
+
+    }
+
+    .modal > .formulario {
+
+        padding: 30px 20px;
+
+        border-radius: 25px;
+
+    }
+
+    .modal .formulario h2 {
+
+        font-size: 25px;
+
+    }
+
+    .modal .botoes-form {
+
+        flex-direction: column;
+
+        width: 100%;
+
+    }
+
+    .modal .btn-cancelar,
+    .modal .btn-excluir {
+
+        width: 100%;
+
+        min-width: 0;
+
+    }
+
+}
+
 
 </style>
 
@@ -809,13 +1088,13 @@ footer{
          BOTÃO PROFESSOR
     ========================= -->
     <div class="area-professor">
-        <button class="btn-adicionar" onclick="abrirFormulario()">
+        <button type="button" class="btn-adicionar" onclick="abrirFormulario()">
             <i class="bi bi-plus-circle"></i> Adicionar Nova Foto
         </button>
     </div>
 
     <!-- =========================
-         FORMULÁRIO CADASTRO (Mantendo as classes originais)
+         FORMULÁRIO CADASTRO
     ========================= -->
     <section id="formulario" class="formulario">
         <h2><i class="bi bi-camera"></i> Adicionar Nova Foto</h2>
@@ -825,24 +1104,46 @@ footer{
 
             <div class="campo">
                 <label for="tituloFoto">Título da foto</label>
-                <input type="text" id="tituloFoto" name="titulo" placeholder="Ex: Feira de Ciências 2026" required>
+                <input
+                    type="text"
+                    id="tituloFoto"
+                    name="titulo"
+                    placeholder="Ex: Feira de Ciências 2026"
+                    required
+                >
             </div>
 
             <div class="campo">
                 <label for="descricaoFoto">Descrição</label>
-                <textarea id="descricaoFoto" name="descricao" placeholder="Digite uma descrição para a foto..." required></textarea>
+                <textarea
+                    id="descricaoFoto"
+                    name="descricao"
+                    placeholder="Digite uma descrição para a foto..."
+                    required
+                ></textarea>
             </div>
 
             <div class="campo">
                 <label for="arquivoFoto">Escolha a foto</label>
-                <input type="file" id="arquivoFoto" name="arquivoFoto" accept="image/*" required>
+                <input
+                    type="file"
+                    id="arquivoFoto"
+                    name="arquivoFoto"
+                    accept="image/*"
+                    required
+                >
             </div>
 
             <div class="botoes-form">
                 <button type="submit" class="btn-salvar">
                     <i class="bi bi-check-lg"></i> Adicionar Foto
                 </button>
-                <button type="button" class="btn-cancelar" onclick="fecharFormulario()">
+
+                <button
+                    type="button"
+                    class="btn-cancelar"
+                    onclick="fecharFormulario()"
+                >
                     Cancelar
                 </button>
             </div>
@@ -851,98 +1152,68 @@ footer{
         </form>
     </section>
 
-<!-- =========================
-     GALERIA DINÂMICA
-========================= -->
-<section class="galeria" id="galeria">
+    <!-- =========================
+         GALERIA DINÂMICA
+    ========================= -->
+    <section class="galeria" id="galeria">
 
-    @forelse($fotos as $foto)
+        @forelse($fotos as $foto)
 
-        <div class="foto-card">
+            <div class="foto-card">
 
-            <!-- IMAGEM -->
-            <img
-                src="{{ str_contains($foto->imagem, 'imagem') ? asset($foto->imagem) : asset('storage/' . $foto->imagem) }}"
-                alt="{{ $foto->titulo }}"
-            >
+                <img
+                    src="{{ str_contains($foto->imagem, 'imagem') ? asset($foto->imagem) : asset('storage/' . $foto->imagem) }}"
+                    alt="{{ $foto->titulo }}"
+                >
 
-            <!-- INFORMAÇÕES -->
-            <div class="foto-info">
+                <div class="foto-info">
 
-                <h3>{{ $foto->titulo }}</h3>
+                    <h3>{{ $foto->titulo }}</h3>
 
-                <p>{{ $foto->descricao }}</p>
+                    <p>{{ $foto->descricao }}</p>
 
-                <!-- BOTÕES -->
-                <div style="display: flex; gap: 10px; margin-top: auto; padding-top: 15px;">
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
 
-                    <!-- EDITAR -->
-                    <button
-                        type="button"
-                        class="btn-salvar"
-                        style="
-                            padding: 9px 16px;
-                            border-radius: 10px;
-                            font-size: 14px;
-                            background: #ffc107;
-                            color: #222;
-                        "
-                        onclick='abrirEdicaoGaleria(@json($foto))'
-                    >
-                        <i class="bi bi-pencil"></i>
-                        Editar
-                    </button>
-
-                    <!-- EXCLUIR -->
-                    <form
-                        action="{{ route('galeria.destroy', $foto->id) }}"
-                        method="POST"
-                        onsubmit="return confirm('Deseja realmente remover esta foto?')"
-                    >
-                        @csrf
-                        @method('DELETE')
-
+                        <!-- Botão Editar -->
                         <button
-                            type="submit"
-                            class="btn-excluir"
-                            style="
-                                margin-top: 0;
-                                padding: 9px 16px;
-                            "
+                            type="button"
+                            class="btn-salvar"
+                            style="padding: 9px 16px; border-radius: 10px; font-size: 14px; background: #ffc107; color: #222;"
+                            onclick='abrirEdicaoGaleria(@json($foto))'
                         >
-                            <i class="bi bi-trash"></i>
-                            Excluir
+                            <i class="bi bi-pencil"></i> Editar
                         </button>
 
-                    </form>
+                        <button
+    type="button"
+    class="btn-excluir"
+    style="margin-top: 0; padding: 9px 16px;"
+    onclick='abrirConfirmacaoExcluir({{ $foto->id }}, @json($foto->titulo))'
+>
+    <i class="bi bi-trash"></i> Excluir
+</button>
 
+
+                    </div>
                 </div>
 
             </div>
 
-        </div>
+        @empty
 
-    @empty
+            <p style="text-align: center; grid-column: span 4; color: white; opacity: 0.8; font-weight: 500;">
+                Nenhuma foto cadastrada na galeria.
+            </p>
 
-        <p style="
-            text-align: center;
-            grid-column: span 4;
-            color: white;
-            opacity: 0.8;
-            font-weight: 500;
-        ">
-            Nenhuma foto cadastrada na galeria.
-        </p>
+        @endforelse
 
-    @endforelse
+    </section>
 
-</section>
-
-
-    <!-- =========================
-         MODAL DE EDIÇÃO DA GALERIA (Estilizado como o de Cadastro)
-    ========================= -->
-    <section id="modalEdicaoGaleria" class="formulario" style="margin-top: 35px;">
+<!-- =========================
+     MODAL DE EDIÇÃO DA GALERIA
+========================= -->
+<div class="modal" id="modalEdicaoGaleria" style="display: none;">
+    <div class="formulario">
         <h2><i class="bi bi-pencil"></i> Editar Foto</h2>
 
         <form id="formEdicaoGaleria" action="" method="POST" enctype="multipart/form-data">
@@ -965,11 +1236,67 @@ footer{
             </div>
 
             <div class="botoes-form">
-                <button type="submit" class="btn-salvar">Salvar Alterações</button>
                 <button type="button" class="btn-cancelar" onclick="fecharEdicaoGaleria()">Cancelar</button>
+                <button type="submit" class="btn-salvar">Salvar Alterações</button>
             </div>
         </form>
-    </section>
+    </div>
+</div>
+
+<!-- =========================
+     MODAL CONFIRMAÇÃO DE EXCLUSÃO
+========================= -->
+
+<div class="modal" id="modalExcluirGaleria">
+
+    <div class="formulario" style="text-align: center;">
+
+        <h2>
+            <i class="bi bi-exclamation-triangle"></i>
+            Excluir Foto
+        </h2>
+
+        <p>
+            Tem certeza que deseja excluir a foto
+            <strong id="nomeFotoExcluir"></strong>?
+
+            Esta ação não poderá ser desfeita.
+        </p>
+
+        <form
+            id="formExcluirGaleria"
+            action=""
+            method="POST"
+        >
+
+            @csrf
+            @method('DELETE')
+
+            <div class="botoes-form">
+
+                <button
+                    type="button"
+                    class="btn-cancelar"
+                    onclick="fecharConfirmacaoExcluir()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-excluir"
+                >
+                    Sim, Excluir
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 
 </main>
 
@@ -978,47 +1305,168 @@ footer{
 </footer>
 
 <!-- =========================
-     SCRIPTS JAVASCRIPT CORRIGIDOS
+     SCRIPTS JAVASCRIPT COMPLETOS
 ========================= -->
 <script>
 const formulario = document.getElementById("formulario");
 const formFoto = document.getElementById("formFoto");
 const mensagem = document.getElementById("mensagem");
 const modalEdicao = document.getElementById("modalEdicaoGaleria");
+const modalExcluir = document.getElementById("modalExcluirGaleria");
 
-// Cadastro de fotos
+// Cadastro de fotos (formulario em linha do próprio layout)
 function abrirFormulario(){
     formulario.classList.add("aberto");
-    if(modalEdicao) fecharEdicaoGaleria(); // Fecha a edição se abrir o cadastro
+    formulario.style.display = "block";
+    formulario.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function fecharFormulario(){
     formulario.classList.remove("aberto");
     formFoto.reset();
-    mensagem.style.display = "none";
 }
 
-// Edição de fotos
+/// ==========================================
+// EDIÇÃO
+// ==========================================
+
 function abrirEdicaoGaleria(foto) {
-    document.getElementById("formEdicaoGaleria").action = `/professor/galeria/atualizar/${foto.id}`;
-    document.getElementById("editTituloFoto").value = foto.titulo;
-    document.getElementById("editDescricaoFoto").value = foto.descricao;
-    
-    if(formulario) fecharFormulario(); // Fecha o cadastro se abrir a edição
-    
-    modalEdicao.classList.add("aberto");
-    modalEdicao.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
+
+const modal = document.getElementById("modalEdicaoGaleria");
+
+const form = document.getElementById("formEdicaoGaleria");
+
+const titulo = document.getElementById("editTituloFoto");
+
+const descricao = document.getElementById("editDescricaoFoto");
+
+if (!modal || !form) {
+    return;
 }
+
+form.action = `/professor/galeria/atualizar/${foto.id}`;
+
+titulo.value = foto.titulo ?? "";
+
+descricao.value = foto.descricao ?? "";
+
+// Fecha o formulário de cadastro
+if (formulario) {
+    fecharFormulario();
+}
+
+// Fecha modal de exclusão
+fecharConfirmacaoExcluir();
+
+// Abre modal
+modal.style.display = "flex";
+
+// Bloqueia rolagem
+document.body.style.overflow = "hidden";
+}
+
 
 function fecharEdicaoGaleria() {
-    modalEdicao.classList.remove("aberto");
-    document.getElementById("formEdicaoGaleria").reset();
-}
-</script>
 
+const modal = document.getElementById("modalEdicaoGaleria");
+
+const form = document.getElementById("formEdicaoGaleria");
+
+if (!modal) {
+    return;
+}
+
+modal.style.display = "none";
+
+if (form) {
+    form.reset();
+}
+
+document.body.style.overflow = "";
+}
+
+
+// ==========================================
+// EXCLUSÃO
+// ==========================================
+
+function abrirConfirmacaoExcluir(id, titulo) {
+
+const modal = document.getElementById("modalExcluirGaleria");
+
+const form = document.getElementById("formExcluirGaleria");
+
+const nomeFoto = document.getElementById("nomeFotoExcluir");
+
+if (!modal || !form || !nomeFoto) {
+    return;
+}
+
+// Define a URL
+form.action = `/professor/galeria/excluir/${id}`;
+
+// Nome da foto
+nomeFoto.textContent = titulo;
+
+// Fecha cadastro
+if (formulario) {
+    fecharFormulario();
+}
+
+// Fecha edição
+fecharEdicaoGaleria();
+
+// Abre modal
+modal.style.display = "flex";
+
+// Bloqueia rolagem
+document.body.style.overflow = "hidden";
+}
+
+
+function fecharConfirmacaoExcluir() {
+
+const modal = document.getElementById("modalExcluirGaleria");
+
+if (!modal) {
+    return;
+}
+
+modal.style.display = "none";
+
+document.body.style.overflow = "";
+}
+
+
+// ==========================================
+// FECHAR CLICANDO FORA
+// ==========================================
+
+window.addEventListener("click", function(event) {
+
+const modalEdicao =
+    document.getElementById("modalEdicaoGaleria");
+
+const modalExcluir =
+    document.getElementById("modalExcluirGaleria");
+
+
+if (event.target === modalEdicao) {
+
+    fecharEdicaoGaleria();
+
+}
+
+
+if (event.target === modalExcluir) {
+
+    fecharConfirmacaoExcluir();
+
+}
+
+});
+
+</script>
 
 </body>
 

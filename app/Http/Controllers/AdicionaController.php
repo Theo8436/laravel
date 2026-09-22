@@ -51,7 +51,7 @@ class AdicionaController extends Controller
             'senha' => Hash::make('12345678'),
         ]);
 
-        return redirect()->route('professor.index')->with('sucesso', 'Aluno cadastrado com sucesso!');
+        return redirect()->route('professor.index')->with('sucesso');
     }
 
     // Atualiza os dados do aluno
@@ -69,7 +69,7 @@ class AdicionaController extends Controller
             'nivel_acesso' => $request->nivel_acesso,
         ]);
 
-        return redirect()->route('professor.index')->with('sucesso', 'Aluno atualizado com sucesso!');
+        return redirect()->route('professor.index')->with('sucesso');
     }
 
     // Remove o aluno
@@ -77,6 +77,6 @@ class AdicionaController extends Controller
     {
         $aluno->delete();
 
-        return redirect()->route('professor.index')->with('sucesso', 'Aluno removido com sucesso!');
+        return redirect()->route('professor.index')->with('sucesso');
     }
 }
