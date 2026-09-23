@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\MencaoHonrosaModel;
+use App\Models\Mencao;
 use Illuminate\Database\Seeder;
 
 class MencaoHonrosaSeeder extends Seeder
@@ -41,7 +41,7 @@ class MencaoHonrosaSeeder extends Seeder
         ];
 
         foreach ($mencoesIniciais as $mencao) {
-            MencaoHonrosaModel::create($mencao);
+            Mencao::create($mencao);
         }
     }
 }

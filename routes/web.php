@@ -102,6 +102,7 @@ Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('pro
 Route::get('/alunos', [AdicionaController::class, 'index'])->name('alunos.index');
 
 Route::get('/professor/inicio', [Professor::class, 'inicio'])->name('professor.inicio');
+Route::get('/professor/inicio', [PostagemController::class, 'iniciooo'])->name('professor.inicio');
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 
 // Galeria Professor
@@ -188,6 +189,7 @@ Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre'
 // Garanta que a rota inicial (/) e a /inicio usem o Controller
 Route::get('/', [Inicio::class, 'inicio'])->name('home');
 Route::get('/inicio', [Inicio::class, 'inicio'])->name('inicio');
+Route::get('inicio', [PostagemController::class, 'inicio'])->name('inicio');
 Route::get('/galeria', [GaleriaController::class, 'galeriaa'])->name('galeria');
 Route::get('/biblioteca', [LivroController::class, 'bibliotecaa'])->name('biblioteca');
 Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi');

@@ -9,7 +9,7 @@ use App\Models\Postagem;
 
 class AdicionaController extends Controller
 {
-    // Exibe a lista de alunos no painel do professor (Views/professor/logado.blade.php)
+    // Exibe a lista de alunos e as publicações pendentes
     public function index(Request $request)
     {
         $query = AdicionaModel::query();
@@ -17,26 +17,35 @@ class AdicionaController extends Controller
         // Filtro de busca por nome ou e-mail
         if ($request->filled('busca')) {
             $busca = $request->busca;
-            $query->where(function($q) use ($busca) {
+
+            $query->where(function ($q) use ($busca) {
                 $q->where('nome', 'like', "%{$busca}%")
                   ->orWhere('email', 'like', "%{$busca}%");
             });
         }
 
-        // Retorna a lista paginada mantendo os parâmetros na URL
-        $alunos = $query->latest()->paginate(10)->appends($request->all());
+        // Lista paginada de alunos
+        $alunos = $query
+            ->latest()
+            ->paginate(10)
+            ->appends($request->all());
 
-        // Retorna para a view 'logado.blade.php' dentro da pasta 'professor'
-        return view('professor.logado', compact('alunos'));
+        // Publicações que precisam ser aprovadas pelo professor
+        $postagens = Postagem::with('user')
+            ->where('status', 'pendente')
+            ->latest()
+            ->get();
+
+        return view('professor.logado', compact('alunos', 'postagens'));
     }
 
-    // Exibe a tela/modal de formulário para adicionar aluno (Views/professor/adiciona.blade.php)
+    // Exibe a tela/modal de formulário para adicionar aluno
     public function create()
     {
         return view('professor.adiciona');
     }
 
-    // Processa a gravação do novo aluno no banco de dados
+    // Processa a gravação do novo aluno
     public function store(Request $request)
     {
         $request->validate([
