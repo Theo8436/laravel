@@ -1,0 +1,240 @@
+/* =========================================================
+   FOOTER — BETH CIENTISTA
+========================================================= */
+
+.site-footer {
+    position: relative;
+    width: 100%;
+    min-height: 178px;
+    overflow: hidden;
+
+    background: linear-gradient(
+        110deg,
+        #58127d 0%,
+        #bc006d 45%,
+        #e51c4f 72%,
+        #f97316 100%
+    );
+
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   DECORAÇÃO
+========================================================= */
+
+.footer-decoration {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.footer-decoration::before,
+.footer-decoration::after {
+    content: "";
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    box-shadow:
+        110px 45px 0 rgba(255, 255, 255, 0.45),
+        250px 10px 0 rgba(255, 255, 255, 0.35),
+        390px 55px 0 rgba(255, 255, 255, 0.50),
+        530px 25px 0 rgba(255, 255, 255, 0.35),
+        680px 60px 0 rgba(255, 255, 255, 0.50),
+        820px 18px 0 rgba(255, 255, 255, 0.35),
+        950px 55px 0 rgba(255, 255, 255, 0.45),
+        1080px 25px 0 rgba(255, 255, 255, 0.50),
+        1200px 70px 0 rgba(255, 255, 255, 0.40),
+        1350px 35px 0 rgba(255, 255, 255, 0.50);
+}
+
+.footer-decoration::before {
+    top: 25px;
+    left: 25px;
+}
+
+.footer-decoration::after {
+    bottom: 20px;
+    right: 30px;
+
+    width: 6px;
+    height: 6px;
+
+    box-shadow:
+        -100px -15px 0 rgba(255, 255, 255, 0.45),
+        -220px 10px 0 rgba(255, 255, 255, 0.55),
+        -360px -25px 0 rgba(255, 255, 255, 0.40),
+        -500px 15px 0 rgba(255, 255, 255, 0.50),
+        -640px -10px 0 rgba(255, 255, 255, 0.40);
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.footer-container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1200px;
+
+    padding: 28px 20px 30px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   MENSAGEM
+========================================================= */
+
+.footer-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin: 0 0 14px;
+
+    color: #ffffff;
+
+    font-family: "Fredoka", sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+.footer-message p {
+    margin: 0;
+}
+
+.footer-message i {
+    color: #ff9b8f;
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   INSTAGRAM
+========================================================= */
+
+.instagram-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-width: 220px;
+    height: 44px;
+
+    padding: 0 22px;
+
+    border-radius: 30px;
+
+    background: #ffffff;
+
+    color: #a13cff;
+
+    text-decoration: none;
+
+    font-family: "Fredoka", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.instagram-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.instagram-button i {
+    font-size: 18px;
+}
+
+.instagram-button .fa-sparkles {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+.footer-copy {
+    margin: 13px 0 0;
+
+    color: #ffd5a8;
+
+    font-family: "Fredoka", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .site-footer {
+        min-height: 175px;
+    }
+
+    .footer-container {
+        padding: 25px 15px 28px;
+    }
+
+    .footer-message {
+        font-size: 14px;
+        gap: 7px;
+    }
+
+    .footer-message i {
+        font-size: 14px;
+    }
+
+    .instagram-button {
+        min-width: 200px;
+        height: 42px;
+        font-size: 14px;
+    }
+
+    .footer-copy {
+        font-size: 13px;
+    }
+}

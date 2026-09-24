@@ -32,6 +32,7 @@
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 
 
     {{-- =====================================================
@@ -1715,85 +1716,7 @@
 {{-- =========================================================
      FOOTER
 ========================================================= --}}
-
-<footer class="site-footer">
-
-
-    {{-- BRILHOS --}}
-
-    <div class="footer-sparkles">
-
-        <span style="top:15%; left:10%;"></span>
-
-        <span style="top:35%; left:22%;"></span>
-
-        <span style="top:70%; left:8%;"></span>
-
-        <span style="top:20%; left:45%;"></span>
-
-        <span style="top:65%; left:55%;"></span>
-
-        <span style="top:30%; left:72%;"></span>
-
-        <span style="top:75%; left:82%;"></span>
-
-        <span style="top:15%; left:92%;"></span>
-
-        <span style="top:80%; left:38%;"></span>
-
-        <span style="top:50%; left:95%;"></span>
-
-    </div>
-
-
-    <div class="footer-content">
-
-
-        {{-- MENSAGEM --}}
-
-        <div class="footer-message">
-
-            <i class="bi bi-heart-fill"></i>
-
-            <p>
-                Feito com amor para os futuros cientistas do mundo.
-            </p>
-
-            <i class="bi bi-heart-fill"></i>
-
-        </div>
-
-
-        {{-- INSTAGRAM --}}
-
-        <a
-            href="https://www.instagram.com/bethacientista/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="instagram-button"
-        >
-
-            <i class="bi bi-instagram"></i>
-
-            <span>
-                @bethacientista
-            </span>
-
-            <i class="bi bi-stars"></i>
-
-        </a>
-
-
-        {{-- COPYRIGHT --}}
-
-        <p class="footer-copy">
-            Beth Cientista - 2026
-        </p>
-
-
-    </div>
-
-</footer>
+@include('components.footer')
 
 
 
