@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Postagem;
+use App\Models\AlunoModel;
 use Illuminate\Database\Seeder;
 
 class PostagemSeeder extends Seeder
@@ -11,25 +12,28 @@ class PostagemSeeder extends Seeder
     {
         $postagensIniciais = [
             [
-                'titulo' => 'Experimento de Ciências',
+                'titulo' => 'O Sistema Cardiovascular Humano',
                 'categoria' => 'Beth Anatomy',
-                'comentario' => 'Hoje realizamos um experimento muito interessante durante uma das atividades do clube.',
-                'imagem' => null,
+                'comentario' => 'Uma viagem pelos vasos sanguíneos e o coração, explorando como nosso corpo mantém a vida.',
+                'imagem' => 'imagem6.png',
                 'user_id' => 1,
+                'status' => 'pendente',
             ],
             [
-                'titulo' => 'Descobrindo o Universo',
+                'titulo' => 'A Física dos Buracos Negros',
                 'categoria' => 'Beth nas Estrelas',
-                'comentario' => 'Aprendemos várias curiosidades sobre o universo, os planetas e as estrelas.',
-                'imagem' => null,
+                'comentario' => 'Descubra os mistérios fascinantes dos buracos negros e como eles dobram o espaço-tempo.',
+                'imagem' => 'imagem5.png',
                 'user_id' => 1,
+                'status' => 'pendente',
             ],
             [
-                'titulo' => 'Dica de Conteúdo Científico',
+                'titulo' => 'Documentário: Cosmos - Uma Odisseia do Espaço-Tempo',
                 'categoria' => 'Beth Indica',
-                'comentario' => 'Uma indicação de conteúdo para quem gosta de aprender mais sobre ciência e tecnologia.',
-                'imagem' => null,
+                'comentario' => 'Neil deGrasse Tyson nos guia através do universo nesta série imperdível.',
+                'imagem' => 'imagem7.png',
                 'user_id' => 1,
+                'status' => 'pendente',
             ],
         ];
 

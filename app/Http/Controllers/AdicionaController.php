@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdicionaModel;
+use App\Models\Postagem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Postagem;
 
 class AdicionaController extends Controller
 {
@@ -14,7 +14,6 @@ class AdicionaController extends Controller
     {
         $query = AdicionaModel::query();
 
-        // Filtro de busca por nome ou e-mail
         if ($request->filled('busca')) {
             $busca = $request->busca;
 
@@ -24,19 +23,28 @@ class AdicionaController extends Controller
             });
         }
 
-        // Lista paginada de alunos
         $alunos = $query
             ->latest()
             ->paginate(10)
             ->appends($request->all());
 
-        // Publicações que precisam ser aprovadas pelo professor
+        // PUBLICAÇÕES QUE JÁ FORAM APROVADAS
+        $publicacoes = Postagem::with('user')
+            ->where('status', 'aprovada')
+            ->latest()
+            ->get();
+
+        // PUBLICAÇÕES QUE O PROFESSOR PRECISA REVISAR
         $postagens = Postagem::with('user')
             ->where('status', 'pendente')
             ->latest()
             ->get();
 
-        return view('professor.logado', compact('alunos', 'postagens'));
+        return view('professor.logado', compact(
+            'alunos',
+            'publicacoes',
+            'postagens'
+        ));
     }
 
     // Exibe a tela/modal de formulário para adicionar aluno
@@ -61,7 +69,9 @@ class AdicionaController extends Controller
             'senha' => Hash::make('12345678'),
         ]);
 
-        return redirect()->route('professor.index')->with('sucesso');
+        return redirect()
+            ->route('professor.index')
+            ->with('sucesso', 'Aluno cadastrado com sucesso!');
     }
 
     // Atualiza os dados do aluno
@@ -79,7 +89,9 @@ class AdicionaController extends Controller
             'nivel_acesso' => $request->nivel_acesso,
         ]);
 
-        return redirect()->route('professor.index')->with('sucesso');
+        return redirect()
+            ->route('professor.index')
+            ->with('sucesso', 'Aluno atualizado com sucesso!');
     }
 
     // Remove o aluno
@@ -87,6 +99,8 @@ class AdicionaController extends Controller
     {
         $aluno->delete();
 
-        return redirect()->route('professor.index')->with('sucesso');
+        return redirect()
+            ->route('professor.index')
+            ->with('sucesso', 'Aluno removido com sucesso!');
     }
 }

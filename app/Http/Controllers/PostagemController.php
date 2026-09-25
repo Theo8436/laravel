@@ -290,17 +290,33 @@ class PostagemController extends Controller
         |--------------------------------------------------------------------------
         */
         
-        $postagem->update([
-            'titulo'     => $request->titulo,
-            'categoria'  => $request->categoria,
-            'comentario' => $request->comentario,
-            'imagem'     => json_encode($fotosAtuais),
+    //     $postagem->update([
+    //         'titulo'     => $request->titulo,
+    //         'categoria'  => $request->categoria,
+    //         'comentario' => $request->comentario,
+    //         'imagem'     => json_encode($fotosAtuais),
             
-            // Depois de editar, volta para análise do professor
-            'status'     => 'pendente',
-        ]);
+    //         // Depois de editar, volta para análise do professor
+    //         'status'     => 'pendente',
+    //     ]);
         
-        return redirect()
+    //     return redirect()
+    //     ->route('aluno.logado')
+    //     ->with(
+    //         'sucesso',
+    //         'Postagem atualizada e enviada novamente para aprovação!'
+    //     );
+    // }
+    $postagem->update([
+    'titulo' => $request->titulo,
+    'categoria' => $request->categoria,
+    'comentario' => $request->comentario,
+    'imagem' => json_encode($fotosAtuais),
+    'status' => 'pendente',
+    'observacao_professor' => null,
+]);
+        
+                return redirect()
         ->route('aluno.logado')
         ->with(
             'sucesso',
@@ -351,15 +367,15 @@ class PostagemController extends Controller
     |--------------------------------------------------------------------------
     */
     
-    public function pendentes()
-    {
-        $postagens = Postagem::with('user')
+public function pendentes()
+{
+    $postagens = Postagem::with('user')
         ->where('status', 'pendente')
         ->latest()
         ->get();
-        
-        return view('professor.postagens', compact('postagens'));
-    }
+
+    return view('professor.postagens', compact('postagens'));
+}
     
     
     /*
@@ -368,25 +384,64 @@ class PostagemController extends Controller
     |--------------------------------------------------------------------------
     */
     
+    // public function aprovar(Postagem $postagem)
+    // {
+    // $postagem->update([
+    //     'status' => 'aprovada',
+    // ]);
+    
+    // return redirect()
+    //     ->back()
+    //     ->with('sucesso', 'Postagem aprovada com sucesso!');
+    // }
     public function aprovar(Postagem $postagem)
-    {
+{
     $postagem->update([
         'status' => 'aprovada',
+        'observacao_professor' => null,
     ]);
-    
+
     return redirect()
         ->back()
         ->with('sucesso', 'Postagem aprovada com sucesso!');
-    }
+}
+    // public function rejeitar(Postagem $postagem)
+    // {
+    // $postagem->update([
+    //     'status' => 'rejeitada',
+    // ]);
+    
+    // return redirect()
+    //     ->back()
+    //     ->with('sucesso', 'Postagem rejeitada.');
+    // }
     public function rejeitar(Postagem $postagem)
-    {
+{
     $postagem->update([
         'status' => 'rejeitada',
     ]);
-    
+
     return redirect()
         ->back()
         ->with('sucesso', 'Postagem rejeitada.');
-    }
+}
+public function solicitarAjustes(Request $request, Postagem $postagem)
+{
+    $request->validate([
+        'observacao_professor' => 'required|string|max:2000',
+    ], [
+        'observacao_professor.required' => 'Informe ao aluno o que precisa ser ajustado.',
+        'observacao_professor.max' => 'A observação pode ter no máximo 2000 caracteres.',
+    ]);
+
+    $postagem->update([
+        'status' => 'ajustes',
+        'observacao_professor' => $request->observacao_professor,
+    ]);
+
+    return redirect()
+        ->back()
+        ->with('sucesso', 'Ajustes solicitados ao aluno.');
+}
     
 }

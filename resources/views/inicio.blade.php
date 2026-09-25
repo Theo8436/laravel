@@ -127,6 +127,7 @@
                 <h3 class="posts-title" id="postsTitle">Todos os Conteúdos</h3>
 
                 <div class="posts-grid" id="postsGrid">
+                    
                     @forelse($publicacoes as $post)
                         @php
                             $catClass = 'stars';

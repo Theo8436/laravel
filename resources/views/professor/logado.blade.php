@@ -443,26 +443,140 @@
             margin-bottom: 10px;
         }
 
-        .btn-aprovar {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 11px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-right: 8px;
-        }
+.acoes-postagem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
 
-        .btn-ajustes {
-            background: #ff9800;
-            color: white;
-            border: none;
-            padding: 11px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+.acoes-postagem form {
+    margin: 0;
+}
+
+.btn-aprovar,
+.btn-ajustes,
+.btn-rejeitar {
+    border: none;
+    padding: 11px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+}
+
+.btn-aprovar {
+    background: #4caf50;
+}
+
+.btn-ajustes {
+    background: #ff9800;
+}
+
+.btn-rejeitar {
+    background: #f44336;
+}
+
+.btn-aprovar:hover,
+.btn-ajustes:hover,
+.btn-rejeitar:hover {
+    opacity: 0.85;
+}
+.modal-ajustes {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal-ajustes-conteudo {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+
+    border-radius: 16px;
+    padding: 30px;
+
+    position: relative;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.modal-ajustes-conteudo h2 {
+    margin-top: 0;
+}
+
+.modal-ajustes-conteudo p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.modal-ajustes-conteudo textarea {
+    width: 100%;
+    min-height: 150px;
+
+    resize: vertical;
+
+    padding: 14px;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    box-sizing: border-box;
+}
+
+.fechar-modal {
+    position: absolute;
+
+    top: 10px;
+    right: 15px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 30px;
+    cursor: pointer;
+
+    color: #777;
+}
+
+.acoes-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.btn-cancelar,
+.btn-confirmar-ajustes {
+    border: none;
+    padding: 11px 20px;
+    border-radius: 10px;
+
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-cancelar {
+    background: #ddd;
+    color: #333;
+}
+
+.btn-confirmar-ajustes {
+    background: #ff9800;
+    color: white;
+}
 
         /* ================= MENSAGEM ================= */
         .mensagem {
@@ -858,43 +972,38 @@
             @endif
 
             {{-- AÇÕES --}}
-            <div style="margin-top: 15px;">
+<div class="acoes-postagem">
 
-                <form
-                    action="{{ route('postagens.aprovar', $postagem->id) }}"
-                    method="POST"
-                    style="display: inline;"
-                >
-                    @csrf
-                    @method('PUT')
+    {{-- APROVAR --}}
+    <form action="{{ route('postagens.aprovar', $postagem->id) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-                    <button
-                        type="submit"
-                        class="btn-aprovar"
-                    >
-                        ✓ Aprovar
-                    </button>
-                </form>
+        <button type="submit" class="btn-aprovar">
+            ✓ Aprovar
+        </button>
+    </form>
 
-                <form
-                    action="{{ route('postagens.rejeitar', $postagem->id) }}"
-                    method="POST"
-                    style="display: inline;"
-                >
-                    @csrf
-                    @method('PUT')
+    {{-- SOLICITAR AJUSTES --}}
+    <button
+        type="button"
+        class="btn-ajustes"
+        onclick="abrirModalAjustes({{ $postagem->id }})"
+    >
+        ✎ Solicitar Ajustes
+    </button>
 
-                    <button
-                        type="submit"
-                        class="btn-ajustes"
-                    >
-                        ✕ Rejeitar
-                    </button>
-                </form>
+    {{-- REJEITAR --}}
+    <form action="{{ route('postagens.rejeitar', $postagem->id) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-            </div>
+        <button type="submit" class="btn-rejeitar">
+            ✕ Rejeitar
+        </button>
+    </form>
 
-        </div>
+</div>
 
     @empty
 
@@ -1347,6 +1456,88 @@ document.getElementById('formExcluirAluno').reset();
             });
         }
     </script>
+    <div id="modalAjustes" class="modal-ajustes">
+    <div class="modal-ajustes-conteudo">
+
+        <button
+            type="button"
+            class="fechar-modal"
+            onclick="fecharModalAjustes()"
+        >
+            ×
+        </button>
+
+        <h2>Solicitar ajustes</h2>
+
+        <p>
+            Explique ao aluno o que precisa ser corrigido antes da publicação
+            ser aprovada.
+        </p>
+
+        <form id="formAjustes" method="POST">
+            @csrf
+            @method('PUT')
+
+            <textarea
+                name="observacao_professor"
+                id="observacaoProfessor"
+                rows="6"
+                maxlength="2000"
+                required
+                placeholder="Ex.: Corrija a descrição e troque a segunda imagem."
+            ></textarea>
+
+            <div class="acoes-modal">
+                <button
+                    type="button"
+                    class="btn-cancelar"
+                    onclick="fecharModalAjustes()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-confirmar-ajustes"
+                >
+                    Solicitar Ajustes
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script>
+    function abrirModalAjustes(postagemId) {
+        const modal = document.getElementById('modalAjustes');
+        const form = document.getElementById('formAjustes');
+        const textarea = document.getElementById('observacaoProfessor');
+
+        form.action = `/professor/postagens/${postagemId}/ajustes`;
+
+        textarea.value = '';
+
+        modal.style.display = 'flex';
+
+        setTimeout(() => {
+            textarea.focus();
+        }, 100);
+    }
+
+    function fecharModalAjustes() {
+        const modal = document.getElementById('modalAjustes');
+
+        modal.style.display = 'none';
+    }
+
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('modalAjustes');
+
+        if (event.target === modal) {
+            fecharModalAjustes();
+        }
+    });
+</script>
 </body>
 
 </html>

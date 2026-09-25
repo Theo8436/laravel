@@ -17,7 +17,8 @@ class Postagem extends Model
         'comentario',
         'imagem',
         'user_id',
-        'status'
+        'status',
+        'observacao_professor',
     ];
 
     public function user()

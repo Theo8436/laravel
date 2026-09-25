@@ -92,6 +92,20 @@ Route::put(
     '/professor/postagens/{postagem}/rejeitar',
     [PostagemController::class, 'rejeitar']
 )->name('postagens.rejeitar');
+Route::put(
+    '/professor/postagens/{postagem}/aprovar',
+    [PostagemController::class, 'aprovar']
+)->name('postagens.aprovar');
+
+Route::put(
+    '/professor/postagens/{postagem}/rejeitar',
+    [PostagemController::class, 'rejeitar']
+)->name('postagens.rejeitar');
+
+Route::put(
+    '/professor/postagens/{postagem}/ajustes',
+    [PostagemController::class, 'solicitarAjustes']
+)->name('postagens.ajustes');
 
 Route::get('/professor', [App\Http\Controllers\Professor::class, 'professor'])->name('professor');
 Route::get('/professor/cadastro', [App\Http\Controllers\Professor::class, 'cadastro'])->name('professor.cadastro');
@@ -102,7 +116,7 @@ Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('pro
 Route::get('/alunos', [AdicionaController::class, 'index'])->name('alunos.index');
 
 Route::get('/professor/inicio', [Professor::class, 'inicio'])->name('professor.inicio');
-Route::get('/professor/inicio', [PostagemController::class, 'iniciooo'])->name('professor.inicio');
+// Route::get('/professor/inicio', [PostagemController::class, 'iniciooo'])->name('professor.inicio');
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 
 // Galeria Professor

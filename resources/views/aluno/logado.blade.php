@@ -568,6 +568,39 @@
             color: #666;
             font-size: 14px;
         }
+        .status.ajustes {
+    display: inline-block;
+
+    background: #fff3cd;
+    color: #856404;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    font-weight: 600;
+}
+
+.observacao-professor {
+    margin-top: 12px;
+
+    padding: 15px;
+
+    background: #fff8e1;
+
+    border-left: 4px solid #ff9800;
+
+    border-radius: 8px;
+}
+
+.observacao-professor strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.observacao-professor p {
+    margin: 0;
+}
 
         /* RESPONSIVO */
         @media(max-width: 1000px){
@@ -709,59 +742,41 @@
 
             <!-- STATUS -->
             <div style="margin-bottom: 15px;">
+@if($postagem->status === 'pendente')
 
-                @if($postagem->status === 'pendente')
+    <span class="status pendente">
+        ⏳ Aguardando aprovação do professor
+    </span>
 
-                    <span style="
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 6px;
-                        background: #fff7ed;
-                        color: #c2410c;
-                        padding: 7px 14px;
-                        border-radius: 20px;
-                        font-size: 12px;
-                        font-weight: 700;
-                    ">
-                        <i class="bi bi-clock"></i>
-                        Aguardando aprovação do professor
-                    </span>
+@elseif($postagem->status === 'ajustes')
 
-                @elseif($postagem->status === 'aprovada')
+    <span class="status ajustes">
+        ⚠️ Ajustes solicitados pelo professor
+    </span>
 
-                    <span style="
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 6px;
-                        background: #dcfce7;
-                        color: #166534;
-                        padding: 7px 14px;
-                        border-radius: 20px;
-                        font-size: 12px;
-                        font-weight: 700;
-                    ">
-                        <i class="bi bi-check-circle"></i>
-                        Publicação aprovada
-                    </span>
+    @if($postagem->observacao_professor)
+        <div class="observacao-professor">
+            <strong>Observação do professor:</strong>
 
-                @elseif($postagem->status === 'rejeitada')
+            <p>
+                {{ $postagem->observacao_professor }}
+            </p>
+        </div>
+    @endif
 
-                    <span style="
-                        display: inline-flex;
-                        align-items: center;
-                        gap: 6px;
-                        background: #fee2e2;
-                        color: #991b1b;
-                        padding: 7px 14px;
-                        border-radius: 20px;
-                        font-size: 12px;
-                        font-weight: 700;
-                    ">
-                        <i class="bi bi-x-circle"></i>
-                        Publicação rejeitada
-                    </span>
+@elseif($postagem->status === 'aprovada')
 
-                @endif
+    <span class="status aprovada">
+        ✓ Publicação aprovada
+    </span>
+
+@elseif($postagem->status === 'rejeitada')
+
+    <span class="status rejeitada">
+        ✕ Publicação rejeitada
+    </span>
+
+@endif
 
             </div>
 
