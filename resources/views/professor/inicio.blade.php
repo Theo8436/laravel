@@ -158,69 +158,110 @@
 
                 <div class="posts-grid" id="postsGrid">
                     @forelse($publicacoes as $post)
-                        @php
-                            $catClass = 'stars';
-                            $catIcon = 'fa-star';
-                            $btnClass = 'stars-button';
-                            $bgClass = 'stars-bg';
 
-                            if ($post->categoria == 'Beth Anatomy') {
-                                $catClass = 'anatomy';
-                                $catIcon = 'fa-microscope';
-                                $btnClass = 'anatomy-button';
-                                $bgClass = 'anatomy-bg';
-                            } elseif ($post->categoria == 'Beth Indica') {
-                                $catClass = 'indica';
-                                $catIcon = 'fa-book';
-                                $btnClass = 'indica-button';
-                                $bgClass = 'indica-bg';
-                            }
+    @php
+        $catClass = 'stars';
+        $catIcon = 'fa-star';
+        $btnClass = 'stars-button';
+        $bgClass = 'stars-bg';
 
-                            $imagensDecodificadas = json_decode($post->imagem, true);
-                            $caminhoImagem = is_array($imagensDecodificadas) && count($imagensDecodificadas) > 0 
-                                ? $imagensDecodificadas[0] 
-                                : $post->imagem;
+        if ($post->categoria === 'Beth Anatomy') {
+            $catClass = 'anatomy';
+            $catIcon = 'fa-microscope';
+            $btnClass = 'anatomy-button';
+            $bgClass = 'anatomy-bg';
 
-                            if (filter_var($caminhoImagem, FILTER_VALIDATE_URL)) {
-                                $urlFinalImagem = $caminhoImagem;
-                            } elseif ($caminhoImagem) {
-                                $urlFinalImagem = asset('storage/' . $caminhoImagem);
-                            } else {
-                                $urlFinalImagem = asset('images/default.png');
-                            }
-                        @endphp
+        } elseif ($post->categoria === 'Beth Indica') {
+            $catClass = 'indica';
+            $catIcon = 'fa-book';
+            $btnClass = 'indica-button';
+            $bgClass = 'indica-bg';
+        }
 
-                        <article class="post-card" data-category="{{ $post->categoria }}" data-date="{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}">
-                            <div class="post-image-wrapper">
-                                <div class="post-category-icon {{ $catClass }}">
-                                    <i class="fa-solid {{ $catIcon }}"></i>
-                                </div>
-                                <img src="{{ $urlFinalImagem }}" alt="{{ $post->titulo }}">
-                                <div class="image-overlay"></div>
-                            </div>
+        $caminhoImagem = $post->imagem;
 
-                            <div class="post-content">
-                                <div class="post-meta">
-                                    <span class="post-category {{ $bgClass }}">{{ $post->categoria }}</span>
-                                    <span class="post-date">{{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}</span>
-                                </div>
+        $imagens = json_decode($post->imagem, true);
 
-                                <h4>{{ $post->titulo }}</h4>
-                                <p>{{ Str::limit($post->comentario ?? $post->descricao ?? $post->conteudo, 120) }}</p>
+        if (is_array($imagens) && count($imagens) > 0) {
+            $caminhoImagem = $imagens[0];
+        }
 
-                                <div class="post-footer">
-                                    <span>Aluno: {{ $post->user->nome ?? $post->aluno->nome ?? $post->autor ?? 'Aluno' }}</span>
-                                    <a href="{{ route('aluno.showPostagem', $post->id) }}" class="read-more {{ $btnClass }}">
-                                        Ler mais
-                                    </a>
-                                </div>
-                            </div>
-                        </article>
-                    @empty
-                        <div class="no-results" style="grid-column: 1 / -1; text-align: center;">
-                            <h4>Nenhum aluno publicou conteúdos ainda.</h4>
-                        </div>
-                    @endforelse
+        if ($caminhoImagem && str_contains($caminhoImagem, 'imagem')) {
+            $urlFinalImagem = asset($caminhoImagem);
+        } elseif ($caminhoImagem) {
+            $urlFinalImagem = asset('storage/' . $caminhoImagem);
+        } else {
+            $urlFinalImagem = asset('images/default.png');
+        }
+    @endphp
+
+    <article 
+        class="post-card" 
+        data-category="{{ $post->categoria }}" 
+        data-date="{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}"
+    >
+
+        <div class="post-image-wrapper">
+
+            <div class="post-category-icon {{ $catClass }}">
+                <i class="fa-solid {{ $catIcon }}"></i>
+            </div>
+
+            <img 
+                src="{{ $urlFinalImagem }}" 
+                alt="{{ $post->titulo }}"
+            >
+
+            <div class="image-overlay"></div>
+
+        </div>
+
+        <div class="post-content">
+
+            <div class="post-meta">
+
+                <span class="post-category {{ $bgClass }}">
+                    {{ $post->categoria }}
+                </span>
+
+                <span class="post-date">
+                    {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
+                </span>
+
+            </div>
+
+            <h4>{{ $post->titulo }}</h4>
+
+            <p>
+                {{ Str::limit($post->comentario ?? '', 120) }}
+            </p>
+
+            <div class="post-footer">
+
+                <span>
+                    Por {{ $post->user->nome ?? 'Aluno' }}
+                </span>
+
+                <a 
+                    href="{{ route('aluno.showPostagem', $post->id) }}" 
+                    class="read-more {{ $btnClass }}"
+                >
+                    Ler mais
+                </a>
+
+            </div>
+
+        </div>
+
+    </article>
+
+@empty
+
+    <div class="no-results" style="grid-column: 1 / -1; text-align: center;">
+        <h4>Nenhum conteúdo publicado até o momento.</h4>
+    </div>
+
+@endforelse
                 </div>
 
                 {{-- Nenhum resultado (Filtro JS) --}}

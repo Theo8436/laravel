@@ -336,109 +336,109 @@
 
                     @forelse($publicacoes as $post)
 
-                        @php
-                            // Mapeia estilos e ícones conforme a categoria
-                            $catClass = 'stars';
-                            $catIcon = 'fa-star';
-                            $btnClass = 'stars-button';
-                            $bgClass = 'stars-bg';
+    @php
+        $catClass = 'stars';
+        $catIcon = 'fa-star';
+        $btnClass = 'stars-button';
+        $bgClass = 'stars-bg';
 
-                            if ($post->categoria == 'Beth Anatomy') {
-                                $catClass = 'anatomy';
-                                $catIcon = 'fa-microscope';
-                                $btnClass = 'anatomy-button';
-                                $bgClass = 'anatomy-bg';
-                            } elseif ($post->categoria == 'Beth Indica') {
-                                $catClass = 'indica';
-                                $catIcon = 'fa-book';
-                                $btnClass = 'indica-button';
-                                $bgClass = 'indica-bg';
-                            }
+        if ($post->categoria === 'Beth Anatomy') {
+            $catClass = 'anatomy';
+            $catIcon = 'fa-microscope';
+            $btnClass = 'anatomy-button';
+            $bgClass = 'anatomy-bg';
 
-                            // Trata o JSON das imagens
-                            $imagensDecodificadas = json_decode($post->imagem, true);
-                            
-                            if (is_array($imagensDecodificadas) && count($imagensDecodificadas) > 0) {
-                                $caminhoImagem = $imagensDecodificadas[0];
-                            } else {
-                                $caminhoImagem = $post->imagem;
-                            }
+        } elseif ($post->categoria === 'Beth Indica') {
+            $catClass = 'indica';
+            $catIcon = 'fa-book';
+            $btnClass = 'indica-button';
+            $bgClass = 'indica-bg';
+        }
 
-                            if (filter_var($caminhoImagem, FILTER_VALIDATE_URL)) {
-                                $urlFinalImagem = $caminhoImagem;
-                            } elseif ($caminhoImagem) {
-                                $urlFinalImagem = asset('storage/' . $caminhoImagem);
-                            } else {
-                                $urlFinalImagem = asset('images/default.png');
-                            }
-                        @endphp
+        $caminhoImagem = $post->imagem;
 
-                        <article
-                            class="post-card"
-                            data-category="{{ $post->categoria }}"
-                            data-date="{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}"
-                        >
+        $imagens = json_decode($post->imagem, true);
 
-                            <div class="post-image-wrapper">
+        if (is_array($imagens) && count($imagens) > 0) {
+            $caminhoImagem = $imagens[0];
+        }
 
-                                <div class="post-category-icon {{ $catClass }}">
-                                    <i class="fa-solid {{ $catIcon }}"></i>
-                                </div>
+        if ($caminhoImagem && str_contains($caminhoImagem, 'imagem')) {
+            $urlFinalImagem = asset($caminhoImagem);
+        } elseif ($caminhoImagem) {
+            $urlFinalImagem = asset('storage/' . $caminhoImagem);
+        } else {
+            $urlFinalImagem = asset('images/default.png');
+        }
+    @endphp
 
-                                <img
-                                    src="{{ $urlFinalImagem }}"
-                                    alt="{{ $post->titulo }}"
-                                >
+    <article 
+        class="post-card" 
+        data-category="{{ $post->categoria }}" 
+        data-date="{{ \Carbon\Carbon::parse($post->created_at)->format('Y-m-d') }}"
+    >
 
-                                <div class="image-overlay"></div>
+        <div class="post-image-wrapper">
 
-                            </div>
+            <div class="post-category-icon {{ $catClass }}">
+                <i class="fa-solid {{ $catIcon }}"></i>
+            </div>
 
-                            <div class="post-content">
+            <img 
+                src="{{ $urlFinalImagem }}" 
+                alt="{{ $post->titulo }}"
+            >
 
-                                <div class="post-meta">
+            <div class="image-overlay"></div>
 
-                                    <span class="post-category {{ $bgClass }}">
-                                        {{ $post->categoria }}
-                                    </span>
+        </div>
 
-                                    <span class="post-date">
-                                        {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
-                                    </span>
+        <div class="post-content">
 
-                                </div>
+            <div class="post-meta">
 
-                                <h4>
-                                    {{ $post->titulo }}
-                                </h4>
+                <span class="post-category {{ $bgClass }}">
+                    {{ $post->categoria }}
+                </span>
 
-                                <p>
-                                    {{ Str::limit($post->comentario ?? $post->descricao ?? $post->conteudo, 120) }}
-                                </p>
+                <span class="post-date">
+                    {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
+                </span>
 
-                                <div class="post-footer">
+            </div>
 
-                                    <span>
-                                        Por {{ $post->user->name ?? $post->aluno->nome ?? $post->autor ?? 'Aluno' }}
-                                    </span>
+            <h4>{{ $post->titulo }}</h4>
 
-                                    <a href="{{ route('aluno.showPostagem', $post->id) }}" class="read-more {{ $btnClass }}">
-                                        Ler mais
-                                    </a>
+            <p>
+                {{ Str::limit($post->comentario ?? '', 120) }}
+            </p>
 
-                                </div>
+            <div class="post-footer">
 
-                            </div>
+                <span>
+                    Por {{ $post->user->nome ?? 'Aluno' }}
+                </span>
 
-                        </article>
+                <a 
+                    href="{{ route('aluno.showPostagem', $post->id) }}" 
+                    class="read-more {{ $btnClass }}"
+                >
+                    Ler mais
+                </a>
 
-                    @empty
+            </div>
 
-                        <div class="no-results" style="grid-column: 1 / -1; text-align: center;">
-                            <h4>Nenhuma publicação encontrada no momento.</h4>
-                        </div>
+        </div>
 
-                    @endforelse
+    </article>
+
+@empty
+
+    <div class="no-results" style="grid-column: 1 / -1; text-align: center;">
+        <h4>Nenhum conteúdo publicado até o momento.</h4>
+    </div>
+
+@endforelse
 
                 </div>
 

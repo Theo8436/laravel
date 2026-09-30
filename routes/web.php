@@ -12,15 +12,17 @@ use App\Http\Controllers\AdicionaController;
 use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\Professor;
 use App\Http\Controllers\Inicio;
-
+use App\Http\Controllers\Principal;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
+Route::get('/', [App\Http\Controllers\Principal::class, 'principal'])
+    ->name('inicio');
+// Route::get('/', [App\Http\Controllers\Principal::class, 'principal']);
+// Route::get('/', [App\Http\Controllers\PostagemController::class, 'inicio']);
 
 /*
 |--------------------------------------------------------------------------
@@ -83,15 +85,15 @@ Route::get('/mencao/{id}', [MencaoController::class, 'show'])->name('mencao.show
 | ÁREA DO PROFESSOR (LOGIN, CADASTRO, GALERIA, BIBLIOTECA, ALUNOS)
 |--------------------------------------------------------------------------
 */
-Route::put(
-    '/professor/postagens/{postagem}/aprovar',
-    [PostagemController::class, 'aprovar']
-)->name('postagens.aprovar');
+// Route::put(
+//     '/professor/postagens/{postagem}/aprovar',
+//     [PostagemController::class, 'aprovar']
+// )->name('postagens.aprovar');
 
-Route::put(
-    '/professor/postagens/{postagem}/rejeitar',
-    [PostagemController::class, 'rejeitar']
-)->name('postagens.rejeitar');
+// Route::put(
+//     '/professor/postagens/{postagem}/rejeitar',
+//     [PostagemController::class, 'rejeitar']
+// )->name('postagens.rejeitar');
 Route::put(
     '/professor/postagens/{postagem}/aprovar',
     [PostagemController::class, 'aprovar']
@@ -116,7 +118,7 @@ Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('pro
 Route::get('/alunos', [AdicionaController::class, 'index'])->name('alunos.index');
 
 Route::get('/professor/inicio', [Professor::class, 'inicio'])->name('professor.inicio');
-// Route::get('/professor/inicio', [PostagemController::class, 'iniciooo'])->name('professor.inicio');
+Route::get('/professor/inicio', [PostagemController::class, 'inicio'])->name('professor.inicio');
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 
 // Galeria Professor
@@ -162,14 +164,14 @@ Route::delete('/alunos/{aluno}', [AdicionaController::class, 'destroy'])->name('
 Route::get('/aluno', [App\Http\Controllers\Aluno::class, 'aluno'])->name('aluno');
 Route::get('/aluno/cadastro', [LoginAlunoController::class, 'cadastro'])->name('aluno.cadastro');
 Route::get('/aluno/entrar', [LoginAlunoController::class, 'entrar'])->name('aluno.entrar');
-Route::get('/aluno/inicio', [PostagemController::class, 'inicio'])->name('aluno.inicio');
+Route::get('/aluno/inicio', [App\Http\Controllers\PostagemController::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
 
 
 
 
 // Área do aluno
-Route::get('/aluno/inicio', [PostagemController::class, 'inicio'])->name('aluno.inicio');
+Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
 Route::get('/aluno/galeria', [GaleriaController::class, 'indexAluno'])->name('aluno.galeria');
 Route::get('/aluno/biblioteca', [LivroController::class, 'bibliotecaAluno'])->name('aluno.biblioteca');
 
@@ -201,9 +203,9 @@ Route::get('/escolha', [App\Http\Controllers\Escolha::class, 'escolha'])->name('
 Route::get('/entrar', [App\Http\Controllers\Entrar::class, 'entrar'])->name('entrar');
 Route::get('/sobre', [App\Http\Controllers\Sobre::class, 'sobre'])->name('sobre');
 // Garanta que a rota inicial (/) e a /inicio usem o Controller
-Route::get('/', [Inicio::class, 'inicio'])->name('home');
-Route::get('/inicio', [Inicio::class, 'inicio'])->name('inicio');
-Route::get('inicio', [PostagemController::class, 'inicio'])->name('inicio');
+// Route::get('/', [Inicio::class, 'inicio'])->name('home');
+Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('inicio');
+// Route::get('inicio', [PostagemController::class, 'inicio'])->name('inicio');
 Route::get('/galeria', [GaleriaController::class, 'galeriaa'])->name('galeria');
 Route::get('/biblioteca', [LivroController::class, 'bibliotecaa'])->name('biblioteca');
 Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi');

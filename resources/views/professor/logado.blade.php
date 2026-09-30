@@ -910,14 +910,9 @@
 
         <div class="post-card">
 
-            <h3>
-                {{ $postagem->titulo }}
-            </h3>
+            {{-- ================= INFORMAÇÕES DO POST ================= --}}
 
-            <p>
-                <strong>Autor:</strong>
-                {{ $postagem->user->nome ?? 'Aluno não encontrado' }}
-            </p>
+            <h3>{{ $postagem->titulo }}</h3>
 
             <p>
                 <strong>Categoria:</strong>
@@ -925,85 +920,117 @@
             </p>
 
             <p>
+                <strong>Aluno:</strong>
+                {{ $postagem->user->nome ?? 'Aluno não identificado' }}
+            </p>
+
+            <p>
+                <strong>Data de envio:</strong>
+                {{ $postagem->created_at ? $postagem->created_at->format('d/m/Y H:i') : '-' }}
+            </p>
+
+            <p>
                 <strong>Comentário:</strong>
+            </p>
+
+            <p>
                 {{ $postagem->comentario }}
             </p>
 
-            {{-- IMAGENS --}}
+
+            {{-- ================= IMAGEM DO POST ================= --}}
+
             @if($postagem->imagem)
 
                 @php
-                    $fotos = json_decode($postagem->imagem, true) ?? [];
+                    $imagens = json_decode($postagem->imagem, true);
 
-                    if (!is_array($fotos)) {
-                        $fotos = [$postagem->imagem];
+                    if (!is_array($imagens)) {
+                        $imagens = [$postagem->imagem];
                     }
                 @endphp
 
-                @if(count($fotos) > 0)
+                <div style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 15px;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                ">
 
-                    <div style="
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 12px;
-                        margin: 15px 0;
-                    ">
+                    @foreach($imagens as $imagem)
 
-                        @foreach($fotos as $foto)
+                        @php
+                            if (str_contains($imagem, 'imagem')) {
+                                $urlImagem = asset($imagem);
+                            } else {
+                                $urlImagem = asset('storage/' . $imagem);
+                            }
+                        @endphp
 
-                            <img
-                                src="{{ asset('storage/' . $foto) }}"
-                                alt="Imagem da publicação"
-                                style="
-                                    width: 140px;
-                                    height: 100px;
-                                    object-fit: cover;
-                                    border-radius: 12px;
-                                    border: 2px solid #eee;
-                                "
-                            >
+                        <img
+                            src="{{ $urlImagem }}"
+                            alt="{{ $postagem->titulo }}"
+                            style="
+                                width: 180px;
+                                height: 130px;
+                                object-fit: cover;
+                                border-radius: 12px;
+                                box-shadow: 0 4px 10px rgba(0,0,0,.15);
+                            "
+                        >
 
-                        @endforeach
+                    @endforeach
 
-                    </div>
-
-                @endif
+                </div>
 
             @endif
 
-            {{-- AÇÕES --}}
-<div class="acoes-postagem">
 
-    {{-- APROVAR --}}
-    <form action="{{ route('postagens.aprovar', $postagem->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+            {{-- ================= AÇÕES ================= --}}
 
-        <button type="submit" class="btn-aprovar">
-            ✓ Aprovar
-        </button>
-    </form>
+            <div class="acoes-postagem">
 
-    {{-- SOLICITAR AJUSTES --}}
-    <button
-        type="button"
-        class="btn-ajustes"
-        onclick="abrirModalAjustes({{ $postagem->id }})"
-    >
-        ✎ Solicitar Ajustes
-    </button>
+                {{-- APROVAR --}}
+                <form
+                    action="{{ route('postagens.aprovar', $postagem->id) }}"
+                    method="POST"
+                >
+                    @csrf
+                    @method('PUT')
 
-    {{-- REJEITAR --}}
-    <form action="{{ route('postagens.rejeitar', $postagem->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+                    <button type="submit" class="btn-aprovar">
+                        ✓ Aprovar
+                    </button>
+                </form>
 
-        <button type="submit" class="btn-rejeitar">
-            ✕ Rejeitar
-        </button>
-    </form>
 
-</div>
+                {{-- SOLICITAR AJUSTES --}}
+                <button
+                    type="button"
+                    class="btn-ajustes"
+                    onclick="abrirModalAjustes({{ $postagem->id }})"
+                >
+                    ✎ Solicitar Ajustes
+                </button>
+
+
+                {{-- REJEITAR --}}
+                <form
+                    action="{{ route('postagens.rejeitar', $postagem->id) }}"
+                    method="POST"
+                >
+                    @csrf
+                    @method('PUT')
+
+                    <button type="submit" class="btn-rejeitar">
+                        ✕ Rejeitar
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
 
     @empty
 

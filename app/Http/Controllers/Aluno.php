@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Postagem;
 
 class Aluno extends Controller
 
@@ -20,8 +21,14 @@ class Aluno extends Controller
         return view('aluno.logado');
     }
 
-    function inicio(){
-        return view('aluno.inicio');
+    public function inicio()
+    {
+        $publicacoes = Postagem::with('user')
+            ->where('status', 'aprovada')
+            ->latest()
+            ->get();
+
+        return view('aluno.inicio', compact('publicacoes'));
     }
     function sobre(){
         return view('aluno.sobre');
