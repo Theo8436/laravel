@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LivroModel; // Importação correta do seu model
+use App\Models\LivroModel;
+use App\Models\SolicitacaoEmprestimo;
 use Illuminate\Http\Request;
 
 class LivroController extends Controller
 {
-    // Exibe a página da biblioteca com a lista de livros do banco
+    // Exibe a página da biblioteca do professor
     public function biblioteca()
     {
-        // Alterado de Livro para LivroModel
-        $livros = LivroModel::all(); 
-        return view('professor.biblioteca', compact('livros'));
+        $livros = LivroModel::latest()->get();
+
+        $solicitacoes = SolicitacaoEmprestimo::where('status', 'pendente')
+    ->latest()
+    ->get();
+
+        return view('professor.biblioteca', compact(
+            'livros',
+            'solicitacoes'
+        ));
     }
 
-    // Salva um novo livro via Modal
+    // Salva um novo livro
     public function store(Request $request)
     {
         $request->validate([
@@ -25,13 +33,12 @@ class LivroController extends Controller
             'status'    => 'required|string|max:255',
         ]);
 
-        // Alterado de Livro para LivroModel
         LivroModel::create($request->all());
 
-        return redirect()->back()->with('sucesso');
+        return redirect()->back()->with('sucesso', 'Livro cadastrado com sucesso!');
     }
 
-    // Atualiza os dados de um livro existente via Modal de Edição
+    // Atualiza um livro
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -41,39 +48,36 @@ class LivroController extends Controller
             'status'    => 'required|string|max:255',
         ]);
 
-        // Alterado de Livro para LivroModel
         $livro = LivroModel::findOrFail($id);
+
         $livro->update($request->all());
 
-        return redirect()->back()->with('sucesso');
+        return redirect()->back()->with('sucesso', 'Livro atualizado com sucesso!');
     }
 
-    // Exclui um livro do banco de dados
+    // Exclui um livro
     public function destroy($id)
     {
-        // Alterado de Livro para LivroModel
         $livro = LivroModel::findOrFail($id);
+
         $livro->delete();
 
-        return redirect()->back()->with('sucesso');
-    }
-    // Adicione este método dentro da classe LivroController
-    public function bibliotecaAluno()
-    {
-    // Busca todos os livros cadastrados no banco de dados
-    $livros = LivroModel::all(); 
-    
-    // Retorna a view da biblioteca do aluno passando os livros (ajuste o caminho da view se necessário)
-    return view('aluno.biblioteca', compact('livros')); 
-    }
-    // Adicione este método dentro da classe LivroController
-    public function bibliotecaa()
-    {
-    // Busca todos os livros cadastrados no banco de dados
-    $livros = LivroModel::all(); 
-    
-    // Retorna a view da biblioteca do aluno passando os livros (ajuste o caminho da view se necessário)
-    return view('biblioteca', compact('livros')); 
+        return redirect()->back()->with('sucesso', 'Livro excluído com sucesso!');
     }
 
+    // Biblioteca do aluno
+    public function bibliotecaAluno()
+    {
+        $livros = LivroModel::all();
+
+        return view('aluno.biblioteca', compact('livros'));
+    }
+
+    // Biblioteca pública
+    public function bibliotecaa()
+    {
+        $livros = LivroModel::all();
+
+        return view('biblioteca', compact('livros'));
+    }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\GaleriaController;
 use App\Http\Controllers\Professor;
 use App\Http\Controllers\Inicio;
 use App\Http\Controllers\Principal;
+use App\Http\Controllers\SolicitacaoEmprestimoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,7 +169,18 @@ Route::get('/aluno/inicio', [App\Http\Controllers\PostagemController::class, 'in
 Route::get('/aluno/sobre', [App\Http\Controllers\Aluno::class, 'sobre'])->name('aluno.sobre');
 
 
-
+Route::post(
+    '/aluno/biblioteca/solicitar/{livro}',
+    [SolicitacaoEmprestimoController::class, 'store']
+)->name('emprestimo.solicitar');
+Route::get(
+    '/professor/biblioteca/solicitacoes',
+    [SolicitacaoEmprestimoController::class, 'index']
+)->name('professor.biblioteca.solicitacoes');
+Route::post(
+    '/professor/emprestimo/aprovar/{id}',
+    [SolicitacaoEmprestimoController::class, 'aprovar']
+)->name('emprestimo.aprovar');
 
 // Área do aluno
 Route::get('/aluno/inicio', [App\Http\Controllers\Aluno::class, 'inicio'])->name('aluno.inicio');
@@ -209,3 +221,5 @@ Route::get('/inicio', [App\Http\Controllers\Inicio::class, 'inicio'])->name('ini
 Route::get('/galeria', [GaleriaController::class, 'galeriaa'])->name('galeria');
 Route::get('/biblioteca', [LivroController::class, 'bibliotecaa'])->name('biblioteca');
 Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi');
+Route::get('/galeria/{id}', [GaleriaController::class, 'show'])
+    ->name('professor.showGaleria');

@@ -11,11 +11,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
 
 </head>
 
@@ -25,27 +29,26 @@
    CONFIGURAÇÕES GERAIS
 ========================= */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-body{
+body {
 
-    min-height:100vh;
+    min-height: 100vh;
 
     background:
-    linear-gradient(
-        180deg,
-        #7000a8 0%,
-        #b400d4 55%,
-        #ef6c73 100%
-    );
+        linear-gradient(
+            180deg,
+            #7000a8 0%,
+            #b400d4 55%,
+            #ef6c73 100%
+        );
 
-    color:white;
-
+    color: white;
 }
 
 
@@ -53,33 +56,32 @@ body{
    BOLINHAS
 ========================= */
 
-body::before{
+body::before {
 
-    content:"";
+    content: "";
 
-    position:fixed;
+    position: fixed;
 
-    width:8px;
-    height:8px;
+    width: 8px;
+    height: 8px;
 
-    background:white;
+    background: white;
 
-    border-radius:50%;
+    border-radius: 50%;
 
-    opacity:.7;
+    opacity: .7;
 
-    top:18%;
-    left:12%;
+    top: 18%;
+    left: 12%;
 
     box-shadow:
-
         500px 50px white,
         700px 250px white,
         900px 500px white,
         100px 600px white,
         650px 650px white;
 
-    pointer-events:none;
+    pointer-events: none;
 
 }
 
@@ -88,28 +90,28 @@ body::before{
    HEADER
 ========================= */
 
-header{
+header {
 
-    width:100%;
+    width: 100%;
 
-    background:#ff7a00;
+    background: #ff7a00;
 
-    display:flex;
+    display: flex;
 
-    justify-content:space-between;
+    justify-content: space-between;
 
-    align-items:center;
+    align-items: center;
 
-    padding:15px 60px;
+    padding: 15px 60px;
 
     box-shadow:
         0 5px 18px rgba(0,0,0,.25);
 
-    position:sticky;
+    position: sticky;
 
-    top:0;
+    top: 0;
 
-    z-index:999;
+    z-index: 999;
 
 }
 
@@ -118,44 +120,44 @@ header{
    LOGO
 ========================= */
 
-.logo{
+.logo {
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:15px;
-
-}
-
-.logo img{
-
-    width:60px;
-    height:60px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    background:white;
+    gap: 15px;
 
 }
 
-.logo h2{
+.logo img {
 
-    color:white;
+    width: 60px;
+    height: 60px;
 
-    font-size:30px;
+    border-radius: 50%;
 
-    font-weight:800;
+    object-fit: cover;
+
+    background: white;
 
 }
 
-.logo p{
+.logo h2 {
 
-    color:white;
+    color: white;
 
-    font-size:13px;
+    font-size: 30px;
+
+    font-weight: 800;
+
+}
+
+.logo p {
+
+    color: white;
+
+    font-size: 13px;
 
 }
 
@@ -164,53 +166,51 @@ header{
    NAVBAR
 ========================= */
 
-nav{
+nav {
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    gap:10px;
-
-}
-
-nav a,
-nav button{
-
-    border:none;
-
-    background:white;
-
-    color:#ff7a00;
-
-    padding:10px 17px;
-
-    border-radius:30px;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    text-decoration:none;
-
-    cursor:pointer;
-
-    transition:.3s;
+    gap: 10px;
 
 }
 
-nav a:hover,
-nav button:hover{
+nav a {
 
-    transform:translateY(-3px);
+    border: none;
 
-    background:#ffe3cb;
+    background: white;
+
+    color: #ff7a00;
+
+    padding: 10px 17px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: .3s;
 
 }
 
-nav .ativo{
+nav a:hover {
 
-    background:#ffd84f;
+    transform: translateY(-3px);
+
+    background: #ffe3cb;
+
+}
+
+nav .ativo {
+
+    background: #ffd84f;
 
 }
 
@@ -219,13 +219,13 @@ nav .ativo{
    MAIN
 ========================= */
 
-main{
+main {
 
-    width:85%;
+    width: 85%;
 
-    max-width:1200px;
+    max-width: 1200px;
 
-    margin:40px auto;
+    margin: 40px auto;
 
 }
 
@@ -234,31 +234,31 @@ main{
    TÍTULO
 ========================= */
 
-.titulo{
+.titulo {
 
-    text-align:center;
+    text-align: center;
 
-    margin-bottom:30px;
-
-}
-
-.titulo h1{
-
-    color:white;
-
-    font-size:42px;
-
-    font-weight:800;
+    margin-bottom: 30px;
 
 }
 
-.titulo p{
+.titulo h1 {
 
-    color:white;
+    color: white;
 
-    font-size:17px;
+    font-size: 42px;
 
-    margin-top:5px;
+    font-weight: 800;
+
+}
+
+.titulo p {
+
+    color: white;
+
+    font-size: 17px;
+
+    margin-top: 5px;
 
 }
 
@@ -267,58 +267,58 @@ main{
    PESQUISA
 ========================= */
 
-.pesquisa{
+.pesquisa {
 
-    display:flex;
+    display: flex;
 
-    justify-content:center;
+    justify-content: center;
 
-    margin-bottom:30px;
+    margin-bottom: 30px;
 
 }
 
-.pesquisa-box{
+.pesquisa-box {
 
-    width:500px;
+    width: 500px;
 
-    background:white;
+    background: white;
 
-    border-radius:30px;
+    border-radius: 30px;
 
-    padding:5px;
+    padding: 5px;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
     box-shadow:
         0 8px 20px rgba(0,0,0,.20);
 
 }
 
-.pesquisa-box i{
+.pesquisa-box i {
 
-    color:#9b35d6;
+    color: #9b35d6;
 
-    font-size:18px;
+    font-size: 18px;
 
-    margin-left:15px;
+    margin-left: 15px;
 
 }
 
-.pesquisa-box input{
+.pesquisa-box input {
 
-    width:100%;
+    width: 100%;
 
-    border:none;
+    border: none;
 
-    outline:none;
+    outline: none;
 
-    padding:12px 15px;
+    padding: 12px 15px;
 
-    border-radius:30px;
+    border-radius: 30px;
 
-    font-size:14px;
+    font-size: 14px;
 
 }
 
@@ -327,96 +327,100 @@ main{
    DOAÇÃO
 ========================= */
 
-.doacao{
+.doacao {
 
-    background:rgba(255,255,255,.15);
+    background: rgba(255,255,255,.15);
 
-    border:1px solid rgba(255,255,255,.35);
+    border: 1px solid rgba(255,255,255,.35);
 
-    border-radius:20px;
+    border-radius: 20px;
 
-    padding:18px 22px;
+    padding: 18px 22px;
 
-    margin-bottom:30px;
+    margin-bottom: 30px;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:space-between;
+    justify-content: space-between;
 
-    backdrop-filter:blur(8px);
-
-}
-
-.doacao-conteudo{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
+    backdrop-filter: blur(8px);
 
 }
 
-.doacao-icone{
+.doacao-conteudo {
 
-    width:45px;
-    height:45px;
+    display: flex;
 
-    background:#ff7a00;
+    align-items: center;
 
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:22px;
+    gap: 15px;
 
 }
 
-.doacao h3{
+.doacao-icone {
 
-    font-size:17px;
+    width: 45px;
+    height: 45px;
 
-}
+    background: #ff7a00;
 
-.doacao p{
+    border-radius: 50%;
 
-    font-size:12px;
+    display: flex;
 
-    margin-top:3px;
+    justify-content: center;
 
-}
+    align-items: center;
 
-.btn-doar{
-
-    border:none;
-
-    background:#ff7a00;
-
-    color:white;
-
-    padding:11px 20px;
-
-    border-radius:25px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
+    font-size: 22px;
 
 }
 
-.btn-doar:hover{
+.doacao h3 {
 
-    background:#ff9500;
+    font-size: 17px;
 
-    transform:translateY(-3px);
+}
+
+.doacao p {
+
+    font-size: 12px;
+
+    margin-top: 3px;
+
+}
+
+.btn-doar {
+
+    border: none;
+
+    background: #ff7a00;
+
+    color: white;
+
+    padding: 11px 20px;
+
+    border-radius: 25px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    text-decoration: none;
+
+    display: inline-block;
+
+}
+
+.btn-doar:hover {
+
+    background: #ff9500;
+
+    transform: translateY(-3px);
 
 }
 
@@ -425,14 +429,14 @@ main{
    LIVROS
 ========================= */
 
-.livros{
+.livros {
 
-    display:grid;
+    display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap:25px;
+    gap: 25px;
 
 }
 
@@ -441,26 +445,26 @@ main{
    CARD
 ========================= */
 
-.card-livro{
+.card-livro {
 
-    background:white;
+    background: white;
 
-    color:#222;
+    color: #222;
 
-    border-radius:18px;
+    border-radius: 18px;
 
-    overflow:hidden;
+    overflow: hidden;
 
     box-shadow:
         0 8px 20px rgba(0,0,0,.20);
 
-    transition:.3s;
+    transition: .3s;
 
 }
 
-.card-livro:hover{
+.card-livro:hover {
 
-    transform:translateY(-6px);
+    transform: translateY(-6px);
 
 }
 
@@ -469,30 +473,30 @@ main{
    CAPA
 ========================= */
 
-.capa{
+.capa {
 
-    height:140px;
+    height: 140px;
 
     background:
-    linear-gradient(
-        135deg,
-        #d99df0,
-        #ffbd78
-    );
+        linear-gradient(
+            135deg,
+            #d99df0,
+            #ffbd78
+        );
 
-    display:flex;
+    display: flex;
 
-    justify-content:center;
+    justify-content: center;
 
-    align-items:center;
+    align-items: center;
 
 }
 
-.capa i{
+.capa i {
 
-    color:white;
+    color: white;
 
-    font-size:55px;
+    font-size: 55px;
 
     text-shadow:
         0 3px 8px rgba(0,0,0,.15);
@@ -501,132 +505,160 @@ main{
 
 
 /* =========================
-   CONTEÚDO CARD
+   CONTEÚDO
 ========================= */
 
-.card-conteudo{
+.card-conteudo {
 
-    padding:18px;
-
-}
-
-.card-topo{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:10px;
+    padding: 18px;
 
 }
 
-.categoria{
+.card-topo {
 
-    background:#ff7a00;
+    display: flex;
 
-    color:white;
+    justify-content: space-between;
 
-    padding:5px 10px;
+    align-items: center;
 
-    border-radius:15px;
+    margin-bottom: 10px;
 
-    font-size:10px;
-
-    font-weight:700;
+    gap: 8px;
 
 }
 
-.disponivel{
+.categoria {
 
-    background:#1ac95c;
+    background: #ff7a00;
 
-    color:white;
+    color: white;
 
-    padding:5px 10px;
+    padding: 5px 10px;
 
-    border-radius:15px;
+    border-radius: 15px;
 
-    font-size:10px;
+    font-size: 10px;
 
-    font-weight:700;
-
-}
-
-.esgotado{
-
-    background:#ef4444;
-
-    color:white;
-
-    padding:5px 10px;
-
-    border-radius:15px;
-
-    font-size:10px;
-
-    font-weight:700;
+    font-weight: 700;
 
 }
 
-.card-livro h2{
+.disponivel {
 
-    font-size:18px;
+    background: #1ac95c;
 
-    line-height:23px;
+    color: white;
 
-    margin-bottom:7px;
+    padding: 5px 10px;
 
-}
+    border-radius: 15px;
 
-.autor{
+    font-size: 10px;
 
-    color:#666;
-
-    font-size:12px;
-
-    margin-bottom:12px;
+    font-weight: 700;
 
 }
 
-.copias{
+.esgotado {
 
-    color:#444;
+    background: #ef4444;
 
-    font-size:12px;
+    color: white;
 
-    margin-bottom:12px;
+    padding: 5px 10px;
 
-}
+    border-radius: 15px;
 
-.btn-livro{
+    font-size: 10px;
 
-    width:100%;
-
-    border:none;
-
-    background:#a83de8;
-
-    color:white;
-
-    padding:9px;
-
-    border-radius:20px;
-
-    cursor:pointer;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    transition:.3s;
+    font-weight: 700;
 
 }
 
-.btn-livro:hover{
 
-    background:#8b2bd0;
+/* =========================
+   TÍTULO DO LIVRO
+========================= */
+
+.card-livro h2 {
+
+    font-size: 18px;
+
+    line-height: 23px;
+
+    margin-bottom: 7px;
+
+}
+
+
+/* =========================
+   AUTOR
+========================= */
+
+.autor {
+
+    color: #666;
+
+    font-size: 12px;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* =========================
+   BOTÃO
+========================= */
+
+.btn-livro {
+
+    width: 100%;
+
+    border: none;
+
+    background: #a83de8;
+
+    color: white;
+
+    padding: 9px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: .3s;
+
+}
+
+.btn-livro:hover {
+
+    background: #8b2bd0;
+
+}
+
+
+/* =========================
+   BOTÃO INDISPONÍVEL
+========================= */
+
+.btn-indisponivel {
+
+    background: #999;
+
+    cursor: not-allowed;
+
+}
+
+.btn-indisponivel:hover {
+
+    background: #999;
+
+    transform: none;
 
 }
 
@@ -635,36 +667,67 @@ main{
    MENSAGEM
 ========================= */
 
-#mensagem{
+#mensagem {
 
-    display:none;
+    display: none;
 
-    position:fixed;
+    position: fixed;
 
-    bottom:25px;
+    bottom: 25px;
 
-    right:25px;
+    right: 25px;
 
-    background:white;
+    background: white;
 
-    color:#333;
+    color: #333;
 
-    padding:18px 25px;
+    padding: 18px 25px;
 
-    border-radius:15px;
+    border-radius: 15px;
 
     box-shadow:
         0 8px 25px rgba(0,0,0,.25);
 
-    font-weight:600;
+    font-weight: 600;
 
-    z-index:2000;
+    z-index: 2000;
 
 }
 
-#mensagem.mostrar{
+#mensagem.mostrar {
 
-    display:block;
+    display: block;
+
+}
+
+
+/* =========================
+   VAZIO
+========================= */
+
+.vazio {
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background: rgba(255,255,255,.12);
+
+    border-radius: 20px;
+
+}
+
+.vazio i {
+
+    font-size: 45px;
+
+}
+
+.vazio h3 {
+
+    margin-top: 15px;
 
 }
 
@@ -673,23 +736,23 @@ main{
    FOOTER
 ========================= */
 
-footer{
+footer {
 
-    margin-top:60px;
+    margin-top: 60px;
 
-    padding:25px;
+    padding: 25px;
 
-    text-align:center;
+    text-align: center;
 
-    background:rgba(0,0,0,.12);
+    background: rgba(0,0,0,.12);
 
 }
 
-footer p{
+footer p {
 
-    color:white;
+    color: white;
 
-    font-size:14px;
+    font-size: 14px;
 
 }
 
@@ -698,33 +761,33 @@ footer p{
    RESPONSIVO
 ========================= */
 
-@media(max-width:1000px){
+@media(max-width:1000px) {
 
-    header{
+    header {
 
-        flex-direction:column;
+        flex-direction: column;
 
-        padding:20px;
-
-    }
-
-    nav{
-
-        flex-wrap:wrap;
-
-        justify-content:center;
-
-        margin-top:18px;
+        padding: 20px;
 
     }
 
-    main{
+    nav {
 
-        width:92%;
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        margin-top: 18px;
 
     }
 
-    .livros{
+    main {
+
+        width: 92%;
+
+    }
+
+    .livros {
 
         grid-template-columns:
             repeat(2,1fr);
@@ -734,39 +797,45 @@ footer p{
 }
 
 
-@media(max-width:650px){
+@media(max-width:650px) {
 
-    .titulo h1{
+    .titulo h1 {
 
-        font-size:32px;
-
-    }
-
-    .livros{
-
-        grid-template-columns:1fr;
+        font-size: 32px;
 
     }
 
-    .doacao{
+    .livros {
 
-        flex-direction:column;
-
-        gap:15px;
-
-        text-align:center;
+        grid-template-columns: 1fr;
 
     }
 
-    .doacao-conteudo{
+    .doacao {
 
-        flex-direction:column;
+        flex-direction: column;
+
+        gap: 15px;
+
+        text-align: center;
 
     }
 
-    .pesquisa-box{
+    .doacao-conteudo {
 
-        width:100%;
+        flex-direction: column;
+
+    }
+
+    .pesquisa-box {
+
+        width: 100%;
+
+    }
+
+    .logo h2 {
+
+        font-size: 24px;
 
     }
 
@@ -816,7 +885,10 @@ footer p{
             Galeria
         </a>
 
-        <a class="ativo" href="{{ route('aluno.biblioteca') }}">
+        <a
+            class="ativo"
+            href="{{ route('aluno.biblioteca') }}"
+        >
             Biblioteca
         </a>
 
@@ -825,7 +897,7 @@ footer p{
         </a>
 
         <a href="{{ route('aluno.logado') }}">
-            Minha area
+            Minha área
         </a>
 
         <a href="{{ route('inicio') }}">
@@ -842,7 +914,39 @@ footer p{
 ========================= -->
 
 <main>
+    @if(session('sucesso'))
+    <div
+        style="
+            background:#d8f8df;
+            color:#24733a;
+            padding:15px 20px;
+            border-radius:15px;
+            margin-bottom:25px;
+            text-align:center;
+            font-weight:600;
+        "
+    >
+        <i class="bi bi-check-circle-fill"></i>
+        {{ session('sucesso') }}
+    </div>
+@endif
 
+@if(session('erro'))
+    <div
+        style="
+            background:#ffe0e0;
+            color:#a52828;
+            padding:15px 20px;
+            border-radius:15px;
+            margin-bottom:25px;
+            text-align:center;
+            font-weight:600;
+        "
+    >
+        <i class="bi bi-exclamation-circle-fill"></i>
+        {{ session('erro') }}
+    </div>
+@endif
 
     <section class="titulo">
 
@@ -857,7 +961,9 @@ footer p{
     </section>
 
 
-    <!-- PESQUISA -->
+    <!-- =========================
+         PESQUISA
+    ========================= -->
 
     <section class="pesquisa">
 
@@ -877,7 +983,9 @@ footer p{
     </section>
 
 
-    <!-- DOAÇÃO -->
+    <!-- =========================
+         DOAÇÃO
+    ========================= -->
 
     <section class="doacao">
 
@@ -903,86 +1011,198 @@ footer p{
 
         </div>
 
-        <button
+        <a
+            href="{{ route('doacao') }}"
             class="btn-doar"
-            onclick="doarLivro()"
         >
-        <a href="{{ route ('aluno.doacao')}}">Quero doar</a>
-
-        </button>
+            Quero doar
+        </a>
 
     </section>
 
 
-    <!-- LIVROS (DINÂMICOS DO BANCO DE DADOS) -->
-    <section class="livros" id="listaLivros">
+    <!-- =========================
+         LIVROS DO BANCO
+    ========================= -->
+
+    <section
+        class="livros"
+        id="listaLivros"
+    >
 
         @forelse($livros as $livro)
-            <!-- O atributo data-busca foi automatizado para funcionar com o script de pesquisa do front-end -->
-            <div class="card-livro"
-                 data-busca="{{ strtolower($livro->titulo) }} {{ strtolower($livro->autor) }} {{ strtolower($livro->categoria) }}">
+
+            <div
+                class="card-livro"
+
+                data-busca="
+                    {{ strtolower($livro->titulo) }}
+                    {{ strtolower($livro->autor) }}
+                    {{ strtolower($livro->categoria) }}
+                    {{ strtolower($livro->status) }}
+                "
+            >
+
+                <!-- CAPA -->
 
                 <div class="capa">
+
                     <i class="bi bi-book"></i>
+
                 </div>
+
 
                 <div class="card-conteudo">
 
+
+                    <!-- CATEGORIA + STATUS -->
+
                     <div class="card-topo">
+
                         <span class="categoria">
+
                             {{ $livro->categoria }}
+
                         </span>
 
-                        <!-- Define a classe CSS do status de acordo com o banco -->
-                        <span class="{{ $livro->status == 'livre' ? 'disponivel' : 'esgotado' }}">
-                            {{ $livro->status == 'livre' ? 'Disponível' : ucfirst($livro->status) }}
-                        </span>
+
+                        @if($livro->status === 'livre')
+
+                            <span class="disponivel">
+
+                                Disponível
+
+                            </span>
+
+                        @elseif($livro->status === 'emprestado')
+
+                            <span class="esgotado">
+
+                                Emprestado
+
+                            </span>
+
+                        @elseif($livro->status === 'reservado')
+
+                            <span class="esgotado">
+
+                                Reservado
+
+                            </span>
+
+                        @else
+
+                            <span class="esgotado">
+
+                                {{ ucfirst($livro->status) }}
+
+                            </span>
+
+                        @endif
+
                     </div>
 
+
+                    <!-- TÍTULO -->
+
                     <h2>
-                        {{ mb_strtoupper($livro->titulo, 'UTF-8') }}
+
+                        {{ $livro->titulo }}
+
                     </h2>
 
+
+                    <!-- AUTOR -->
+
                     <p class="autor">
+
+                        <i class="bi bi-person-fill"></i>
+
                         {{ $livro->autor }}
+
                     </p>
 
-                    <!-- Como a migration não possui coluna de cópias, adaptamos baseado no status
-                    <p class="copias">
-                        {{ $livro->status == 'livre' ? '1 cópia' : '0 cópias' }}
-                    </p> -->
 
-                    <!-- Define qual função do front-end será chamada baseada na disponibilidade do livro -->
-                    @if($livro->status == 'livre')
-                        <button
-                            class="btn-livro"
-                            onclick="emprestar('{{ addslashes($livro->titulo) }}')">
-                            Emprestar
-                        </button>
-                    @else
-                        <button
-                            class="btn-livro"
-                            onclick="indisponivel()">
-                            Aguardando
-                        </button>
-                    @endif
+                    <!-- BOTÃO -->
+
+@if($livro->status === 'livre')
+
+    <form
+        action="{{ route('emprestimo.solicitar', $livro->id) }}"
+        method="POST"
+    >
+        @csrf
+
+        <button
+            type="submit"
+            class="btn-livro"
+        >
+            <i class="bi bi-bookmark-check"></i>
+            Solicitar empréstimo
+        </button>
+
+    </form>
+
+@elseif($livro->status === 'emprestado')
+
+    <button
+        type="button"
+        class="btn-livro btn-indisponivel"
+        onclick="indisponivel('emprestado')"
+    >
+        <i class="bi bi-clock"></i>
+        Emprestado
+    </button>
+
+@elseif($livro->status === 'reservado')
+
+    <button
+        type="button"
+        class="btn-livro btn-indisponivel"
+        onclick="indisponivel('reservado')"
+    >
+        <i class="bi bi-clock"></i>
+        Reservado
+    </button>
+
+@else
+
+    <button
+        type="button"
+        class="btn-livro btn-indisponivel"
+        onclick="indisponivel('indisponivel')"
+    >
+        <i class="bi bi-clock"></i>
+        Indisponível
+    </button>
+
+@endif
 
                 </div>
 
             </div>
+
         @empty
-            <!-- Mensagem caso nenhum livro tenha sido cadastrado no banco ainda -->
-            <div class="vazio" style="text-align: center; width: 100%; padding: 40px 0;">
-                <i class="bi bi-book" style="font-size:40px; color: #ccc;"></i>
-                <h3 style="margin-top: 15px; color: #666;">Nenhum livro disponível no momento</h3>
-                <p style="color: #999;">O acervo científico está sendo atualizado pelos professores.</p>
+
+            <div class="vazio">
+
+                <i class="bi bi-book"></i>
+
+                <h3>
+                    Nenhum livro disponível no momento
+                </h3>
+
+                <p>
+                    O acervo científico está sendo atualizado pelos professores.
+                </p>
+
             </div>
+
         @endforelse
 
     </section>
 
 </main>
-
 
 
 <!-- =========================
@@ -1011,7 +1231,7 @@ footer p{
    MENSAGEM
 ========================= */
 
-function mostrarMensagem(texto){
+function mostrarMensagem(texto) {
 
     const mensagem =
         document.getElementById("mensagem");
@@ -1020,11 +1240,12 @@ function mostrarMensagem(texto){
 
     mensagem.classList.add("mostrar");
 
-    setTimeout(function(){
+
+    setTimeout(function() {
 
         mensagem.classList.remove("mostrar");
 
-    },3000);
+    }, 3000);
 
 }
 
@@ -1033,30 +1254,33 @@ function mostrarMensagem(texto){
    BUSCAR LIVROS
 ========================= */
 
-function buscarLivros(){
+function buscarLivros() {
 
     const busca =
         document
-        .getElementById("busca")
-        .value
-        .toLowerCase()
-        .trim();
+            .getElementById("busca")
+            .value
+            .toLowerCase()
+            .trim();
+
 
     const livros =
         document.querySelectorAll(".card-livro");
 
-    livros.forEach(function(livro){
+
+    livros.forEach(function(livro) {
 
         const texto =
             livro
-            .getAttribute("data-busca")
-            .toLowerCase();
+                .getAttribute("data-busca")
+                .toLowerCase();
 
-        if(texto.includes(busca)){
+
+        if (texto.includes(busca)) {
 
             livro.style.display = "";
 
-        }else{
+        } else {
 
             livro.style.display = "none";
 
@@ -1071,39 +1295,34 @@ function buscarLivros(){
    EMPRESTAR
 ========================= */
 
-function emprestar(nome){
-
-    mostrarMensagem(
-        "Solicitação de empréstimo para \"" +
-        nome +
-        "\" enviada!"
-    );
-
-}
 
 
 /* =========================
-   LIVRO INDISPONÍVEL
+   INDISPONÍVEL
 ========================= */
 
-function indisponivel(){
+function indisponivel(status) {
 
-    mostrarMensagem(
-        "Este livro está temporariamente indisponível."
-    );
-
-}
+    let mensagem = "Este livro não está disponível no momento.";
 
 
-/* =========================
-   DOAÇÃO
-========================= */
+    if (status === "emprestado") {
 
-function doarLivro(){
+        mensagem =
+            "Este livro está emprestado no momento.";
 
-    mostrarMensagem(
-        "Obrigado pelo interesse em doar um livro!"
-    );
+    }
+
+
+    if (status === "reservado") {
+
+        mensagem =
+            "Este livro está reservado no momento.";
+
+    }
+
+
+    mostrarMensagem(mensagem);
 
 }
 

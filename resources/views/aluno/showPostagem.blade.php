@@ -195,32 +195,95 @@
             </div>
 
             <!-- CARROSSEL DE IMAGENS -->
-            @if($postagem->imagem)
-                @php
-                    $fotos = json_decode($postagem->imagem, true) ?? [];
-                    if (!is_array($fotos)) {
-                        $fotos = [$postagem->imagem];
-                    }
-                @endphp
+@if($postagem->imagem)
 
-                @if(count($fotos) > 0)
-                    <div id="carrossel-single" class="carrossel-container" data-index="0">
-                        <div>
-                            @foreach($fotos as $idx => $foto)
-                                <div class="slide-single" {{ $idx !== 0 ? 'hidden' : '' }}>
-                                    <img src="{{ asset('storage/' . $foto) }}" alt="Foto {{ $idx + 1 }}">
-                                </div>
-                            @endforeach
-                        </div>
+    @php
+        $fotos = json_decode($postagem->imagem, true);
 
-                        @if(count($fotos) > 1)
-                            <button type="button" class="btn-seta btn-anterior" onclick="moverSlideShow(-1)">❮</button>
-                            <button type="button" class="btn-seta btn-proximo" onclick="moverSlideShow(1)">❯</button>
-                            <span id="indicador-show" class="indicador-contador">1 / {{ count($fotos) }}</span>
-                        @endif
+        if (!is_array($fotos)) {
+            $fotos = [$postagem->imagem];
+        }
+
+        $fotos = array_filter($fotos);
+    @endphp
+
+    @if(count($fotos) > 0)
+
+        <div
+            id="carrossel-single"
+            class="carrossel-container"
+            data-index="0"
+        >
+
+            <div>
+
+                @foreach($fotos as $idx => $foto)
+
+                    @php
+                        /*
+                         * Imagens do Seeder:
+                         * imagem5.png, imagem6.png, imagem7.png...
+                         * ficam diretamente em public/
+                         *
+                         * Imagens enviadas pelo aluno:
+                         * ficam em storage/app/public/postagens/
+                         */
+
+                        if (str_contains($foto, 'imagem')) {
+                            $urlImagem = asset($foto);
+                        } else {
+                            $urlImagem = asset('storage/' . $foto);
+                        }
+                    @endphp
+
+                    <div
+                        class="slide-single"
+                        {{ $idx != 0 ? 'hidden' : '' }}
+                    >
+
+                        <img
+                            src="{{ $urlImagem }}"
+                            alt="Foto {{ $idx + 1 }}"
+                        >
+
                     </div>
-                @endif
+
+                @endforeach
+
+            </div>
+
+            @if(count($fotos) > 1)
+
+                <button
+                    type="button"
+                    class="btn-seta btn-anterior"
+                    onclick="moverSlideShow(-1)"
+                >
+                    ❮
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-seta btn-proximo"
+                    onclick="moverSlideShow(1)"
+                >
+                    ❯
+                </button>
+
+                <span
+                    id="indicador-show"
+                    class="indicador-contador"
+                >
+                    1 / {{ count($fotos) }}
+                </span>
+
             @endif
+
+        </div>
+
+    @endif
+
+@endif
 
             <!-- CONTEÚDO COMPLETO -->
             <div class="artigo-conteudo">

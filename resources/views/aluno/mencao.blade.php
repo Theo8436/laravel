@@ -372,7 +372,7 @@ body::before {
                     </div>
 
                     <h2>{{ $postagem->titulo }}</h2>
-                    <h4><i class="bi bi-tag-fill"></i> {{ $postagem->categoria }}</h4>
+                    <h4><i class="bi bi-tag-fill"></i> {{ $postagem->descricao }}</h4>
 
                     <p>{{ Str::limit($postagem->comentario, 150, '...') }}</p>
                 </div>

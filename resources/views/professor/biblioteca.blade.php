@@ -218,6 +218,44 @@ main{
     font-size:18px;
 
 }
+.btn-aprovar-solicitacao {
+
+    border:none;
+
+    background:#16c964;
+
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-aprovar-solicitacao:hover {
+
+    background:#0eaa50;
+
+    transform:translateY(-2px);
+
+}
+@media(max-width:800px) {
+
+    .solicitacao-card > div {
+
+        grid-template-columns:1fr !important;
+
+    }
+
+}
 
 
 /* =========================
@@ -905,16 +943,52 @@ footer{
         </div>
     </div>
 
-    <!-- ÁREA DO PROFESSOR -->
-    <div class="area-professor">
-        <div>
-            <h3><i class="bi bi-book"></i> Gerenciar Biblioteca</h3>
-            <p>Professor, cadastre novos livros no acervo.</p>
-        </div>
-        <button class="btn-cadastrar" onclick="abrirFormulario()">
-            <i class="bi bi-plus-lg"></i> Cadastrar Livro
-        </button>
+<!-- =========================
+     ÁREA DO PROFESSOR
+========================= -->
+
+<section class="area-professor">
+
+    <div>
+        <h3>
+            <i class="bi bi-book"></i>
+            Gerenciamento da Biblioteca
+        </h3>
+
+        <p>
+            Cadastre livros e acompanhe as solicitações de empréstimo dos alunos.
+        </p>
     </div>
+
+    <div style="
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        justify-content:center;
+    ">
+
+        <button
+            type="button"
+            class="btn-cadastrar"
+            onclick="abrirFormulario()"
+        >
+            <i class="bi bi-plus-lg"></i>
+            Cadastrar Livro
+        </button>
+
+        <button
+            type="button"
+            class="btn-cadastrar"
+            onclick="abrirSolicitacoes()"
+            style="background:#8b2cf5;"
+        >
+            <i class="bi bi-person-lines-fill"></i>
+            Ver solicitações
+        </button>
+
+    </div>
+
+</section>
 
 <!-- LIVROS (DINÂMICOS DO BANCO DE DADOS) -->
 <section class="livros" id="listaLivros">
@@ -1170,6 +1244,228 @@ window.onclick = function(event) {
     if (event.target === modalEdi) modalEdi.style.display = "none";
     if (event.target === modalExc) modalExc.style.display = "none";
 }
+/* =========================
+   SOLICITAÇÕES
+========================= */
+
+function abrirSolicitacoes() {
+
+    document.getElementById("modalSolicitacoes").style.display = "flex";
+
+}
+
+
+function fecharSolicitacoes() {
+
+    document.getElementById("modalSolicitacoes").style.display = "none";
+
+}
+
 </script>
+<!-- =========================
+     MODAL SOLICITAÇÕES
+========================= -->
+
+<div
+    class="modal"
+    id="modalSolicitacoes"
+    style="display:none;"
+>
+    <div
+        class="formulario"
+        style="
+            max-width:900px;
+            max-height:85vh;
+            overflow-y:auto;
+        "
+    >
+
+        <h2>
+            <i class="bi bi-person-lines-fill"></i>
+            Solicitações de Empréstimo
+        </h2>
+
+        @if($solicitacoes->count() > 0)
+
+            <div
+                style="
+                    display:flex;
+                    flex-direction:column;
+                    gap:15px;
+                "
+            >
+
+                @foreach($solicitacoes as $solicitacao)
+
+                    <div
+                        class="solicitacao-card"
+                        style="
+                            background:white;
+                            border-radius:15px;
+                            padding:18px;
+                            box-shadow:0 5px 15px rgba(0,0,0,.12);
+                            color:#222;
+                        "
+                    >
+
+                        <div
+                            style="
+                                display:grid;
+                                grid-template-columns:
+                                    1fr 1fr 1fr auto;
+                                gap:15px;
+                                align-items:center;
+                            "
+                        >
+
+                            <div>
+
+                                <small
+                                    style="
+                                        color:#777;
+                                        font-weight:600;
+                                    "
+                                >
+                                    ALUNO
+                                </small>
+
+                                <strong
+                                    style="
+                                        display:block;
+                                        color:#4b1d91;
+                                    "
+                                >
+                                    {{ $solicitacao->nome_aluno }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <small
+                                    style="
+                                        color:#777;
+                                        font-weight:600;
+                                    "
+                                >
+                                    E-MAIL
+                                </small>
+
+                                <span
+                                    style="
+                                        display:block;
+                                        font-size:13px;
+                                    "
+                                >
+                                    {{ $solicitacao->email_aluno }}
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <small
+                                    style="
+                                        color:#777;
+                                        font-weight:600;
+                                    "
+                                >
+                                    LIVRO SOLICITADO
+                                </small>
+
+                                <strong
+                                    style="
+                                        display:block;
+                                        color:#ff7a00;
+                                    "
+                                >
+                                    {{ $solicitacao->titulo_livro }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+<form
+    action="{{ route('emprestimo.aprovar', $solicitacao->id) }}"
+    method="POST"
+>
+    @csrf
+
+    <button
+        type="submit"
+        class="btn-aprovar-solicitacao"
+    >
+        <i class="bi bi-check-lg"></i>
+        Aprovar solicitação
+    </button>
+</form>
+
+                            </div>
+
+                        </div>
+
+
+                       
+
+                    </div>
+
+                @endforeach
+
+            </div>
+
+        @else
+
+            <div
+                style="
+                    text-align:center;
+                    background:white;
+                    color:#666;
+                    padding:40px 20px;
+                    border-radius:15px;
+                "
+            >
+
+                <i
+                    class="bi bi-inbox"
+                    style="
+                        font-size:50px;
+                        color:#8b2cf5;
+                    "
+                ></i>
+
+                <h3>
+                    Nenhuma solicitação de empréstimo
+                </h3>
+
+                <p>
+                    Quando um aluno solicitar um livro,
+                    a solicitação aparecerá aqui.
+                </p>
+
+            </div>
+
+        @endif
+
+
+        <div
+            class="botoes"
+            style="margin-top:25px;"
+        >
+
+            <button
+                type="button"
+                class="cancelar"
+                onclick="fecharSolicitacoes()"
+            >
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+</div>
 </body>
 </html>

@@ -1125,13 +1125,28 @@ footer{
 
             <div class="campo">
                 <label for="arquivoFoto">Escolha a foto</label>
-                <input
-                    type="file"
-                    id="arquivoFoto"
-                    name="arquivoFoto"
-                    accept="image/*"
-                    required
-                >
+<input
+    type="file"
+    name="imagens[]"
+    id="arquivoFoto"
+    multiple
+    accept="image/*"
+    class="form-control"
+    required
+    onchange="validarImagensGaleria(this)"
+>
+<div
+    id="preview-imagens-galeria"
+    style="
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+    "
+></div>
+<small class="text-muted">
+    Selecione até 10 fotos para esta galeria.
+</small>
             </div>
 
             <div class="botoes-form">
@@ -1160,11 +1175,42 @@ footer{
         @forelse($fotos as $foto)
 
             <div class="foto-card">
+@php
 
-                <img
-                    src="{{ str_contains($foto->imagem, 'imagem') ? asset($foto->imagem) : asset('storage/' . $foto->imagem) }}"
-                    alt="{{ $foto->titulo }}"
-                >
+    $fotosGaleria = json_decode($foto->imagem, true);
+
+    if (!is_array($fotosGaleria)) {
+        $fotosGaleria = $foto->imagem
+            ? [$foto->imagem]
+            : [];
+    }
+
+    $fotosGaleria = array_values(
+        array_filter($fotosGaleria)
+    );
+
+    $primeiraFoto = $fotosGaleria[0] ?? null;
+
+    if ($primeiraFoto) {
+
+        if (str_contains($primeiraFoto, 'imagem')) {
+            $imagemUrl = asset($primeiraFoto);
+        } else {
+            $imagemUrl = asset('storage/' . $primeiraFoto);
+        }
+
+    } else {
+
+        $imagemUrl = asset('imagem1.png');
+
+    }
+
+@endphp
+
+<img
+    src="{{ $imagemUrl }}"
+    alt="{{ $foto->titulo }}"
+>
 
                 <div class="foto-info">
 
@@ -1212,81 +1258,139 @@ footer{
 <!-- =========================
      MODAL DE EDIÇÃO DA GALERIA
 ========================= -->
-<div class="modal" id="modalEdicaoGaleria" style="display: none;">
-    <div class="formulario">
-        <h2><i class="bi bi-pencil"></i> Editar Foto</h2>
 
-        <form id="formEdicaoGaleria" action="" method="POST" enctype="multipart/form-data">
+<div class="modal" id="modalEdicaoGaleria" style="display: none;">
+
+    <div class="formulario">
+
+        <h2>
+            <i class="bi bi-pencil"></i>
+            Editar Galeria
+        </h2>
+
+        <form
+            id="formEdicaoGaleria"
+            action=""
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
             @csrf
             @method('PUT')
 
             <div class="campo">
-                <label for="editTituloFoto">Título da foto</label>
-                <input type="text" id="editTituloFoto" name="titulo" required>
+
+                <label for="editTituloFoto">
+                    Título da galeria
+                </label>
+
+                <input
+                    type="text"
+                    id="editTituloFoto"
+                    name="titulo"
+                    required
+                >
+
             </div>
+
 
             <div class="campo">
-                <label for="editDescricaoFoto">Descrição</label>
-                <textarea id="editDescricaoFoto" name="descricao" required></textarea>
+
+                <label for="editDescricaoFoto">
+                    Descrição
+                </label>
+
+                <textarea
+                    id="editDescricaoFoto"
+                    name="descricao"
+                    required
+                ></textarea>
+
             </div>
+
+
+            <!-- =========================
+                 FOTOS ATUAIS
+            ========================= -->
 
             <div class="campo">
-                <label for="editArquivoFoto">Substituir foto (opcional)</label>
-                <input type="file" id="editArquivoFoto" name="arquivoFoto" accept="image/*">
+
+                <label>
+                    Fotos atuais
+                </label>
+
+                <div
+                    id="fotosAtuaisEdicao"
+                    style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 15px;
+                        margin-top: 10px;
+                    "
+                ></div>
+
             </div>
 
-            <div class="botoes-form">
-                <button type="button" class="btn-cancelar" onclick="fecharEdicaoGaleria()">Cancelar</button>
-                <button type="submit" class="btn-salvar">Salvar Alterações</button>
+
+            <!-- =========================
+                 NOVAS FOTOS
+            ========================= -->
+
+            <div class="campo">
+
+                <label for="editImagens">
+                    Adicionar novas fotos
+                </label>
+
+                <input
+                    type="file"
+                    name="imagens[]"
+                    id="editImagens"
+                    multiple
+                    accept="image/*"
+                    class="form-control"
+                    onchange="previewNovasImagens(this)"
+                >
+
+                <small class="text-muted">
+                    Você pode adicionar novas fotos.
+                    O limite total da galeria é de 10 imagens.
+                </small>
+
             </div>
-        </form>
-    </div>
-</div>
 
-<!-- =========================
-     MODAL CONFIRMAÇÃO DE EXCLUSÃO
-========================= -->
 
-<div class="modal" id="modalExcluirGaleria">
+            <div
+                id="previewNovasImagens"
+                style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    margin-top: 15px;
+                "
+            ></div>
 
-    <div class="formulario" style="text-align: center;">
 
-        <h2>
-            <i class="bi bi-exclamation-triangle"></i>
-            Excluir Foto
-        </h2>
-
-        <p>
-            Tem certeza que deseja excluir a foto
-            <strong id="nomeFotoExcluir"></strong>?
-
-            Esta ação não poderá ser desfeita.
-        </p>
-
-        <form
-            id="formExcluirGaleria"
-            action=""
-            method="POST"
-        >
-
-            @csrf
-            @method('DELETE')
+            <!-- =========================
+                 BOTÕES
+            ========================= -->
 
             <div class="botoes-form">
 
                 <button
                     type="button"
                     class="btn-cancelar"
-                    onclick="fecharConfirmacaoExcluir()"
+                    onclick="fecharEdicaoGaleria()"
                 >
                     Cancelar
                 </button>
 
                 <button
                     type="submit"
-                    class="btn-excluir"
+                    class="btn-salvar"
                 >
-                    Sim, Excluir
+                    <i class="bi bi-check-lg"></i>
+                    Salvar Alterações
                 </button>
 
             </div>
@@ -1305,164 +1409,585 @@ footer{
 </footer>
 
 <!-- =========================
-     SCRIPTS JAVASCRIPT COMPLETOS
+SCRIPTS JAVASCRIPT COMPLETOS
 ========================= -->
 <script>
+
 const formulario = document.getElementById("formulario");
 const formFoto = document.getElementById("formFoto");
 const mensagem = document.getElementById("mensagem");
+
 const modalEdicao = document.getElementById("modalEdicaoGaleria");
 const modalExcluir = document.getElementById("modalExcluirGaleria");
 
-// Cadastro de fotos (formulario em linha do próprio layout)
-function abrirFormulario(){
+
+// ======================================================
+// CADASTRO DE NOVA GALERIA
+// ======================================================
+
+function abrirFormulario() {
+
+    if (!formulario) {
+        return;
+    }
+
     formulario.classList.add("aberto");
+
     formulario.style.display = "block";
-    formulario.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    formulario.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 }
 
-function fecharFormulario(){
+
+function fecharFormulario() {
+
+    if (!formulario) {
+        return;
+    }
+
     formulario.classList.remove("aberto");
-    formFoto.reset();
+
+    formulario.style.display = "none";
+
+    if (formFoto) {
+        formFoto.reset();
+    }
+
+    const preview = document.getElementById(
+        "preview-imagens-galeria"
+    );
+
+    if (preview) {
+        preview.innerHTML = "";
+    }
 }
 
-/// ==========================================
-// EDIÇÃO
-// ==========================================
+
+// ======================================================
+// VALIDAR IMAGENS DO CADASTRO
+// ======================================================
+
+function validarImagensGaleria(input) {
+
+    const preview = document.getElementById(
+        "preview-imagens-galeria"
+    );
+
+    if (preview) {
+        preview.innerHTML = "";
+    }
+
+    if (input.files.length > 10) {
+
+        alert(
+            "Você só pode selecionar no máximo 10 imagens por galeria!"
+        );
+
+        input.value = "";
+
+        return;
+    }
+
+
+    Array.from(input.files).forEach(function(arquivo) {
+
+        const reader = new FileReader();
+
+
+        reader.onload = function(e) {
+
+            const div = document.createElement("div");
+
+            div.style.width = "120px";
+            div.style.height = "120px";
+            div.style.borderRadius = "10px";
+            div.style.overflow = "hidden";
+            div.style.border = "2px solid #ddd";
+
+
+            div.innerHTML = `
+                <img
+                    src="${e.target.result}"
+                    style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    "
+                >
+            `;
+
+
+            if (preview) {
+                preview.appendChild(div);
+            }
+
+        };
+
+
+        reader.readAsDataURL(arquivo);
+
+    });
+
+}
+
+
+// ======================================================
+// EDIÇÃO DA GALERIA
+// ======================================================
 
 function abrirEdicaoGaleria(foto) {
 
-const modal = document.getElementById("modalEdicaoGaleria");
+    const modal = document.getElementById(
+        "modalEdicaoGaleria"
+    );
 
-const form = document.getElementById("formEdicaoGaleria");
+    const form = document.getElementById(
+        "formEdicaoGaleria"
+    );
 
-const titulo = document.getElementById("editTituloFoto");
+    const titulo = document.getElementById(
+        "editTituloFoto"
+    );
 
-const descricao = document.getElementById("editDescricaoFoto");
+    const descricao = document.getElementById(
+        "editDescricaoFoto"
+    );
 
-if (!modal || !form) {
-    return;
-}
-
-form.action = `/professor/galeria/atualizar/${foto.id}`;
-
-titulo.value = foto.titulo ?? "";
-
-descricao.value = foto.descricao ?? "";
-
-// Fecha o formulário de cadastro
-if (formulario) {
-    fecharFormulario();
-}
-
-// Fecha modal de exclusão
-fecharConfirmacaoExcluir();
-
-// Abre modal
-modal.style.display = "flex";
-
-// Bloqueia rolagem
-document.body.style.overflow = "hidden";
-}
+    const fotosContainer = document.getElementById(
+        "fotosAtuaisEdicao"
+    );
 
 
-function fecharEdicaoGaleria() {
-
-const modal = document.getElementById("modalEdicaoGaleria");
-
-const form = document.getElementById("formEdicaoGaleria");
-
-if (!modal) {
-    return;
-}
-
-modal.style.display = "none";
-
-if (form) {
-    form.reset();
-}
-
-document.body.style.overflow = "";
-}
+    if (!modal || !form) {
+        return;
+    }
 
 
-// ==========================================
-// EXCLUSÃO
-// ==========================================
+    // ------------------------------------------
+    // Preenche título
+    // ------------------------------------------
 
-function abrirConfirmacaoExcluir(id, titulo) {
-
-const modal = document.getElementById("modalExcluirGaleria");
-
-const form = document.getElementById("formExcluirGaleria");
-
-const nomeFoto = document.getElementById("nomeFotoExcluir");
-
-if (!modal || !form || !nomeFoto) {
-    return;
-}
-
-// Define a URL
-form.action = `/professor/galeria/excluir/${id}`;
-
-// Nome da foto
-nomeFoto.textContent = titulo;
-
-// Fecha cadastro
-if (formulario) {
-    fecharFormulario();
-}
-
-// Fecha edição
-fecharEdicaoGaleria();
-
-// Abre modal
-modal.style.display = "flex";
-
-// Bloqueia rolagem
-document.body.style.overflow = "hidden";
-}
+    titulo.value = foto.titulo ?? "";
 
 
-function fecharConfirmacaoExcluir() {
+    // ------------------------------------------
+    // Preenche descrição
+    // ------------------------------------------
 
-const modal = document.getElementById("modalExcluirGaleria");
-
-if (!modal) {
-    return;
-}
-
-modal.style.display = "none";
-
-document.body.style.overflow = "";
-}
+    descricao.value = foto.descricao ?? "";
 
 
-// ==========================================
-// FECHAR CLICANDO FORA
-// ==========================================
+    // ------------------------------------------
+    // Define a rota de atualização
+    // ------------------------------------------
 
-window.addEventListener("click", function(event) {
-
-const modalEdicao =
-    document.getElementById("modalEdicaoGaleria");
-
-const modalExcluir =
-    document.getElementById("modalExcluirGaleria");
+    form.action =
+        "/professor/galeria/atualizar/" + foto.id;
 
 
-if (event.target === modalEdicao) {
+    // ------------------------------------------
+    // Limpa fotos atuais
+    // ------------------------------------------
 
-    fecharEdicaoGaleria();
-
-}
+    fotosContainer.innerHTML = "";
 
 
-if (event.target === modalExcluir) {
+    // ------------------------------------------
+    // Recupera imagens
+    // ------------------------------------------
+
+    let fotos = [];
+
+
+    try {
+
+        fotos = JSON.parse(foto.imagem);
+
+    } catch (erro) {
+
+        fotos = [foto.imagem];
+
+    }
+
+
+    if (!Array.isArray(fotos)) {
+
+        fotos = [fotos];
+
+    }
+
+
+    fotos = fotos.filter(function(imagem) {
+
+        return imagem && imagem !== "";
+
+    });
+
+
+    // ------------------------------------------
+    // Mostra as fotos atuais
+    // ------------------------------------------
+
+    fotos.forEach(function(imagem, index) {
+
+        let imagemUrl;
+
+
+        if (imagem.includes("imagem")) {
+
+            imagemUrl = "/" + imagem;
+
+        } else {
+
+            imagemUrl = "/storage/" + imagem;
+
+        }
+
+
+        const div = document.createElement("div");
+
+        div.style.width = "140px";
+
+        div.style.position = "relative";
+
+        div.style.border = "1px solid #ddd";
+
+        div.style.borderRadius = "10px";
+
+        div.style.padding = "5px";
+
+
+        div.innerHTML = `
+            
+            <img
+                src="${imagemUrl}"
+                alt="Foto ${index + 1}"
+                style="
+                    width: 130px;
+                    height: 100px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                    display: block;
+                "
+            >
+
+            <label
+                style="
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    margin-top: 7px;
+                    font-size: 13px;
+                    cursor: pointer;
+                "
+            >
+
+                <input
+                    type="checkbox"
+                    name="remover_imagens[]"
+                    value="${imagem}"
+                >
+
+                Remover
+
+            </label>
+
+        `;
+
+
+        fotosContainer.appendChild(div);
+
+    });
+
+
+    // ------------------------------------------
+    // Limpa novas imagens
+    // ------------------------------------------
+
+    const inputNovas =
+        document.getElementById("editImagens");
+
+    const previewNovas =
+        document.getElementById("previewNovasImagens");
+
+
+    if (inputNovas) {
+        inputNovas.value = "";
+    }
+
+
+    if (previewNovas) {
+        previewNovas.innerHTML = "";
+    }
+
+
+    // ------------------------------------------
+    // Fecha outros elementos
+    // ------------------------------------------
+
+    if (formulario) {
+        fecharFormulario();
+    }
+
 
     fecharConfirmacaoExcluir();
 
+
+    // ------------------------------------------
+    // Abre modal
+    // ------------------------------------------
+
+    modal.style.display = "flex";
+
+
+    document.body.style.overflow = "hidden";
+
 }
+
+
+// ======================================================
+// PRÉVIA DAS NOVAS IMAGENS
+// ======================================================
+
+function previewNovasImagens(input) {
+
+    const preview =
+        document.getElementById(
+            "previewNovasImagens"
+        );
+
+
+    if (!preview) {
+        return;
+    }
+
+
+    preview.innerHTML = "";
+
+
+    if (input.files.length > 10) {
+
+        alert(
+            "Você só pode selecionar no máximo 10 novas imagens."
+        );
+
+        input.value = "";
+
+        return;
+    }
+
+
+    Array.from(input.files).forEach(function(arquivo) {
+
+        const reader = new FileReader();
+
+
+        reader.onload = function(e) {
+
+            const div = document.createElement("div");
+
+            div.style.width = "120px";
+
+            div.style.height = "120px";
+
+            div.style.borderRadius = "10px";
+
+            div.style.overflow = "hidden";
+
+            div.style.border = "2px solid #ddd";
+
+
+            div.innerHTML = `
+                
+                <img
+                    src="${e.target.result}"
+                    alt="Nova imagem"
+                    style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    "
+                >
+
+            `;
+
+
+            preview.appendChild(div);
+
+        };
+
+
+        reader.readAsDataURL(arquivo);
+
+    });
+
+}
+
+
+// ======================================================
+// FECHAR EDIÇÃO
+// ======================================================
+
+function fecharEdicaoGaleria() {
+
+    const modal =
+        document.getElementById(
+            "modalEdicaoGaleria"
+        );
+
+    const form =
+        document.getElementById(
+            "formEdicaoGaleria"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.style.display = "none";
+
+
+    if (form) {
+        form.reset();
+    }
+
+
+    const fotos =
+        document.getElementById(
+            "fotosAtuaisEdicao"
+        );
+
+
+    if (fotos) {
+        fotos.innerHTML = "";
+    }
+
+
+    const preview =
+        document.getElementById(
+            "previewNovasImagens"
+        );
+
+
+    if (preview) {
+        preview.innerHTML = "";
+    }
+
+
+    document.body.style.overflow = "";
+
+}
+
+
+// ======================================================
+// EXCLUSÃO
+// ======================================================
+
+function abrirConfirmacaoExcluir(id, titulo) {
+
+    const modal =
+        document.getElementById(
+            "modalExcluirGaleria"
+        );
+
+    const form =
+        document.getElementById(
+            "formExcluirGaleria"
+        );
+
+    const nomeFoto =
+        document.getElementById(
+            "nomeFotoExcluir"
+        );
+
+
+    if (!modal || !form || !nomeFoto) {
+        return;
+    }
+
+
+    form.action =
+        "/professor/galeria/excluir/" + id;
+
+
+    nomeFoto.textContent = titulo;
+
+
+    if (formulario) {
+        fecharFormulario();
+    }
+
+
+    fecharEdicaoGaleria();
+
+
+    modal.style.display = "flex";
+
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+// ======================================================
+// FECHAR EXCLUSÃO
+// ======================================================
+
+function fecharConfirmacaoExcluir() {
+
+    const modal =
+        document.getElementById(
+            "modalExcluirGaleria"
+        );
+
+
+    if (!modal) {
+        return;
+    }
+
+
+    modal.style.display = "none";
+
+
+    document.body.style.overflow = "";
+
+}
+
+
+// ======================================================
+// FECHAR MODAIS CLICANDO FORA
+// ======================================================
+
+window.addEventListener("click", function(event) {
+
+    const modalEdicao =
+        document.getElementById(
+            "modalEdicaoGaleria"
+        );
+
+    const modalExcluir =
+        document.getElementById(
+            "modalExcluirGaleria"
+        );
+
+
+    if (event.target === modalEdicao) {
+
+        fecharEdicaoGaleria();
+
+    }
+
+
+    if (event.target === modalExcluir) {
+
+        fecharConfirmacaoExcluir();
+
+    }
 
 });
 
