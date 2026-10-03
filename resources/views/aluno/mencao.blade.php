@@ -344,13 +344,13 @@ body::before {
     </div>
 
     <nav>
-        <a href="{{ route('inicio') }}">Início</a>
-        <a href="{{ route('sobre') }}">Sobre Nós</a>
-        <a href="{{ route('galeria') }}">Galeria</a>
-        <a href="{{ route('biblioteca') }}">Biblioteca</a>
-        <a class="active" href="{{ route('aluno.mencao') }}">Menções honrosas</a>
-        <a href="{{ route('escolha') }}">Minha Area</a>
-        <a href="{{ route('entrar') }}">Sair</a>
+        <a href="{{ route('aluno.inicio') }}" class="btn">Início</a>
+        <a href="{{ route('aluno.sobre') }}" class="btn">Sobre Nós</a>
+        <a href="{{ route('aluno.galeria') }}" class="btn">Galeria</a>
+        <a href="{{ route('aluno.biblioteca') }}" class="btn">Biblioteca</a>
+        <a href="{{ route('aluno.mencao') }}" class="btn">Menções honrosas</a>
+        <a href="{{ route('aluno.logado') }}" class="btn">Minha Area</a>
+        <a href="{{ route('inicio') }}" class="btn">Sair</a>
     </nav>
 </header>
 

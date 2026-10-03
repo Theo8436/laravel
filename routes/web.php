@@ -1,5 +1,14 @@
 <?php
 
+// php artisan migrate
+// php artisan storage:link
+// php artisan db:seed --class=GaleriaSeeder
+// php artisan db:seed --class=LivroSeeder
+// php artisan db:seed --class=MencaoHonrosaSeeder
+// php artisan db:seed --class=PostagemSeeder
+// codigo acesso professor: 1618156
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\LogAcessoMiddleware;
 use App\Http\Controllers\PublicacaoController;
@@ -119,7 +128,7 @@ Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('pro
 Route::get('/alunos', [AdicionaController::class, 'index'])->name('alunos.index');
 
 Route::get('/professor/inicio', [Professor::class, 'inicio'])->name('professor.inicio');
-Route::get('/professor/inicio', [PostagemController::class, 'inicio'])->name('professor.inicio');
+// Route::get('/professor/inicio', [PostagemController::class, 'inicio'])->name('professor.inicio');
 Route::get('/professor/sobre', [App\Http\Controllers\Professor::class, 'sobre'])->name('professor.sobre');
 
 // Galeria Professor

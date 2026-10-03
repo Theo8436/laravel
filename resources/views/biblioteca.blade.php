@@ -873,36 +873,36 @@ footer p {
 
     <nav>
 
-        <a href="{{ route('aluno.inicio') }}">
+        <a href="{{ route('inicio') }}">
             Início
         </a>
 
-        <a href="{{ route('aluno.sobre') }}">
+        <a href="{{ route('sobre') }}">
             Sobre Nós
         </a>
 
-        <a href="{{ route('aluno.galeria') }}">
+        <a href="{{ route('galeria') }}">
             Galeria
         </a>
 
         <a
             class="ativo"
-            href="{{ route('aluno.biblioteca') }}"
+            href="{{ route('biblioteca') }}"
         >
             Biblioteca
         </a>
 
-        <a href="{{ route('aluno.mencao') }}">
+        <a href="{{ route('mencao') }}">
             Menções Honrosas
         </a>
 
-        <a href="{{ route('aluno.logado') }}">
-            Minha área
+        <a href="{{ route('escolha') }}">
+            Faça Parte
+        </a>
+        <a href="{{ route('entrar') }}">
+            Entrar
         </a>
 
-        <a href="{{ route('inicio') }}">
-            Sair
-        </a>
 
     </nav>
 

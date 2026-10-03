@@ -24,7 +24,12 @@
 }
 
 body {
-    background: linear-gradient(180deg, #6f0ea7 0%, #b217c7 55%, #ea6b72 100%);
+    background: linear-gradient(
+        180deg,
+        #6f0ea7 0%,
+        #b217c7 55%,
+        #ea6b72 100%
+    );
     color: #fff;
     min-height: 100vh;
 }
@@ -68,6 +73,9 @@ header {
     font-size: 13px;
 }
 
+/* =========================
+   MENU
+========================= */
 nav {
     display: flex;
     gap: 10px;
@@ -109,7 +117,7 @@ main {
 ========================= */
 .titulo {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 35px;
 }
 
 .titulo h1 {
@@ -266,7 +274,7 @@ footer {
 }
 
 /* =========================
-   EFEITO NAS BOLINHAS
+   BOLINHAS
 ========================= */
 body::before {
     content: "";
@@ -340,7 +348,7 @@ body::before {
         <a href="{{ route('sobre') }}">Sobre Nós</a>
         <a href="{{ route('galeria') }}">Galeria</a>
         <a href="{{ route('biblioteca') }}">Biblioteca</a>
-        <a class="active" href="{{ route('mencao') }}">Menções honrosas</a>
+        <a href="{{ route('mencao') }}">Menções honrosas</a>
         <a href="{{ route('escolha') }}">Faça Parte</a>
         <a href="{{ route('entrar') }}">Entrar</a>
     </nav>
@@ -353,8 +361,8 @@ body::before {
         <p>Celebrando as conquistas e realizações dos nossos Clubistas!</p>
     </section>
 
-    <!-- LISTA DE MENÇÕES DINÂMICA CREADAS PELO PROFESSOR -->
-    <section class="mencoes">
+    <!-- LISTA DE MENÇÕES DINÂMICA DO PROFESSOR -->
+    <section class="mencoes" id="listaMencoes">
         @forelse($postagens as $postagem)
             <div class="card">
                 <div>
@@ -364,7 +372,7 @@ body::before {
                     </div>
 
                     <h2>{{ $postagem->titulo }}</h2>
-                    <h4><i class="bi bi-tag-fill"></i> {{ $postagem->categoria }}</h4>
+                    <h4><i class="bi bi-tag-fill"></i> {{ $postagem->descricao }}</h4>
 
                     <p>{{ Str::limit($postagem->comentario, 150, '...') }}</p>
                 </div>

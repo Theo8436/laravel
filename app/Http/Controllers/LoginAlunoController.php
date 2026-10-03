@@ -19,130 +19,191 @@ class LoginAlunoController extends Controller
         return view('aluno.cadastro');
     }
 
+    public function adicionar(Request $request)
+{
+    $request->validate([
+        'nome'  => 'required|string|max:255',
+        'email' => 'required|email|unique:professores,email|unique:alunos,email',
+        'senha' => 'required|size:8',
+        'nivel_acesso'    => 'required|in:monitor,clubista'
+    ], [
+        'email.unique'  => 'Este e-mail já está cadastrado.',
+        'senha.size'    => 'A senha deve ter 8 caracteres.',
+        'nivel_acesso.in' => 'O nível de acesso selecionado é inválido.'
+    ]);
+
+    // ==================================================
+    // VERIFICAÇÃO POR E-MAIL DESATIVADA TEMPORARIAMENTE
+    // ==================================================
+
+    /*
+    // Gera um código aleatório de 6 dígitos
+    $codigo = rand(100000, 999999);
+
+    // Guarda temporariamente os dados na sessão
+    session([
+        'cadastro_temporario' => [
+            'nome'  => $request->nome,
+            'email' => $request->email,
+            'senha' => Hash::make($request->senha),
+            'code'  => $request->code,
+        ],
+        'codigo_verificacao' => $codigo
+    ]);
+
+    // Envia o e-mail com o código
+    Mail::to($request->email)->send(new CodigoVerificacaoMail($codigo));
+
+    // Redireciona para a tela de verificação
+    return redirect()->route('professor.verificar_codigo');
+    */
+
+    // ==================================================
+    // CADASTRO DIRETO SEM VERIFICAÇÃO
+    // ==================================================
+
+    $aluno = AlunoModel::create([
+        'nome'  => $request->nome,
+        'email' => $request->email,
+        'senha' => Hash::make($request->senha),
+        'code'  => $request->code,
+        'nivel_acesso'    => $request->nivel_acesso,
+    ]);
+
+    // Faz login automático do aluno
+    Auth::guard('alunos')->login($aluno, true);
+
+    // Regenera a sessão por segurança
+    $request->session()->regenerate();
+
+    // Redireciona para a área do professor
+    return redirect()->route('aluno.logado');
+}
+
     // 1. Processa o formulário de cadastro inicial e envia o e-mail
-    public function adicionar(Request $request) { 
-        $request->validate([
-            'nome'            => 'required|string|max:255',
-            'email'           => 'required|email|unique:alunos,email|unique:professores,email',
-            'senha'           => 'required|size:8',
-            'nivel_acesso'    => 'required|in:monitor,clubista' // VALIDAÇÃO: Garante que só aceite uma das duas opções
-        ], [
-            'email.unique'    => 'Este e-mail já está cadastrado.',
-            'senha.size'       => 'A senha deve ter 8 caracteres.',
-            'nivel_acesso.in' => 'O nível de acesso selecionado é inválido.'
-        ]);
+    // public function adicionar(Request $request) { 
+    //     $request->validate([
+    //         'nome'            => 'required|string|max:255',
+    //         'email'           => 'required|email|unique:alunos,email|unique:professores,email',
+    //         'senha'           => 'required|size:8',
+    //         'nivel_acesso'    => 'required|in:monitor,clubista' // VALIDAÇÃO: Garante que só aceite uma das duas opções
+    //     ], [
+    //         'email.unique'    => 'Este e-mail já está cadastrado.',
+    //         'senha.size'       => 'A senha deve ter 8 caracteres.',
+    //         'nivel_acesso.in' => 'O nível de acesso selecionado é inválido.'
+    //     ]);
 
-        // Gera um código aleatório de 6 dígitos
-        $codigo = rand(100000, 999999);
+    //     // Gera um código aleatório de 6 dígitos
+    //     $codigo = rand(100000, 999999);
 
-        // Guarda temporariamente os dados, incluindo o nível de acesso escolhido na SESSÃO
-        session([
-            'cadastro_temporario' => [
-                'nome'            => $request->nome,
-                'email'           => $request->email,
-                'senha'           => Hash::make($request->senha),
-                'nivel_acesso'    => $request->nivel_acesso, // CAPTURA: Salva a escolha do formulário
-            ],
-            'codigo_verificacao' => $codigo
-        ]);
+    //     // Guarda temporariamente os dados, incluindo o nível de acesso escolhido na SESSÃO
+    //     session([
+    //         'cadastro_temporario' => [
+    //             'nome'            => $request->nome,
+    //             'email'           => $request->email,
+    //             'senha'           => Hash::make($request->senha),
+    //             'nivel_acesso'    => $request->nivel_acesso, // CAPTURA: Salva a escolha do formulário
+    //         ],
+    //         'codigo_verificacao' => $codigo
+    //     ]);
 
-        // Envia o e-mail real com o código para o e-mail digitado
-        Mail::to($request->email)->send(new CodigoVerificacaoMail($codigo));
+    //     // Envia o e-mail real com o código para o e-mail digitado
+    //     Mail::to($request->email)->send(new CodigoVerificacaoMail($codigo));
 
-        // Redireciona para a página onde ele deve digitar o código
-        return redirect()->route('aluno.verificar_codigo');
-    }
+    //     // Redireciona para a página onde ele deve digitar o código
+    //     return redirect()->route('aluno.verificar_codigo');
+    // }
 
-    // 2. Exibe a tela para digitação do código
-    public function telaCodigo() {
-        if (!session()->has('cadastro_temporario')) {
-            return redirect()->route('aluno.entrar');
-        }
-        return view('aluno.verificar_codigo');
-    }
+    // // 2. Exibe a tela para digitação do código
+    // public function telaCodigo() {
+    //     if (!session()->has('cadastro_temporario')) {
+    //         return redirect()->route('aluno.entrar');
+    //     }
+    //     return view('aluno.verificar_codigo');
+    // }
 
-    // 3. Valida o código de e-mail e CRIA a conta definitiva salvando no banco
-    public function confirmarCodigo(Request $request) {
-        $request->validate([
-            'codigo_digitado' => 'required|numeric|digits:6',
-        ]);
+    // // 3. Valida o código de e-mail e CRIA a conta definitiva salvando no banco
+    // public function confirmarCodigo(Request $request) {
+    //     $request->validate([
+    //         'codigo_digitado' => 'required|numeric|digits:6',
+    //     ]);
 
-        $codigoCorreto = session('codigo_verificacao');
-        $dadosAluno = session('cadastro_temporario');
+    //     $codigoCorreto = session('codigo_verificacao');
+    //     $dadosAluno = session('cadastro_temporario');
 
-        if (!$dadosAluno) {
-            return redirect()->route('aluno.entrar')->withErrors(['error' => 'Sessão expirada. Tente o cadastro novamente.']);
-        }
+    //     if (!$dadosAluno) {
+    //         return redirect()->route('aluno.entrar')->withErrors(['error' => 'Sessão expirada. Tente o cadastro novamente.']);
+    //     }
 
-        // Verifica se o código bate
-        if ($request->codigo_digitado == $codigoCorreto) {
+    //     // Verifica se o código bate
+    //     if ($request->codigo_digitado == $codigoCorreto) {
             
-            // Grava o aluno definitivamente no banco com o seu nível correspondente
-            $aluno = AlunoModel::create([
-                'nome'            => $dadosAluno['nome'],
-                'email'           => $dadosAluno['email'],
-                'senha'           => $dadosAluno['senha'], 
-                'nivel_acesso'    => $dadosAluno['nivel_acesso'], // GRAVAÇÃO: Insere no banco
-            ]);
+    //         // Grava o aluno definitivamente no banco com o seu nível correspondente
+    //         $aluno = AlunoModel::create([
+    //             'nome'            => $dadosAluno['nome'],
+    //             'email'           => $dadosAluno['email'],
+    //             'senha'           => $dadosAluno['senha'], 
+    //             'nivel_acesso'    => $dadosAluno['nivel_acesso'], // GRAVAÇÃO: Insere no banco
+    //         ]);
             
-            // Limpa as sessões temporárias
-            session()->forget(['codigo_verificacao', 'cadastro_temporario']);
+    //         // Limpa as sessões temporárias
+    //         session()->forget(['codigo_verificacao', 'cadastro_temporario']);
 
-            // Faz o login automático do Aluno recém-criado
-            Auth::guard('alunos')->login($aluno, true);
+    //         // Faz o login automático do Aluno recém-criado
+    //         Auth::guard('alunos')->login($aluno, true);
 
-            // Redireciona para a página interna/logada do aluno
-            return redirect()->route('aluno.logado');
-        }
+    //         // Redireciona para a página interna/logada do aluno
+    //         return redirect()->route('aluno.logado');
+    //     }
 
-        // ---- CÓDIGO ERRADO ----
-        return redirect()->back()->withErrors(['codigo_digitado' => 'O código de verificação digitado está incorreto.']);
-    }
+    //     // ---- CÓDIGO ERRADO ----
+    //     return redirect()->back()->withErrors(['codigo_digitado' => 'O código de verificação digitado está incorreto.']);
+    // }
 
-    // 4. Método de Reenvio do Código por e-mail
-    public function reenviarCodigo(Request $request)
-    {
-        $dadosAluno = session('cadastro_temporario');
-        $email = $dadosAluno['email'] ?? null; 
+    // // 4. Método de Reenvio do Código por e-mail
+    // public function reenviarCodigo(Request $request)
+    // {
+    //     $dadosAluno = session('cadastro_temporario');
+    //     $email = $dadosAluno['email'] ?? null; 
 
-        if (!$email) {
-            return redirect()->back()->withErrors(['error' => 'Não encontramos seus dados de cadastro. Tente reiniciar o cadastro.']);
-        }
+    //     if (!$email) {
+    //         return redirect()->back()->withErrors(['error' => 'Não encontramos seus dados de cadastro. Tente reiniciar o cadastro.']);
+    //     }
 
-        // Gera um novo código aleatório de 6 dígitos
-        $novoCodigo = rand(100000, 999999);
+    //     // Gera um novo código aleatório de 6 dígitos
+    //     $novoCodigo = rand(100000, 999999);
 
-        // Atualiza apenas o código de verificação na sessão
-        session(['codigo_verificacao' => $novoCodigo]);
+    //     // Atualiza apenas o código de verificação na sessão
+    //     session(['codigo_verificacao' => $novoCodigo]);
 
-        try {
-            Mail::to($email)->send(new CodigoVerificacaoMail($novoCodigo));
-            return redirect()->back()->with('status', 'Um novo código de 6 dígitos foi enviado para o seu e-mail!');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Não foi possível reenviar o e-mail. Verifique suas configurações de servidor de e-mail.']);
-        }
-    }
+    //     try {
+    //         Mail::to($email)->send(new CodigoVerificacaoMail($novoCodigo));
+    //         return redirect()->back()->with('status', 'Um novo código de 6 dígitos foi enviado para o seu e-mail!');
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->withErrors(['error' => 'Não foi possível reenviar o e-mail. Verifique suas configurações de servidor de e-mail.']);
+    //     }
+    // }
     
-    // 5. Processa o Login convencional
-    public function logar(Request $request) {
-        $credenciais = $request->validate([
-            'email' => 'required|email',
-            'senha' => 'required'
-        ]);
+    // // 5. Processa o Login convencional
+    // public function logar(Request $request) {
+    //     $credenciais = $request->validate([
+    //         'email' => 'required|email',
+    //         'senha' => 'required'
+    //     ]);
 
-        $tentativa = [
-            'email'    => $credenciais['email'],
-            'password' => $credenciais['senha']
-        ];
+    //     $tentativa = [
+    //         'email'    => $credenciais['email'],
+    //         'password' => $credenciais['senha']
+    //     ];
 
-        // Executa a tentativa de login guardando a sessão (true)
-        if (Auth::guard('alunos')->attempt($tentativa, true)) {
-            $request->session()->regenerate();
-            return redirect()->route('aluno.logado'); 
-        }
+    //     // Executa a tentativa de login guardando a sessão (true)
+    //     if (Auth::guard('alunos')->attempt($tentativa, true)) {
+    //         $request->session()->regenerate();
+    //         return redirect()->route('aluno.logado'); 
+    //     }
 
-        return back()->withErrors(['email' => 'E-mail ou senha incorretos.'])->withInput();
-    }
+    //     return back()->withErrors(['email' => 'E-mail ou senha incorretos.'])->withInput();
+    // }
 
     // 6. Processa o Logout
     public function logout(Request $request) {

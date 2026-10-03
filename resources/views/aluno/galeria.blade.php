@@ -1041,34 +1041,19 @@ footer p {
 
     <nav>
 
-        <a href="{{ route('inicio') }}">
-            Início
-        </a>
+       <a href="{{ route('aluno.inicio') }}" class="btn">Inicio</a>
 
-        <a href="{{ route('sobre') }}">
-            Sobre Nós
-        </a>
+        <a href="{{ route('aluno.sobre') }}" class="btn">Sobre Nós</a>
 
-        <a class="ativo" href="{{ route('galeria') }}">
-            Galeria
-        </a>
+        <a href="{{ route('aluno.galeria') }}" class="btn">Galeria</a>
 
-        <a href="{{ route('biblioteca') }}">
-            Biblioteca
-        </a>
+        <a href="{{ route('aluno.biblioteca') }}" class="btn">Biblioteca</a>
 
-        <a href="{{ route('mencao') }}">
-            Menções Honrosas
-        </a>
+        <a href="{{ route('aluno.mencao') }}" class="btn">Menções Honrosas</a>
 
-        <a class="faca-parte" href="{{ route('escolha') }}">
-            Faça Parte
-        </a>
+        <a href="{{ route('aluno.logado') }}" class="btn">Minha Area</a>
 
-        <a class="entrar" href="{{ route('entrar') }}">
-            <i class="bi bi-box-arrow-in-right"></i>
-            Entrar
-        </a>
+        <a href="{{ route('inicio')}}">Sair</a>
 
     </nav>
 

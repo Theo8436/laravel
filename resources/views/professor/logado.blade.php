@@ -783,6 +783,7 @@
             <a href="{{ route('professor.galeria') }}">Galeria</a>
             <a href="{{ route('professor.biblioteca') }}">Biblioteca</a>
             <a href="{{ route('professor.mencao') }}">Menções honrosas</a>
+            <a href="{{ route('professor.logado') }}">Minha Área</a>
             <a href="{{ route('inicio') }}">Sair</a>
         </nav>
     </header>

@@ -41,13 +41,13 @@
 
             {{-- Navegação da Área do Professor --}}
             <nav class="main-nav">
-                <a href="{{ route('professor.inicio') }}" class="nav-link active">Início</a>
-                <span class="nav-divider"></span>
-                <a href="{{ route('professor.sobre') }}" class="nav-link">Sobre Nós</a>
-                <span class="nav-divider"></span>
-                <a href="{{ route('professor.galeria') }}" class="nav-link">Galeria</a>
-                <span class="nav-divider"></span>
-                <a href="{{ route('professor.biblioteca') }}" class="nav-link">Biblioteca</a>
+                            <a href="{{ route('professor.inicio') }}">Início</a>
+            <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
+            <a href="{{ route('professor.galeria') }}">Galeria</a>
+            <a href="{{ route('professor.biblioteca') }}">Biblioteca</a>
+            <a href="{{ route('professor.mencao') }}">Menções honrosas</a>
+            <a href="{{ route('professor.logado') }}">Minha Área</a>
+            <a href="{{ route('inicio') }}">Sair</a>
             </nav>
 
         </div>
