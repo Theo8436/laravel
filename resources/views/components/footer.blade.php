@@ -19,7 +19,7 @@
 
         <i class="fa-brands fa-instagram"></i>
 
-        <span>@bethacientista</span>
+        <span>@bethacientista</span> 
 
         <i class="fa-solid fa-sparkles"></i>
     </a>
