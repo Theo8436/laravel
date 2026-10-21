@@ -205,6 +205,27 @@ class LoginAlunoController extends Controller
     //     return back()->withErrors(['email' => 'E-mail ou senha incorretos.'])->withInput();
     // }
 
+     // 5. Processa o Login convencional
+    public function logar(Request $request) {
+        $credenciais = $request->validate([
+            'email' => 'required|email',
+            'senha' => 'required'
+        ]);
+
+        $tentativa = [
+            'email'    => $credenciais['email'],
+            'password' => $credenciais['senha']
+        ];
+
+        // Executa a tentativa de login guardando a sessão (true)
+        if (Auth::guard('alunos')->attempt($tentativa, true)) {
+            $request->session()->regenerate();
+            return redirect()->route('aluno.logado'); 
+        }
+
+        return back()->withErrors(['email' => 'E-mail ou senha incorretos.'])->withInput();
+    }
+
     // 6. Processa o Logout
     public function logout(Request $request) {
         Auth::guard('alunos')->logout();
