@@ -1074,27 +1074,37 @@
                 </div>
 
                 <div class="evento-form">
-                    <h3>Novo Evento</h3>
-                    <div class="data-selecionada">
-                        Data selecionada:
-                        <span id="dataSelecionada">Nenhuma</span>
-                    </div>
+    <h3>Novo Evento / Post</h3>
+    <div class="data-selecionada">
+        Data selecionada:
+        <span id="dataSelecionada">Nenhuma</span>
+    </div>
 
-                    <div class="form-group">
-                        <label for="tituloEvento">Título do evento</label>
-                        <input type="text" id="tituloEvento" class="form-control-custom" placeholder="Ex: Aula de Astronomia">
-                    </div>
+    <!-- NOVO: Selecionar o Aluno -->
+    <div class="form-group">
+        <label for="alunoIdEvento">Atribuir ao Aluno (para o post)</label>
+        <select id="alunoIdEvento" class="form-control-custom">
+            <option value="">Nenhum (Apenas evento geral)</option>
+            @foreach($alunos as $aluno)
+                <option value="{{ $aluno->id }}">{{ $aluno->nome }}</option>
+            @endforeach
+        </select>
+    </div>
 
-                    <div class="form-group">
-                        <label for="descricaoEvento">Descrição</label>
-                        <textarea id="descricaoEvento" class="form-control-custom" placeholder="Descreva o evento..."></textarea>
-                    </div>
+    <div class="form-group">
+        <label for="tituloEvento">Título do evento</label>
+        <input type="text" id="tituloEvento" class="form-control-custom" placeholder="Ex: Post sobre Astronomia">
+    </div>
 
-                    <button type="button" class="btn-principal" onclick="salvarEvento()">
-                        Salvar Evento
-                    </button>
-                </div>
-            </div>
+    <div class="form-group">
+        <label for="descricaoEvento">Descrição</label>
+        <textarea id="descricaoEvento" class="form-control-custom" placeholder="Descreva as diretrizes do post..."></textarea>
+    </div>
+
+    <button type="button" class="btn-principal" onclick="salvarEvento()">
+        Salvar Evento
+    </button>
+</div>
 
             <div class="lista-eventos">
                 <h3 style="color:#4b1d91;margin-bottom:15px">Eventos cadastrados</h3>
@@ -1401,6 +1411,7 @@ if (event.target === modalExcluir) {
         function salvarEvento() {
             const titulo = document.getElementById("tituloEvento").value.trim();
             const descricao = document.getElementById("descricaoEvento").value.trim();
+            let alunoId = document.getElementById('alunoIdEvento').value;
 
             if (dataSelecionada === null) {
                 alert("Selecione uma data no calendário.");
