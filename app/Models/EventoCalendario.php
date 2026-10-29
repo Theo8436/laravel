@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class EventoCalendario extends Model
 {
-    use HasFactory;
-
     protected $table = 'eventos_calendario';
-
+    
     protected $fillable = [
         'professor_id',
         'aluno_id',
@@ -19,13 +16,9 @@ class EventoCalendario extends Model
         'data_evento'
     ];
 
+    // Relacionamento com o aluno
     public function aluno()
     {
-        return $this->belongsTo(LoginAlunoModel::class, 'aluno_id');
-    }
-
-    public function professor()
-    {
-        return $this->belongsTo(LoginProfessorModel::class, 'professor_id');
+        return $this->belongsTo(AlunoModel::class, 'aluno_id');
     }
 }

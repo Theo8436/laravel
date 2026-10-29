@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Área do Professor</title>
 
@@ -1045,72 +1046,96 @@
 
 </section>
 
-        <!-- ================= CALENDÁRIO ================= -->
-        <section id="calendario" class="painel" hidden>
-            <h2>Calendário</h2>
-            <p style="color:#666">
-                Selecione uma data no calendário para adicionar um evento.
-            </p>
+<!-- ================= CALENDÁRIO ================= -->
+<section id="calendario" class="painel" hidden>
+    <h2>Calendário</h2>
+    <p style="color:#666">
+        Selecione uma data no calendário para adicionar um evento.
+    </p>
 
-            <div class="calendario-container">
-                <div class="calendario">
-                    <div class="calendario-header">
-                        <button type="button" onclick="mesAnterior()">‹</button>
-                        <h3 id="mesAno"></h3>
-                        <button type="button" onclick="mesProximo()">›</button>
-                    </div>
-
-                    <div class="dias-semana">
-                        <div>Dom</div>
-                        <div>Seg</div>
-                        <div>Ter</div>
-                        <div>Qua</div>
-                        <div>Qui</div>
-                        <div>Sex</div>
-                        <div>Sáb</div>
-                    </div>
-
-                    <div id="dias" class="dias"></div>
-                </div>
-
-                <div class="evento-form">
-    <h3>Novo Evento / Post</h3>
-    <div class="data-selecionada">
-        Data selecionada:
-        <span id="dataSelecionada">Nenhuma</span>
-    </div>
-
-    <!-- NOVO: Selecionar o Aluno -->
-    <div class="form-group">
-        <label for="alunoIdEvento">Atribuir ao Aluno (para o post)</label>
-        <select id="alunoIdEvento" class="form-control-custom">
-            <option value="">Nenhum (Apenas evento geral)</option>
-            @foreach($alunos as $aluno)
-                <option value="{{ $aluno->id }}">{{ $aluno->nome }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="tituloEvento">Título do evento</label>
-        <input type="text" id="tituloEvento" class="form-control-custom" placeholder="Ex: Post sobre Astronomia">
-    </div>
-
-    <div class="form-group">
-        <label for="descricaoEvento">Descrição</label>
-        <textarea id="descricaoEvento" class="form-control-custom" placeholder="Descreva as diretrizes do post..."></textarea>
-    </div>
-
-    <button type="button" class="btn-principal" onclick="salvarEvento()">
-        Salvar Evento
-    </button>
-</div>
-
-            <div class="lista-eventos">
-                <h3 style="color:#4b1d91;margin-bottom:15px">Eventos cadastrados</h3>
-                <div id="listaEventos"></div>
+    <div class="calendario-container">
+        <!-- Lado Esquerdo: Calendário -->
+        <div class="calendario">
+            <div class="calendario-header">
+                <button type="button" onclick="mesAnterior()">‹</button>
+                <h3 id="mesAno"></h3>
+                <button type="button" onclick="mesProximo()">›</button>
             </div>
-        </section>
+
+            <div class="dias-semana">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+
+            <div id="dias" class="dias"></div>
+        </div>
+
+        <!-- Lado Direito: Formulário de Evento / Post -->
+        <div class="evento-form">
+            <h3>Novo Evento / Post</h3>
+            <div class="data-selecionada">
+                Data selecionada:
+                <span id="dataSelecionada">Nenhuma</span>
+            </div>
+
+            <!-- Selecionar o Aluno Obrigatório -->
+            <div class="form-group">
+                <label for="alunoIdEvento">Atribuir ao Aluno (Obrigatório)</label>
+                <select id="alunoIdEvento" class="form-control-custom" required>
+                    <option value="" disabled selected>Selecione um aluno...</option>
+                    @foreach($alunos as $aluno)
+                        <option value="{{ $aluno->id }}">{{ $aluno->nome }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tituloEvento">Título do evento</label>
+                <input type="text" id="tituloEvento" class="form-control-custom" placeholder="Ex: Post sobre Astronomia">
+            </div>
+
+            <div class="form-group">
+                <label for="descricaoEvento">Descrição</label>
+                <textarea id="descricaoEvento" class="form-control-custom" placeholder="Descreva as diretrizes do post..."></textarea>
+            </div>
+
+            <button type="button" class="btn-principal" onclick="salvarEvento()">
+                Salvar Evento
+            </button>
+        </div>
+    </div>
+
+<div class="lista-eventos" style="margin-top: 30px;">
+    <h3 style="color:#4b1d91;margin-bottom:15px">Eventos cadastrados</h3>
+
+    @forelse($eventos ?? [] as $evento)
+        <div class="evento" style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 12px; border-left: 5px solid #4caf50; box-shadow: 0 3px 8px rgba(0,0,0,.08); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong style="color: #4b1d91;">{{ $evento->titulo }}</strong> 
+                ({{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }})
+                <br>
+                <small style="color: #777;">
+                    <i class="bi bi-person"></i> Aluno Vinculado: <strong>{{ $evento->aluno->nome ?? 'Nenhum' }}</strong>
+                </small>
+                <p style="margin: 5px 0 0 0; color: #555;">{{ $evento->descricao ?? 'Sem descrição.' }}</p>
+            </div>
+            <!-- Botão de excluir opcional -->
+            <form action="{{ route('professor.eventos.excluir', $evento->id) }}" method="POST" style="margin:0;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" style="border: none; background: #ef5350; color: white; padding: 7px 12px; border-radius: 7px; cursor: pointer;">Excluir</button>
+            </form>
+        </div>
+    @empty
+        <p style="color:#777;">Nenhum evento cadastrado no momento.</p>
+    @endforelse
+</div>
+</section>
 
     </main>
 
@@ -1320,23 +1345,15 @@ if (event.target === modalExcluir) {
     document.getElementById("posts").hidden = false;
 }
 
-        function mostrarCalendario() {
+function mostrarCalendario() {
             esconderTudo();
             document.getElementById("calendario").hidden = false;
             renderizarCalendario();
-            carregarEventos();
         }
-
-
 
         /* ================= CALENDÁRIO ================= */
         let dataAtual = new Date();
         let dataSelecionada = null;
-
-        let eventos = [
-            { data: "2026-04-25", titulo: "Aula de Astronomia", descricao: "Introdução ao Sistema Solar." },
-            { data: "2026-04-28", titulo: "Aula de Biologia", descricao: "Sistema Digestivo." }
-        ];
 
         function renderizarCalendario() {
             const ano = dataAtual.getFullYear();
@@ -1347,12 +1364,16 @@ if (event.target === modalExcluir) {
                 "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
             ];
 
-            document.getElementById("mesAno").innerText = meses[mes] + " " + ano;
+            const mesAnoEl = document.getElementById("mesAno");
+            if (mesAnoEl) {
+                mesAnoEl.innerText = meses[mes] + " " + ano;
+            }
 
             const primeiroDia = new Date(ano, mes, 1).getDay();
             const ultimoDia = new Date(ano, mes + 1, 0).getDate();
             const dias = document.getElementById("dias");
 
+            if (!dias) return;
             dias.innerHTML = "";
 
             for (let i = 0; i < primeiroDia; i++) {
@@ -1367,10 +1388,6 @@ if (event.target === modalExcluir) {
                 botao.innerText = dia;
 
                 const dataString = ano + "-" + String(mes + 1).padStart(2, "0") + "-" + String(dia).padStart(2, "0");
-
-                if (eventos.some(evento => evento.data === dataString)) {
-                    botao.classList.add("tem-evento");
-                }
 
                 if (dataSelecionada === dataString) {
                     botao.classList.add("selecionado");
@@ -1393,6 +1410,7 @@ if (event.target === modalExcluir) {
 
         function selecionarData(data) {
             dataSelecionada = data;
+            dataIsoGlobal = data;
             document.getElementById("dataSelecionada").innerText = formatarData(data);
             document.getElementById("tituloEvento").focus();
             renderizarCalendario();
@@ -1408,40 +1426,56 @@ if (event.target === modalExcluir) {
             renderizarCalendario();
         }
 
+        /* ================= SALVAR EVENTO (PERSISTÊNCIA VIA FETCH) ================= */
         function salvarEvento() {
-            const titulo = document.getElementById("tituloEvento").value.trim();
-            const descricao = document.getElementById("descricaoEvento").value.trim();
-            let alunoId = document.getElementById('alunoIdEvento').value;
+            const titulo = document.getElementById('tituloEvento').value.trim();
+            const descricao = document.getElementById('descricaoEvento').value.trim();
+            const alunoId = document.getElementById('alunoIdEvento').value;
 
-            if (dataSelecionada === null) {
-                alert("Selecione uma data no calendário.");
+            // Validações no Front-end
+            if (!dataIsoGlobal) {
+                alert('Você precisa selecionar uma data no calendário.');
                 return;
             }
 
-            if (titulo === "") {
-                alert("Digite o título do evento.");
+            if (!alunoId) {
+                alert('Você precisa selecionar obrigatoriamente um aluno!');
                 return;
             }
 
-            eventos.push({
-                data: dataSelecionada,
-                titulo: titulo,
-                descricao: descricao
+            if (!titulo) {
+                alert('O título do evento é obrigatório.');
+                return;
+            }
+
+            // Envio via Fetch para o Laravel
+            fetch('/professor/eventos/salvar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    data_evento: dataIsoGlobal, // Formato ISO correto (YYYY-MM-DD)
+                    titulo: titulo,
+                    descricao: descricao,
+                    aluno_id: alunoId
+                })
+            })
+            .then(async response => {
+                let resultado = await response.json();
+                if (response.ok && resultado.sucesso) {
+                    alert('Evento cadastrado com sucesso!');
+                    location.reload(); // Recarrega para exibir o registro salvo pelo Blade
+                } else {
+                    console.error('Erros do servidor:', resultado);
+                    alert('Erro ao salvar: ' + (resultado.message || JSON.stringify(resultado.errors || 'Erro desconhecido')));
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                alert('Ocorreu um erro de rede ao tentar salvar.');
             });
-
-            document.getElementById("tituloEvento").value = "";
-            document.getElementById("descricaoEvento").value = "";
-
-            carregarEventos();
-            renderizarCalendario();
-            mostrarMensagemJS("Evento adicionado ao calendário!", "sucesso");
-        }
-
-        function deletarEvento(index) {
-            eventos.splice(index, 1);
-            carregarEventos();
-            renderizarCalendario();
-            mostrarMensagemJS("Evento removido com sucesso!", "sucesso");
         }
         /* ================= EXCLUSÃO DE ALUNO ================= */
 

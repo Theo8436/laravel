@@ -909,12 +909,26 @@
 
     </section>
 
-    <!-- SEÇÃO CALENDÁRIO -->
-    <section id="calendario" style="display: none;">
-        <h2>Calendário</h2>
-        <input type="date">
-    </section>
+<!-- SEÇÃO CALENDÁRIO -->
+<section id="calendario" style="display: none;">
+    <h2>Calendário de Posts e Eventos</h2>
+    <input type="date">
 
+    <div class="lista-eventos-aluno" style="margin-top: 20px;">
+        <h3>Seus dias de post / compromissos:</h3>
+        <ul>
+            {{-- O uso de ($eventos ?? []) evita que a página quebre caso a variável não venha do controller --}}
+            @forelse($eventos ?? [] as $evento)
+                <li>
+                    <strong>{{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}</strong>: 
+                    {{ $evento->titulo }} - <em>{{ $evento->descricao }}</em>
+                </li>
+            @empty
+                <li>Nenhum post agendado no momento.</li>
+            @endforelse
+        </ul>
+    </div>
+</section>
     <!-- SEÇÃO MATERIAL -->
     <section id="material" style="display: none;">
         <h2>Material de Apoio</h2>
@@ -1224,6 +1238,24 @@
         if (indicador) {
             indicador.innerText = (indexAtual + 1) + ' / ' + slides.length;
         }
+
+        /* ================= CALENDÁRIO DO ALUNO ================= */
+    document.addEventListener('DOMContentLoaded', function() {
+        // Se houver elementos específicos do calendário do aluno para inicializar, coloque aqui
+    });
+
+    // Função opcional caso o aluno clique em mudar de mês no calendário dele
+    let dataAtualAluno = new Date();
+
+    function mesAnteriorAluno() {
+        dataAtualAluno.setMonth(dataAtualAluno.getMonth() - 1);
+        // Atualizar visual se necessário
+    }
+
+    function mesProximoAluno() {
+        dataAtualAluno.setMonth(dataAtualAluno.getMonth() + 1);
+        // Atualizar visual se necessário
+    }
     }
 </script>
 

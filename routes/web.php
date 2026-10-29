@@ -232,3 +232,19 @@ Route::get('/biblioteca', [LivroController::class, 'bibliotecaa'])->name('biblio
 Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi');
 Route::get('/galeria/{id}', [GaleriaController::class, 'show'])
     ->name('professor.showGaleria');
+
+
+// --- ROTAS DO PROFESSOR LOGADO ---
+Route::middleware(['auth:professores'])->prefix('professor')->group(function () {
+    // Rota que carrega a página principal do professor (com a lista de alunos e eventos)
+    Route::get('professor/logado', [LoginProfessorController::class, 'painelLogado'])->name('professor.logado');
+
+    // Rota para salvar o evento do calendário criado pelo professor via Fetch
+    Route::post('/eventos/salvar', [LoginProfessorController::class, 'salvarEventoCalendario'])->name('professor.eventos.salvar');
+});
+
+// --- ROTAS DO ALUNO LOGADO ---
+Route::middleware(['auth:alunos'])->prefix('aluno')->group(function () {
+    // Rota que carrega o painel principal do aluno logado com os eventos dele
+    Route::get('aluno/logado', [LoginAlunoController::class, 'painelLogado'])->name('aluno.logado');
+});
