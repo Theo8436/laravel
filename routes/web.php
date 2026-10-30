@@ -124,7 +124,8 @@ Route::get('/professor/cadastro', [App\Http\Controllers\Professor::class, 'cadas
 Route::get('/professor/entrar', [App\Http\Controllers\Professor::class, 'entrar'])->name('professor.entrar');
 
 // Rota do Professor Logado & Listagem de Alunos
-Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('professor.logado');
+// Route::get('/professor/logado', [AdicionaController::class, 'index'])->name('professor.logado');
+Route::get('/professor/logado', [LoginProfessorController::class, 'index'])->name('professor.logado');
 Route::get('/alunos', [AdicionaController::class, 'index'])->name('alunos.index');
 
 Route::get('/professor/inicio', [Professor::class, 'inicio'])->name('professor.inicio');
