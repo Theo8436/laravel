@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\AlunoModel;
 use App\Models\ProfessorModel;
 use App\Models\EventoCalendario;
+use App\Models\Postagem;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -19,6 +20,10 @@ class LoginAlunoController extends Controller
 
     public function cadastro() {
         return view('aluno.cadastro');
+    }
+
+    public function logado() {
+        return view('aluno.logado');
     }
 
     public function adicionar(Request $request)
@@ -84,22 +89,24 @@ class LoginAlunoController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('aluno');
     }
+    public function painelLogado() {
+    // 1. Pega o ID do aluno logado atualmente no guard 'alunos'
+    $alunoId = Auth::guard('alunos')->id(); 
+
+    // 2. Busca unicamente os eventos direcionados a este aluno
+    $eventos = EventoCalendario::where('aluno_id', $alunoId)->get();
+
+    // 3. ATENÇÃO: Descomente esta linha para buscar as postagens do aluno
+    $minhasPostagens = Postagem::where('aluno_id', $alunoId)->get();
+
+    // 4. ATENÇÃO: Inclua 'minhasPostagens' dentro do compact()
+    return view('aluno.logado', compact('eventos', 'minhasPostagens'));
+}
+
 
     // Exibe a tela logada do aluno com os eventos do calendário dele
-public function painelLogado()
-    {
-        // 1. Pega o ID do aluno logado atualmente no guard 'alunos'
-        $alunoId = Auth::guard('alunos')->id();
 
-        // 2. Busca unicamente os eventos direcionados a este aluno
-        $eventos = EventoCalendario::where('aluno_id', $alunoId)->get();
 
-        // Se você também tiver postagens para o aluno, adicione aqui:
-        // $minhasPostagens = Postagem::where('aluno_id', $alunoId)->get();
-
-        // 3. Envia os dados para a view do aluno
-        return view('aluno.logado', compact('eventos' /*, 'minhasPostagens' */));
-    }
     public function remover(Request $dados) {  }
     public function atualizar(Request $dados) {  }
     public function consultar() {  }

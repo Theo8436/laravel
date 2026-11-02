@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ProfessorModel;
 use App\Models\AlunoModel;
 use App\Models\AdicionaModel;
+use App\Models\Postagem; // Adicione esta linha no topo do arquivo
 use App\Models\EventoCalendario; // Certifique-se de que este model está importado
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -160,22 +161,48 @@ class LoginProfessorController extends Controller
         return redirect()->route('professor.logado');
     }
 
-public function painelLogado()
-    {
-        // 1. Pega o ID do professor logado
-        $professorId = Auth::guard('professores')->id();
+public function painelLogado(Request $request) // <-- IMPORTANTE: Adicione o Request aqui
+{
+    // 1. Pega o ID do professor logado
+    $professorId = Auth::guard('professores')->id();
 
-        // 2. Busca todos os alunos para o <select> do painel
-        $alunos = AlunoModel::all();
+    // 2. CORREÇÃO: Busca os alunos usando paginação (ex: 10 por página)
+    $alunos = AlunoModel::latest()
+        ->paginate(10)
+        ->appends($request->all()); // Mantém os filtros/parâmetros na URL se houver
 
-        // 3. Busca apenas os eventos cadastrados por este professor (com os dados do aluno)
-        $eventos = EventoCalendario::with('aluno')
-            ->where('professor_id', $professorId)
-            ->get();
+    // 3. Busca os eventos cadastrados por este professor
+    $eventos = EventoCalendario::with('aluno')
+        ->where('professor_id', $professorId)
+        ->get();
 
-        // 4. Retorna a view enviando as variáveis
-        return view('professor.logado', compact('alunos', 'eventos'));
+    // 4. Busca as postagens pendentes
+    $postagens = Postagem::with('user')
+        ->where('status', 'pendente')
+        ->latest()
+        ->get();
+
+    // 5. Retorna a view enviando as variáveis
+    return view('professor.logado', compact('alunos', 'eventos', 'postagens'));
+}
+public function excluirEventoCalendario($id)
+{
+    // Busca o evento pelo ID
+    $evento = EventoCalendario::findOrFail($id);
+
+    // Opcional: Garante que apenas o professor que criou o evento pode excluí-lo
+    if ($evento->professor_id !== Auth::guard('professores')->id()) {
+        return redirect()->back()->withErrors(['erro' => 'Você não tem permissão para excluir este evento.']);
     }
+
+    // Deleta o evento
+    $evento->delete();
+
+    // Redireciona de volta com uma mensagem de sucesso
+    return redirect()->back()->with('sucesso', 'Evento removido com sucesso!');
+}
+
+
 
     public function salvarEventoCalendario(Request $request)
     {

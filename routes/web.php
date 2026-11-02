@@ -42,6 +42,7 @@ Route::get('/', [App\Http\Controllers\Principal::class, 'principal'])
 // Rota do aluno logado alimentando a variável $postagens no feed principal
 Route::get('/aluno/logado', [PostagemController::class, 'index'])->name('aluno.logado');
 
+
 // Detalhes da postagem individual do aluno
 Route::get('/postagens/{postagem}', [PostagemController::class, 'show'])->name('postagens.show');
 
@@ -234,14 +235,16 @@ Route::get('/publi', [App\Http\Controllers\Publi::class, 'publi'])->name('publi'
 Route::get('/galeria/{id}', [GaleriaController::class, 'show'])
     ->name('professor.showGaleria');
 
-
 // --- ROTAS DO PROFESSOR LOGADO ---
 Route::middleware(['auth:professores'])->prefix('professor')->group(function () {
-    // Rota que carrega a página principal do professor (com a lista de alunos e eventos)
+    // Rota que carrega a página principal do professor
     Route::get('professor/logado', [LoginProfessorController::class, 'painelLogado'])->name('professor.logado');
 
-    // Rota para salvar o evento do calendário criado pelo professor via Fetch
+    // Rota para salvar o evento do calendário
     Route::post('/eventos/salvar', [LoginProfessorController::class, 'salvarEventoCalendario'])->name('professor.eventos.salvar');
+
+    // NOVA ROTA: Adicione esta linha para registrar a exclusão
+    Route::delete('/eventos/excluir/{id}', [LoginProfessorController::class, 'excluirEventoCalendario'])->name('professor.eventos.excluir');
 });
 
 // --- ROTAS DO ALUNO LOGADO ---

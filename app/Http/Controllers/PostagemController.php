@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Postagem;
+use App\Models\EventoCalendario;
+use App\Models\AlunoModel;
+use App\Models\ProfessorModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -63,6 +66,13 @@ class PostagemController extends Controller
             'minhasPostagens'
         ));
     }
+    public function painelLogado() {
+    // Busca TODOS os eventos, sem filtrar por aluno
+    $eventos = EventoCalendario::all(); 
+    
+
+    return view('aluno.logado', compact('eventos'));
+}
 
 
     /*
