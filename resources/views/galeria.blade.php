@@ -18,6 +18,7 @@
 
     {{-- CSS compartilhados e CSS específico da Galeria --}}
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/galeria.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
