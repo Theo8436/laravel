@@ -205,6 +205,8 @@ nav a:hover {
 
 nav a.ativo {
     color: #ffd343;
+    border-radius: 25px;
+    font-weight: 700;
 }
 
 nav .faca-parte {
@@ -786,7 +788,7 @@ main {
 ===================================================== */
 
 .mensagem-final {
-    margin-top: 65px;
+    margin-top: 24px;
 
     display: flex;
 
@@ -1045,7 +1047,7 @@ footer p {
 
         <a href="{{ route('aluno.sobre') }}" class="btn">Sobre Nós</a>
 
-        <a href="{{ route('aluno.galeria') }}" class="btn">Galeria</a>
+        <a href="{{ route('aluno.galeria') }}" class="btn ativo" aria-current="page">Galeria</a>
 
         <a href="{{ route('aluno.biblioteca') }}" class="btn">Biblioteca</a>
 
@@ -1372,11 +1374,15 @@ footer p {
         @empty
 
             <div
-                class="vazio"
+                class="vazio vazio-galeria"
                 style="
                     text-align:center;
-                    width:100%;
-                    padding:40px 0;
+                    grid-column:1 / -1;
+                    justify-self:center;
+                    width:min(100%, 760px);
+                    margin:0 auto;
+                    padding:32px 24px;
+                    border-radius:22px;
                 "
             >
 

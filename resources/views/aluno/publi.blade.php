@@ -24,6 +24,8 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
+    <link rel="stylesheet" href="{{ asset('css/visual-assets.css') }}">
+
 </head>
 
 
@@ -923,10 +925,7 @@ footer p{
 
         <div class="imagem-artigo">
 
-            <img
-                src="{{ asset('img/buraco-negro.jpg') }}"
-                alt="Representação de um buraco negro no espaço"
-            >
+            <div class="black-hole-visual" role="img" aria-label="Ilustração artística de um buraco negro no espaço"></div>
 
             <div class="icone-estrela">
 

@@ -109,6 +109,36 @@ nav button{
 
 }
 
+nav a{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+
+    padding:10px 18px;
+    border-radius:30px;
+
+    font-weight:600;
+    text-decoration:none;
+    white-space:nowrap;
+
+    transition:.3s;
+
+}
+
+nav a:hover{
+
+    transform:translateY(-3px);
+
+}
+
+nav a:focus-visible{
+
+    outline-offset:3px;
+
+}
+
 nav button:hover{
 
     transform:translateY(-3px);
@@ -376,6 +406,12 @@ main{
 
 }
 
+.card-publicacao .status-rascunho {
+}
+
+.card-publicacao .status-aprovado {
+}
+
 .card-publicacao button{
 
     width:50px;
@@ -532,6 +568,53 @@ main{
 }
 
 }
+
+@media(max-width:600px){
+    header{
+        align-items:stretch;
+        gap:0;
+        padding:12px 14px;
+    }
+
+    .logo{
+        justify-content:center;
+        gap:10px;
+    }
+
+    .logo img{
+        width:48px;
+        height:48px;
+        object-fit:cover;
+    }
+
+    .logo h2{
+        font-size:20px;
+    }
+
+    .logo p{
+        font-size:11px;
+    }
+
+    header nav{
+        gap:6px;
+        margin-top:10px;
+    }
+
+    header nav a,
+    header nav button{
+        padding:8px 10px;
+        font-size:12px;
+    }
+
+    main{
+        width:calc(100% - 28px);
+        margin:22px auto;
+    }
+}
+
+.card-publicacao button:focus-visible{
+    outline-offset:3px;
+}
 </style>
 <body>
 
@@ -540,19 +623,11 @@ main{
 <header>
 
     <div class="logo">
-        
-      <img src="{{ asset('Beth.jpg') }}">
-      
-    </div>
-
+        <img src="{{ asset('Beth.jpg') }}" alt="Beth Cientista">
         <div>
-
             <h2>BETH CIENTISTA</h2>
-
             <p>Divulgação Científica</p>
-
         </div>
-
     </div>
 
     <nav>
@@ -567,7 +642,7 @@ main{
 
         <a href="{{ route('aluno.mencao') }}">Menções honrosas</a>
 
-        <button class="ativo">Minha Área</button>
+        <button class="ativo" type="button" aria-current="page">Minha Área</button>
 
         <a href="{{ route('inicio')}}">Sair</a>
 
@@ -714,7 +789,7 @@ const lista=document.getElementById("listaPublicacoes");
 lista.innerHTML="";
 
 publicacoes.forEach((item,index)=>{
-
+const statusClass = item.status === "Aprovado" ? "status-aprovado" : "status-rascunho";
 lista.innerHTML+=`
 
 <div class="card-publicacao">
@@ -733,19 +808,13 @@ ${item.data}
 
 </p>
 
-<span>${item.status}</span>
-
+<span class="${statusClass}" aria-label="Status: ${item.status}">${item.status}</span>
 </div>
-
 <div>
-
-<button onclick="editar(${index})">
-
+<button type="button" aria-label="Editar publicação ${index + 1}" title="Editar publicação" onclick="editar(${index})">
 <i class="bi bi-pencil-square"></i>
-
 </button>
-
-<button onclick="excluir(${index})">
+<button type="button" aria-label="Excluir publicação ${index + 1}" title="Excluir publicação" onclick="excluir(${index})">
 
 <i class="bi bi-trash"></i>
 

@@ -98,6 +98,8 @@
 
 .nav-link {
     flex: 0 0 auto;
+    padding: 7px 10px;
+    border-radius: 999px;
     color: #fff;
     font-family: 'Fredoka', sans-serif;
     font-size: .94rem;
@@ -180,16 +182,15 @@
 
     .main-nav {
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         flex: 1 0 100%;
+        flex-wrap: wrap;
         gap: 12px;
         max-width: 100%;
-        overflow-x: auto;
+        overflow: visible;
+        scrollbar-color: rgba(255, 255, 255, .55) transparent;
         padding: 9px 12px;
         border-radius: 16px;
-        scrollbar-width: thin;
-        scrollbar-color: rgba(255, 255, 255, .55) transparent;
-        -webkit-overflow-scrolling: touch;
     }
 
     .nav-divider {

@@ -906,11 +906,10 @@ footer{
         <a href="{{ route('professor.inicio') }}">Início</a>
         <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
         <a href="{{ route('professor.galeria') }}">Galeria</a>
-        <a href="{{ route('professor.biblioteca') }}" class="ativo">Biblioteca</a>
+        <a href="{{ route('professor.biblioteca') }}" class="ativo" aria-current="page">Biblioteca</a>
         <a href="{{ route('professor.mencao') }}">Menções Honrosas</a>
         <a href="{{ route('professor.logado') }}">Minha area</a>
         <a href="{{ route('inicio') }}">Sair</a>
-        <a href="{{ route('professor.inicio') }}">Início</a>
     </nav>
 </header>
 
@@ -932,8 +931,9 @@ footer{
 
     <!-- PESQUISA -->
     <div class="pesquisa">
+        <label for="pesquisa" style="display: block; margin-bottom: 8px; font-weight: 700">Buscar livros no acervo</label>
         <div class="pesquisa-box">
-            <i class="bi bi-search"></i>
+            <i class="bi bi-search" aria-hidden="true"></i>
             <input
                 type="text"
                 id="pesquisa"

@@ -163,7 +163,7 @@
         } elseif ($caminhoImagem) {
             $urlFinalImagem = asset('storage/' . $caminhoImagem);
         } else {
-            $urlFinalImagem = asset('images/default.png');
+            $urlFinalImagem = asset('images/beth-logo.jpeg');
         }
     @endphp
 

@@ -133,8 +133,8 @@
 
             <div class="imagem">
                 <img
-                    src="{{ asset('images/equipe.jpg') }}"
-                    alt="Equipe da Beth Cientista"
+                    src="{{ asset('images/atividade-cientifica.jpg') }}"
+                    alt="Estudantes em uma atividade de sala de aula"
                     loading="lazy"
                 >
             </div>

@@ -126,6 +126,34 @@ nav button{
 
 }
 
+nav a.btn{
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:10px 20px;
+    border-radius:30px;
+
+    font-weight:600;
+    text-decoration:none;
+    white-space:nowrap;
+    transition:.3s;
+
+}
+
+nav a.btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+nav a.btn:focus-visible{
+
+    outline-offset:3px;
+
+}
+
 nav button:hover{
 
     transform:translateY(-3px);
@@ -472,7 +500,7 @@ main{
 
     <div class="logo">
 
-        <img src="img/logo.png" alt="Logo">
+        <img src="{{ asset('images/beth-logo.jpeg') }}" alt="Beth Cientista">
 
         <div>
 
@@ -488,7 +516,7 @@ main{
 
        <a href="{{ route('aluno.inicio') }}" class="btn">Inicio</a>
 
-        <button class="ativo">Sobre Nós</button>
+        <button class="ativo" type="button" aria-current="page" >Sobre Nós</button>
 
         <a href="{{ route('aluno.galeria') }}" class="btn">Galeria</a>
 
@@ -520,24 +548,22 @@ main{
         <h2>NOSSA HISTÓRIA</h2>
 
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            A Beth Cientista nasceu com o propósito de aproximar crianças e jovens do universo científico, tornando o conhecimento mais acessível, interessante e divertido.
         </p>
 
         <p>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur.
+            Por meio da divulgação científica, buscamos despertar a curiosidade, incentivar perguntas e mostrar que a ciência faz parte do nosso cotidiano.
         </p>
 
         <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+            Acreditamos que todos podem aprender, explorar e descobrir coisas novas quando encontram oportunidades para conhecer o mundo ao seu redor.
         </p>
 
     </div>
 
     <div class="imagem">
 
-        <img src="img/laboratorio.jpg" alt="Laboratório">
+        <img src="{{ asset('images/laboratorio.jpg') }}" alt="Materiais em um laboratório de ciências">
 
     </div>
 
@@ -591,7 +617,7 @@ main{
 
     <div class="imagem">
 
-        <img src="img/equipe.jpg" alt="Equipe">
+        <img src="{{ asset('images/atividade-cientifica.jpg') }}" alt="Estudantes em uma atividade de sala de aula">
 
     </div>
 

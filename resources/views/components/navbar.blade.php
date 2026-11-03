@@ -42,6 +42,7 @@
             <a
                 href="{{ route('inicio') }}"
                 class="nav-link {{ request()->routeIs('inicio') ? 'active' : '' }}"
+                aria-current="{{ request()->routeIs('inicio') ? 'page' : 'false' }}"
             >
                 Início
             </a>
@@ -54,6 +55,7 @@
             <a
                 href="{{ route('sobre') }}"
                 class="nav-link {{ request()->routeIs('sobre') ? 'active' : '' }}"
+                aria-current="{{ request()->routeIs('sobre') ? 'page' : 'false' }}"
             >
                 Sobre Nós
             </a>
@@ -66,6 +68,7 @@
             <a
                 href="{{ route('galeria') }}"
                 class="nav-link {{ request()->routeIs('galeria') ? 'active' : '' }}"
+                aria-current="{{ request()->routeIs('galeria') ? 'page' : 'false' }}"
             >
                 Galeria
             </a>
@@ -78,6 +81,7 @@
             <a
                 href="{{ route('biblioteca') }}"
                 class="nav-link {{ request()->routeIs('biblioteca') ? 'active' : '' }}"
+                aria-current="{{ request()->routeIs('biblioteca') ? 'page' : 'false' }}"
             >
                 Biblioteca
             </a>
@@ -90,6 +94,7 @@
             <a
                 href="{{ route('mencao') }}"
                 class="nav-link {{ request()->routeIs('mencao') ? 'active' : '' }}"
+                aria-current="{{ request()->routeIs('mencao') ? 'page' : 'false' }}"
             >
                 Menções Honrosas
             </a>
@@ -127,6 +132,7 @@
             class="mobile-menu-button"
             id="mobileMenuButton"
             type="button"
+            aria-label="Abrir menu de navegação"
         >
 
             <i class="fa-solid fa-bars"></i>

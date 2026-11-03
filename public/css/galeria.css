@@ -404,6 +404,8 @@
     justify-content: flex-start;
     padding: 1rem;
     background: linear-gradient(to top, rgba(58, 12, 86, .96) 0%, rgba(58, 12, 86, .62) 34%, rgba(58, 12, 86, 0) 100%);
+    opacity: 1;
+    pointer-events: none;
 }
 
 .galeria-card-demo:hover .galeria-card-overlay,

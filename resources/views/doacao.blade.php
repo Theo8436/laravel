@@ -108,7 +108,10 @@ body::after{
     right:15%;
     bottom:20%;
 
-    opacity:.65;
+    opacity:.6;
+
+    z-index:0;
+    pointer-events:none;
 
 }
 
@@ -200,6 +203,9 @@ nav{
     align-items:center;
 
     gap:8px;
+
+    padding:8px;
+    border-radius:999px;
 
 }
 

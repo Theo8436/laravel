@@ -171,6 +171,10 @@
       transform: translateY(-3px);
     }
 
+    .login-btn:focus-visible {
+      outline-offset: 3px;
+    }
+
     #mensagem {
       text-align: center;
       margin-bottom: 15px;

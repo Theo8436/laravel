@@ -154,6 +154,8 @@ a {
 
 .nav-link {
     color: #ffffff;
+    padding: 7px 10px;
+    border-radius: 999px;
     font-size: 15px;
     font-weight: 600;
     white-space: nowrap;
@@ -166,7 +168,8 @@ a {
 .nav-link:hover,
 .nav-link.active {
     color: #fde047;
-    transform: scale(1.08) rotate(-1deg);
+    border-radius: 999px;
+    transform: translateY(-1px);
 }
 
 .nav-divider {
@@ -1417,5 +1420,67 @@ a {
     .post-footer {
         align-items: flex-start;
         flex-direction: column;
+    }
+}
+
+/* O painel do professor não tem menu colapsável; mantenha os links visíveis em todos os viewports. */
+@media (max-width: 1000px) {
+    body.professor-home .header-container {
+        width: min(100% - 32px, 900px);
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 14px;
+    }
+
+    body.professor-home .brand {
+        margin-right: auto;
+    }
+
+    body.professor-home .main-nav {
+        display: flex;
+        flex: 1 0 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 7px;
+        padding: 8px;
+        border-radius: 16px;
+    }
+
+    body.professor-home .main-nav > a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: .88rem;
+        white-space: nowrap;
+    }
+
+}
+
+@media (max-width: 600px) {
+    body.professor-home .header-container {
+        width: calc(100% - 28px);
+        padding: 12px 0;
+    }
+
+    body.professor-home .brand {
+        margin-right: 0;
+    }
+
+    body.professor-home .brand-logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    body.professor-home .main-nav {
+        gap: 6px;
+        margin-top: 2px;
+    }
+
+    body.professor-home .main-nav > a {
+        min-height: 32px;
+        padding: 5px 8px;
+        font-size: .78rem;
     }
 }

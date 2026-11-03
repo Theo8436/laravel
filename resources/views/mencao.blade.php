@@ -336,7 +336,7 @@ body::before {
 
 <header>
     <div class="logo">
-        <img src="{{ asset('img/logo.png') }}" alt="Beth Cientista">
+        <img src="{{ asset('images/beth-logo.jpeg') }}" alt="Beth Cientista">
         <div>
             <h2>BETH CIENTISTA</h2>
             <p>Divulgação Científica</p>

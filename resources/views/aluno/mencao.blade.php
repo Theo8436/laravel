@@ -330,13 +330,18 @@ body::before {
         font-size: 22px;
     }
 }
+
+nav a[aria-current="page"] {
+    border-radius: 999px;
+    font-weight: 700;
+}
 </style>
 
 <body>
 
 <header>
     <div class="logo">
-        <img src="{{ asset('img/logo.png') }}" alt="Beth Cientista">
+        <img src="{{ asset('images/beth-logo.jpeg') }}" alt="Beth Cientista">
         <div>
             <h2>BETH CIENTISTA</h2>
             <p>Divulgação Científica</p>
@@ -348,7 +353,7 @@ body::before {
         <a href="{{ route('aluno.sobre') }}" class="btn">Sobre Nós</a>
         <a href="{{ route('aluno.galeria') }}" class="btn">Galeria</a>
         <a href="{{ route('aluno.biblioteca') }}" class="btn">Biblioteca</a>
-        <a href="{{ route('aluno.mencao') }}" class="btn">Menções honrosas</a>
+        <a href="{{ route('aluno.mencao') }}" class="btn ativo" aria-current="page">Menções honrosas</a>
         <a href="{{ route('aluno.logado') }}" class="btn">Minha Area</a>
         <a href="{{ route('inicio') }}" class="btn">Sair</a>
     </nav>

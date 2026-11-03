@@ -52,7 +52,7 @@
             {{-- Navegação --}}
             <nav class="main-nav">
 
-                <a href="{{ route ('aluno.inicio')}}" class="nav-link active">
+                <a href="{{ route ('aluno.inicio')}}" class="nav-link active" aria-current="page">
                     Início
                 </a>
 
@@ -88,7 +88,14 @@
             </nav>
 
             {{-- Menu mobile --}}
-            <button class="mobile-menu-button" id="mobileMenuButton">
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Abrir menu de navegação"
+                aria-controls="mobileMenu"
+                aria-expanded="false"
+            >
                 <i class="fa-solid fa-bars"></i>
             </button>
 
@@ -368,7 +375,7 @@
         } elseif ($caminhoImagem) {
             $urlFinalImagem = asset('storage/' . $caminhoImagem);
         } else {
-            $urlFinalImagem = asset('images/default.png');
+            $urlFinalImagem = asset('images/beth-logo.jpeg');
         }
     @endphp
 
@@ -784,7 +791,12 @@
                     'click',
                     function () {
 
-                        mobileMenu.classList.toggle('open');
+                        const isOpen = mobileMenu.classList.toggle('open');
+                        mobileButton.setAttribute('aria-expanded', String(isOpen));
+                        mobileButton.setAttribute(
+                            'aria-label',
+                            isOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'
+                        );
 
                     }
                 );

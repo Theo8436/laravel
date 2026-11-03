@@ -156,6 +156,10 @@
       text-decoration: none;
     }
 
+    .btn:focus-visible {
+      outline-offset: 3px;
+    }
+
     .btn-cadastrar {
       background: #ff7a00;
       color: white;
@@ -195,8 +199,15 @@
     }
 
     @media (max-width: 600px) {
+      body {
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 16px 12px;
+      }
+
       .cadastro {
-        padding: 28px 22px;
+        padding: 24px 18px;
+        margin: 0 auto;
       }
 
       h1 {

@@ -169,6 +169,10 @@
             text-decoration: none;
         }
 
+        .btn:focus-visible {
+            outline-offset: 3px;
+        }
+
         .btn-cadastrar {
             background: #ff7a00;
             color: white;
@@ -277,10 +281,10 @@
 
         <!-- NOVO CAMPO: Nível de acesso estilizado seguindo o padrão dos seus campos -->
         <div class="campo">
-    <label>Tipo de Aluno</label>
+    <label for="nivel_acesso">Tipo de Aluno</label>
+    <select id="nivel_acesso" name="nivel_acesso" required>
+        <option value="" disabled {{ old('nivel_acesso') == '' ? 'selected' : '' }}>Selecione o tipo de aluno</option>
     <select name="nivel_acesso" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: white; font-family: inherit;">
-        <!-- Opção padrão que aparece em branco/texto informativo -->
-        <option value="" disabled {{ old('nivel_acesso') == '' ? 'selected' : '' }}></option>
         
         <option value="clubista" {{ old('nivel_acesso') == 'clubista' ? 'selected' : '' }}>Aluno Clubista</option>
         <option value="monitor" {{ old('nivel_acesso') == 'monitor' ? 'selected' : '' }}>Aluno Monitor</option>

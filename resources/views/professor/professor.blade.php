@@ -853,8 +853,18 @@ td button{
 
         display:block;
 
+        width:100%;
+        max-width:100%;
+        white-space:nowrap;
+
         overflow-x:auto;
 
+    }
+
+    table th,
+    table td{
+        white-space:nowrap;
+        vertical-align:middle;
     }
 
     .calendario-container{

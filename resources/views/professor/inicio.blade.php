@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
-<body>
+<body class="professor-home">
 
     {{-- =========================================================
         HEADER DO PROFESSOR
@@ -41,13 +41,13 @@
 
             {{-- Navegação da Área do Professor --}}
             <nav class="main-nav">
-                            <a href="{{ route('professor.inicio') }}">Início</a>
-            <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
-            <a href="{{ route('professor.galeria') }}">Galeria</a>
-            <a href="{{ route('professor.biblioteca') }}">Biblioteca</a>
-            <a href="{{ route('professor.mencao') }}">Menções honrosas</a>
-            <a href="{{ route('professor.logado') }}">Minha Área</a>
-            <a href="{{ route('inicio') }}">Sair</a>
+                <a class="nav-link active" aria-current="page" href="{{ route('professor.inicio') }}">Início</a>
+                <a class="nav-link" href="{{ route('professor.sobre') }}">Sobre Nós</a>
+                <a class="nav-link" href="{{ route('professor.galeria') }}">Galeria</a>
+                <a class="nav-link" href="{{ route('professor.biblioteca') }}">Biblioteca</a>
+                <a class="nav-link" href="{{ route('professor.mencao') }}">Menções honrosas</a>
+                <a class="nav-link" href="{{ route('professor.logado') }}">Minha Área</a>
+                <a class="nav-link" href="{{ route('inicio') }}">Sair</a>
             </nav>
 
         </div>
@@ -191,7 +191,7 @@
         } elseif ($caminhoImagem) {
             $urlFinalImagem = asset('storage/' . $caminhoImagem);
         } else {
-            $urlFinalImagem = asset('images/default.png');
+            $urlFinalImagem = asset('images/beth-logo.jpeg');
         }
     @endphp
 

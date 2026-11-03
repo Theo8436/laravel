@@ -36,6 +36,9 @@ body{
 
     min-height:100vh;
 
+    display:flex;
+    flex-direction:column;
+
     background:
     linear-gradient(
         180deg,
@@ -219,6 +222,8 @@ main{
     width:90%;
 
     max-width:1250px;
+
+    flex:1 0 auto;
 
     margin:auto;
 
@@ -1045,7 +1050,7 @@ footer{
             Sobre Nós
         </a>
 
-        <a href="{{ route('professor.galeria') }}" class="ativo">
+        <a href="{{ route('professor.galeria') }}" class="ativo" aria-current="page" style="font-weight: 700">
             Galeria
         </a>
 

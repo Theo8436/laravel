@@ -512,13 +512,18 @@ footer {
         font-size: 34px;
     }
 }
+
+nav a[aria-current="page"] {
+    border-radius: 999px;
+    font-weight: 700;
+}
 </style>
 
 <body>
 
 <header>
     <div class="logo">
-        <img src="{{ asset('img/logo.png') }}" alt="Beth Cientista">
+        <img src="{{ asset('images/beth-logo.jpeg') }}" alt="Beth Cientista">
         <div>
             <h2>BETH CIENTISTA</h2>
             <p>Divulgação Científica</p>
@@ -529,11 +534,10 @@ footer {
         <a href="{{ route('professor.inicio') }}">Início</a>
         <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
         <a href="{{ route('professor.galeria') }}">Galeria</a>
-        <a href="{{ route('professor.biblioteca') }}" class="ativo">Biblioteca</a>
-        <a href="{{ route('professor.mencao') }}">Menções Honrosas</a>
+        <a href="{{ route('professor.biblioteca') }}">Biblioteca</a>
+        <a href="{{ route('professor.mencao') }}" class="ativo" aria-current="page">Menções Honrosas</a>
         <a href="{{ route('professor.logado') }}">Minha area</a>
         <a href="{{ route('inicio') }}">Sair</a>
-        <a href="{{ route('professor.inicio') }}">Início</a>
     </nav>
 </header>
 
