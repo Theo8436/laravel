@@ -13,7 +13,7 @@ class EventoCalendario extends Model
     protected $fillable = [
         'professor_id',
         'aluno_id',
-        'titulo',
+        'categoria',
         'descricao',
         'data_evento'
     ];

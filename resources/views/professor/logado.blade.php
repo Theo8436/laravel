@@ -768,6 +768,68 @@
             .calendario-container {
                 grid-template-columns: 1fr;
             }
+            /* ================= EVENTOS CADASTRADOS ================= */
+
+.lista-eventos {
+    margin-top: 30px;
+}
+
+.lista-eventos h3 {
+    color: #4b1d91;
+    margin-bottom: 20px;
+}
+
+.evento {
+    background: #fff;
+    padding: 22px 20px;
+    border: 2px solid #e1e4e9;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 110px;
+    box-shadow: none;
+}
+
+.evento strong {
+    display: block;
+    color: #111;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.evento small {
+    display: block;
+    color: #536174;
+    font-size: 17px;
+    margin-top: 3px;
+}
+
+.evento-categoria {
+    display: inline-block;
+    background: #e9ebf0;
+    color: #171725;
+    padding: 5px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+@media(max-width: 600px) {
+    .evento {
+        padding: 18px 14px;
+    }
+
+    .evento strong {
+        font-size: 18px;
+    }
+
+    .evento small {
+        font-size: 15px;
+    }
+}
         }
     </style>
 </head>
@@ -1085,7 +1147,7 @@
 
             <!-- Selecionar o Aluno Obrigatório -->
             <div class="form-group">
-                <label for="alunoIdEvento">Atribuir ao Aluno (Obrigatório)</label>
+                <label for="alunoIdEvento">Aluno Responsável</label>
                 <select id="alunoIdEvento" class="form-control-custom" required>
                     <option value="" disabled selected>Selecione um aluno...</option>
                     @foreach($alunos as $aluno)
@@ -1095,9 +1157,23 @@
             </div>
 
             <div class="form-group">
-                <label for="tituloEvento">Título do evento</label>
-                <input type="text" id="tituloEvento" class="form-control-custom" placeholder="Ex: Post sobre Astronomia">
-            </div>
+    <label for="categoriaEvento">Categoria</label>
+
+    <select
+        id="categoriaEvento"
+        name="categoriaEvento"
+        class="form-control-custom"
+        required
+    >
+        <option value="" selected disabled>
+            Selecione uma categoria
+        </option>
+
+        <option value="Beth Indica">Beth Indica</option>
+        <option value="Beth nas Estrelas">Beth nas Estrelas</option>
+        <option value="Beth Anatomy">Beth Anatomy</option>
+    </select>
+</div>
 
             <div class="form-group">
                 <label for="descricaoEvento" required>Descrição</label>
@@ -1110,31 +1186,45 @@
         </div>
     </div>
 
-<div class="lista-eventos" style="margin-top: 30px;">
-    <h3 style="color:#4b1d91;margin-bottom:15px">Eventos cadastrados</h3>
+    
+<div class="lista-eventos">
 
-    @forelse($eventos ?? [] as $evento)
-        <div class="evento" style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 12px; border-left: 5px solid #4caf50; box-shadow: 0 3px 8px rgba(0,0,0,.08); display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <strong style="color: #4b1d91;">{{ $evento->titulo }}</strong> 
-                ({{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }})
-                <br>
-                <small style="color: #777;">
-                    <i class="bi bi-person"></i> Aluno Vinculado: <strong>{{ $evento->aluno->nome}}</strong>
-                </small>
-                <p style="margin: 5px 0 0 0; color: #555;">{{ $evento->descricao }}</p>
-            </div>
-            <!-- Botão de excluir opcional -->
-            <form action="{{ route('professor.eventos.excluir', $evento->id) }}" method="POST" style="margin:0;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" style="border: none; background: #ef5350; color: white; padding: 7px 12px; border-radius: 7px; cursor: pointer;">Excluir</button>
-            </form>
+<h3 style="color:#4b1d91; margin-bottom:20px;">
+    Eventos cadastrados
+</h3>
+
+@forelse($eventos ?? [] as $evento)
+
+    <div class="evento">
+
+        <div>
+
+            <strong>
+                {{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}
+            </strong>
+
+            <small>
+                {{ $evento->aluno->nome ?? 'Aluno não identificado' }}
+            </small>
+
+            <span class="evento-categoria">
+                {{ $evento->categoria }}
+            </span>
+
         </div>
-    @empty
-        <p style="color:#777;">Nenhum evento cadastrado no momento.</p>
-    @endforelse
+
+    </div>
+
+@empty
+
+    <p style="color:#777;">
+        Nenhum evento cadastrado no momento.
+    </p>
+
+@endforelse
+
 </div>
+
 </section>
 
     </main>
@@ -1412,9 +1502,10 @@ function mostrarCalendario() {
             dataSelecionada = data;
             dataIsoGlobal = data;
             document.getElementById("dataSelecionada").innerText = formatarData(data);
-            document.getElementById("tituloEvento").focus();
+            document.getElementById("categoriaEvento").focus();
             renderizarCalendario();
         }
+        
 
         function mesAnterior() {
             dataAtual.setMonth(dataAtual.getMonth() - 1);
@@ -1427,60 +1518,118 @@ function mostrarCalendario() {
         }
 
         /* ================= SALVAR EVENTO (PERSISTÊNCIA VIA FETCH) ================= */
-        function salvarEvento() {
-            const titulo = document.getElementById('tituloEvento').value.trim();
-            const descricao = document.getElementById('descricaoEvento').value.trim();
-            const alunoId = document.getElementById('alunoIdEvento').value;
+        
+async function salvarEvento() {
 
-            // Validações no Front-end
-            if (!dataIsoGlobal) {
-                alert('Você precisa selecionar uma data no calendário.');
-                return;
-            }
+const categoria = document.getElementById('categoriaEvento').value;
+const descricao = document.getElementById('descricaoEvento').value.trim();
+const alunoId = document.getElementById('alunoIdEvento').value;
 
-            if (!alunoId) {
-                alert('Você precisa selecionar obrigatoriamente um aluno!');
-                return;
-            }
+if (!dataSelecionada) {
+    alert('Selecione uma data no calendário.');
+    return;
+}
 
-            if (!titulo) {
-                alert('O título do evento é obrigatório.');
-                return;
-            }
-            if (!descricao) {
-                alert('A descrição do evento é obrigatória.');
-                return;
-            }
+if (!alunoId) {
+    alert('Selecione um aluno.');
+    return;
+}
 
-            // Envio via Fetch para o Laravel
-            fetch('/professor/eventos/salvar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({
-                    data_evento: dataIsoGlobal, // Formato ISO correto (YYYY-MM-DD)
-                    titulo: titulo,
-                    descricao: descricao,
-                    aluno_id: alunoId
-                })
+if (!categoria) {
+    alert('Selecione uma categoria.');
+    return;
+}
+
+if (!descricao) {
+    alert('Informe a descrição.');
+    return;
+}
+
+try {
+
+    const resposta = await fetch(
+        "{{ url('/professor/eventos/salvar') }}",
+        {
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector(
+                    'meta[name="csrf-token"]'
+                ).content
+            },
+
+            body: JSON.stringify({
+                data_evento: dataSelecionada,
+                categoria: categoria,
+                descricao: descricao,
+                aluno_id: alunoId
             })
-            .then(async response => {
-                let resultado = await response.json();
-                if (response.ok && resultado.sucesso) {
-                    alert('Evento cadastrado com sucesso!');
-                    location.reload(); // Recarrega para exibir o registro salvo pelo Blade
-                } else {
-                    console.error('Erros do servidor:', resultado);
-                    alert('Erro ao salvar: ' + (resultado.message || JSON.stringify(resultado.errors || 'Erro desconhecido')));
-                }
-            })
-            .catch(error => {
-                console.error('Erro na requisição:', error);
-                alert('Ocorreu um erro de rede ao tentar salvar.');
-            });
         }
+    );
+
+    const texto = await resposta.text();
+
+    console.log('Status HTTP:', resposta.status);
+    console.log('Resposta do Laravel:', texto);
+
+    let resultado;
+
+    try {
+        resultado = JSON.parse(texto);
+    } catch (erro) {
+        throw new Error(
+            'O Laravel não retornou JSON. Verifique a rota, a sessão e os erros do servidor. Resposta: ' +
+            texto.substring(0, 300)
+        );
+    }
+
+    if (!resposta.ok) {
+
+        if (resposta.status === 419) {
+            throw new Error('Sessão expirada ou token CSRF inválido. Atualize a página e tente novamente.');
+        }
+
+        if (resposta.status === 401 || resposta.status === 403) {
+            throw new Error('Você não está autenticado ou não tem permissão para cadastrar eventos.');
+        }
+
+        if (resposta.status === 404) {
+            throw new Error('A rota de cadastro de eventos não foi encontrada.');
+        }
+
+        if (resposta.status === 422) {
+            const erros = Object.values(resultado.errors || {}).flat();
+            throw new Error(erros.join('\n') || resultado.message);
+        }
+
+        throw new Error(
+            resultado.message || 'Erro HTTP ' + resposta.status
+        );
+    }
+
+    if (resultado.sucesso) {
+
+        alert('Evento cadastrado com sucesso!');
+
+        location.reload();
+
+    } else {
+
+        throw new Error(resultado.message || 'Não foi possível cadastrar o evento.');
+
+    }
+
+} catch (erro) {
+
+    console.error('Erro ao cadastrar evento:', erro);
+
+    alert('Erro ao salvar evento:\n' + erro.message);
+
+}
+}
+
         /* ================= EXCLUSÃO DE ALUNO ================= */
 
 function abrirConfirmacaoExcluirAluno(id, nome) {
@@ -1524,7 +1673,7 @@ document.getElementById('formExcluirAluno').reset();
                 lista.innerHTML += `
                     <div class="evento">
                         <div>
-                            <strong>${ev.titulo}</strong> (${formatarData(ev.data)})
+                            <strong>${ev.categoria}</strong> (${formatarData(ev.data)})
                             <small>${ev.descricao || 'Sem descrição.'}</small>
                         </div>
                         <button type="button" onclick="deletarEvento(${idx})">Excluir</button>

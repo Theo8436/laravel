@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('professor_id');
             $table->unsignedBigInteger('aluno_id')->nullable(); // O aluno que fará o post
-            $table->string('titulo');
+            $table->string('categoria');
             $table->text('descricao')->nullable();
             $table->date('data_evento');
             $table->timestamps();

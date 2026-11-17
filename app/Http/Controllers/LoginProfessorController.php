@@ -173,8 +173,9 @@ public function painelLogado(Request $request) // <-- IMPORTANTE: Adicione o Req
 
     // 3. Busca os eventos cadastrados por este professor
     $eventos = EventoCalendario::with('aluno')
-        ->where('professor_id', $professorId)
-        ->get();
+    ->where('professor_id', Auth::guard('professores')->id())
+    ->latest('data_evento')
+    ->get();
 
     // 4. Busca as postagens pendentes
     $postagens = Postagem::with('user')
@@ -183,7 +184,7 @@ public function painelLogado(Request $request) // <-- IMPORTANTE: Adicione o Req
         ->get();
 
     // 5. Retorna a view enviando as variáveis
-    return view('professor.logado', compact('alunos', 'eventos', 'postagens'));
+    return view('professor.logado', compact('alunos', 'eventos', 'postagens', 'eventos'));
 }
 public function excluirEventoCalendario($id)
 {
@@ -208,7 +209,7 @@ public function excluirEventoCalendario($id)
     {
         // Validação estrita exigindo aluno_id e data válida (bloqueando datas passadas)
         $request->validate([
-            'titulo' => 'required|string|max:255',
+            'categoria'  => 'required|string|in:Beth Indica,Beth nas Estrelas,Beth Anatomy',
             'aluno_id' => 'required|exists:alunos,id', // Garante que o aluno existe
             'data_evento' => 'required|date|after_or_equal:today',
             'descricao' => 'required|string'
@@ -218,7 +219,7 @@ public function excluirEventoCalendario($id)
         EventoCalendario::create([
             'professor_id' => Auth::guard('professores')->id(),
             'aluno_id' => $request->aluno_id,
-            'titulo' => $request->titulo,
+            'categoria' => $request->categoria,
             'descricao' => $request->descricao,
             'data_evento' => $request->data_evento,
         ]);

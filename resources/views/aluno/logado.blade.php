@@ -611,6 +611,95 @@
             .menu-area { flex-direction: column; }
             .header-top { flex-direction: column; gap: 15px; text-align: center; }
         }
+        
+/* CALENDÁRIO DO ALUNO */
+
+.calendario-aluno {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.evento-aluno {
+    background: #fff;
+    border: 2px solid #e2e4e9;
+    border-radius: 14px;
+    padding: 22px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    transition: .3s;
+}
+
+.evento-aluno:hover {
+    border-color: #a832ff;
+    background: #faf5ff;
+}
+
+.evento-data {
+    display: block;
+    font-size: 21px;
+    color: #111;
+    margin-bottom: 5px;
+}
+
+.evento-descricao {
+    color: #586174;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.evento-categoria {
+    display: inline-block;
+    background: #eef0f4;
+    color: #252536;
+    padding: 5px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.evento-sua-vez {
+    background: #a832ff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.sem-eventos {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    text-align: center;
+    color: #666;
+}
+
+.sem-eventos i {
+    font-size: 35px;
+    color: #a832ff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+@media(max-width: 600px) {
+    .evento-aluno {
+        padding: 16px;
+        align-items: flex-start;
+    }
+
+    .evento-data {
+        font-size: 18px;
+    }
+
+    .evento-sua-vez {
+        font-size: 11px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -889,14 +978,14 @@
 
                 @endif
 
-                <button
+                <!-- <button
                     type="button"
                     class="btn-acao btn-excluir-post"
                     onclick="abrirModalExcluir({{ $postagem->id }})"
                 >
                     <i class="bi bi-trash"></i>
                     Excluir
-                </button>
+                </button> -->
 
             </div>
 
@@ -911,23 +1000,50 @@
 
 <!-- SEÇÃO CALENDÁRIO -->
 <section id="calendario" style="display: none;">
+
     <h2>Calendário de Posts e Eventos</h2>
 
-    <div class="lista-eventos-aluno" style="margin-top: 20px;">
-        <h3>Seus dias de post / compromissos:</h3>
-        <ul>
-            {{-- O uso de ($eventos ?? []) evita que a página quebre caso a variável não venha do controller --}}
-            @forelse($eventos ?? [] as $evento)
-                <li>
-                    <strong>{{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}</strong>: 
-                    {{ $evento->titulo }} - <em>{{ $evento->descricao }}</em>
-                </li>
-            @empty
-                <li>Nenhum post agendado no momento.</li>
-            @endforelse
-        </ul>
+    <div class="calendario-aluno">
+
+        @forelse($eventos ?? [] as $evento)
+
+            <div class="evento-aluno">
+
+                <div class="evento-conteudo">
+
+                    <strong class="evento-data">
+                        {{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}
+                    </strong>
+
+                    <p class="evento-descricao">
+                        {{ $evento->descricao }}
+                    </p>
+
+                    <span class="evento-categoria">
+                        {{ $evento->categoria }}
+                    </span>
+
+                </div>
+
+                <span class="evento-sua-vez">
+                    Sua vez!
+                </span>
+
+            </div>
+
+        @empty
+
+            <div class="sem-eventos">
+                <i class="bi bi-calendar-check"></i>
+                <p>Você não possui compromissos agendados.</p>
+            </div>
+
+        @endforelse
+
     </div>
+
 </section>
+
     <!-- SEÇÃO MATERIAL -->
     <section id="material" style="display: none;">
         <h2>Material de Apoio</h2>
@@ -936,7 +1052,7 @@
 </main>
 
 <!-- MODAL CONFIRMAR EXCLUSÃO -->
-<div id="modalExcluir" class="modal-overlay" style="display: none;">
+<!-- <div id="modalExcluir" class="modal-overlay" style="display: none;">
     <div class="modal-card">
         <div class="modal-excluir-body">
             <i class="bi bi-exclamation-triangle-fill"></i>
@@ -954,7 +1070,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
 
 <!-- MODAL CRIAR -->
 <div id="modalCriar" class="modal-overlay" style="display: none;">
@@ -1070,7 +1186,7 @@
         if(abaId === 'material') document.getElementById('btnMat').classList.add('btn-menu-ativo');
     }
 
-    /* --- MODAL EXCLUIR --- */
+    /* --- MODAL EXCLUIR
     function abrirModalExcluir(id) {
         document.getElementById('formExcluir').action = `/postagens/${id}`;
         document.getElementById('modalExcluir').style.display = 'flex';
@@ -1078,7 +1194,7 @@
 
     function fecharModalExcluir() {
         document.getElementById('modalExcluir').style.display = 'none';
-    }
+    }--- */
 
     /* --- MODAIS --- */
     function abrirModalCriar() {
@@ -1199,10 +1315,10 @@
     window.onclick = function(event) {
         const modalCriar = document.getElementById('modalCriar');
         const modalEditar = document.getElementById('modalEditar');
-        const modalExcluir = document.getElementById('modalExcluir');
+        // const modalExcluir = document.getElementById('modalExcluir');
         if (event.target === modalCriar) fecharModalCriar();
         if (event.target === modalEditar) fecharModalEditar();
-        if (event.target === modalExcluir) fecharModalExcluir();
+        // if (event.target === modalExcluir) fecharModalExcluir();
     }
 
     /* --- CARROSSEL DE FOTOS --- */
