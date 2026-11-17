@@ -215,7 +215,7 @@
             transform: translateY(-2px);
         }
 
-        /* ================= ALERTAS ESTILIZADOS COM CORES DO TEMA ================= */
+        /* ================= ALERTAS ESTILIZADOS ================= */
         .alerta-sucesso {
             background: #6f0ea7;
             color: #ffffff;
@@ -416,6 +416,77 @@
             font-size: 18px;
         }
 
+        /* ================= LISTA DE MATERIAIS DE APOIO ================= */
+        .materiais-lista {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .material-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 18px 20px;
+            border-radius: 15px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.25s ease;
+        }
+
+        .material-item:hover {
+            transform: translateY(-3px);
+            border-color: #6f0ea7;
+            background: #fdf4ff;
+            box-shadow: 0 6px 15px rgba(111, 14, 167, 0.12);
+        }
+
+        .material-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .material-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6f0ea7, #b217c7);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .material-texto h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .material-texto span {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .material-seta {
+            color: #ff7a00;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .material-item:hover .material-seta {
+            transform: translateX(3px);
+        }
+
         /* ================= MODAIS ================= */
         .modal-overlay {
             position: fixed;
@@ -568,39 +639,32 @@
             color: #666;
             font-size: 14px;
         }
+
         .status.ajustes {
-    display: inline-block;
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
 
-    background: #fff3cd;
-    color: #856404;
+        .observacao-professor {
+            margin-top: 12px;
+            padding: 15px;
+            background: #fff8e1;
+            border-left: 4px solid #ff9800;
+            border-radius: 8px;
+        }
 
-    padding: 8px 12px;
+        .observacao-professor strong {
+            display: block;
+            margin-bottom: 6px;
+        }
 
-    border-radius: 8px;
-
-    font-weight: 600;
-}
-
-.observacao-professor {
-    margin-top: 12px;
-
-    padding: 15px;
-
-    background: #fff8e1;
-
-    border-left: 4px solid #ff9800;
-
-    border-radius: 8px;
-}
-
-.observacao-professor strong {
-    display: block;
-    margin-bottom: 6px;
-}
-
-.observacao-professor p {
-    margin: 0;
-}
+        .observacao-professor p {
+            margin: 0;
+        }
 
         /* RESPONSIVO */
         @media(max-width: 1000px){
@@ -671,7 +735,7 @@
             </button>
         </div>
 
-        <!-- MENSAGEM DE SUCESSO ESTILIZADA -->
+        <!-- MENSAGEM DE SUCESSO -->
         @if(session('sucesso'))
             <div class="alerta-sucesso">
                 <i class="bi bi-check-circle-fill" style="font-size: 22px; color: #ffd84f;"></i>
@@ -696,242 +760,256 @@
             </div>
         @endif
 
-<!-- ================= MINHAS PUBLICAÇÕES ================= -->
+        <!-- ================= MINHAS PUBLICAÇÕES ================= -->
+        <h2 style="color: white; margin-bottom: 20px;">
+            Minhas Publicações
+        </h2>
 
-<h2 style="color: white; margin-bottom: 20px;">
-    Minhas Publicações
-</h2>
-
-@if($minhasPostagens->isEmpty())
-
-    <div class="post-card">
-        <p style="color: #666; text-align: center;">
-            Você ainda não criou nenhuma publicação.
-        </p>
-    </div>
-
-@else
-
-    @foreach($minhasPostagens as $postagem)
-
-        @php
-            $fotos = json_decode($postagem->imagem, true) ?? [];
-
-            if (!is_array($fotos)) {
-                $fotos = $postagem->imagem
-                    ? [$postagem->imagem]
-                    : [];
-            }
-        @endphp
-
-        <article class="post-card">
-
-            <!-- CABEÇALHO -->
-            <div class="post-header">
-
-                <span class="post-autor">
-                    <i class="bi bi-person-circle"></i>
-                    {{ $postagem->user->nome ?? 'Você' }}
-                </span>
-
-                <span class="categoria-badge">
-                    {{ $postagem->categoria ?? 'Geral' }}
-                </span>
-
+        @if($minhasPostagens->isEmpty())
+            <div class="post-card">
+                <p style="color: #666; text-align: center;">
+                    Você ainda não criou nenhuma publicação.
+                </p>
             </div>
+        @else
+            @foreach($minhasPostagens as $postagem)
+                @php
+                    $fotos = json_decode($postagem->imagem, true) ?? [];
 
-            <!-- STATUS -->
-            <div style="margin-bottom: 15px;">
-@if($postagem->status === 'pendente')
+                    if (!is_array($fotos)) {
+                        $fotos = $postagem->imagem
+                            ? [$postagem->imagem]
+                            : [];
+                    }
+                @endphp
 
-    <span class="status pendente">
-        ⏳ Aguardando aprovação do professor
-    </span>
-
-@elseif($postagem->status === 'ajustes')
-
-    <span class="status ajustes">
-        ⚠️ Ajustes solicitados pelo professor
-    </span>
-
-    @if($postagem->observacao_professor)
-        <div class="observacao-professor">
-            <strong>Observação do professor:</strong>
-
-            <p>
-                {{ $postagem->observacao_professor }}
-            </p>
-        </div>
-    @endif
-
-@elseif($postagem->status === 'aprovada')
-
-    <span class="status aprovada">
-        ✓ Publicação aprovada
-    </span>
-
-@elseif($postagem->status === 'rejeitada')
-
-    <span class="status rejeitada">
-        ✕ Publicação rejeitada
-    </span>
-
-@endif
-
-            </div>
-
-            <!-- TÍTULO -->
-            <h2 class="post-titulo">
-                {{ $postagem->titulo }}
-            </h2>
-
-            <!-- CONTEÚDO -->
-            <p class="post-resumo">
-                {{ $postagem->comentario }}
-            </p>
-
-            <!-- CARROSSEL -->
-            @if(count($fotos) > 0)
-
-                <div class="carrossel-container carrossel-post" data-index="0">
-
-                    <div>
-                        @foreach($fotos as $foto)
-
-                            <div class="slide">
-
-                                <img
-                                    src="{{ asset('storage/' . $foto) }}"
-                                    alt="Foto da postagem"
-                                >
-
-                            </div>
-
-                        @endforeach
-                    </div>
-
-                    @if(count($fotos) > 1)
-
-                        <button
-                            type="button"
-                            class="btn-seta btn-anterior"
-                            onclick="moverSlide(this, -1)"
-                        >
-                            ❮
-                        </button>
-
-                        <button
-                            type="button"
-                            class="btn-seta btn-proximo"
-                            onclick="moverSlide(this, 1)"
-                        >
-                            ❯
-                        </button>
-
-                        <span class="indicador-contador indicador">
-                            1 / {{ count($fotos) }}
+                <article class="post-card">
+                    <!-- CABEÇALHO -->
+                    <div class="post-header">
+                        <span class="post-autor">
+                            <i class="bi bi-person-circle"></i>
+                            {{ $postagem->user->nome ?? 'Você' }}
                         </span>
 
+                        <span class="categoria-badge">
+                            {{ $postagem->categoria ?? 'Geral' }}
+                        </span>
+                    </div>
+
+                    <!-- STATUS -->
+                    <div style="margin-bottom: 15px;">
+                        @if($postagem->status === 'pendente')
+                            <span class="status pendente">
+                                ⏳ Aguardando aprovação do professor
+                            </span>
+                        @elseif($postagem->status === 'ajustes')
+                            <span class="status ajustes">
+                                ⚠️ Ajustes solicitados pelo professor
+                            </span>
+
+                            @if($postagem->observacao_professor)
+                                <div class="observacao-professor">
+                                    <strong>Observação do professor:</strong>
+                                    <p>{{ $postagem->observacao_professor }}</p>
+                                </div>
+                            @endif
+                        @elseif($postagem->status === 'aprovada')
+                            <span class="status aprovada">
+                                ✓ Publicação aprovada
+                            </span>
+                        @elseif($postagem->status === 'rejeitada')
+                            <span class="status rejeitada">
+                                ✕ Publicação rejeitada
+                            </span>
+                        @endif
+                    </div>
+
+                    <!-- TÍTULO -->
+                    <h2 class="post-titulo">
+                        {{ $postagem->titulo }}
+                    </h2>
+
+                    <!-- CONTEÚDO -->
+                    <p class="post-resumo">
+                        {{ $postagem->comentario }}
+                    </p>
+
+                    <!-- CARROSSEL -->
+                    @if(count($fotos) > 0)
+                        <div class="carrossel-container carrossel-post" data-index="0">
+                            <div>
+                                @foreach($fotos as $foto)
+                                    <div class="slide">
+                                        <img src="{{ asset('storage/' . $foto) }}" alt="Foto da postagem">
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            @if(count($fotos) > 1)
+                                <button type="button" class="btn-seta btn-anterior" onclick="moverSlide(this, -1)">❮</button>
+                                <button type="button" class="btn-seta btn-proximo" onclick="moverSlide(this, 1)">❯</button>
+                                <span class="indicador-contador indicador">1 / {{ count($fotos) }}</span>
+                            @endif
+                        </div>
                     @endif
 
-                </div>
+                    <!-- LER MAIS -->
+                    <div>
+                        @if($postagem->status === 'aprovada')
+                            <a href="{{ route('postagens.show', $postagem->id) }}" class="btn-ler-mais">
+                                Ler mais
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        @else
+                            <span style="display: inline-block; color: #777; font-size: 13px; margin-bottom: 15px;">
+                                <i class="bi bi-info-circle"></i>
+                                Esta publicação ainda não está disponível no feed público.
+                            </span>
+                        @endif
+                    </div>
 
-            @endif
+                    <!-- AÇÕES -->
+                    <div class="post-acoes">
+                        @if($postagem->status !== 'aprovada')
+                            <button
+                                type="button"
+                                class="btn-acao btn-editar-post"
+                                onclick='abrirModalEditar(
+                                    {{ $postagem->id }},
+                                    @json($postagem->titulo),
+                                    @json($postagem->categoria),
+                                    @json($postagem->comentario),
+                                    @json($fotos)
+                                )'
+                            >
+                                <i class="bi bi-pencil"></i>
+                                Editar
+                            </button>
+                        @endif
 
-            <!-- LER MAIS -->
-            <div>
-
-                @if($postagem->status === 'aprovada')
-
-                    <a
-                        href="{{ route('postagens.show', $postagem->id) }}"
-                        class="btn-ler-mais"
-                    >
-                        Ler mais
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-
-                @else
-
-                    <span style="
-                        display: inline-block;
-                        color: #777;
-                        font-size: 13px;
-                        margin-bottom: 15px;
-                    ">
-                        <i class="bi bi-info-circle"></i>
-                        Esta publicação ainda não está disponível no feed público.
-                    </span>
-
-                @endif
-
-            </div>
-
-            <!-- AÇÕES -->
-            <div class="post-acoes">
-
-                @if($postagem->status !== 'aprovada')
-
-                    <button
-                        type="button"
-                        class="btn-acao btn-editar-post"
-                        onclick='abrirModalEditar(
-                            {{ $postagem->id }},
-                            @json($postagem->titulo),
-                            @json($postagem->categoria),
-                            @json($postagem->comentario),
-                            @json($fotos)
-                        )'
-                    >
-                        <i class="bi bi-pencil"></i>
-                        Editar
-                    </button>
-
-                @endif
-
-                <button
-                    type="button"
-                    class="btn-acao btn-excluir-post"
-                    onclick="abrirModalExcluir({{ $postagem->id }})"
-                >
-                    <i class="bi bi-trash"></i>
-                    Excluir
-                </button>
-
-            </div>
-
-        </article>
-
-    @endforeach
-
-@endif
-
-
+                        <button
+                            type="button"
+                            class="btn-acao btn-excluir-post"
+                            onclick="abrirModalExcluir({{ $postagem->id }})"
+                        >
+                            <i class="bi bi-trash"></i>
+                            Excluir
+                        </button>
+                    </div>
+                </article>
+            @endforeach
+        @endif
     </section>
 
-<!-- SEÇÃO CALENDÁRIO -->
-<section id="calendario" style="display: none;">
-    <h2>Calendário de Posts e Eventos</h2>
+    <!-- SEÇÃO CALENDÁRIO -->
+    <section id="calendario" style="display: none;">
+        <h2>Calendário de Posts e Eventos</h2>
 
-    <div class="lista-eventos-aluno" style="margin-top: 20px;">
-        <h3>Seus dias de post / compromissos:</h3>
-        <ul>
-            {{-- O uso de ($eventos ?? []) evita que a página quebre caso a variável não venha do controller --}}
-            @forelse($eventos ?? [] as $evento)
-                <li>
-                    <strong>{{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}</strong>: 
-                    {{ $evento->titulo }} - <em>{{ $evento->descricao }}</em>
-                </li>
-            @empty
-                <li>Nenhum post agendado no momento.</li>
-            @endforelse
-        </ul>
-    </div>
-</section>
-    <!-- SEÇÃO MATERIAL -->
+        <div class="lista-eventos-aluno" style="margin-top: 20px;">
+            <h3>Seus dias de post / compromissos:</h3>
+            <ul>
+                @forelse($eventos ?? [] as $evento)
+                    <li>
+                        <strong>{{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}</strong>: 
+                        {{ $evento->titulo }} - <em>{{ $evento->descricao }}</em>
+                    </li>
+                @empty
+                    <li>Nenhum post agendado no momento.</li>
+                @endforelse
+            </ul>
+        </div>
+    </section>
+
+    <!-- SEÇÃO MATERIAL DE APOIO -->
     <section id="material" style="display: none;">
         <h2>Material de Apoio</h2>
-        <p>Arquivos, PDFs e vídeos ficarão aqui.</p>
+        <p style="color: #666; margin-bottom: 10px;">Acesse os conteúdos abaixo para auxiliar nos seus estudos e publicações:</p>
+
+        <div class="materiais-lista">
+            <!-- 1 -->
+            <a href="https://brasilescola.uol.com.br/quimica/densidade.htm" target="_blank" rel="noopener noreferrer" class="material-item">
+                <div class="material-info">
+                    <div class="material-icon">
+                        <i class="bi bi-droplet-half"></i>
+                    </div>
+                    <div class="material-texto">
+                        <h4>Densidade</h4>
+                        <span>Química • Brasil Escola</span>
+                    </div>
+                </div>
+                <i class="bi bi-box-arrow-up-right material-seta"></i>
+            </a>
+
+            <!-- 2 -->
+            <a href="https://brasilescola.uol.com.br/geografia/buraco-negro.htm" target="_blank" rel="noopener noreferrer" class="material-item">
+                <div class="material-info">
+                    <div class="material-icon">
+                        <i class="bi bi-stars"></i>
+                    </div>
+                    <div class="material-texto">
+                        <h4>Buraco Negro</h4>
+                        <span>Astronomia • Brasil Escola</span>
+                    </div>
+                </div>
+                <i class="bi bi-box-arrow-up-right material-seta"></i>
+            </a>
+
+            <!-- 3 -->
+            <a href="https://brasilescola.uol.com.br/biologia/anatomia-humana.htm" target="_blank" rel="noopener noreferrer" class="material-item">
+                <div class="material-info">
+                    <div class="material-icon">
+                        <i class="bi bi-heart-pulse"></i>
+                    </div>
+                    <div class="material-texto">
+                        <h4>Anatomia Humana</h4>
+                        <span>Biologia • Brasil Escola</span>
+                    </div>
+                </div>
+                <i class="bi bi-box-arrow-up-right material-seta"></i>
+            </a>
+
+            <!-- 4 -->
+            <a href="https://brasilescola.uol.com.br/biologia/anatomia-humana.htm" target="_blank" rel="noopener noreferrer" class="material-item">
+                <div class="material-info">
+                    <div class="material-icon">
+                        <i class="bi bi-lungs"></i>
+                    </div>
+                    <div class="material-texto">
+                        <h4>Anatomia Humana (Estudo Complementar)</h4>
+                        <span>Biologia • Brasil Escola</span>
+                    </div>
+                </div>
+                <i class="bi bi-box-arrow-up-right material-seta"></i>
+            </a>
+
+            <!-- 5 -->
+            <a href="https://brasilescola.uol.com.br/biologia/sistema-muscular.htm" target="_blank" rel="noopener noreferrer" class="material-item">
+                <div class="material-info">
+                    <div class="material-icon">
+                        <i class="bi bi-activity"></i>
+                    </div>
+                    <div class="material-texto">
+                        <h4>Sistema Muscular</h4>
+                        <span>Biologia • Brasil Escola</span>
+                    </div>
+                </div>
+                <i class="bi bi-box-arrow-up-right material-seta"></i>
+            </a>
+
+            <!-- 6 -->
+            <a href="https://brasilescola.uol.com.br/geografia/planetas-2.htm" target="_blank" rel="noopener noreferrer" class="material-item">
+                <div class="material-info">
+                    <div class="material-icon">
+                        <i class="bi bi-globe-americas"></i>
+                    </div>
+                    <div class="material-texto">
+                        <h4>Planetas do Sistema Solar</h4>
+                        <span>Astronomia • Brasil Escola</span>
+                    </div>
+                </div>
+                <i class="bi bi-box-arrow-up-right material-seta"></i>
+            </a>
+        </div>
     </section>
 </main>
 
@@ -1237,24 +1315,6 @@
         if (indicador) {
             indicador.innerText = (indexAtual + 1) + ' / ' + slides.length;
         }
-
-        /* ================= CALENDÁRIO DO ALUNO ================= */
-    document.addEventListener('DOMContentLoaded', function() {
-        // Se houver elementos específicos do calendário do aluno para inicializar, coloque aqui
-    });
-
-    // Função opcional caso o aluno clique em mudar de mês no calendário dele
-    let dataAtualAluno = new Date();
-
-    function mesAnteriorAluno() {
-        dataAtualAluno.setMonth(dataAtualAluno.getMonth() - 1);
-        // Atualizar visual se necessário
-    }
-
-    function mesProximoAluno() {
-        dataAtualAluno.setMonth(dataAtualAluno.getMonth() + 1);
-        // Atualizar visual se necessário
-    }
     }
 </script>
 
