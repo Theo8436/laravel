@@ -211,7 +211,7 @@ public function excluirEventoCalendario($id)
             'titulo' => 'required|string|max:255',
             'aluno_id' => 'required|exists:alunos,id', // Garante que o aluno existe
             'data_evento' => 'required|date|after_or_equal:today',
-            'descricao' => 'nullable|string'
+            'descricao' => 'required|string'
         ]);
 
         // Salva o evento vinculado ao professor logado e ao aluno escolhido

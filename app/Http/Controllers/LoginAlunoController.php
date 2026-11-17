@@ -22,8 +22,9 @@ class LoginAlunoController extends Controller
         return view('aluno.cadastro');
     }
 
-    public function logado() {
-        return view('aluno.logado');
+    public function logado()
+    {
+        return $this->painelLogado();
     }
 
     public function adicionar(Request $request)
@@ -89,9 +90,26 @@ class LoginAlunoController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('aluno');
     }
-    public function painelLogado() {
-    // 1. Pega o ID do aluno logado atualmente no guard 'alunos'
-    $alunoId = Auth::guard('alunos')->id(); 
+    public function painelLogado()
+    {
+        // ID do aluno que está logado
+        $alunoId = Auth::guard('alunos')->id();
+    
+        // Busca somente os eventos destinados a esse aluno
+        $eventos = EventoCalendario::where('aluno_id', $alunoId)
+            ->orderBy('data_evento', 'asc')
+            ->get();
+    
+        // Busca as publicações do aluno
+        $minhasPostagens = Postagem::where('user_id', $alunoId)
+            ->latest()
+            ->get();
+    
+        return view('aluno.logado', compact(
+            'eventos',
+            'minhasPostagens'
+        ));
+    
 
     // 2. Busca unicamente os eventos direcionados a este aluno
     $eventos = EventoCalendario::where('aluno_id', $alunoId)->get();

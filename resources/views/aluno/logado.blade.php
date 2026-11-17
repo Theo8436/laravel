@@ -912,7 +912,6 @@
 <!-- SEÇÃO CALENDÁRIO -->
 <section id="calendario" style="display: none;">
     <h2>Calendário de Posts e Eventos</h2>
-    <input type="date">
 
     <div class="lista-eventos-aluno" style="margin-top: 20px;">
         <h3>Seus dias de post / compromissos:</h3>

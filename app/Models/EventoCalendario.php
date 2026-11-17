@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AlunoModel;
+use App\Models\ProfessorModel;
 
 class EventoCalendario extends Model
 {
     protected $table = 'eventos_calendario';
-    
+
     protected $fillable = [
         'professor_id',
         'aluno_id',
@@ -20,5 +22,11 @@ class EventoCalendario extends Model
     public function aluno()
     {
         return $this->belongsTo(AlunoModel::class, 'aluno_id');
+    }
+
+    // Relacionamento com o professor
+    public function professor()
+    {
+        return $this->belongsTo(ProfessorModel::class, 'professor_id');
     }
 }

@@ -237,18 +237,25 @@ Route::get('/galeria/{id}', [GaleriaController::class, 'show'])
 
 // --- ROTAS DO PROFESSOR LOGADO ---
 Route::middleware(['auth:professores'])->prefix('professor')->group(function () {
-    // Rota que carrega a página principal do professor
-    Route::get('professor/logado', [LoginProfessorController::class, 'painelLogado'])->name('professor.logado');
 
-    // Rota para salvar o evento do calendário
-    Route::post('/eventos/salvar', [LoginProfessorController::class, 'salvarEventoCalendario'])->name('professor.eventos.salvar');
+    // Painel principal do professor
+    Route::get('/logado', [LoginProfessorController::class, 'painelLogado'])
+        ->name('professor.logado');
 
-    // NOVA ROTA: Adicione esta linha para registrar a exclusão
-    Route::delete('/eventos/excluir/{id}', [LoginProfessorController::class, 'excluirEventoCalendario'])->name('professor.eventos.excluir');
+    // Salvar evento no calendário
+    Route::post('/eventos/salvar', [LoginProfessorController::class, 'salvarEventoCalendario'])
+        ->name('professor.eventos.salvar');
+
+    // Excluir evento do calendário
+    Route::delete('/eventos/excluir/{id}', [LoginProfessorController::class, 'excluirEventoCalendario'])
+        ->name('professor.eventos.excluir');
+
 });
 
 // --- ROTAS DO ALUNO LOGADO ---
 Route::middleware(['auth:alunos'])->prefix('aluno')->group(function () {
-    // Rota que carrega o painel principal do aluno logado com os eventos dele
-    Route::get('aluno/logado', [LoginAlunoController::class, 'painelLogado'])->name('aluno.logado');
+
+    // Painel principal do aluno
+    Route::get('/logado', [LoginAlunoController::class, 'painelLogado'])
+        ->name('aluno.logado');
 });

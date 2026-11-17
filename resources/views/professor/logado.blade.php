@@ -1100,8 +1100,8 @@
             </div>
 
             <div class="form-group">
-                <label for="descricaoEvento">Descrição</label>
-                <textarea id="descricaoEvento" class="form-control-custom" placeholder="Descreva as diretrizes do post..."></textarea>
+                <label for="descricaoEvento" required>Descrição</label>
+                <textarea id="descricaoEvento" class="form-control-custom" placeholder="Descreva as diretrizes do post..." required></textarea>
             </div>
 
             <button type="button" class="btn-principal" onclick="salvarEvento()">
@@ -1120,9 +1120,9 @@
                 ({{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }})
                 <br>
                 <small style="color: #777;">
-                    <i class="bi bi-person"></i> Aluno Vinculado: <strong>{{ $evento->aluno->nome ?? 'Nenhum' }}</strong>
+                    <i class="bi bi-person"></i> Aluno Vinculado: <strong>{{ $evento->aluno->nome}}</strong>
                 </small>
-                <p style="margin: 5px 0 0 0; color: #555;">{{ $evento->descricao ?? 'Sem descrição.' }}</p>
+                <p style="margin: 5px 0 0 0; color: #555;">{{ $evento->descricao }}</p>
             </div>
             <!-- Botão de excluir opcional -->
             <form action="{{ route('professor.eventos.excluir', $evento->id) }}" method="POST" style="margin:0;">
@@ -1445,6 +1445,10 @@ function mostrarCalendario() {
 
             if (!titulo) {
                 alert('O título do evento é obrigatório.');
+                return;
+            }
+            if (!descricao) {
+                alert('A descrição do evento é obrigatória.');
                 return;
             }
 
