@@ -1203,8 +1203,11 @@
                 {{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}
             </strong>
 
-            <small>
+            <small>Aluno:
                 {{ $evento->aluno->nome ?? 'Aluno não identificado' }}
+            </small>
+            <small>Descrição:
+                {{ $evento->descricao }}
             </small>
 
             <span class="evento-categoria">

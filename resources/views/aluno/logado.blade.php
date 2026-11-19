@@ -849,132 +849,145 @@
             </div>
         @endif
 
-        <!-- ================= MINHAS PUBLICAÇÕES ================= -->
-        <h2 style="color: white; margin-bottom: 20px;">
-            Minhas Publicações
-        </h2>
+        
+<!-- ================= MINHAS PUBLICAÇÕES ================= -->
+<h2 style="color: white; margin-bottom: 20px;">
+    Minhas Publicações
+</h2>
 
-        @if($minhasPostagens->isEmpty())
-            <div class="post-card">
-                <p style="color: #666; text-align: center;">
-                    Você ainda não criou nenhuma publicação.
-                </p>
+@if($minhasPostagens->isEmpty())
+
+    <div class="post-card">
+        <p style="color: #666; text-align: center;">
+            Você ainda não criou nenhuma publicação.
+        </p>
+    </div>
+
+@else
+
+    @foreach($minhasPostagens as $postagem)
+
+        @php
+            $fotos = json_decode($postagem->imagem, true) ?? [];
+
+            if (!is_array($fotos)) {
+                $fotos = $postagem->imagem
+                    ? [$postagem->imagem]
+                    : [];
+            }
+        @endphp
+
+        <article class="post-card">
+
+            <div class="post-header">
+                <span class="post-autor">
+                    <i class="bi bi-person-circle"></i>
+                    {{ $postagem->user->nome ?? 'Você' }}
+                </span>
+
+                <span class="categoria-badge">
+                    {{ $postagem->categoria ?? 'Geral' }}
+                </span>
             </div>
-        @else
-            @foreach($minhasPostagens as $postagem)
-                @php
-                    $fotos = json_decode($postagem->imagem, true) ?? [];
 
-                    if (!is_array($fotos)) {
-                        $fotos = $postagem->imagem
-                            ? [$postagem->imagem]
-                            : [];
-                    }
-                @endphp
+            <!-- STATUS -->
+            <div style="margin-bottom: 15px;">
 
-                <article class="post-card">
-                    <!-- CABEÇALHO -->
-                    <div class="post-header">
-                        <span class="post-autor">
-                            <i class="bi bi-person-circle"></i>
-                            {{ $postagem->user->nome ?? 'Você' }}
-                        </span>
+                @if($postagem->status === 'pendente')
 
-                        <span class="categoria-badge">
-                            {{ $postagem->categoria ?? 'Geral' }}
-                        </span>
-                    </div>
+                    <span>⏳ Aguardando aprovação do professor</span>
 
-                    <!-- STATUS -->
-                    <div style="margin-bottom: 15px;">
-                        @if($postagem->status === 'pendente')
-                            <span class="status pendente">
-                                ⏳ Aguardando aprovação do professor
-                            </span>
-                        @elseif($postagem->status === 'ajustes')
-                            <span class="status ajustes">
-                                ⚠️ Ajustes solicitados pelo professor
-                            </span>
+                @elseif($postagem->status === 'ajustes')
 
-                            @if($postagem->observacao_professor)
-                                <div class="observacao-professor">
-                                    <strong>Observação do professor:</strong>
-                                    <p>{{ $postagem->observacao_professor }}</p>
-                                </div>
-                            @endif
-                        @elseif($postagem->status === 'aprovada')
-                            <span class="status aprovada">
-                                ✓ Publicação aprovada
-                            </span>
-                        @elseif($postagem->status === 'rejeitada')
-                            <span class="status rejeitada">
-                                ✕ Publicação rejeitada
-                            </span>
-                        @endif
-                    </div>
+                    <span class="status ajustes">
+                        ⚠️ Ajustes solicitados pelo professor
+                    </span>
 
-                    <!-- TÍTULO -->
-                    <h2 class="post-titulo">
-                        {{ $postagem->titulo }}
-                    </h2>
-
-                    <!-- CONTEÚDO -->
-                    <p class="post-resumo">
-                        {{ $postagem->comentario }}
-                    </p>
-
-                    <!-- CARROSSEL -->
-                    @if(count($fotos) > 0)
-                        <div class="carrossel-container carrossel-post" data-index="0">
-                            <div>
-                                @foreach($fotos as $foto)
-                                    <div class="slide">
-                                        <img src="{{ asset('storage/' . $foto) }}" alt="Foto da postagem">
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            @if(count($fotos) > 1)
-                                <button type="button" class="btn-seta btn-anterior" onclick="moverSlide(this, -1)">❮</button>
-                                <button type="button" class="btn-seta btn-proximo" onclick="moverSlide(this, 1)">❯</button>
-                                <span class="indicador-contador indicador">1 / {{ count($fotos) }}</span>
-                            @endif
+                    @if($postagem->observacao_professor)
+                        <div class="observacao-professor">
+                            <strong>Observação do professor:</strong>
+                            <p>{{ $postagem->observacao_professor }}</p>
                         </div>
                     @endif
 
-<<<<<<< HEAD
+                @elseif($postagem->status === 'aprovada')
+
+                    <span>✓ Publicação aprovada</span>
+
+                @elseif($postagem->status === 'rejeitada')
+
+                    <span>✕ Publicação rejeitada</span>
+
+                @endif
+
+            </div>
+
+            <!-- TÍTULO -->
+            <h2 class="post-titulo">
+                {{ $postagem->titulo }}
+            </h2>
+
+            <!-- CONTEÚDO -->
+            <p class="post-resumo">
+                {{ $postagem->comentario }}
+            </p>
+
+            <!-- CARROSSEL -->
+            @if(count($fotos) > 0)
+
+                <div class="carrossel-container carrossel-post"
+                     data-index="0">
+
+                    @foreach($fotos as $foto)
+
+                        <div class="slide">
+                            <img src="{{ asset('storage/' . $foto) }}"
+                                 alt="Foto da postagem">
+                        </div>
+
+                    @endforeach
+
+                    @if(count($fotos) > 1)
+
+                        <button type="button"
+                                class="btn-seta btn-anterior"
+                                onclick="moverSlide(this, -1)">
+                            ❮
+                        </button>
+
+                        <button type="button"
+                                class="btn-seta btn-proximo"
+                                onclick="moverSlide(this, 1)">
+                            ❯
+                        </button>
+
+                        <span class="indicador-contador indicador">
+                            1 / {{ count($fotos) }}
+                        </span>
+
+                    @endif
+
                 </div>
 
             @endif
 
             <!-- LER MAIS -->
-            <div>
+            @if($postagem->status === 'aprovada')
 
-                @if($postagem->status === 'aprovada')
+                <a href="{{ route('postagens.show', $postagem->id) }}"
+                   class="btn-ler-mais">
+                    Ler mais
+                    <i class="bi bi-arrow-right"></i>
+                </a>
 
-                    <a
-                        href="{{ route('postagens.show', $postagem->id) }}"
-                        class="btn-ler-mais"
-                    >
-                        Ler mais
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
+            @else
 
-                @else
+                <span style="color: #777; font-size: 13px;">
+                    <i class="bi bi-info-circle"></i>
+                    Esta publicação ainda não está disponível no feed público.
+                </span>
 
-                    <span style="
-                        display: inline-block;
-                        color: #777;
-                        font-size: 13px;
-                        margin-bottom: 15px;
-                    ">
-                        <i class="bi bi-info-circle"></i>
-                        Esta publicação ainda não está disponível no feed público.
-                    </span>
-
-                @endif
-
-            </div>
+            @endif
 
             <!-- AÇÕES -->
             <div class="post-acoes">
@@ -990,22 +1003,14 @@
                             @json($postagem->categoria),
                             @json($postagem->comentario),
                             @json($fotos)
-                        )'
-                    >
+                        )'>
+
                         <i class="bi bi-pencil"></i>
                         Editar
+
                     </button>
 
                 @endif
-
-                <!-- <button
-                    type="button"
-                    class="btn-acao btn-excluir-post"
-                    onclick="abrirModalExcluir({{ $postagem->id }})"
-                >
-                    <i class="bi bi-trash"></i>
-                    Excluir
-                </button> -->
 
             </div>
 
@@ -1014,42 +1019,7 @@
     @endforeach
 
 @endif
-=======
-
-                    <!-- AÇÕES -->
-                    <div class="post-acoes">
-                        @if($postagem->status !== 'aprovada')
-                            <button
-                                type="button"
-                                class="btn-acao btn-editar-post"
-                                onclick='abrirModalEditar(
-                                    {{ $postagem->id }},
-                                    @json($postagem->titulo),
-                                    @json($postagem->categoria),
-                                    @json($postagem->comentario),
-                                    @json($fotos)
-                                )'
-                            >
-                                <i class="bi bi-pencil"></i>
-                                Editar
-                            </button>
-                        @endif
-
-                        <button
-                            type="button"
-                            class="btn-acao btn-excluir-post"
-                            onclick="abrirModalExcluir({{ $postagem->id }})"
-                        >
-                            <i class="bi bi-trash"></i>
-                            Excluir
-                        </button>
-                    </div>
-                </article>
-            @endforeach
-        @endif
-    </section>
-
-<<<<<<< HEAD
+</section>
 <!-- SEÇÃO CALENDÁRIO -->
 <section id="calendario" style="display: none;">
 
@@ -1097,7 +1067,6 @@
 </section>
 
     <!-- SEÇÃO MATERIAL -->
-=======
     <!-- SEÇÃO CALENDÁRIO -->
     <section id="calendario" style="display: none;">
         <h2>Calendário de Posts e Eventos</h2>
@@ -1118,7 +1087,7 @@
     </section>
 
     <!-- SEÇÃO MATERIAL DE APOIO -->
->>>>>>> 0ca5ff4b099b2c7d155fc67ba738836abe3bed93
+
     <section id="material" style="display: none;">
         <h2>Material de Apoio</h2>
         <p style="color: #666; margin-bottom: 10px;">Acesse os conteúdos abaixo para auxiliar nos seus estudos e publicações:</p>
