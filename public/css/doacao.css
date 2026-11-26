@@ -1,0 +1,133 @@
+/* =========================================================
+   PÁGINA DOE UM LIVRO — visual baseado no Figma
+   Estilos isolados para não alterar outras páginas.
+========================================================= */
+.pagina-doacao {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(125deg, #58127d 0%, #8614a4 35%, #bc10c0 68%, #f97316 115%);
+    color: #fff;
+    font-family: 'Fredoka', 'Kavoon', sans-serif;
+}
+
+.pagina-doacao *, .pagina-doacao *::before, .pagina-doacao *::after { box-sizing: border-box; }
+
+.doacao-page {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    padding: 42px 24px 76px;
+    overflow: hidden;
+}
+
+.doacao-grain {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    opacity: .22;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.25'/%3E%3C/svg%3E");
+}
+
+.doacao-sparkles { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.doacao-sparkle { position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #fff; opacity: .45; animation: doacao-pulse 3s ease-in-out infinite; box-shadow: 0 0 12px rgba(255,255,255,.65); }
+.sparkle-1 { top: 8%; left: 8%; animation-delay: -.3s; }
+.sparkle-2 { top: 15%; left: 28%; animation-delay: -1.2s; }
+.sparkle-3 { top: 11%; left: 73%; animation-delay: -2s; }
+.sparkle-4 { top: 22%; left: 91%; animation-delay: -.8s; }
+.sparkle-5 { top: 36%; left: 5%; animation-delay: -1.7s; }
+.sparkle-6 { top: 42%; left: 19%; animation-delay: -.4s; }
+.sparkle-7 { top: 54%; left: 88%; animation-delay: -2.2s; }
+.sparkle-8 { top: 63%; left: 8%; animation-delay: -1s; }
+.sparkle-9 { top: 70%; left: 32%; animation-delay: -2.5s; }
+.sparkle-10 { top: 78%; left: 94%; animation-delay: -.6s; }
+.sparkle-11 { top: 88%; left: 16%; animation-delay: -1.4s; }
+.sparkle-12 { top: 92%; left: 64%; animation-delay: -.9s; }
+.sparkle-13 { top: 32%; left: 58%; animation-delay: -1.9s; }
+.sparkle-14 { top: 6%; left: 49%; animation-delay: -.7s; }
+.sparkle-15 { top: 84%; left: 79%; animation-delay: -2.4s; }
+@keyframes doacao-pulse { 0%, 100% { opacity: .25; transform: scale(.8); } 50% { opacity: .9; transform: scale(1.35); } }
+
+.doacao-container { position: relative; z-index: 1; width: min(100%, 1024px); margin: 0 auto; }
+.doacao-back {
+    display: inline-flex; align-items: center; gap: 9px; margin: 0 0 27px; padding: 11px 19px;
+    border: 2px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(255,255,255,.11);
+    color: #fff; text-decoration: none; font-size: 16px; font-weight: 700; backdrop-filter: blur(10px);
+    transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+.doacao-back:hover { transform: translateY(-2px) scale(1.03); background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.55); }
+.doacao-back i { font-size: 19px; }
+
+.doacao-heading { margin: 0 0 42px; text-align: center; }
+.doacao-heading h1 { margin: 0 0 12px; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: clamp(42px, 6vw, 62px); font-weight: 400; line-height: 1.08; letter-spacing: .01em; text-shadow: 0 5px 0 rgba(61, 0, 81, .15), 0 10px 24px rgba(0,0,0,.2); }
+.doacao-heading p { margin: 0; color: #ffead7; font-size: clamp(18px, 2.5vw, 25px); font-weight: 700; }
+
+.doacao-contact-card {
+    position: relative; display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; padding: 48px 34px 42px;
+    overflow: visible; text-align: center; border: 2px solid rgba(255,255,255,.31); border-radius: 30px;
+    background: rgba(255,255,255,.17); box-shadow: 0 18px 42px rgba(40,0,65,.2); backdrop-filter: blur(14px);
+    transition: transform .35s ease, box-shadow .35s ease;
+}
+.doacao-contact-card::before { content: ''; position: absolute; z-index: -1; inset: -3px; border-radius: 32px; background: linear-gradient(110deg, #bc10c0, #fb923c); filter: blur(19px); opacity: 0; transition: opacity .35s ease; }
+.doacao-contact-card:hover { transform: translateY(-3px); box-shadow: 0 23px 48px rgba(40,0,65,.27); }
+.doacao-contact-card:hover::before { opacity: .42; }
+.contact-decoration { position: absolute; display: grid; place-items: center; pointer-events: none; }
+.contact-decoration i { display: block; }
+.decor-star { top: 21px; left: 28px; color: #fde047; font-size: 29px; animation: doacao-pulse 2.8s infinite; }
+.decor-sparkles { top: 19px; right: 28px; color: #fdba74; font-size: 34px; animation: doacao-pulse 3s .5s infinite; }
+.decor-book { bottom: 18px; left: 29px; color: #e9d5ff; opacity: .42; font-size: 28px; }
+.decor-heart { bottom: 18px; right: 29px; color: #f9a8d4; font-size: 27px; animation: doacao-pulse 3s 1s infinite; }
+.doacao-main-icon { display: grid; place-items: center; width: 86px; height: 86px; margin-bottom: 18px; border-radius: 50%; background: #fb923c; box-shadow: 0 10px 24px rgba(0,0,0,.2); }
+.doacao-main-icon i { color: #fff; font-size: 43px; }
+.doacao-contact-card h2 { margin: 0 0 6px; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: clamp(28px, 4vw, 36px); font-weight: 400; text-shadow: 0 4px 10px rgba(0,0,0,.17); }
+.doacao-contact-subtitle { margin: 0 0 16px; color: rgba(255,255,255,.88); font-size: 17px; font-weight: 700; }
+.doacao-contact-text { max-width: 660px; margin: 0 auto; color: rgba(255,255,255,.96); font-size: 17px; line-height: 1.75; font-weight: 500; }
+.doacao-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 12px; margin-top: 27px; padding: 17px 34px; border-radius: 999px; background: #22c55e; color: #fff; text-decoration: none; font-size: 21px; font-weight: 700; box-shadow: 0 10px 22px rgba(0,0,0,.2); transition: transform .25s ease, background .25s ease, box-shadow .25s ease; }
+.doacao-whatsapp i { font-size: 26px; }
+.doacao-whatsapp:hover { transform: translateY(-4px) scale(1.04); background: #16a34a; box-shadow: 0 15px 28px rgba(0,0,0,.26); }
+.doacao-whatsapp:focus-visible, .doacao-back:focus-visible { outline: 3px solid #fde047; outline-offset: 4px; }
+
+.doacao-info-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: 30px; }
+.doacao-info-card { position: relative; min-height: 245px; padding: 27px 21px 29px; overflow: hidden; text-align: center; border: 2px solid rgba(255,255,255,.3); border-radius: 27px; background: rgba(255,255,255,.17); box-shadow: 0 12px 28px rgba(40,0,65,.17); backdrop-filter: blur(13px); transition: transform .3s ease, background .3s ease, box-shadow .3s ease; }
+.doacao-info-card::before { content: ''; position: absolute; z-index: -1; inset: -2px; border-radius: 29px; background: linear-gradient(110deg, #bc10c0, #fb923c); filter: blur(18px); opacity: 0; transition: opacity .3s ease; }
+.doacao-info-card:hover { transform: translateY(-6px) scale(1.025); background: rgba(255,255,255,.22); box-shadow: 0 18px 35px rgba(40,0,65,.24); }
+.doacao-info-card:hover::before { opacity: .4; }
+.doacao-info-icon { display: grid; place-items: center; width: 66px; height: 66px; margin: 0 auto 15px; border-radius: 50%; background: #fb923c; box-shadow: 0 8px 17px rgba(0,0,0,.18); }
+.doacao-info-icon i { color: #fff; font-size: 33px; }
+.doacao-info-card h2 { margin: 0 0 13px; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: 24px; font-weight: 400; text-shadow: 0 4px 9px rgba(0,0,0,.17); }
+.doacao-info-card p { margin: 0; color: rgba(255,255,255,.94); font-size: 16px; line-height: 1.85; font-weight: 600; }
+
+.doacao-thanks { position: relative; padding: 31px 28px 35px; overflow: hidden; text-align: center; border: 1px solid rgba(255,255,255,.31); border-radius: 28px; background: rgba(255,255,255,.12); box-shadow: 0 14px 35px rgba(40,0,65,.16); backdrop-filter: blur(14px); }
+.doacao-thanks::before { content: ''; position: absolute; inset: -50%; z-index: -1; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.09) 50%, transparent 65%); transform: rotate(-8deg); }
+.doacao-thanks h2 { margin: 0 0 9px; color: #fff; font-family: 'Luckiest Guy', cursive; font-size: clamp(30px, 4vw, 40px); font-weight: 400; text-shadow: 0 4px 10px rgba(0,0,0,.18); }
+.doacao-thanks p { margin: 0; color: #ffdfbd; font-size: clamp(16px, 2.2vw, 21px); font-weight: 700; line-height: 1.6; }
+
+@media (max-width: 760px) {
+    .doacao-page { padding: 28px 17px 52px; }
+    .doacao-heading { margin-bottom: 30px; }
+    .doacao-contact-card { padding: 42px 22px 34px; }
+    .doacao-info-grid { grid-template-columns: 1fr; gap: 17px; }
+    .doacao-info-card { min-height: auto; padding: 25px 20px 27px; }
+    .doacao-info-card p { line-height: 1.75; }
+    .decor-book, .decor-heart { bottom: 12px; }
+}
+@media (max-width: 460px) {
+    .doacao-page { padding-right: 13px; padding-left: 13px; }
+    .doacao-back { font-size: 14px; padding: 10px 15px; }
+    .doacao-heading h1 { font-size: 42px; }
+    .doacao-heading p { font-size: 17px; }
+    .doacao-contact-card { padding: 39px 17px 32px; border-radius: 24px; }
+    .decor-star { left: 14px; top: 13px; font-size: 22px; }
+    .decor-sparkles { right: 14px; top: 13px; font-size: 25px; }
+    .decor-book, .decor-heart { display: none; }
+    .doacao-main-icon { width: 73px; height: 73px; }
+    .doacao-main-icon i { font-size: 36px; }
+    .doacao-contact-card h2 { font-size: 28px; }
+    .doacao-contact-text { font-size: 15px; line-height: 1.65; }
+    .doacao-whatsapp { width: 100%; padding: 15px 18px; font-size: 18px; }
+    .doacao-thanks { padding: 27px 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pagina-doacao *, .pagina-doacao *::before, .pagina-doacao *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

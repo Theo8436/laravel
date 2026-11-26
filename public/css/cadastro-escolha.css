@@ -1,0 +1,643 @@
+
+/* ========================================
+   PÁGINA DE ESCOLHA DE CADASTRO
+   BETH CIENTISTA
+   Identidade visual baseada no Figma
+======================================== */
+
+.pagina-cadastro {
+    position: relative;
+    min-height: 75vh;
+    padding: 75px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        125deg,
+        #58127d 0%,
+        #8614a4 35%,
+        #bc10c0 68%,
+        #f97316 115%
+    );
+
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.pagina-cadastro *,
+.pagina-cadastro *::before,
+.pagina-cadastro *::after {
+    box-sizing: border-box;
+}
+
+/* ========================================
+   BRILHOS DO FUNDO
+======================================== */
+
+.cadastro-brilhos {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.brilho {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    background: #fff;
+
+    opacity: .45;
+
+    box-shadow: 0 0 12px rgba(255, 255, 255, .65);
+
+    animation: cadastro-pulse 3s ease-in-out infinite;
+}
+
+.brilho-1 {
+    top: 8%;
+    left: 8%;
+    animation-delay: -.3s;
+}
+
+.brilho-2 {
+    top: 15%;
+    left: 28%;
+    animation-delay: -1.2s;
+}
+
+.brilho-3 {
+    top: 11%;
+    left: 73%;
+    animation-delay: -2s;
+}
+
+.brilho-4 {
+    top: 22%;
+    left: 91%;
+    animation-delay: -.8s;
+}
+
+.brilho-5 {
+    top: 36%;
+    left: 5%;
+    animation-delay: -1.7s;
+}
+
+.brilho-6 {
+    top: 42%;
+    left: 19%;
+    animation-delay: -.4s;
+}
+
+.brilho-7 {
+    top: 54%;
+    left: 88%;
+    animation-delay: -2.2s;
+}
+
+.brilho-8 {
+    top: 63%;
+    left: 8%;
+    animation-delay: -1s;
+}
+
+.brilho-9 {
+    top: 70%;
+    left: 32%;
+    animation-delay: -2.5s;
+}
+
+.brilho-10 {
+    top: 78%;
+    left: 94%;
+    animation-delay: -.6s;
+}
+
+.brilho-11 {
+    top: 88%;
+    left: 16%;
+    animation-delay: -1.4s;
+}
+
+.brilho-12 {
+    top: 84%;
+    left: 79%;
+    animation-delay: -2.4s;
+}
+
+@keyframes cadastro-pulse {
+    0%, 100% {
+        opacity: .25;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: .9;
+        transform: scale(1.35);
+    }
+}
+
+/* ========================================
+   CONTAINER PRINCIPAL
+======================================== */
+
+.cadastro-container {
+    position: relative;
+    z-index: 1;
+
+    width: min(100%, 620px);
+    margin: 0 auto;
+}
+
+/* ========================================
+   CARTÃO PRINCIPAL
+   TRANSPARÊNCIA E DEGRADÊ
+======================================== */
+
+.cadastro-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    padding: 45px 50px 35px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        125deg,
+        rgba(255, 255, 255, .48),
+        rgba(255, 238, 250, .38),
+        rgba(255, 226, 210, .32)
+    );
+
+    border: 2px solid rgba(255, 255, 255, .55);
+    border-radius: 32px;
+
+    box-shadow: 0 18px 42px rgba(40, 0, 65, .20);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.cadastro-card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -3px;
+
+    border-radius: 32px;
+
+    background: linear-gradient(
+        110deg,
+        #bc10c0,
+        #fb923c
+    );
+
+    filter: blur(19px);
+    opacity: 0;
+
+    transition: opacity .35s ease;
+}
+
+.cadastro-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: 0 23px 48px rgba(40, 0, 65, .27);
+}
+
+.cadastro-card:hover::before {
+    opacity: .35;
+}
+
+/* ========================================
+   LOGO
+======================================== */
+
+.cadastro-logo {
+    width: 105px;
+    height: 105px;
+
+    margin: 0 auto 18px;
+    padding: 5px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #8614a4,
+        #bc10c0,
+        #f97316
+    );
+
+    box-shadow: 0 8px 22px rgba(134, 20, 164, .25);
+}
+
+.cadastro-logo img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border: 4px solid #fff;
+    border-radius: 50%;
+}
+
+/* ========================================
+   ETIQUETA
+======================================== */
+
+.cadastro-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 8px 17px;
+    margin-bottom: 13px;
+
+    color: #8614a4;
+
+    background: rgba(255, 255, 255, .55);
+
+    border: 1px solid rgba(255, 255, 255, .75);
+    border-radius: 30px;
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cadastro-etiqueta i {
+    color: #f97316;
+}
+
+/* ========================================
+   TÍTULO
+======================================== */
+
+.cadastro-card h1 {
+    margin: 0 0 12px;
+
+    color: #0e0f2a;
+
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 43px;
+    font-weight: 400;
+    letter-spacing: 1px;
+
+    text-shadow: 0 3px 8px rgba(134, 20, 164, .12);
+}
+
+/* ========================================
+   DESCRIÇÃO
+======================================== */
+
+.cadastro-descricao {
+    max-width: 440px;
+
+    margin: 0 auto 32px;
+
+    color: #5c3769;
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* ========================================
+   OPÇÕES DE CADASTRO
+======================================== */
+
+.cadastro-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cadastro-opcao {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    width: 100%;
+    padding: 19px 21px;
+
+    text-align: left;
+    text-decoration: none;
+
+    border-radius: 20px;
+
+    transition:
+        transform .35s ease,
+        background .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+/* ========================================
+   OPÇÃO ALUNO
+======================================== */
+
+.opcao-aluno {
+    background: linear-gradient(
+        110deg,
+        rgba(255, 237, 216, .88),
+        rgba(255, 255, 255, .65)
+    );
+
+    border: 2px solid rgba(249, 115, 22, .28);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.opcao-aluno:hover {
+    transform: translateY(-5px) scale(1.02);
+
+    background: linear-gradient(
+        110deg,
+        rgba(255, 222, 188, .98),
+        rgba(255, 255, 255, .88)
+    );
+
+    border-color: #f97316;
+
+    box-shadow: 0 10px 25px rgba(249, 115, 22, .22);
+}
+
+/* ========================================
+   OPÇÃO PROFESSOR
+======================================== */
+
+.opcao-professor {
+    background: linear-gradient(
+        110deg,
+        rgba(245, 229, 255, .90),
+        rgba(255, 255, 255, .65)
+    );
+
+    border: 2px solid rgba(134, 20, 164, .24);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.opcao-professor:hover {
+    transform: translateY(-5px) scale(1.02);
+
+    background: linear-gradient(
+        110deg,
+        rgba(235, 210, 255, .98),
+        rgba(255, 255, 255, .88)
+    );
+
+    border-color: #bc10c0;
+
+    box-shadow: 0 10px 25px rgba(134, 20, 164, .22);
+}
+
+/* ========================================
+   ÍCONES
+======================================== */
+
+.opcao-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 58px;
+    height: 58px;
+
+    color: #fff;
+
+    border-radius: 17px;
+
+    font-size: 27px;
+}
+
+.opcao-aluno .opcao-icone {
+    background: linear-gradient(
+        135deg,
+        #ff9b35,
+        #f97316
+    );
+
+    box-shadow: 0 5px 12px rgba(249, 115, 22, .22);
+}
+
+.opcao-professor .opcao-icone {
+    background: linear-gradient(
+        135deg,
+        #bc10c0,
+        #8614a4
+    );
+
+    box-shadow: 0 5px 12px rgba(134, 20, 164, .22);
+}
+
+/* ========================================
+   TEXTOS DOS BOTÕES
+======================================== */
+
+.opcao-texto {
+    flex: 1;
+}
+
+.opcao-texto h2 {
+    margin: 0 0 4px;
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.opcao-aluno .opcao-texto h2 {
+    color: #e86c0b;
+}
+
+.opcao-professor .opcao-texto h2 {
+    color: #8614a4;
+}
+
+.opcao-texto span {
+    display: block;
+
+    color: #68566e;
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* ========================================
+   SETAS
+======================================== */
+
+.opcao-seta {
+    flex-shrink: 0;
+
+    font-size: 25px;
+
+    transition: transform .3s ease;
+}
+
+.opcao-aluno .opcao-seta {
+    color: #f97316;
+}
+
+.opcao-professor .opcao-seta {
+    color: #8614a4;
+}
+
+.cadastro-opcao:hover .opcao-seta {
+    transform: translateX(5px);
+}
+
+/* ========================================
+   RODAPÉ DO CARTÃO
+======================================== */
+
+.cadastro-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin-top: 27px;
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(134, 20, 164, .18);
+
+    color: #684275;
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cadastro-rodape i {
+    color: #f97316;
+    font-size: 13px;
+}
+
+/* ========================================
+   ACESSIBILIDADE
+======================================== */
+
+.cadastro-opcao:focus-visible {
+    outline: 3px solid #fde047;
+    outline-offset: 4px;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 768px) {
+
+    .pagina-cadastro {
+        min-height: 70vh;
+        padding: 55px 18px;
+    }
+
+    .cadastro-card {
+        padding: 38px 30px 30px;
+    }
+
+    .cadastro-card h1 {
+        font-size: 37px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .pagina-cadastro {
+        padding: 40px 14px;
+    }
+
+    .cadastro-card {
+        padding: 32px 20px 25px;
+        border-radius: 25px;
+    }
+
+    .cadastro-logo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .cadastro-card h1 {
+        font-size: 32px;
+    }
+
+    .cadastro-descricao {
+        font-size: 15px;
+        margin-bottom: 25px;
+    }
+
+    .cadastro-opcao {
+        gap: 12px;
+        padding: 15px 13px;
+        border-radius: 17px;
+    }
+
+    .opcao-icone {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        font-size: 23px;
+    }
+
+    .opcao-texto h2 {
+        font-size: 18px;
+    }
+
+    .opcao-texto span {
+        font-size: 12px;
+    }
+
+    .opcao-seta {
+        font-size: 21px;
+    }
+
+    .cadastro-rodape {
+        font-size: 11px;
+    }
+}
+
+/* ========================================
+   REDUÇÃO DE MOVIMENTO
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .pagina-cadastro *,
+    .pagina-cadastro *::before,
+    .pagina-cadastro *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -1,0 +1,592 @@
+/* =========================================================
+   BIBLIOTECA | Beth Cientista
+   Estilos exclusivos da página.
+   O início.css fornece a identidade compartilhada e
+   o footer.css continua responsável pelo rodapé.
+   ========================================================= */
+
+.bc-library,
+.bc-library * {
+    box-sizing: border-box;
+}
+
+.bc-library {
+    --bc-roxo: #7c3aed;
+    --bc-roxo-escuro: #5b21b6;
+    --bc-rosa: #ec4899;
+    --bc-laranja: #f97316;
+    --bc-creme: #fff7ed;
+    --bc-texto: #38234f;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 58px 0 76px;
+    color: var(--bc-texto);
+    font-family: 'Fredoka', sans-serif;
+    background:
+        radial-gradient(ellipse at 8% 12%, rgba(255, 210, 235, .95), transparent 34%),
+        radial-gradient(ellipse at 92% 28%, rgba(255, 220, 174, .85), transparent 32%),
+        linear-gradient(145deg, #fff3fb 0%, #f5eaff 48%, #fff1df 100%);
+}
+
+.bc-library::before,
+.bc-library::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+.bc-library::before {
+    width: 430px;
+    height: 430px;
+    top: -190px;
+    left: -150px;
+    border: 2px solid rgba(192, 132, 252, .22);
+    box-shadow:
+        0 0 0 24px rgba(192, 132, 252, .06),
+        0 0 0 52px rgba(236, 72, 153, .045);
+}
+
+.bc-library::after {
+    width: 360px;
+    height: 360px;
+    right: -150px;
+    bottom: -170px;
+    border: 2px dashed rgba(249, 115, 22, .2);
+    box-shadow: 0 0 0 26px rgba(249, 115, 22, .05);
+}
+
+.bc-container {
+    position: relative;
+    z-index: 1;
+    width: min(1180px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+/* Cabeçalho da página */
+.bc-heading {
+    max-width: 850px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.bc-title {
+    margin: 0 0 12px;
+    color: #7e22ce;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(2.8rem, 6vw, 4.6rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 1px;
+    text-shadow:
+        0 3px 0 #fbcfe8,
+        0 6px 0 rgba(126, 34, 206, .12),
+        0 10px 22px rgba(126, 34, 206, .16);
+}
+
+.bc-subtitle {
+    margin: 0 0 30px;
+    color: #80519a;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* Busca */
+.bc-search-wrap {
+    position: relative;
+    width: min(100%, 690px);
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 22px;
+    background: linear-gradient(100deg, #c084fc, #f472b6, #fb923c);
+    box-shadow: 0 10px 25px rgba(126, 34, 206, .15);
+}
+
+.bc-search {
+    display: flex;
+    min-height: 60px;
+    align-items: center;
+    gap: 13px;
+    padding: 0 20px;
+    border-radius: 18px;
+    background: #fff;
+    color: #9333ea;
+}
+
+.bc-search i {
+    flex: 0 0 auto;
+    font-size: 21px;
+}
+
+.bc-search input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #49345b;
+    font: 500 15px 'Fredoka', sans-serif;
+}
+
+.bc-search input::placeholder {
+    color: #a78bb8;
+    opacity: 1;
+}
+
+.bc-search:focus-within {
+    box-shadow: 0 0 0 3px rgba(192, 132, 252, .2);
+}
+
+/* Chamada para doação */
+.bc-donation {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding: 28px 34px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, .9);
+    border-radius: 28px;
+    background: linear-gradient(110deg, #7e22ce 0%, #c026d3 52%, #ec4899 100%);
+    box-shadow: 0 14px 30px rgba(126, 34, 206, .2);
+}
+
+.bc-donation::after {
+    content: "✦";
+    position: absolute;
+    right: 34%;
+    top: -30px;
+    color: rgba(255, 255, 255, .14);
+    font-size: 150px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.bc-donation-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.bc-heart {
+    display: grid;
+    width: 72px;
+    height: 72px;
+    flex: 0 0 72px;
+    place-items: center;
+    border: 3px solid rgba(255, 255, 255, .65);
+    border-radius: 23px;
+    background: #fb923c;
+    color: #fff;
+    font-size: 32px;
+    transform: rotate(-5deg);
+    box-shadow: 0 7px 15px rgba(69, 10, 87, .2);
+}
+
+.bc-donation h2 {
+    margin: 0 0 5px;
+    color: #fff;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(1.65rem, 3vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: .5px;
+}
+
+.bc-donation p {
+    margin: 0;
+    color: #fce7f3;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.bc-donate-btn {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    background: #fb923c;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 7px 0 #c2410c, 0 12px 20px rgba(69, 10, 87, .16);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.bc-donate-btn:hover {
+    transform: translateY(-3px);
+    background: #f97316;
+    color: #fff;
+    box-shadow: 0 10px 0 #c2410c, 0 15px 24px rgba(69, 10, 87, .2);
+}
+
+/* Grade de livros */
+.bc-books {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 28px;
+}
+
+.bc-book-card {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    background: #fff;
+    box-shadow: 0 9px 0 rgba(126, 34, 206, .09), 0 14px 28px rgba(74, 35, 103, .11);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.bc-book-card:hover {
+    transform: translateY(-7px) rotate(-.4deg);
+    box-shadow: 0 12px 0 rgba(236, 72, 153, .12), 0 20px 34px rgba(74, 35, 103, .16);
+}
+
+.bc-book-cover {
+    position: relative;
+    display: grid;
+    height: 245px;
+    place-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,.5) 0 4px, transparent 5px),
+        radial-gradient(circle at 75% 70%, rgba(255,255,255,.35) 0 5px, transparent 6px),
+        linear-gradient(140deg, #c084fc 0%, #e879f9 48%, #fb923c 100%);
+    background-size: auto, auto, cover;
+}
+
+.bc-book-card:nth-child(3n + 2) .bc-book-cover {
+    background: linear-gradient(140deg, #f9a8d4, #c084fc 55%, #818cf8);
+}
+
+.bc-book-card:nth-child(3n) .bc-book-cover {
+    background: linear-gradient(140deg, #fdba74, #f472b6 55%, #a78bfa);
+}
+
+.bc-book-cover::before,
+.bc-book-cover::after {
+    content: "";
+    position: absolute;
+    width: 185px;
+    height: 185px;
+    border: 2px solid rgba(255, 255, 255, .28);
+    border-radius: 50%;
+}
+
+.bc-book-cover::before {
+    top: -92px;
+    left: -45px;
+}
+
+.bc-book-cover::after {
+    right: -60px;
+    bottom: -110px;
+    width: 230px;
+    height: 230px;
+}
+
+.bc-book-cover i {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-size: 86px;
+    filter: drop-shadow(0 6px 7px rgba(69, 10, 87, .2));
+    transition: transform .25s ease;
+}
+
+.bc-book-card:hover .bc-book-cover i {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.bc-book-info {
+    position: relative;
+    padding: 22px 23px 24px;
+}
+
+.bc-book-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 13px;
+}
+
+.bc-tag {
+    display: inline-flex;
+    min-height: 27px;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: #f3e8ff;
+    color: #7e22ce;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.bc-status {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.bc-status-off {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.bc-book-title {
+    margin: 0 0 8px;
+    color: #55247a;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.bc-book-author {
+    margin: 0;
+    color: #9275a4;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bc-book-author i {
+    margin-right: 7px;
+    color: #c084fc;
+}
+
+.bc-book-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px dashed #eadcf5;
+}
+
+.bc-copies {
+    margin: 0;
+    color: #9b83aa;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.bc-loan-btn {
+    display: inline-flex;
+    min-height: 39px;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(100deg, #9333ea, #c026d3);
+    color: #fff;
+    font: 600 13px 'Fredoka', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #6b21a8;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.bc-loan-btn:hover {
+    transform: translateY(-2px);
+    color: #fff;
+    box-shadow: 0 6px 0 #6b21a8;
+}
+
+.bc-loan-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #6b21a8;
+}
+
+.bc-loan-btn:disabled {
+    background: #c4b5d0;
+    box-shadow: 0 4px 0 #a78bb8;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: .85;
+}
+
+/* Estados vazios */
+.bc-empty {
+    grid-column: 1 / -1;
+    padding: 54px 24px;
+    border: 2px dashed #d8b4fe;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .78);
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(126, 34, 206, .07);
+}
+
+.bc-empty i {
+    display: block;
+    margin-bottom: 13px;
+    color: #c084fc;
+    font-size: 48px;
+}
+
+.bc-empty h3 {
+    margin: 0 0 8px;
+    color: #7e22ce;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.bc-empty p {
+    margin: 0;
+    color: #9275a4;
+    font-size: 15px;
+}
+
+/* Notificação */
+.bc-toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 2000;
+    display: none;
+    max-width: min(430px, calc(100vw - 36px));
+    padding: 16px 21px;
+    border: 2px solid #fff;
+    border-radius: 17px;
+    background: #7e22ce;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 28px rgba(74, 35, 103, .25);
+}
+
+.bc-toast.show {
+    display: block;
+    animation: bc-toast-in .22s ease-out;
+}
+
+@keyframes bc-toast-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade */
+@media (max-width: 1000px) {
+    .bc-books {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 23px;
+    }
+
+    .bc-container {
+        width: min(100% - 38px, 900px);
+    }
+}
+
+@media (max-width: 650px) {
+    .bc-library {
+        padding: 40px 0 52px;
+    }
+
+    .bc-container {
+        width: min(100% - 30px, 520px);
+    }
+
+    .bc-heading {
+        margin-bottom: 34px;
+    }
+
+    .bc-title {
+        font-size: clamp(2.5rem, 12vw, 3.4rem);
+    }
+
+    .bc-subtitle {
+        margin-bottom: 24px;
+        font-size: 1rem;
+    }
+
+    .bc-search {
+        min-height: 56px;
+        padding: 0 15px;
+    }
+
+    .bc-search input {
+        font-size: 13px;
+    }
+
+    .bc-donation {
+        justify-content: center;
+        padding: 25px 20px 29px;
+        text-align: center;
+    }
+
+    .bc-donation-content {
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .bc-donation p {
+        font-size: 14px;
+    }
+
+    .bc-donate-btn {
+        width: 100%;
+    }
+
+    .bc-books {
+        grid-template-columns: 1fr;
+        gap: 21px;
+    }
+
+    .bc-book-cover {
+        height: 220px;
+    }
+
+    .bc-book-info {
+        padding: 20px;
+    }
+
+    .bc-book-title {
+        font-size: 19px;
+    }
+
+    .bc-book-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .bc-loan-btn {
+        width: 100%;
+    }
+
+    .bc-toast {
+        right: 15px;
+        bottom: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bc-book-card,
+    .bc-book-cover i,
+    .bc-donate-btn,
+    .bc-loan-btn {
+        transition: none;
+    }
+
+    .bc-toast.show {
+        animation: none;
+    }
+}

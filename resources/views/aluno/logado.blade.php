@@ -5,843 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Área | Beth Cientista</title>
 
-    <!-- Fontes e Ícones -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(180deg, #6f0ea7 0%, #b217c7 55%, #ea6b72 100%);
-            color: #333;
-            min-height: 100vh;
-        }
-
-        /* ================= HEADER ================= */
-        header {
-            width: 100%;
-            background: #ff7a00;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 60px;
-            box-shadow: 0 5px 18px rgba(0,0,0,.25);
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: white;
-            object-fit: cover;
-        }
-
-        .logo h2 {
-            color: white;
-            font-size: 26px;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        .logo p {
-            color: white;
-            font-size: 13px;
-        }
-
-        /* ================= NAVBAR ================= */
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        nav a, nav button {
-            border: none;
-            background: white;
-            color: #ff7a00;
-            padding: 10px 18px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: .3s;
-            text-decoration: none;
-            font-size: 14px;
-            display: inline-block;
-        }
-
-        nav a:hover, nav button:hover {
-            transform: translateY(-3px);
-            background: #ffe3cb;
-        }
-
-        nav .ativo {
-            background: #ffd84f;
-            color: #333;
-        }
-
-        /* ================= MAIN CONTAINER ================= */
-        main {
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* ================= PERFIL ================= */
-        .perfil {
-            background: white;
-            border-radius: 25px;
-            padding: 35px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,.20);
-            margin-bottom: 35px;
-        }
-
-        .foto {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(180deg,#cf5df7,#ff70b7);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .foto i { font-size: 50px; }
-
-        .foto span {
-            position: absolute;
-            bottom: -10px;
-            background: #9b4dff;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .perfil h1 {
-            color: #222;
-            font-size: 32px;
-            margin-bottom: 5px;
-        }
-
-        .perfil p {
-            color: #666;
-            font-size: 16px;
-        }
-
-        /* ================= MENU DE NAVEGAÇÃO INTERNA ================= */
-        .menu-area {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 35px;
-        }
-
-        .menu-area button {
-            flex: 1;
-            border: none;
-            background: white;
-            color: #333;
-            padding: 16px;
-            border-radius: 18px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: .3s;
-            box-shadow: 0 8px 18px rgba(0,0,0,.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .menu-area button:hover, .menu-area button.btn-menu-ativo {
-            background: #ff7a00;
-            color: white;
-        }
-
-        /* ================= HEADER DA SEÇÃO ================= */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .header-top h1 {
-            color: #fff;
-            font-size: 28px;
-            font-weight: 800;
-        }
-
-        .btn-novo-post {
-            background: #111;
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-novo-post:hover {
-            background: #ff7a00;
-            transform: translateY(-2px);
-        }
-
-        /* ================= ALERTAS ESTILIZADOS ================= */
-        .alerta-sucesso {
-            background: #6f0ea7;
-            color: #ffffff;
-            padding: 16px 20px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            font-size: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-left: 6px solid #ffd84f;
-        }
-
-        .alerta-erro {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #fecaca;
-            font-size: 14px;
-        }
-
-        /* ================= POST CARD ================= */
-        .post-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .post-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .post-autor {
-            font-size: 14px;
-            color: #666;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .categoria-badge {
-            background: #eef2ff;
-            color: #6f0ea7;
-            font-weight: 700;
-            font-size: 12px;
-            padding: 4px 12px;
-            border-radius: 12px;
-            text-transform: uppercase;
-        }
-
-        .post-titulo {
-            font-size: 22px;
-            color: #1a1a1a;
-            margin-bottom: 10px;
-            line-height: 1.3;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .post-resumo {
-            color: #4b5563;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 12px;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            word-break: break-all;
-        }
-
-        .btn-ler-mais {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background-color: #ff7700;
-            color: #ffffff;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 13px;
-            margin-bottom: 15px;
-            text-decoration: none;
-            transition: background 0.2s ease, transform 0.2s ease;
-        }
-
-        .btn-ler-mais:hover {
-            background-color: #e66a00;
-            transform: translateY(-1px);
-        }
-
-        /* ================= CARROSSEL ================= */
-        .carrossel-container {
-            position: relative;
-            max-width: 100%;
-            height: 320px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #000;
-            margin-bottom: 20px;
-        }
-
-        .carrossel-container img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .btn-seta {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s ease, transform 0.2s ease;
-            user-select: none;
-            z-index: 5;
-        }
-
-        .btn-seta:hover {
-            background: rgba(0, 0, 0, 0.9);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .btn-anterior { left: 10px; }
-        .btn-proximo { right: 10px; }
-
-        .indicador-contador {
-            position: absolute;
-            bottom: 10px;
-            right: 12px;
-            background: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        /* ================= AÇÕES DO CARD ================= */
-        .post-acoes {
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid #f0f0f0;
-            padding-top: 15px;
-        }
-
-        .btn-acao {
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: opacity 0.2s;
-            text-decoration: none;
-        }
-
-        .btn-editar-post { background: #f3f4f6; color: #374151; }
-        .btn-excluir-post { background: #fef2f2; color: #dc2626; }
-        .btn-acao:hover { opacity: 0.8; }
-
-        /* ================= SEÇÕES EXTRAS ================= */
-        #calendario, #material {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 20px rgba(0,0,0,.20);
-        }
-
-        #calendario h2, #material h2 { color: #333; margin-bottom: 20px; }
-        #calendario input {
-            width: 100%;
-            padding: 18px;
-            border: 2px solid #ddd;
-            border-radius: 15px;
-            font-size: 18px;
-        }
-
-        /* ================= LISTA DE MATERIAIS DE APOIO ================= */
-        .materiais-lista {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .material-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 18px 20px;
-            border-radius: 15px;
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.25s ease;
-        }
-
-        .material-item:hover {
-            transform: translateY(-3px);
-            border-color: #6f0ea7;
-            background: #fdf4ff;
-            box-shadow: 0 6px 15px rgba(111, 14, 167, 0.12);
-        }
-
-        .material-info {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .material-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #6f0ea7, #b217c7);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .material-texto h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 2px;
-        }
-
-        .material-texto span {
-            font-size: 12px;
-            color: #6b7280;
-            font-weight: 500;
-        }
-
-        .material-seta {
-            color: #ff7a00;
-            font-size: 18px;
-            transition: transform 0.2s;
-        }
-
-        .material-item:hover .material-seta {
-            transform: translateX(3px);
-        }
-
-        /* ================= MODAIS ================= */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-card {
-            background: #fff;
-            width: 90%;
-            max-width: 550px;
-            max-height: 90vh;
-            overflow-y: auto;
-            border-radius: 20px;
-            padding: 28px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            font-size: 18px;
-            font-weight: 800;
-            color: #6f0ea7;
-            text-transform: uppercase;
-        }
-
-        .btn-fechar {
-            background: none; border: none;
-            font-size: 22px; cursor: pointer; color: #888;
-        }
-
-        .form-group { margin-bottom: 16px; }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-            font-size: 13px;
-            color: #444;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 10px;
-            background-color: #f9fafb;
-            font-size: 14px;
-        }
-
-        .form-control:focus {
-            outline: none;
-            background-color: #fff;
-            border-color: #6f0ea7;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn-cancelar {
-            background: #f3f4f6;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #4b5563;
-        }
-
-        .btn-salvar {
-            background: #6f0ea7;
-            color: #fff;
-            border: none;
-            padding: 10px 22px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .btn-confirmar-deletar {
-            background: #dc2626;
-            color: #fff;
-            border: none;
-            padding: 10px 22px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .fotos-atuais-grid, .preview-grid {
-            display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px;
-        }
-
-        .foto-item, .preview-item {
-            position: relative;
-            border: 1px solid #e5e7eb;
-            padding: 4px; border-radius: 8px; background: #fafafa;
-        }
-
-        .foto-item img, .preview-item img {
-            width: 70px; height: 70px; object-fit: cover; border-radius: 6px;
-        }
-
-        .foto-item label {
-            font-size: 11px; color: #dc2626; font-weight: bold; margin-top: 4px; cursor: pointer;
-        }
-
-        .btn-remove-img {
-            position: absolute; top: -5px; right: -5px;
-            background: red; color: white; border: none;
-            border-radius: 50%; width: 20px; height: 20px;
-            font-size: 11px; cursor: pointer;
-        }
-
-        /* MODAL EXCLUIR ESTILIZADO */
-        .modal-excluir-body {
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        .modal-excluir-body i {
-            font-size: 55px;
-            color: #ea6b72;
-            margin-bottom: 12px;
-        }
-
-        .modal-excluir-body h3 {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .modal-excluir-body p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .status.ajustes {
-            display: inline-block;
-            background: #fff3cd;
-            color: #856404;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-
-        .observacao-professor {
-            margin-top: 12px;
-            padding: 15px;
-            background: #fff8e1;
-            border-left: 4px solid #ff9800;
-            border-radius: 8px;
-        }
-
-        .observacao-professor strong {
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .observacao-professor p {
-            margin: 0;
-        }
-
-        /* RESPONSIVO */
-        @media(max-width: 1000px){
-            header { flex-direction: column; padding: 20px; }
-            nav { flex-wrap: wrap; justify-content: center; margin-top: 15px; }
-            main { width: 95%; padding: 0 10px; }
-            .perfil { flex-direction: column; text-align: center; }
-            .menu-area { flex-direction: column; }
-            .header-top { flex-direction: column; gap: 15px; text-align: center; }
-        }
-        
-/* CALENDÁRIO DO ALUNO */
-
-.calendario-aluno {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.evento-aluno {
-    background: #fff;
-    border: 2px solid #e2e4e9;
-    border-radius: 14px;
-    padding: 22px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    transition: .3s;
-}
-
-.evento-aluno:hover {
-    border-color: #a832ff;
-    background: #faf5ff;
-}
-
-.evento-data {
-    display: block;
-    font-size: 21px;
-    color: #111;
-    margin-bottom: 5px;
-}
-
-.evento-descricao {
-    color: #586174;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.evento-categoria {
-    display: inline-block;
-    background: #eef0f4;
-    color: #252536;
-    padding: 5px 12px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.evento-sua-vez {
-    background: #a832ff;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
-.sem-eventos {
-    background: white;
-    padding: 35px;
-    border-radius: 15px;
-    text-align: center;
-    color: #666;
-}
-
-.sem-eventos i {
-    font-size: 35px;
-    color: #a832ff;
-    display: block;
-    margin-bottom: 10px;
-}
-
-@media(max-width: 600px) {
-    .evento-aluno {
-        padding: 16px;
-        align-items: flex-start;
-    }
-
-    .evento-data {
-        font-size: 18px;
-    }
-
-    .evento-sua-vez {
-        font-size: 11px;
-    }
-}
-
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/minha-area.css') }}">
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-    <div class="logo">
-        <img src="{{ asset('Beth.jpg') }}" alt="Beth Logo">
-        <div>
-            <h2>BETH CIENTISTA</h2>
-            <p>Divulgação Científica</p>
-        </div>
-    </div>
-
-    <nav>
-        <a href="{{ route('aluno.inicio') }}">Início</a>
-        <a href="{{ route('aluno.sobre') }}">Sobre</a>
-        <a href="{{ route('aluno.galeria') }}">Galeria</a>
-        <a href="{{ route('aluno.biblioteca') }}">Biblioteca</a>
-        <a href="{{ route('aluno.mencao') }}">Menções honrosas</a>
-        <button class="ativo">Minha Área</button>
-        <a href="{{ route('inicio') }}">Sair</a>
-    </nav>
+    @include('components.navbar-aluno')
 </header>
 
-<main>
+<main class="area-aluno">
+
     <!-- PERFIL -->
     <section class="perfil">
         <div class="foto">
             <i class="bi bi-person"></i>
             <span>Clubista</span>
         </div>
-        <div>
+
+        <div class="perfil-texto">
+            <span class="perfil-etiqueta">ÁREA DO ALUNO</span>
             <h1>{{ Auth::guard('alunos')->user()->nome ?? 'Clubista' }}</h1>
-            <p>Bem-vindo(a) à sua área!</p>
+            <p>Bem-vindo(a) à sua área! Continue explorando e compartilhando ciência.</p>
+        </div>
+        <div class="perfil-decoracao">
+            <i class="bi bi-stars"></i>
         </div>
     </section>
 
     <!-- MENU DE ABAS -->
     <section class="menu-area">
         <button id="btnPubs" class="btn-menu-ativo" onclick="mostrarAba('publicacoes')">
-            <i class="bi bi-file-earmark-text"></i> Minhas Publicações
+            <i class="bi bi-file-earmark-text"></i>
+            <span>Minhas Publicações</span>
         </button>
+
         <button id="btnCal" onclick="mostrarAba('calendario')">
-            <i class="bi bi-calendar3"></i> Calendário
+            <i class="bi bi-calendar3"></i>
+            <span>Calendário</span>
         </button>
+
         <button id="btnMat" onclick="mostrarAba('material')">
-            <i class="bi bi-book"></i> Material de Apoio
+            <i class="bi bi-book"></i>
+            <span>Material de Apoio</span>
         </button>
     </section>
 
-    <!-- SEÇÃO PUBLICAÇÕES -->
-    <section id="publicacoes">
+    <!-- PUBLICAÇÕES -->
+    <section id="publicacoes" class="aba-conteudo">
         <div class="header-top">
-            <h1>GERENCIAR PUBLICAÇÕES</h1>
+            <div>
+                <span class="secao-etiqueta">SEU ESPAÇO CRIATIVO</span>
+                <h2>GERENCIAR PUBLICAÇÕES</h2>
+                <p>Acompanhe e organize suas descobertas científicas.</p>
+            </div>
+
             <button type="button" onclick="abrirModalCriar()" class="btn-novo-post">
-                <i class="bi bi-plus-circle-fill"></i> Nova Publicação
+                <i class="bi bi-plus-circle-fill"></i>
+                Nova Publicação
             </button>
         </div>
 
-        <!-- MENSAGEM DE SUCESSO -->
         @if(session('sucesso'))
             <div class="alerta-sucesso">
-                <i class="bi bi-check-circle-fill" style="font-size: 22px; color: #ffd84f;"></i>
+                <i class="bi bi-check-circle-fill"></i>
                 <span>{{ session('sucesso') }}</span>
             </div>
         @endif
 
-        <!-- MENSAGENS DE ERRO -->
         @if(session('erro'))
-            <div class="alerta-erro">
-                {{ session('erro') }}
-            </div>
+            <div class="alerta-erro">{{ session('erro') }}</div>
         @endif
 
         @if($errors->any())
             <div class="alerta-erro">
-                <ul style="margin: 0; padding-left: 20px;">
+                <ul>
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -849,256 +90,177 @@
             </div>
         @endif
 
-        
-<!-- ================= MINHAS PUBLICAÇÕES ================= -->
-<h2 style="color: white; margin-bottom: 20px;">
-    Minhas Publicações
-</h2>
+        <div class="titulo-lista">
+            <h3>Minhas Publicações</h3>
+            <span class="linha-decorativa"></span>
+        </div>
 
-@if($minhasPostagens->isEmpty())
-
-    <div class="post-card">
-        <p style="color: #666; text-align: center;">
-            Você ainda não criou nenhuma publicação.
-        </p>
-    </div>
-
-@else
-
-    @foreach($minhasPostagens as $postagem)
-
-        @php
-            $fotos = json_decode($postagem->imagem, true) ?? [];
-
-            if (!is_array($fotos)) {
-                $fotos = $postagem->imagem
-                    ? [$postagem->imagem]
-                    : [];
-            }
-        @endphp
-
-        <article class="post-card">
-
-            <div class="post-header">
-                <span class="post-autor">
-                    <i class="bi bi-person-circle"></i>
-                    {{ $postagem->user->nome ?? 'Você' }}
-                </span>
-
-                <span class="categoria-badge">
-                    {{ $postagem->categoria ?? 'Geral' }}
-                </span>
+        @if($minhasPostagens->isEmpty())
+            <div class="post-card estado-vazio">
+                <i class="bi bi-journal-plus"></i>
+                <h3>Nenhuma publicação por enquanto!</h3>
+                <p>Que tal compartilhar sua primeira descoberta científica?</p>
+                <button type="button" class="btn-novo-post" onclick="abrirModalCriar()">
+                    <i class="bi bi-plus-circle"></i>
+                    Criar publicação
+                </button>
             </div>
+        @else
+            @foreach($minhasPostagens as $postagem)
+                @php
+                    $fotos = json_decode($postagem->imagem, true) ?? [];
 
-            <!-- STATUS -->
-            <div style="margin-bottom: 15px;">
+                    if (!is_array($fotos)) {
+                        $fotos = $postagem->imagem ? [$postagem->imagem] : [];
+                    }
+                @endphp
 
-                @if($postagem->status === 'pendente')
-
-                    <span>⏳ Aguardando aprovação do professor</span>
-
-                @elseif($postagem->status === 'ajustes')
-
-                    <span class="status ajustes">
-                        ⚠️ Ajustes solicitados pelo professor
-                    </span>
-
-                    @if($postagem->observacao_professor)
-                        <div class="observacao-professor">
-                            <strong>Observação do professor:</strong>
-                            <p>{{ $postagem->observacao_professor }}</p>
-                        </div>
-                    @endif
-
-                @elseif($postagem->status === 'aprovada')
-
-                    <span>✓ Publicação aprovada</span>
-
-                @elseif($postagem->status === 'rejeitada')
-
-                    <span>✕ Publicação rejeitada</span>
-
-                @endif
-
-            </div>
-
-            <!-- TÍTULO -->
-            <h2 class="post-titulo">
-                {{ $postagem->titulo }}
-            </h2>
-
-            <!-- CONTEÚDO -->
-            <p class="post-resumo">
-                {{ $postagem->comentario }}
-            </p>
-
-            <!-- CARROSSEL -->
-            @if(count($fotos) > 0)
-
-                <div class="carrossel-container carrossel-post"
-                     data-index="0">
-
-                    @foreach($fotos as $foto)
-
-                        <div class="slide">
-                            <img src="{{ asset('storage/' . $foto) }}"
-                                 alt="Foto da postagem">
-                        </div>
-
-                    @endforeach
-
-                    @if(count($fotos) > 1)
-
-                        <button type="button"
-                                class="btn-seta btn-anterior"
-                                onclick="moverSlide(this, -1)">
-                            ❮
-                        </button>
-
-                        <button type="button"
-                                class="btn-seta btn-proximo"
-                                onclick="moverSlide(this, 1)">
-                            ❯
-                        </button>
-
-                        <span class="indicador-contador indicador">
-                            1 / {{ count($fotos) }}
+                <article class="post-card">
+                    <div class="post-header">
+                        <span class="post-autor">
+                            <i class="bi bi-person-circle"></i>
+                            {{ $postagem->user->nome ?? 'Você' }}
                         </span>
 
+                        <span class="categoria-badge">
+                            {{ $postagem->categoria ?? 'Geral' }}
+                        </span>
+                    </div>
+
+                    <div class="post-status">
+                        @if($postagem->status === 'pendente')
+                            <span class="status pendente">
+                                <i class="bi bi-clock-history"></i>
+                                Aguardando aprovação do professor
+                            </span>
+                        @elseif($postagem->status === 'ajustes')
+                            <span class="status ajustes">
+                                <i class="bi bi-exclamation-circle"></i>
+                                Ajustes solicitados pelo professor
+                            </span>
+
+                            @if($postagem->observacao_professor)
+                                <div class="observacao-professor">
+                                    <strong><i class="bi bi-chat-left-text"></i> Observação do professor:</strong>
+                                    <p>{{ $postagem->observacao_professor }}</p>
+                                </div>
+                            @endif
+                        @elseif($postagem->status === 'aprovada')
+                            <span class="status aprovada">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Publicação aprovada
+                            </span>
+                        @elseif($postagem->status === 'rejeitada')
+                            <span class="status rejeitada">
+                                <i class="bi bi-x-circle-fill"></i>
+                                Publicação rejeitada
+                            </span>
+                        @endif
+                    </div>
+
+                    <h2 class="post-titulo">{{ $postagem->titulo }}</h2>
+                    <p class="post-resumo">{{ $postagem->comentario }}</p>
+
+                    @if(count($fotos) > 0)
+                        <div class="carrossel-container carrossel-post" data-index="0">
+                            @foreach($fotos as $foto)
+                                <div class="slide">
+                                    <img src="{{ asset('storage/' . $foto) }}" alt="Imagem da publicação">
+                                </div>
+                            @endforeach
+
+                            @if(count($fotos) > 1)
+                                <button type="button" class="btn-seta btn-anterior" onclick="moverSlide(this, -1)" aria-label="Imagem anterior">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn-seta btn-proximo" onclick="moverSlide(this, 1)" aria-label="Próxima imagem">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                                <span class="indicador-contador indicador">1 / {{ count($fotos) }}</span>
+                            @endif
+                        </div>
                     @endif
 
+                    @if($postagem->status === 'aprovada')
+                        <a href="{{ route('postagens.show', $postagem->id) }}" class="btn-ler-mais">
+                            Ler publicação
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    @else
+                        <span class="aviso-feed">
+                            <i class="bi bi-info-circle"></i>
+                            Esta publicação ainda não está disponível no feed público.
+                        </span>
+                    @endif
+
+                    <div class="post-acoes">
+                        @if($postagem->status !== 'aprovada')
+                            <button
+                                type="button"
+                                class="btn-acao btn-editar-post"
+                                onclick='abrirModalEditar(
+                                    {{ $postagem->id }},
+                                    @json($postagem->titulo),
+                                    @json($postagem->categoria),
+                                    @json($postagem->comentario),
+                                    @json($fotos)
+                                )'>
+                                <i class="bi bi-pencil"></i>
+                                Editar publicação
+                            </button>
+                        @endif
+                    </div>
+                </article>
+            @endforeach
+        @endif
+    </section>
+
+    <!-- CALENDÁRIO -->
+    <section id="calendario" class="aba-conteudo" style="display: none;">
+        <div class="header-secao-interna">
+            <span class="secao-etiqueta">FIQUE POR DENTRO</span>
+            <h2>Calendário de Posts e Eventos</h2>
+            <p>Confira os próximos compromissos e datas importantes.</p>
+        </div>
+
+        <div class="calendario-aluno">
+            @forelse($eventos ?? [] as $evento)
+                <div class="evento-aluno">
+                    <div class="evento-conteudo">
+                        <strong class="evento-data">
+                            <i class="bi bi-calendar-event"></i>
+                            {{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}
+                        </strong>
+
+                        <p class="evento-descricao">{{ $evento->descricao }}</p>
+
+                        <span class="evento-categoria">{{ $evento->categoria }}</span>
+                    </div>
+
+                    <span class="evento-sua-vez">Sua vez!</span>
                 </div>
-
-            @endif
-
-            <!-- LER MAIS -->
-            @if($postagem->status === 'aprovada')
-
-                <a href="{{ route('postagens.show', $postagem->id) }}"
-                   class="btn-ler-mais">
-                    Ler mais
-                    <i class="bi bi-arrow-right"></i>
-                </a>
-
-            @else
-
-                <span style="color: #777; font-size: 13px;">
-                    <i class="bi bi-info-circle"></i>
-                    Esta publicação ainda não está disponível no feed público.
-                </span>
-
-            @endif
-
-            <!-- AÇÕES -->
-            <div class="post-acoes">
-
-                @if($postagem->status !== 'aprovada')
-
-                    <button
-                        type="button"
-                        class="btn-acao btn-editar-post"
-                        onclick='abrirModalEditar(
-                            {{ $postagem->id }},
-                            @json($postagem->titulo),
-                            @json($postagem->categoria),
-                            @json($postagem->comentario),
-                            @json($fotos)
-                        )'>
-
-                        <i class="bi bi-pencil"></i>
-                        Editar
-
-                    </button>
-
-                @endif
-
-            </div>
-
-        </article>
-
-    @endforeach
-
-@endif
-</section>
-<!-- SEÇÃO CALENDÁRIO -->
-<section id="calendario" style="display: none;">
-
-    <h2>Calendário de Posts e Eventos</h2>
-
-    <div class="calendario-aluno">
-
-        @forelse($eventos ?? [] as $evento)
-
-            <div class="evento-aluno">
-
-                <div class="evento-conteudo">
-
-                    <strong class="evento-data">
-                        {{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}
-                    </strong>
-
-                    <p class="evento-descricao">
-                        {{ $evento->descricao }}
-                    </p>
-
-                    <span class="evento-categoria">
-                        {{ $evento->categoria }}
-                    </span>
-
+            @empty
+                <div class="sem-eventos">
+                    <i class="bi bi-calendar-check"></i>
+                    <h3>Tudo tranquilo por aqui!</h3>
+                    <p>Você não possui compromissos agendados.</p>
                 </div>
-
-                <span class="evento-sua-vez">
-                    Sua vez!
-                </span>
-
-            </div>
-
-        @empty
-
-            <div class="sem-eventos">
-                <i class="bi bi-calendar-check"></i>
-                <p>Você não possui compromissos agendados.</p>
-            </div>
-
-        @endforelse
-
-    </div>
-
-</section>
-
-    <!-- SEÇÃO MATERIAL -->
-    <!-- SEÇÃO CALENDÁRIO -->
-    <section id="calendario" style="display: none;">
-        <h2>Calendário de Posts e Eventos</h2>
-
-        <div class="lista-eventos-aluno" style="margin-top: 20px;">
-            <h3>Seus dias de post / compromissos:</h3>
-            <ul>
-                @forelse($eventos ?? [] as $evento)
-                    <li>
-                        <strong>{{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}</strong>: 
-                        {{ $evento->titulo }} - <em>{{ $evento->descricao }}</em>
-                    </li>
-                @empty
-                    <li>Nenhum post agendado no momento.</li>
-                @endforelse
-            </ul>
+            @endforelse
         </div>
     </section>
 
-    <!-- SEÇÃO MATERIAL DE APOIO -->
-
-    <section id="material" style="display: none;">
-        <h2>Material de Apoio</h2>
-        <p style="color: #666; margin-bottom: 10px;">Acesse os conteúdos abaixo para auxiliar nos seus estudos e publicações:</p>
+    <!-- MATERIAL DE APOIO -->
+    <section id="material" class="aba-conteudo" style="display: none;">
+        <div class="header-secao-interna">
+            <span class="secao-etiqueta">EXPLORE E APRENDA</span>
+            <h2>Material de Apoio</h2>
+            <p>Acesse conteúdos para aprofundar seus estudos e inspirar suas publicações.</p>
+        </div>
 
         <div class="materiais-lista">
-            <!-- 1 -->
             <a href="https://brasilescola.uol.com.br/quimica/densidade.htm" target="_blank" rel="noopener noreferrer" class="material-item">
                 <div class="material-info">
-                    <div class="material-icon">
-                        <i class="bi bi-droplet-half"></i>
-                    </div>
+                    <div class="material-icon"><i class="bi bi-droplet-half"></i></div>
                     <div class="material-texto">
                         <h4>Densidade</h4>
                         <span>Química • Brasil Escola</span>
@@ -1107,12 +269,9 @@
                 <i class="bi bi-box-arrow-up-right material-seta"></i>
             </a>
 
-            <!-- 2 -->
             <a href="https://brasilescola.uol.com.br/geografia/buraco-negro.htm" target="_blank" rel="noopener noreferrer" class="material-item">
                 <div class="material-info">
-                    <div class="material-icon">
-                        <i class="bi bi-stars"></i>
-                    </div>
+                    <div class="material-icon"><i class="bi bi-stars"></i></div>
                     <div class="material-texto">
                         <h4>Buraco Negro</h4>
                         <span>Astronomia • Brasil Escola</span>
@@ -1121,12 +280,9 @@
                 <i class="bi bi-box-arrow-up-right material-seta"></i>
             </a>
 
-            <!-- 3 -->
             <a href="https://brasilescola.uol.com.br/biologia/anatomia-humana.htm" target="_blank" rel="noopener noreferrer" class="material-item">
                 <div class="material-info">
-                    <div class="material-icon">
-                        <i class="bi bi-heart-pulse"></i>
-                    </div>
+                    <div class="material-icon"><i class="bi bi-heart-pulse"></i></div>
                     <div class="material-texto">
                         <h4>Anatomia Humana</h4>
                         <span>Biologia • Brasil Escola</span>
@@ -1135,12 +291,9 @@
                 <i class="bi bi-box-arrow-up-right material-seta"></i>
             </a>
 
-            <!-- 4 -->
             <a href="https://brasilescola.uol.com.br/biologia/anatomia-humana.htm" target="_blank" rel="noopener noreferrer" class="material-item">
                 <div class="material-info">
-                    <div class="material-icon">
-                        <i class="bi bi-lungs"></i>
-                    </div>
+                    <div class="material-icon"><i class="bi bi-lungs"></i></div>
                     <div class="material-texto">
                         <h4>Anatomia Humana (Estudo Complementar)</h4>
                         <span>Biologia • Brasil Escola</span>
@@ -1149,12 +302,9 @@
                 <i class="bi bi-box-arrow-up-right material-seta"></i>
             </a>
 
-            <!-- 5 -->
             <a href="https://brasilescola.uol.com.br/biologia/sistema-muscular.htm" target="_blank" rel="noopener noreferrer" class="material-item">
                 <div class="material-info">
-                    <div class="material-icon">
-                        <i class="bi bi-activity"></i>
-                    </div>
+                    <div class="material-icon"><i class="bi bi-activity"></i></div>
                     <div class="material-texto">
                         <h4>Sistema Muscular</h4>
                         <span>Biologia • Brasil Escola</span>
@@ -1163,12 +313,9 @@
                 <i class="bi bi-box-arrow-up-right material-seta"></i>
             </a>
 
-            <!-- 6 -->
             <a href="https://brasilescola.uol.com.br/geografia/planetas-2.htm" target="_blank" rel="noopener noreferrer" class="material-item">
                 <div class="material-info">
-                    <div class="material-icon">
-                        <i class="bi bi-globe-americas"></i>
-                    </div>
+                    <div class="material-icon"><i class="bi bi-globe-americas"></i></div>
                     <div class="material-texto">
                         <h4>Planetas do Sistema Solar</h4>
                         <span>Astronomia • Brasil Escola</span>
@@ -1180,33 +327,15 @@
     </section>
 </main>
 
-<!-- MODAL CONFIRMAR EXCLUSÃO -->
-<!-- <div id="modalExcluir" class="modal-overlay" style="display: none;">
-    <div class="modal-card">
-        <div class="modal-excluir-body">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <h3>Excluir Publicação</h3>
-            <p>Tem certeza de que deseja apagar esta publicação? Esta ação não pode ser desfeita.</p>
-        </div>
-        
-        <form id="formExcluir" method="POST" style="margin: 0;">
-            @csrf
-            @method('DELETE')
-
-            <div class="modal-footer" style="justify-content: center;">
-                <button type="button" class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button>
-                <button type="submit" class="btn-confirmar-deletar">Sim, Excluir</button>
-            </div>
-        </form>
-    </div>
-</div> -->
-
 <!-- MODAL CRIAR -->
 <div id="modalCriar" class="modal-overlay" style="display: none;">
     <div class="modal-card">
         <div class="modal-header">
-            <h2>Criar Nova Publicação</h2>
-            <button type="button" class="btn-fechar" onclick="fecharModalCriar()">✕</button>
+            <div>
+                <span class="secao-etiqueta">COMPARTILHE CIÊNCIA</span>
+                <h2>Criar Nova Publicação</h2>
+            </div>
+            <button type="button" class="btn-fechar" onclick="fecharModalCriar()" aria-label="Fechar">✕</button>
         </div>
 
         <form action="{{ route('postagens.store') }}" method="POST" enctype="multipart/form-data">
@@ -1233,13 +362,14 @@
             </div>
 
             <div class="form-group">
-                <label for="input-imagem">Imagens (máximo 10 em JPG)</label>
+                <label for="input-imagem">Imagens (máximo 10)</label>
                 <input type="file" name="imagens[]" id="input-imagem" multiple accept="image/*" class="form-control" required onchange="validarInputCriar(this)">
+                <small class="ajuda-campo">Você pode selecionar até 10 imagens.</small>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn-cancelar" onclick="fecharModalCriar()">Cancelar</button>
-                <button type="submit" class="btn-salvar">Publicar</button>
+                <button type="submit" class="btn-salvar"><i class="bi bi-send"></i> Publicar</button>
             </div>
         </form>
     </div>
@@ -1249,8 +379,11 @@
 <div id="modalEditar" class="modal-overlay" style="display: none;">
     <div class="modal-card">
         <div class="modal-header">
-            <h2>Editar Publicação</h2>
-            <button type="button" class="btn-fechar" onclick="fecharModalEditar()">✕</button>
+            <div>
+                <span class="secao-etiqueta">ATUALIZE SEU CONTEÚDO</span>
+                <h2>Editar Publicação</h2>
+            </div>
+            <button type="button" class="btn-fechar" onclick="fecharModalEditar()" aria-label="Fechar">✕</button>
         </div>
 
         <form id="formEditar" method="POST" enctype="multipart/form-data">
@@ -1278,54 +411,38 @@
             </div>
 
             <div class="form-group">
-                <label>Fotos Atuais (Marque para remover):</label>
+                <label>Fotos atuais (marque para remover)</label>
                 <div id="container-fotos-atuais" class="fotos-atuais-grid"></div>
             </div>
 
             <div class="form-group">
-                <label for="edit_imagens">Adicionar Novas Fotos (Opcional):</label>
+                <label for="edit_imagens">Adicionar novas fotos (opcional)</label>
                 <input type="file" name="imagens[]" id="edit_imagens" multiple accept="image/*" class="form-control">
-                <span id="erro-limite-edit" style="color: red; font-size: 12px;" hidden>Máximo de 10 imagens excedido!</span>
+                <span id="erro-limite-edit" class="erro-limite" hidden>Máximo de 10 imagens excedido!</span>
                 <div id="preview-edit" class="preview-grid"></div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn-cancelar" onclick="fecharModalEditar()">Cancelar</button>
-                <button type="submit" class="btn-salvar">Salvar Alterações</button>
+                <button type="submit" class="btn-salvar"><i class="bi bi-check2"></i> Salvar alterações</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
-    /* --- TROCA DE ABAS DO MENU --- */
+    /* TROCA DE ABAS */
     function mostrarAba(abaId) {
-        document.getElementById('publicacoes').style.display = 'none';
-        document.getElementById('calendario').style.display = 'none';
-        document.getElementById('material').style.display = 'none';
+        ['publicacoes', 'calendario', 'material'].forEach(id => {
+            document.getElementById(id).style.display = id === abaId ? 'block' : 'none';
+        });
 
-        document.getElementById('btnPubs').classList.remove('btn-menu-ativo');
-        document.getElementById('btnCal').classList.remove('btn-menu-ativo');
-        document.getElementById('btnMat').classList.remove('btn-menu-ativo');
-
-        document.getElementById(abaId).style.display = 'block';
-
-        if(abaId === 'publicacoes') document.getElementById('btnPubs').classList.add('btn-menu-ativo');
-        if(abaId === 'calendario') document.getElementById('btnCal').classList.add('btn-menu-ativo');
-        if(abaId === 'material') document.getElementById('btnMat').classList.add('btn-menu-ativo');
+        document.getElementById('btnPubs').classList.toggle('btn-menu-ativo', abaId === 'publicacoes');
+        document.getElementById('btnCal').classList.toggle('btn-menu-ativo', abaId === 'calendario');
+        document.getElementById('btnMat').classList.toggle('btn-menu-ativo', abaId === 'material');
     }
 
-    /* --- MODAL EXCLUIR
-    function abrirModalExcluir(id) {
-        document.getElementById('formExcluir').action = `/postagens/${id}`;
-        document.getElementById('modalExcluir').style.display = 'flex';
-    }
-
-    function fecharModalExcluir() {
-        document.getElementById('modalExcluir').style.display = 'none';
-    }--- */
-
-    /* --- MODAIS --- */
+    /* MODAL CRIAR */
     function abrirModalCriar() {
         document.getElementById('modalCriar').style.display = 'flex';
     }
@@ -1336,12 +453,14 @@
 
     function validarInputCriar(input) {
         if (input.files.length > 10) {
-            alert("Você só pode selecionar no máximo 10 imagens por postagem!");
-            input.value = "";
+            alert('Você só pode selecionar no máximo 10 imagens por postagem!');
+            input.value = '';
         }
     }
 
+    /* MODAL EDITAR */
     let dtEdit = new DataTransfer();
+
     const inputEditImagens = document.getElementById('edit_imagens');
     const containerPreviewEdit = document.getElementById('preview-edit');
     const erroLimiteEdit = document.getElementById('erro-limite-edit');
@@ -1356,19 +475,20 @@
         containerFotosAtuais.innerHTML = '';
 
         if (fotosAtuais && fotosAtuais.length > 0) {
-            fotosAtuais.forEach((fotoPath) => {
+            fotosAtuais.forEach(fotoPath => {
                 const item = document.createElement('div');
                 item.className = 'foto-item';
                 item.innerHTML = `
-                    <img src="/storage/${fotoPath}" alt="Foto">
+                    <img src="/storage/${fotoPath}" alt="Foto atual">
                     <label>
-                        <input type="checkbox" name="remover_imagens[]" value="${fotoPath}"> Remover
+                        <input type="checkbox" name="remover_imagens[]" value="${fotoPath}">
+                        Remover
                     </label>
                 `;
                 containerFotosAtuais.appendChild(item);
             });
         } else {
-            containerFotosAtuais.innerHTML = '<p style="font-size: 12px; color: #777;">Nenhuma foto salva.</p>';
+            containerFotosAtuais.innerHTML = '<p class="sem-fotos">Nenhuma foto salva.</p>';
         }
 
         dtEdit = new DataTransfer();
@@ -1383,52 +503,54 @@
         document.getElementById('modalEditar').style.display = 'none';
     }
 
-    if(inputEditImagens) {
-        inputEditImagens.addEventListener('change', function() {
-            const novosArquivos = Array.from(this.files);
+    inputEditImagens.addEventListener('change', function() {
+        const novosArquivos = Array.from(this.files);
 
-            if (dtEdit.files.length + novosArquivos.length > 10) {
-                erroLimiteEdit.hidden = false;
-                this.files = dtEdit.files;
-                return;
-            }
-
-            erroLimiteEdit.hidden = true;
-
-            novosArquivos.forEach(arquivo => {
-                if (arquivo.type.startsWith('image/')) {
-                    dtEdit.items.add(arquivo);
-                }
-            });
-
+        if (dtEdit.files.length + novosArquivos.length > 10) {
+            erroLimiteEdit.hidden = false;
             this.files = dtEdit.files;
-            renderizarPreviewEdit();
+            return;
+        }
+
+        erroLimiteEdit.hidden = true;
+
+        novosArquivos.forEach(arquivo => {
+            if (arquivo.type.startsWith('image/')) {
+                dtEdit.items.add(arquivo);
+            }
         });
-    }
+
+        this.files = dtEdit.files;
+        renderizarPreviewEdit();
+    });
 
     function renderizarPreviewEdit() {
         containerPreviewEdit.innerHTML = '';
+
         Array.from(dtEdit.files).forEach((arquivo, index) => {
             const leitor = new FileReader();
+
             leitor.onload = function(e) {
                 const div = document.createElement('div');
                 div.className = 'preview-item';
                 div.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview">
+                    <img src="${e.target.result}" alt="Pré-visualização">
                     <button type="button" class="btn-remove-img" onclick="removerImagemEdit(${index})">✕</button>
                 `;
                 containerPreviewEdit.appendChild(div);
-            }
+            };
+
             leitor.readAsDataURL(arquivo);
         });
     }
 
     function removerImagemEdit(index) {
         const auxDt = new DataTransfer();
-        const arquivos = dtEdit.files;
 
-        for (let i = 0; i < arquivos.length; i++) {
-            if (i !== index) { auxDt.items.add(arquivos[i]); }
+        for (let i = 0; i < dtEdit.files.length; i++) {
+            if (i !== index) {
+                auxDt.items.add(dtEdit.files[i]);
+            }
         }
 
         dtEdit = auxDt;
@@ -1441,21 +563,22 @@
         renderizarPreviewEdit();
     }
 
-    window.onclick = function(event) {
+    /* FECHAR MODAIS AO CLICAR FORA */
+    window.addEventListener('click', function(event) {
         const modalCriar = document.getElementById('modalCriar');
         const modalEditar = document.getElementById('modalEditar');
-        // const modalExcluir = document.getElementById('modalExcluir');
+
         if (event.target === modalCriar) fecharModalCriar();
         if (event.target === modalEditar) fecharModalEditar();
-        // if (event.target === modalExcluir) fecharModalExcluir();
-    }
+    });
 
-    /* --- CARROSSEL DE FOTOS --- */
+    /* CARROSSEL */
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.carrossel-post').forEach(carrossel => {
             const slides = carrossel.querySelectorAll('.slide');
-            slides.forEach((slide, idx) => {
-                if (idx !== 0) slide.hidden = true;
+
+            slides.forEach((slide, index) => {
+                if (index !== 0) slide.hidden = true;
             });
         });
     });
@@ -1464,17 +587,14 @@
         const carrossel = btn.closest('.carrossel-post');
         const slides = carrossel.querySelectorAll('.slide');
         const indicador = carrossel.querySelector('.indicador');
-        
-        let indexAtual = parseInt(carrossel.getAttribute('data-index')) || 0;
-        slides[indexAtual].hidden = true;
 
+        let indexAtual = parseInt(carrossel.getAttribute('data-index')) || 0;
+
+        slides[indexAtual].hidden = true;
         indexAtual += direcao;
 
-        if (indexAtual >= slides.length) {
-            indexAtual = 0;
-        } else if (indexAtual < 0) {
-            indexAtual = slides.length - 1;
-        }
+        if (indexAtual >= slides.length) indexAtual = 0;
+        if (indexAtual < 0) indexAtual = slides.length - 1;
 
         slides[indexAtual].hidden = false;
         carrossel.setAttribute('data-index', indexAtual);

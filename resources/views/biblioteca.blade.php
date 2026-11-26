@@ -1,1297 +1,174 @@
+{{-- resources/views/biblioteca.blade.php --}}
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Biblioteca | Beth Cientista</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    {{-- Bootstrap Icons --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    >
+    {{-- Font Awesome: ícones do navbar e footer compartilhados --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+    {{-- CSS compartilhados e CSS específico da Biblioteca --}}
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/biblioteca.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
-
-<style>
-
-/* =========================
-   CONFIGURAÇÕES GERAIS
-========================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-
-    min-height: 100vh;
-
-    background:
-        linear-gradient(
-            180deg,
-            #7000a8 0%,
-            #b400d4 55%,
-            #ef6c73 100%
-        );
-
-    color: white;
-}
-
-
-/* =========================
-   BOLINHAS
-========================= */
-
-body::before {
-
-    content: "";
-
-    position: fixed;
-
-    width: 8px;
-    height: 8px;
-
-    background: white;
-
-    border-radius: 50%;
-
-    opacity: .7;
-
-    top: 18%;
-    left: 12%;
-
-    box-shadow:
-        500px 50px white,
-        700px 250px white,
-        900px 500px white,
-        100px 600px white,
-        650px 650px white;
-
-    pointer-events: none;
-
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-header {
-
-    width: 100%;
-
-    background: #ff7a00;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 15px 60px;
-
-    box-shadow:
-        0 5px 18px rgba(0,0,0,.25);
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 999;
-
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.logo {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-}
-
-.logo img {
-
-    width: 60px;
-    height: 60px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-
-    background: white;
-
-}
-
-.logo h2 {
-
-    color: white;
-
-    font-size: 30px;
-
-    font-weight: 800;
-
-}
-
-.logo p {
-
-    color: white;
-
-    font-size: 13px;
-
-}
-
-
-/* =========================
-   NAVBAR
-========================= */
-
-nav {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-}
-
-nav a {
-
-    border: none;
-
-    background: white;
-
-    color: #ff7a00;
-
-    padding: 10px 17px;
-
-    border-radius: 30px;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    transition: .3s;
-
-}
-
-nav a:hover {
-
-    transform: translateY(-3px);
-
-    background: #ffe3cb;
-
-}
-
-nav .ativo {
-
-    background: #ffd84f;
-
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
-main {
-
-    width: 85%;
-
-    max-width: 1200px;
-
-    margin: 40px auto;
-
-}
-
-
-/* =========================
-   TÍTULO
-========================= */
-
-.titulo {
-
-    text-align: center;
-
-    margin-bottom: 30px;
-
-}
-
-.titulo h1 {
-
-    color: white;
-
-    font-size: 42px;
-
-    font-weight: 800;
-
-}
-
-.titulo p {
-
-    color: white;
-
-    font-size: 17px;
-
-    margin-top: 5px;
-
-}
-
-
-/* =========================
-   PESQUISA
-========================= */
-
-.pesquisa {
-
-    display: flex;
-
-    justify-content: center;
-
-    margin-bottom: 30px;
-
-}
-
-.pesquisa-box {
-
-    width: 500px;
-
-    background: white;
-
-    border-radius: 30px;
-
-    padding: 5px;
-
-    display: flex;
-
-    align-items: center;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.20);
-
-}
-
-.pesquisa-box i {
-
-    color: #9b35d6;
-
-    font-size: 18px;
-
-    margin-left: 15px;
-
-}
-
-.pesquisa-box input {
-
-    width: 100%;
-
-    border: none;
-
-    outline: none;
-
-    padding: 12px 15px;
-
-    border-radius: 30px;
-
-    font-size: 14px;
-
-}
-
-
-/* =========================
-   DOAÇÃO
-========================= */
-
-.doacao {
-
-    background: rgba(255,255,255,.15);
-
-    border: 1px solid rgba(255,255,255,.35);
-
-    border-radius: 20px;
-
-    padding: 18px 22px;
-
-    margin-bottom: 30px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    backdrop-filter: blur(8px);
-
-}
-
-.doacao-conteudo {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-}
-
-.doacao-icone {
-
-    width: 45px;
-    height: 45px;
-
-    background: #ff7a00;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-size: 22px;
-
-}
-
-.doacao h3 {
-
-    font-size: 17px;
-
-}
-
-.doacao p {
-
-    font-size: 12px;
-
-    margin-top: 3px;
-
-}
-
-.btn-doar {
-
-    border: none;
-
-    background: #ff7a00;
-
-    color: white;
-
-    padding: 11px 20px;
-
-    border-radius: 25px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: .3s;
-
-    text-decoration: none;
-
-    display: inline-block;
-
-}
-
-.btn-doar:hover {
-
-    background: #ff9500;
-
-    transform: translateY(-3px);
-
-}
-
-
-/* =========================
-   LIVROS
-========================= */
-
-.livros {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 25px;
-
-}
-
-
-/* =========================
-   CARD
-========================= */
-
-.card-livro {
-
-    background: white;
-
-    color: #222;
-
-    border-radius: 18px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.20);
-
-    transition: .3s;
-
-}
-
-.card-livro:hover {
-
-    transform: translateY(-6px);
-
-}
-
-
-/* =========================
-   CAPA
-========================= */
-
-.capa {
-
-    height: 140px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #d99df0,
-            #ffbd78
-        );
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-}
-
-.capa i {
-
-    color: white;
-
-    font-size: 55px;
-
-    text-shadow:
-        0 3px 8px rgba(0,0,0,.15);
-
-}
-
-
-/* =========================
-   CONTEÚDO
-========================= */
-
-.card-conteudo {
-
-    padding: 18px;
-
-}
-
-.card-topo {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 10px;
-
-    gap: 8px;
-
-}
-
-.categoria {
-
-    background: #ff7a00;
-
-    color: white;
-
-    padding: 5px 10px;
-
-    border-radius: 15px;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-}
-
-.disponivel {
-
-    background: #1ac95c;
-
-    color: white;
-
-    padding: 5px 10px;
-
-    border-radius: 15px;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-}
-
-.esgotado {
-
-    background: #ef4444;
-
-    color: white;
-
-    padding: 5px 10px;
-
-    border-radius: 15px;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-}
-
-
-/* =========================
-   TÍTULO DO LIVRO
-========================= */
-
-.card-livro h2 {
-
-    font-size: 18px;
-
-    line-height: 23px;
-
-    margin-bottom: 7px;
-
-}
-
-
-/* =========================
-   AUTOR
-========================= */
-
-.autor {
-
-    color: #666;
-
-    font-size: 12px;
-
-    margin-bottom: 12px;
-
-}
-
-
-/* =========================
-   BOTÃO
-========================= */
-
-.btn-livro {
-
-    width: 100%;
-
-    border: none;
-
-    background: #a83de8;
-
-    color: white;
-
-    padding: 9px;
-
-    border-radius: 20px;
-
-    cursor: pointer;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    transition: .3s;
-
-}
-
-.btn-livro:hover {
-
-    background: #8b2bd0;
-
-}
-
-
-/* =========================
-   BOTÃO INDISPONÍVEL
-========================= */
-
-.btn-indisponivel {
-
-    background: #999;
-
-    cursor: not-allowed;
-
-}
-
-.btn-indisponivel:hover {
-
-    background: #999;
-
-    transform: none;
-
-}
-
-
-/* =========================
-   MENSAGEM
-========================= */
-
-#mensagem {
-
-    display: none;
-
-    position: fixed;
-
-    bottom: 25px;
-
-    right: 25px;
-
-    background: white;
-
-    color: #333;
-
-    padding: 18px 25px;
-
-    border-radius: 15px;
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.25);
-
-    font-weight: 600;
-
-    z-index: 2000;
-
-}
-
-#mensagem.mostrar {
-
-    display: block;
-
-}
-
-
-/* =========================
-   VAZIO
-========================= */
-
-.vazio {
-
-    grid-column: 1 / -1;
-
-    text-align: center;
-
-    padding: 50px 20px;
-
-    background: rgba(255,255,255,.12);
-
-    border-radius: 20px;
-
-}
-
-.vazio i {
-
-    font-size: 45px;
-
-}
-
-.vazio h3 {
-
-    margin-top: 15px;
-
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-
-    margin-top: 60px;
-
-    padding: 25px;
-
-    text-align: center;
-
-    background: rgba(0,0,0,.12);
-
-}
-
-footer p {
-
-    color: white;
-
-    font-size: 14px;
-
-}
-
-
-/* =========================
-   RESPONSIVO
-========================= */
-
-@media(max-width:1000px) {
-
-    header {
-
-        flex-direction: column;
-
-        padding: 20px;
-
-    }
-
-    nav {
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-
-        margin-top: 18px;
-
-    }
-
-    main {
-
-        width: 92%;
-
-    }
-
-    .livros {
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-}
-
-
-@media(max-width:650px) {
-
-    .titulo h1 {
-
-        font-size: 32px;
-
-    }
-
-    .livros {
-
-        grid-template-columns: 1fr;
-
-    }
-
-    .doacao {
-
-        flex-direction: column;
-
-        gap: 15px;
-
-        text-align: center;
-
-    }
-
-    .doacao-conteudo {
-
-        flex-direction: column;
-
-    }
-
-    .pesquisa-box {
-
-        width: 100%;
-
-    }
-
-    .logo h2 {
-
-        font-size: 24px;
-
-    }
-
-}
-
-</style>
-
-
 <body>
 
+    {{-- NAVBAR COMPARTILHADO --}}
+    @include('components.navbar')
 
-<!-- =========================
-     HEADER
-========================= -->
+    <main class="bc-library">
+        <div class="bc-container">
 
-<header>
+            <section class="bc-heading">
+                <h1 class="bc-title">Biblioteca Beth Cientista</h1>
+                <p class="bc-subtitle">Acervo de livros científicos para clubistas!</p>
 
-    <div class="logo">
-
-        <img
-            src="{{ asset('Beth.jpg') }}"
-            alt="Beth Cientista"
-        >
-
-        <div>
-
-            <h2>BETH CIENTISTA</h2>
-
-            <p>Divulgação Científica</p>
-
-        </div>
-
-    </div>
-
-
-    <nav>
-
-        <a href="{{ route('inicio') }}">
-            Início
-        </a>
-
-        <a href="{{ route('sobre') }}">
-            Sobre Nós
-        </a>
-
-        <a href="{{ route('galeria') }}">
-            Galeria
-        </a>
-
-        <a
-            class="ativo"
-            href="{{ route('biblioteca') }}"
-        >
-            Biblioteca
-        </a>
-
-        <a href="{{ route('mencao') }}">
-            Menções Honrosas
-        </a>
-
-        <a href="{{ route('escolha') }}">
-            Faça Parte
-        </a>
-        <a href="{{ route('entrar') }}">
-            Entrar
-        </a>
-
-
-    </nav>
-
-</header>
-
-
-<!-- =========================
-     CONTEÚDO
-========================= -->
-
-<main>
-
-    <section class="titulo">
-
-        <h1>
-            BIBLIOTECA BETH CIENTISTA
-        </h1>
-
-        <p>
-            Acervo de livros científicos para clubistas!
-        </p>
-
-    </section>
-
-
-    <!-- =========================
-         PESQUISA
-    ========================= -->
-
-    <section class="pesquisa">
-
-        <div class="pesquisa-box">
-
-            <i class="bi bi-search"></i>
-
-            <input
-                type="text"
-                id="busca"
-                placeholder="Buscar livros por título, autor ou categoria..."
-                onkeyup="buscarLivros()"
-            >
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         DOAÇÃO
-    ========================= -->
-
-    <section class="doacao">
-
-        <div class="doacao-conteudo">
-
-            <div class="doacao-icone">
-
-                <i class="bi bi-heart"></i>
-
-            </div>
-
-            <div>
-
-                <h3>
-                    DOE UM LIVRO!
-                </h3>
-
-                <p>
-                    Ajude a expandir nossa biblioteca científica!
-                </p>
-
-            </div>
-
-        </div>
-
-        <a
-            href="{{ route('doacao') }}"
-            class="btn-doar"
-        >
-            Quero doar
-        </a>
-
-    </section>
-
-
-    <!-- =========================
-         LIVROS DO BANCO
-    ========================= -->
-
-    <section
-        class="livros"
-        id="listaLivros"
-    >
-
-        @forelse($livros as $livro)
-
-            <div
-                class="card-livro"
-
-                data-busca="
-                    {{ strtolower($livro->titulo) }}
-                    {{ strtolower($livro->autor) }}
-                    {{ strtolower($livro->categoria) }}
-                    {{ strtolower($livro->status) }}
-                "
-            >
-
-                <!-- CAPA -->
-
-                <div class="capa">
-
-                    <i class="bi bi-book"></i>
-
+                <div class="bc-search-wrap">
+                    <label class="bc-search" for="bcBusca">
+                        <i class="bi bi-search" aria-hidden="true"></i>
+                        <input
+                            type="search"
+                            id="bcBusca"
+                            placeholder="Buscar livros por título, autor ou categoria..."
+                            autocomplete="off"
+                        >
+                    </label>
                 </div>
+            </section>
 
-
-                <div class="card-conteudo">
-
-
-                    <!-- CATEGORIA + STATUS -->
-
-                    <div class="card-topo">
-
-                        <span class="categoria">
-
-                            {{ $livro->categoria }}
-
-                        </span>
-
-
-                        @if($livro->status === 'livre')
-
-                            <span class="disponivel">
-
-                                Disponível
-
-                            </span>
-
-                        @elseif($livro->status === 'emprestado')
-
-                            <span class="esgotado">
-
-                                Emprestado
-
-                            </span>
-
-                        @elseif($livro->status === 'reservado')
-
-                            <span class="esgotado">
-
-                                Reservado
-
-                            </span>
-
-                        @else
-
-                            <span class="esgotado">
-
-                                {{ ucfirst($livro->status) }}
-
-                            </span>
-
-                        @endif
-
+            <section class="bc-donation">
+                <div class="bc-donation-content">
+                    <div class="bc-heart"><i class="bi bi-heart-fill" aria-hidden="true"></i></div>
+                    <div>
+                        <h2>Doe um Livro!</h2>
+                        <p>Ajude a expandir nossa biblioteca científica!</p>
                     </div>
-
-
-                    <!-- TÍTULO -->
-
-                    <h2>
-
-                        {{ $livro->titulo }}
-
-                    </h2>
-
-
-                    <!-- AUTOR -->
-
-                    <p class="autor">
-
-                        <i class="bi bi-person-fill"></i>
-
-                        {{ $livro->autor }}
-
-                    </p>
-
-
-                    <!-- BOTÃO -->
-
-                    @if($livro->status === 'livre')
-
-                        <button
-                            type="button"
-                            class="btn-livro"
-                            onclick="emprestar(@js($livro->titulo))"
-                        >
-
-                            <i class="bi bi-bookmark-check"></i>
-
-                            Solicitar empréstimo
-
-                        </button>
-
-                    @else
-
-                        <button
-                            type="button"
-                            class="btn-livro btn-indisponivel"
-                            onclick="indisponivel(@js($livro->status))"
-                        >
-
-                            <i class="bi bi-clock"></i>
-
-                            @if($livro->status === 'emprestado')
-
-                                Emprestado
-
-                            @elseif($livro->status === 'reservado')
-
-                                Reservado
-
-                            @else
-
-                                Indisponível
-
-                            @endif
-
-                        </button>
-
-                    @endif
-
                 </div>
-
-            </div>
-
-        @empty
-
-            <div class="vazio">
-
-                <i class="bi bi-book"></i>
-
-                <h3>
-                    Nenhum livro disponível no momento
-                </h3>
-
-                <p>
-                    O acervo científico está sendo atualizado pelos professores.
-                </p>
-
-            </div>
-
-        @endforelse
-
-    </section>
-
-</main>
-
-
-<!-- =========================
-     MENSAGEM
-========================= -->
-
-<div id="mensagem"></div>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    <p>
-        © 2026 Beth Cientista
-    </p>
-
-</footer>
-
-
-<script>
-
-/* =========================
-   MENSAGEM
-========================= */
-
-function mostrarMensagem(texto) {
-
-    const mensagem =
-        document.getElementById("mensagem");
-
-    mensagem.innerText = texto;
-
-    mensagem.classList.add("mostrar");
-
-
-    setTimeout(function() {
-
-        mensagem.classList.remove("mostrar");
-
-    }, 3000);
-
-}
-
-
-/* =========================
-   BUSCAR LIVROS
-========================= */
-
-function buscarLivros() {
-
-    const busca =
-        document
-            .getElementById("busca")
-            .value
-            .toLowerCase()
-            .trim();
-
-
-    const livros =
-        document.querySelectorAll(".card-livro");
-
-
-    livros.forEach(function(livro) {
-
-        const texto =
-            livro
-                .getAttribute("data-busca")
-                .toLowerCase();
-
-
-        if (texto.includes(busca)) {
-
-            livro.style.display = "";
-
-        } else {
-
-            livro.style.display = "none";
-
-        }
-
-    });
-
-}
-
-
-/* =========================
-   EMPRESTAR
-========================= */
-
-function emprestar(nome) {
-
-    mostrarMensagem(
-        'Você precisa estar logado para solicitar o empréstimo do livro.'
-    );
-
-}
-
-
-/* =========================
-   INDISPONÍVEL
-========================= */
-
-function indisponivel(status) {
-
-    let mensagem = "Este livro não está disponível no momento.";
-
-
-    if (status === "emprestado") {
-
-        mensagem =
-            "Este livro está emprestado no momento.";
-
-    }
-
-
-    if (status === "reservado") {
-
-        mensagem =
-            "Este livro está reservado no momento.";
-
-    }
-
-
-    mostrarMensagem(mensagem);
-
-}
-
-</script>
-
-
+                <a href="{{ route('doacao') }}" class="bc-donate-btn">Quero Doar</a>
+            </section>
+
+            <section class="bc-books" id="bcListaLivros" aria-label="Acervo de livros">
+                @forelse($livros as $livro)
+                    @php
+                        $status = strtolower($livro->status ?? '');
+                        $disponivel = $status === 'livre';
+                        $buscaLivro = strtolower(($livro->titulo ?? '') . ' ' . ($livro->autor ?? '') . ' ' . ($livro->categoria ?? '') . ' ' . $status);
+                    @endphp
+
+                    <article class="bc-book-card" data-busca="{{ $buscaLivro }}">
+                        <div class="bc-book-cover">
+                            <i class="bi bi-book-half" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="bc-book-info">
+                            <div class="bc-book-top">
+                                <span class="bc-tag">{{ $livro->categoria }}</span>
+                                <span class="bc-tag {{ $disponivel ? 'bc-status' : 'bc-status-off' }}">
+                                    @if($status === 'livre')
+                                        Disponível
+                                    @elseif($status === 'emprestado')
+                                        Emprestado
+                                    @elseif($status === 'reservado')
+                                        Reservado
+                                    @else
+                                        {{ ucfirst($livro->status) }}
+                                    @endif
+                                </span>
+                            </div>
+
+                            <h2 class="bc-book-title">{{ $livro->titulo }}</h2>
+                            <p class="bc-book-author">
+                                <i class="bi bi-person-fill" aria-hidden="true"></i>{{ $livro->autor }}
+                            </p>
+
+                            <div class="bc-book-actions">
+                                <p class="bc-copies">Acervo científico</p>
+                                @if($disponivel)
+                                    <button
+                                        type="button"
+                                        class="bc-loan-btn"
+                                        onclick="bcMensagem('Você precisa estar logado para solicitar o empréstimo deste livro.')"
+                                    >
+                                        <i class="bi bi-bookmark-check" aria-hidden="true"></i>
+                                        Emprestar
+                                    </button>
+                                @else
+                                    <button
+                                        type="button"
+                                        class="bc-loan-btn"
+                                        disabled
+                                        title="Livro indisponível"
+                                    >
+                                        <i class="bi bi-clock" aria-hidden="true"></i>
+                                        {{ $status === 'emprestado' ? 'Emprestado' : 'Aguardando' }}
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    </article>
+                @empty
+                    <div class="bc-empty">
+                        <i class="bi bi-book" aria-hidden="true"></i>
+                        <h3>Nenhum livro encontrado.</h3>
+                        <p>O acervo científico está sendo atualizado pelos professores.</p>
+                    </div>
+                @endforelse
+
+                <div class="bc-empty" id="bcSemResultado" style="display:none;">
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    <h3>Oops! Nenhum livro encontrado.</h3>
+                    <p>Tente buscar por outro termo!</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="bcToast" class="bc-toast" role="status" aria-live="polite"></div>
+
+    {{-- FOOTER COMPARTILHADO --}}
+    @include('components.footer')
+
+    <script>
+        (() => {
+            const campo = document.getElementById('bcBusca');
+            const cards = Array.from(document.querySelectorAll('.bc-book-card'));
+            const vazio = document.getElementById('bcSemResultado');
+            let toastTimer;
+
+            campo?.addEventListener('input', () => {
+                const termo = campo.value.trim().toLocaleLowerCase('pt-BR');
+                let encontrados = 0;
+
+                cards.forEach((card) => {
+                    const texto = (card.dataset.busca || '').toLocaleLowerCase('pt-BR');
+                    const mostrar = texto.includes(termo);
+                    card.style.display = mostrar ? '' : 'none';
+                    if (mostrar) encontrados++;
+                });
+
+                if (vazio) vazio.style.display = cards.length > 0 && encontrados === 0 ? 'block' : 'none';
+            });
+
+            window.bcMensagem = (texto) => {
+                const toast = document.getElementById('bcToast');
+                if (!toast) return;
+                toast.textContent = texto;
+                toast.classList.add('show');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+            };
+        })();
+    </script>
 </body>
-
 </html>

@@ -1,0 +1,473 @@
+/* =========================================================
+   MENÇÕES HONROSAS — BETH CIENTISTA
+   Estilos isolados para não interferir no navbar e no footer.
+========================================================= */
+
+.pagina-mencoes {
+    min-height: 100vh;
+    background: #58127d;
+}
+
+.mencoes-page,
+.mencoes-page * {
+    box-sizing: border-box;
+}
+
+.mencoes-page {
+    --mencoes-roxo: #58127d;
+    --mencoes-roxo-medio: #8614a4;
+    --mencoes-magenta: #bc10c0;
+    --mencoes-laranja: #f97316;
+    --mencoes-dourado: #ffb52e;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(54px, 7vw, 88px) 0 82px;
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    background: linear-gradient(
+        125deg,
+        var(--mencoes-roxo) 0%,
+        var(--mencoes-roxo-medio) 35%,
+        var(--mencoes-magenta) 68%,
+        var(--mencoes-laranja) 115%
+    );
+}
+
+.mencoes-grain {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .15;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+.mencoes-sparkles {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.mencoes-sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 0 12px 3px rgba(255, 255, 255, .42);
+    animation: mencoes-piscar 3s ease-in-out infinite;
+}
+
+
+
+.mencoes-sparkle-1  { top: 8%; left: 8%; animation-delay: .2s; }
+.mencoes-sparkle-2  { top: 13%; left: 83%; animation-delay: 1.1s; }
+.mencoes-sparkle-3  { top: 28%; left: 18%; animation-delay: .7s; }
+.mencoes-sparkle-4  { top: 35%; left: 92%; animation-delay: 1.6s; }
+.mencoes-sparkle-5  { top: 48%; left: 6%; animation-delay: .4s; }
+.mencoes-sparkle-6  { top: 57%; left: 76%; animation-delay: 1.3s; }
+.mencoes-sparkle-7  { top: 68%; left: 14%; animation-delay: 2s; }
+.mencoes-sparkle-8  { top: 77%; left: 88%; animation-delay: .9s; }
+.mencoes-sparkle-9  { top: 88%; left: 28%; animation-delay: 1.8s; }
+.mencoes-sparkle-10 { top: 19%; left: 52%; animation-delay: .5s; }
+.mencoes-sparkle-11 { top: 42%; left: 62%; animation-delay: 1.4s; }
+.mencoes-sparkle-12 { top: 91%; left: 68%; animation-delay: .3s; }
+.mencoes-sparkle-13 { top: 5%; left: 39%; animation-delay: 1.9s; }
+.mencoes-sparkle-14 { top: 62%; left: 45%; animation-delay: .8s; }
+.mencoes-sparkle-15 { top: 82%; left: 4%; animation-delay: 1.5s; }
+
+@keyframes mencoes-piscar {
+    0%, 100% { opacity: .25; transform: scale(.7); }
+    50% { opacity: 1; transform: scale(1.25); }
+}
+
+.mencoes-container {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 48px, 1180px);
+    margin: 0 auto;
+}
+
+.mencoes-heading {
+    max-width: 850px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.mencoes-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 18px;
+    padding: 9px 19px;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(255, 255, 255, .14);
+    backdrop-filter: blur(10px);
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+
+.mencoes-heading h1 {
+    margin: 0;
+    color: #fff;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: .015em;
+    text-shadow: 0 5px 0 rgba(72, 13, 94, .22), 0 12px 28px rgba(0, 0, 0, .2);
+}
+
+.mencoes-heading > p {
+    margin: 18px 0 0;
+    color: rgba(255, 255, 255, .94);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-weight: 500;
+    line-height: 1.55;
+}
+
+.mencoes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+}
+
+.mencao-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 22px;
+    overflow: hidden;
+    padding: 28px;
+    border: 1px solid rgba(255, 255, 255, .72);
+    border-radius: 25px;
+    color: #3d2b43;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(255, 248, 239, .96));
+    box-shadow: 0 16px 35px rgba(49, 9, 69, .22);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.mencao-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7px;
+    background: linear-gradient(90deg, #ffb52e, #ff7a18, #bc10c0);
+}
+
+.mencao-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 23px 42px rgba(49, 9, 69, .3);
+}
+
+.mencao-card-conteudo {
+    position: relative;
+    z-index: 1;
+}
+
+.mencao-card-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 23px;
+}
+
+.mencao-icone {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #ff9d1b, #f97316);
+    box-shadow: 0 7px 16px rgba(249, 115, 22, .28);
+    font-size: 1.35rem;
+}
+
+.mencao-data {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(100deg, #f97316, #ff9f1c);
+    font-size: .85rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mencao-card h2 {
+    margin: 0 0 15px;
+    color: #4f1768;
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.mencao-categoria {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 15px;
+    color: #8a5a92;
+    font-size: .98rem;
+    font-weight: 600;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.mencao-categoria i {
+    margin-top: 3px;
+    color: #f17a20;
+}
+
+.mencao-resumo {
+    margin: 0;
+    color: #665b69;
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.mencao-ler-mais {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 10px;
+    padding: 10px 19px;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(100deg, #f97316, #ff941f);
+    box-shadow: 0 7px 15px rgba(249, 115, 22, .22);
+    font-size: .93rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.mencao-ler-mais:hover {
+    transform: translateY(-2px);
+    color: #fff;
+    background: linear-gradient(100deg, #ff8618, #ffad2e);
+    box-shadow: 0 10px 19px rgba(249, 115, 22, .3);
+}
+
+.mencao-card-brilho {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    color: rgba(188, 16, 192, .10);
+    font-size: 4rem;
+    transform: rotate(12deg);
+    pointer-events: none;
+}
+
+.mencoes-vazio {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 28px;
+    border: 1px solid rgba(255, 255, 255, .3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .13);
+    box-shadow: 0 14px 32px rgba(49, 9, 69, .16);
+    text-align: center;
+    backdrop-filter: blur(12px);
+}
+
+.mencoes-vazio-icone {
+    display: grid;
+    width: 74px;
+    height: 74px;
+    margin-bottom: 20px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #ff9d1b, #f97316);
+    font-size: 2rem;
+    box-shadow: 0 9px 22px rgba(0, 0, 0, .16);
+}
+
+.mencoes-vazio h2 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+    font-weight: 700;
+}
+
+.mencoes-vazio p {
+    max-width: 560px;
+    margin: 0;
+    color: rgba(255, 255, 255, .88);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.mencoes-parabens {
+    position: relative;
+    width: min(100%, 760px);
+    margin: 76px auto 0;
+    padding: 43px 48px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .32);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .14);
+    box-shadow: 0 18px 40px rgba(49, 9, 69, .2);
+    text-align: center;
+    backdrop-filter: blur(14px);
+}
+
+.mencoes-parabens-icone {
+    display: grid;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 21px;
+    place-items: center;
+    border: 5px solid rgba(255, 255, 255, .25);
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #ffad1f, #f97316);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .2);
+    font-size: 2.3rem;
+}
+
+.mencoes-parabens h2 {
+    margin: 0 0 17px;
+    color: #fff;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.15;
+    text-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+}
+
+.mencoes-parabens p {
+    max-width: 590px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, .96);
+    font-size: 1.08rem;
+    line-height: 1.75;
+}
+
+.mencoes-parabens p strong {
+    display: block;
+    margin-top: 12px;
+    color: #fff2c8;
+    font-weight: 700;
+}
+
+.mencoes-parabens-detalhe {
+    position: absolute;
+    top: 22px;
+    right: 25px;
+    color: rgba(255, 255, 255, .28);
+    font-size: 2.2rem;
+}
+
+@media (max-width: 800px) {
+    .mencoes-page {
+        padding: 54px 0 66px;
+    }
+
+    .mencoes-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .mencoes-heading {
+        margin-bottom: 36px;
+    }
+
+    .mencao-card {
+        padding: 25px;
+    }
+
+    .mencoes-parabens {
+        margin-top: 58px;
+        padding: 38px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mencoes-container {
+        width: min(100% - 30px, 1180px);
+    }
+
+    .mencoes-page {
+        padding: 42px 0 54px;
+    }
+
+    .mencoes-eyebrow {
+        font-size: .83rem;
+    }
+
+    .mencoes-heading h1 {
+        font-size: clamp(2.35rem, 12vw, 3.2rem);
+    }
+
+    .mencoes-heading > p {
+        font-size: 1rem;
+    }
+
+    .mencao-card {
+        padding: 22px;
+        border-radius: 21px;
+    }
+
+    .mencao-card-topo {
+        margin-bottom: 19px;
+    }
+
+    .mencao-data {
+        padding: 6px 11px;
+        font-size: .78rem;
+    }
+
+    .mencao-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .mencoes-parabens {
+        padding: 34px 22px;
+        border-radius: 23px;
+    }
+
+    .mencoes-parabens-icone {
+        width: 72px;
+        height: 72px;
+        font-size: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mencoes-sparkle {
+        animation: none;
+    }
+
+    .mencao-card,
+    .mencao-ler-mais {
+        transition: none;
+    }
+}
