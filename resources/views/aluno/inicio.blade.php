@@ -19,6 +19,23 @@
 </head>
 
 <body>
+<div class="inicio-sparkles">
+    <span class="inicio-sparkle inicio-sparkle-1"></span>
+    <span class="inicio-sparkle inicio-sparkle-2"></span>
+    <span class="inicio-sparkle inicio-sparkle-3"></span>
+    <span class="inicio-sparkle inicio-sparkle-4"></span>
+    <span class="inicio-sparkle inicio-sparkle-5"></span>
+    <span class="inicio-sparkle inicio-sparkle-6"></span>
+    <span class="inicio-sparkle inicio-sparkle-7"></span>
+    <span class="inicio-sparkle inicio-sparkle-8"></span>
+    <span class="inicio-sparkle inicio-sparkle-9"></span>
+    <span class="inicio-sparkle inicio-sparkle-10"></span>
+    <span class="inicio-sparkle inicio-sparkle-11"></span>
+    <span class="inicio-sparkle inicio-sparkle-12"></span>
+    <span class="inicio-sparkle inicio-sparkle-13"></span>
+    <span class="inicio-sparkle inicio-sparkle-14"></span>
+    <span class="inicio-sparkle inicio-sparkle-15"></span>
+</div>
 
     <header class="site-header">
 

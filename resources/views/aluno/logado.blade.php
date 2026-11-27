@@ -30,9 +30,6 @@
             <h1>{{ Auth::guard('alunos')->user()->nome ?? 'Clubista' }}</h1>
             <p>Bem-vindo(a) à sua área! Continue explorando e compartilhando ciência.</p>
         </div>
-        <div class="perfil-decoracao">
-            <i class="bi bi-stars"></i>
-        </div>
     </section>
 
     <section class="menu-area">
