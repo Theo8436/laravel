@@ -1,0 +1,730 @@
+/* =========================================================
+   MENÇÕES HONROSAS — ÁREA DO PROFESSOR
+   Visual inspirado na página de Menções Honrosas do aluno.
+   Estilos isolados para preservar navbar e footer compartilhados.
+========================================================= */
+
+.pagina-mencoes-professor {
+    min-height: 100vh;
+    background: #58127d;
+}
+
+.mencoes-prof-page,
+.mencoes-prof-page * {
+    box-sizing: border-box;
+}
+
+.mencoes-prof-page {
+    --mp-roxo: #58127d;
+    --mp-roxo-medio: #8614a4;
+    --mp-magenta: #bc10c0;
+    --mp-laranja: #f97316;
+    --mp-dourado: #ffb52e;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(48px, 6vw, 78px) 0 82px;
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    background: linear-gradient(125deg, var(--mp-roxo) 0%, var(--mp-roxo-medio) 35%, var(--mp-magenta) 68%, var(--mp-laranja) 115%);
+}
+
+.mencoes-prof-grain {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .15;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+.mencoes-prof-sparkles {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.mencoes-prof-sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 0 12px 3px rgba(255, 255, 255, .42);
+    animation: mencoes-prof-piscar 3s ease-in-out infinite;
+}
+
+.mencoes-prof-sparkle-1  { top: 8%; left: 8%; animation-delay: .2s; }
+.mencoes-prof-sparkle-2  { top: 13%; left: 83%; animation-delay: 1.1s; }
+.mencoes-prof-sparkle-3  { top: 28%; left: 18%; animation-delay: .7s; }
+.mencoes-prof-sparkle-4  { top: 35%; left: 92%; animation-delay: 1.6s; }
+.mencoes-prof-sparkle-5  { top: 48%; left: 6%; animation-delay: .4s; }
+.mencoes-prof-sparkle-6  { top: 57%; left: 76%; animation-delay: 1.3s; }
+.mencoes-prof-sparkle-7  { top: 68%; left: 14%; animation-delay: 2s; }
+.mencoes-prof-sparkle-8  { top: 77%; left: 88%; animation-delay: .9s; }
+.mencoes-prof-sparkle-9  { top: 88%; left: 28%; animation-delay: 1.8s; }
+.mencoes-prof-sparkle-10 { top: 19%; left: 52%; animation-delay: .5s; }
+.mencoes-prof-sparkle-11 { top: 42%; left: 62%; animation-delay: 1.4s; }
+.mencoes-prof-sparkle-12 { top: 91%; left: 68%; animation-delay: .3s; }
+.mencoes-prof-sparkle-13 { top: 5%; left: 39%; animation-delay: 1.9s; }
+.mencoes-prof-sparkle-14 { top: 62%; left: 45%; animation-delay: .8s; }
+.mencoes-prof-sparkle-15 { top: 82%; left: 4%; animation-delay: 1.5s; }
+
+@keyframes mencoes-prof-piscar {
+    0%, 100% { opacity: .25; transform: scale(.7); }
+    50% { opacity: 1; transform: scale(1.25); }
+}
+
+.mencoes-prof-container {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 48px, 1180px);
+    margin: 0 auto;
+}
+
+.mencoes-prof-heading {
+    max-width: 850px;
+    margin: 0 auto 34px;
+    text-align: center;
+}
+
+.mencoes-prof-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 18px;
+    padding: 9px 19px;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(255, 255, 255, .14);
+    backdrop-filter: blur(10px);
+    font-size: .95rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+
+.mencoes-prof-heading h1 {
+    margin: 0;
+    color: #fff;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: .015em;
+    text-shadow: 0 5px 0 rgba(72, 13, 94, .22), 0 12px 28px rgba(0, 0, 0, .2);
+}
+
+.mencoes-prof-heading > p {
+    margin: 18px 0 0;
+    color: rgba(255, 255, 255, .94);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-weight: 500;
+    line-height: 1.55;
+}
+
+/* Botão de cadastro */
+.mencoes-prof-add-area {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 30px;
+}
+
+.mencoes-prof-add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 13px 25px;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(100deg, #f97316, #ffad2e);
+    box-shadow: 0 9px 20px rgba(49, 9, 69, .22);
+    font: 700 1rem 'Fredoka', sans-serif;
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+
+.mencoes-prof-add-button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.06);
+    box-shadow: 0 13px 25px rgba(49, 9, 69, .28);
+}
+
+/* Formulário */
+.mencoes-prof-form {
+    display: none;
+    width: min(100%, 820px);
+    margin: 0 auto 42px;
+    padding: clamp(24px, 4vw, 38px);
+    border: 1px solid rgba(255, 255, 255, .78);
+    border-radius: 27px;
+    color: #3d2b43;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .99), rgba(255, 248, 239, .97));
+    box-shadow: 0 20px 42px rgba(49, 9, 69, .25);
+}
+
+.mencoes-prof-form.aberto {
+    display: block;
+    animation: mencoes-prof-aparecer .4s ease both;
+}
+
+@keyframes mencoes-prof-aparecer {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mencoes-prof-form-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 27px;
+}
+
+.mencoes-prof-form-icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #ffad1f, #f97316);
+    box-shadow: 0 8px 18px rgba(249, 115, 22, .25);
+    font-size: 1.7rem;
+}
+
+.mencoes-prof-form-eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: #a16a9d;
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.mencoes-prof-form-heading h2 {
+    margin: 0;
+    color: #4f1768;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(1.6rem, 4vw, 2.15rem);
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+.mencoes-prof-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 19px 20px;
+}
+
+.mencoes-prof-field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.mencoes-prof-field-full {
+    grid-column: 1 / -1;
+}
+
+.mencoes-prof-field label {
+    color: #55345e;
+    font-size: .97rem;
+    font-weight: 700;
+}
+
+.mencoes-prof-field input,
+.mencoes-prof-field select,
+.mencoes-prof-field textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 15px;
+    border: 2px solid #eaddec;
+    border-radius: 13px;
+    outline: none;
+    color: #493b4d;
+    background: #fff;
+    font: 500 .98rem 'Fredoka', sans-serif;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.mencoes-prof-field textarea {
+    min-height: 125px;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+.mencoes-prof-field input:focus,
+.mencoes-prof-field select:focus,
+.mencoes-prof-field textarea:focus {
+    border-color: #f28a25;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, .12);
+}
+
+.mencoes-prof-field input::placeholder,
+.mencoes-prof-field textarea::placeholder {
+    color: #a99eac;
+}
+
+.mencoes-prof-form-actions {
+    display: flex;
+    gap: 13px;
+    margin-top: 25px;
+}
+
+.mencoes-prof-save,
+.mencoes-prof-cancel {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 999px;
+    font: 700 1rem 'Fredoka', sans-serif;
+    cursor: pointer;
+    transition: transform .2s ease, filter .2s ease;
+}
+
+.mencoes-prof-save {
+    color: #fff;
+    background: linear-gradient(100deg, #f97316, #ff9f1c);
+}
+
+.mencoes-prof-cancel {
+    color: #665b69;
+    background: #eee8ef;
+}
+
+.mencoes-prof-save:hover,
+.mencoes-prof-cancel:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+}
+
+.mencoes-prof-success,
+.mencoes-prof-error {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border-radius: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.mencoes-prof-success {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid #9bd8a9;
+    color: #246b38;
+    background: #e2f8e7;
+}
+
+.mencoes-prof-error {
+    border: 1px solid #f0b7bd;
+    color: #842029;
+    background: #fbe3e5;
+}
+
+.mencoes-prof-error ul {
+    margin: 7px 0 0 22px;
+}
+
+/* Cards de menções */
+.mencoes-prof-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    align-items: stretch;
+}
+
+.mencoes-prof-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 22px;
+    overflow: hidden;
+    padding: 28px;
+    border: 1px solid rgba(255, 255, 255, .72);
+    border-radius: 25px;
+    color: #3d2b43;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(255, 248, 239, .96));
+    box-shadow: 0 16px 35px rgba(49, 9, 69, .22);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.mencoes-prof-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7px;
+    background: linear-gradient(90deg, #ffb52e, #ff7a18, #bc10c0);
+}
+
+.mencoes-prof-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 23px 42px rgba(49, 9, 69, .3);
+}
+
+.mencoes-prof-card-content {
+    position: relative;
+    z-index: 1;
+}
+
+.mencoes-prof-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 23px;
+}
+
+.mencoes-prof-card-icon {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #ff9d1b, #f97316);
+    box-shadow: 0 7px 16px rgba(249, 115, 22, .28);
+    font-size: 1.35rem;
+}
+
+.mencoes-prof-date {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(100deg, #f97316, #ff9f1c);
+    font-size: .85rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.mencoes-prof-card h2 {
+    margin: 0 0 13px;
+    color: #4f1768;
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.mencoes-prof-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    color: #8a5a92;
+    font-size: 1rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.mencoes-prof-author i {
+    color: #f17a20;
+}
+
+.mencoes-prof-description {
+    margin: 0;
+    color: #665b69;
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.mencoes-prof-actions {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 11px;
+    padding-top: 18px;
+    border-top: 1px solid #eee2ee;
+}
+
+.mencoes-prof-edit,
+.mencoes-prof-delete {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 9px 13px;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    font: 700 .92rem 'Fredoka', sans-serif;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .2s ease, filter .2s ease;
+}
+
+.mencoes-prof-edit {
+    background: linear-gradient(100deg, #f97316, #ff9f1c);
+}
+
+.mencoes-prof-delete {
+    background: linear-gradient(100deg, #d94358, #ec6470);
+}
+
+.mencoes-prof-edit:hover,
+.mencoes-prof-delete:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+}
+
+.mencoes-prof-delete-form {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+}
+
+.mencoes-prof-card-decoration {
+    position: absolute;
+    right: 20px;
+    bottom: 62px;
+    color: rgba(188, 16, 192, .10);
+    font-size: 4rem;
+    transform: rotate(12deg);
+    pointer-events: none;
+}
+
+.mencoes-prof-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 28px;
+    border: 1px solid rgba(255, 255, 255, .3);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .13);
+    box-shadow: 0 14px 32px rgba(49, 9, 69, .16);
+    text-align: center;
+    backdrop-filter: blur(12px);
+}
+
+.mencoes-prof-empty-icon {
+    display: grid;
+    width: 74px;
+    height: 74px;
+    margin-bottom: 20px;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #ff9d1b, #f97316);
+    font-size: 2rem;
+    box-shadow: 0 9px 22px rgba(0, 0, 0, .16);
+}
+
+.mencoes-prof-empty h2 {
+    margin: 0 0 10px;
+    color: #fff;
+    font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+    font-weight: 700;
+}
+
+.mencoes-prof-empty p {
+    max-width: 560px;
+    margin: 0;
+    color: rgba(255, 255, 255, .88);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Mensagem de encerramento */
+.mencoes-prof-congratulations {
+    position: relative;
+    width: min(100%, 760px);
+    margin: 76px auto 0;
+    padding: 43px 48px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .32);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .14);
+    box-shadow: 0 18px 40px rgba(49, 9, 69, .2);
+    text-align: center;
+    backdrop-filter: blur(14px);
+}
+
+.mencoes-prof-congratulations-icon {
+    display: grid;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 21px;
+    place-items: center;
+    border: 5px solid rgba(255, 255, 255, .25);
+    border-radius: 50%;
+    color: #fff;
+    background: linear-gradient(135deg, #ffad1f, #f97316);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .2);
+    font-size: 2.3rem;
+}
+
+.mencoes-prof-congratulations h2 {
+    margin: 0 0 17px;
+    color: #fff;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.15;
+    text-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+}
+
+.mencoes-prof-congratulations p {
+    max-width: 590px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, .96);
+    font-size: 1.08rem;
+    line-height: 1.75;
+}
+
+.mencoes-prof-congratulations p strong {
+    display: block;
+    margin-top: 12px;
+    color: #fff2c8;
+    font-weight: 700;
+}
+
+.mencoes-prof-congratulations-detail {
+    position: absolute;
+    top: 22px;
+    right: 25px;
+    color: rgba(255, 255, 255, .28);
+    font-size: 2.2rem;
+}
+
+/* Responsividade */
+@media (max-width: 800px) {
+    .mencoes-prof-page {
+        padding: 48px 0 66px;
+    }
+
+    .mencoes-prof-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .mencoes-prof-heading {
+        margin-bottom: 30px;
+    }
+
+    .mencoes-prof-card {
+        padding: 25px;
+    }
+
+    .mencoes-prof-congratulations {
+        margin-top: 58px;
+        padding: 38px 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .mencoes-prof-container {
+        width: min(100% - 30px, 1180px);
+    }
+
+    .mencoes-prof-page {
+        padding: 42px 0 54px;
+    }
+
+    .mencoes-prof-eyebrow {
+        font-size: .83rem;
+    }
+
+    .mencoes-prof-heading h1 {
+        font-size: clamp(2.35rem, 12vw, 3.2rem);
+    }
+
+    .mencoes-prof-heading > p {
+        font-size: 1rem;
+    }
+
+    .mencoes-prof-form {
+        padding: 24px 20px;
+        border-radius: 22px;
+    }
+
+    .mencoes-prof-form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .mencoes-prof-field-full {
+        grid-column: auto;
+    }
+
+    .mencoes-prof-form-actions,
+    .mencoes-prof-actions {
+        flex-direction: column;
+    }
+
+    .mencoes-prof-card {
+        padding: 22px;
+        border-radius: 21px;
+    }
+
+    .mencoes-prof-card-top {
+        margin-bottom: 19px;
+    }
+
+    .mencoes-prof-date {
+        padding: 6px 11px;
+        font-size: .78rem;
+    }
+
+    .mencoes-prof-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .mencoes-prof-delete-form {
+        width: 100%;
+    }
+
+    .mencoes-prof-congratulations {
+        padding: 34px 22px;
+        border-radius: 23px;
+    }
+
+    .mencoes-prof-congratulations-icon {
+        width: 72px;
+        height: 72px;
+        font-size: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mencoes-prof-sparkle {
+        animation: none;
+    }
+
+    .mencoes-prof-card,
+    .mencoes-prof-add-button,
+    .mencoes-prof-save,
+    .mencoes-prof-cancel,
+    .mencoes-prof-edit,
+    .mencoes-prof-delete {
+        transition: none;
+    }
+}

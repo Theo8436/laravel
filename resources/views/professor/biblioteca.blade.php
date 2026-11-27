@@ -1,1471 +1,696 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Biblioteca | Beth Cientista</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/biblioteca-professor.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
-
-<style>
-
-/* =========================
-   GERAL
-========================= */
-
-*{
-
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-
-    font-family:'Poppins',sans-serif;
-
-}
-
-body{
-
-    min-height:100vh;
-
-    background:
-    linear-gradient(
-        180deg,
-        #7000a8 0%,
-        #b400d4 55%,
-        #ef6c73 100%
-    );
-
-    color:white;
-
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-header{
-
-    width:100%;
-
-    background:#ff7700;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:12px 7%;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,.25);
-
-    position:sticky;
-
-    top:0;
-
-    z-index:999;
-
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.logo{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-}
-
-.logo img{
-
-    width:60px;
-    height:60px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:3px solid white;
-
-}
-
-.logo h2{
-
-    font-size:28px;
-
-    font-weight:800;
-
-}
-
-.logo p{
-
-    font-size:13px;
-
-}
-
-
-/* =========================
-   NAV
-========================= */
-
-nav{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-}
-
-nav a{
-
-    text-decoration:none;
-
-    background:white;
-
-    color:#ff7300;
-
-    padding:10px 16px;
-
-    border-radius:25px;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-nav a:hover{
-
-    transform:translateY(-3px);
-
-    background:#ffe5cb;
-
-}
-
-nav .ativo{
-
-    background:#ffd343;
-
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
-main{
-
-    width:85%;
-
-    max-width:1200px;
-
-    margin:auto;
-
-    padding:45px 0 70px;
-
-}
-
-
-/* =========================
-   TÍTULO
-========================= */
-
-.titulo{
-
-    text-align:center;
-
-    margin-bottom:35px;
-
-}
-
-.titulo h1{
-
-    font-size:48px;
-
-    font-weight:800;
-
-}
-
-.titulo p{
-
-    margin-top:8px;
-
-    font-size:18px;
-
-}
-.btn-aprovar-solicitacao {
-
-    border:none;
-
-    background:#16c964;
-
-    color:white;
-
-    padding:10px 15px;
-
-    border-radius:20px;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.btn-aprovar-solicitacao:hover {
-
-    background:#0eaa50;
-
-    transform:translateY(-2px);
-
-}
-@media(max-width:800px) {
-
-    .solicitacao-card > div {
-
-        grid-template-columns:1fr !important;
-
-    }
-
-}
-
-
-/* =========================
-   PESQUISA
-========================= */
-
-.pesquisa{
-
-    width:100%;
-
-    display:flex;
-
-    justify-content:center;
-
-    margin-bottom:25px;
-
-}
-
-.pesquisa-box{
-
-    width:600px;
-
-    background:white;
-
-    border-radius:30px;
-
-    padding:6px 10px;
-
-    display:flex;
-
-    align-items:center;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.20);
-
-}
-
-.pesquisa-box i{
-
-    color:#8b2cf5;
-
-    font-size:20px;
-
-    margin:0 10px;
-
-}
-
-.pesquisa-box input{
-
-    width:100%;
-
-    border:none;
-
-    outline:none;
-
-    padding:12px;
-
-    font-size:14px;
-
-}
-
-
-/* =========================
-   ÁREA DO PROFESSOR
-========================= */
-
-.area-professor{
-
-    background:rgba(255,255,255,.15);
-
-    border:1px solid rgba(255,255,255,.35);
-
-    border-radius:20px;
-
-    padding:20px 25px;
-
-    margin-bottom:35px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    box-shadow:
-        0 8px 20px rgba(0,0,0,.15);
-
-}
-
-.area-professor h3{
-
-    font-size:20px;
-
-}
-
-.area-professor p{
-
-    font-size:13px;
-
-    margin-top:4px;
-
-}
-
-.btn-cadastrar{
-
-    border:none;
-
-    background:#ff7a00;
-
-    color:white;
-
-    padding:13px 22px;
-
-    border-radius:25px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.btn-cadastrar:hover{
-
-    background:#ff9500;
-
-    transform:translateY(-3px);
-
-}
-
-
-/* =========================
-   LIVROS
-========================= */
-
-.livros{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:25px;
-
-}
-
-
-/* =========================
-   CARD
-========================= */
-
-.card{
-
-    background:white;
-
-    color:#222;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.25);
-
-    transition:.3s;
-
-}
-
-.card:hover{
-
-    transform:translateY(-7px);
-
-}
-
-
-/* =========================
-   CAPA
-========================= */
-
-.capa{
-
-    height:150px;
-
-    background:
-    linear-gradient(
-        135deg,
-        #d79cf5,
-        #ffb36b
-    );
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.capa i{
-
-    font-size:60px;
-
-    color:white;
-
-}
-
-
-/* =========================
-   CONTEÚDO CARD
-========================= */
-
-.conteudo{
-
-    padding:20px;
-
-}
-
-.conteudo h2{
-
-    font-size:20px;
-
-    margin-bottom:7px;
-
-}
-
-.autor{
-
-    color:#666;
-
-    font-size:13px;
-
-    margin-bottom:15px;
-
-}
-
-
-/* =========================
-   STATUS
-========================= */
-
-.status{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-top:15px;
-
-}
-
-.status span{
-
-    padding:6px 12px;
-
-    border-radius:20px;
-
-    color:white;
-
-    font-size:12px;
-
-    font-weight:700;
-
-}
-
-.livre{
-
-    background:#16c964;
-
-}
-
-.emprestado{
-
-    background:#ff9800;
-
-}
-
-.esgotado{
-
-    background:#ef4444;
-
-}
-
-
-/* =========================
-   CONTROLES
-========================= */
-
-.controles{
-
-    margin-top:15px;
-
-    display:flex;
-
-    gap:8px;
-
-}
-
-.controles select{
-
-    flex:1;
-
-    padding:9px;
-
-    border-radius:10px;
-
-    border:1px solid #ddd;
-
-    outline:none;
-
-}
-
-.btn-excluir{
-
-    border:none;
-
-    background:#ef5350;
-
-    color:white;
-
-    width:40px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-}
-
-.btn-excluir:hover{
-
-    background:#d32f2f;
-
-}
-
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.65);
-
-    justify-content:center;
-
-    align-items:center;
-
-    z-index:2000;
-
-    padding:20px;
-
-}
-
-.modal.ativo{
-
-    display:flex;
-
-}
-
-.formulario{
-
-    width:100%;
-
-    max-width:500px;
-
-    background:
-    linear-gradient(
-        180deg,
-        #f8d7ff,
-        #ffe2d2
-    );
-
-    color:#222;
-
-    padding:35px;
-
-    border-radius:25px;
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.35);
-
-}
-
-.formulario h2{
-
-    text-align:center;
-
-    color:#4b1d91;
-
-    margin-bottom:25px;
-
-}
-
-.campo{
-
-    margin-bottom:18px;
-
-}
-
-.campo label{
-
-    display:block;
-
-    font-weight:700;
-
-    margin-bottom:7px;
-
-}
-
-.campo input,
-.campo select{
-
-    width:100%;
-
-    padding:13px;
-
-    border:none;
-
-    background:#f3f3f3;
-
-    border-radius:12px;
-
-    outline:none;
-
-    font-size:15px;
-
-}
-
-.campo input:focus,
-.campo select:focus{
-
-    background:white;
-
-    box-shadow:
-        0 0 0 2px #ff7a00;
-
-}
-
-
-/* =========================
-   BOTÕES MODAL
-========================= */
-
-.botoes{
-
-    display:flex;
-
-    gap:12px;
-
-    margin-top:25px;
-
-}
-
-.botoes button{
-
-    flex:1;
-
-    border:none;
-
-    padding:13px;
-
-    border-radius:25px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-}
-
-.cancelar{
-
-    background:white;
-
-    color:#ff7a00;
-
-    border:2px solid #ff7a00 !important;
-
-}
-
-.salvar{
-
-    background:#ff7a00;
-
-    color:white;
-
-}
-
-.salvar:hover{
-
-    background:#ff9500;
-
-}
-
-
-/* =========================
-   MENSAGEM
-========================= */
-
-.mensagem{
-
-    display:none;
-
-    margin-top:15px;
-
-    padding:12px;
-
-    border-radius:12px;
-
-    text-align:center;
-
-    font-weight:600;
-
-    background:#d8f8df;
-
-    color:#24733a;
-
-}
-
-
-/* =========================
-   VAZIO
-========================= */
-
-.vazio{
-
-    grid-column:1/-1;
-
-    text-align:center;
-
-    background:white;
-
-    color:#555;
-
-    padding:40px;
-
-    border-radius:20px;
-
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-
-    text-align:center;
-
-    padding:25px;
-
-    background:rgba(0,0,0,.12);
-
-}
-
-
-/* =========================
-   RESPONSIVO
-========================= */
-
-@media(max-width:1000px){
-
-    header{
-
-        flex-direction:column;
-
-        gap:15px;
-
-        padding:20px;
-
-    }
-
-    nav{
-
-        flex-wrap:wrap;
-
-        justify-content:center;
-
-    }
-
-    main{
-
-        width:92%;
-
-    }
-
-    .livros{
-
-        grid-template-columns:
-            repeat(2,1fr);
-
-    }
-
-}
-
-@media(max-width:650px){
-
-    .livros{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .titulo h1{
-
-        font-size:36px;
-
-    }
-
-    .area-professor{
-
-        flex-direction:column;
-
-        gap:15px;
-
-        text-align:center;
-
-    }
-
-}
-
-</style>
-
 
 <body>
 
+    {{-- NAVBAR DA ÁREA DO PROFESSOR --}}
+    @include('components.navbar-professor')
 
-<!-- =========================
-     HEADER
-========================= -->
-<header>
-    <div class="logo">
-        <img src="{{ asset('Beth.jpg') }}">
-        <div>
-            <h2>BETH CIENTISTA</h2>
-            <p>Divulgação Científica</p>
+    <main class="bc-library">
+
+        <div class="bc-noise"></div>
+
+        <div class="bc-sparkles" aria-hidden="true">
+            <span style="--i:1; top:12%; left:8%;"></span>
+            <span style="--i:2; top:22%; left:88%;"></span>
+            <span style="--i:3; top:48%; left:15%;"></span>
+            <span style="--i:4; top:67%; left:92%;"></span>
+            <span style="--i:5; top:82%; left:30%;"></span>
+            <span style="--i:6; top:35%; left:72%;"></span>
+            <span style="--i:7; top:90%; left:75%;"></span>
+            <span style="--i:8; top:15%; left:52%;"></span>
         </div>
-    </div>
 
-    <nav>
-        <a href="{{ route('professor.inicio') }}">Início</a>
-        <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
-        <a href="{{ route('professor.galeria') }}">Galeria</a>
-        <a href="{{ route('professor.biblioteca') }}" class="ativo">Biblioteca</a>
-        <a href="{{ route('professor.mencao') }}">Menções Honrosas</a>
-        <a href="{{ route('professor.logado') }}">Minha area</a>
-        <a href="{{ route('inicio') }}">Sair</a>
-        <a href="{{ route('professor.inicio') }}">Início</a>
-    </nav>
-</header>
+        <div class="bc-container">
 
-<!-- =========================
-     CONTEÚDO
-========================= -->
-<main>
-    <section class="titulo">
-        <h1>BIBLIOTECA BETH CIENTISTA</h1>
-        <p>Acervo de livros científicos para os Clubistas!</p>
-    </section>
+            {{-- CABEÇALHO --}}
+            <section class="bc-heading">
 
-    <!-- ALERTAS DE SUCESSO OU ERRO DO LARAVEL -->
-    @if(session('sucesso'))
-        <div style="color: green; background: #e6ffe6; padding: 10px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; text-align: center;">
-            {{ session('sucesso') }}
-        </div>
-    @endif
+                <p class="bc-eyebrow">
+                    <i class="bi bi-stars"></i>
+                </p>
 
-    <!-- PESQUISA -->
-    <div class="pesquisa">
-        <div class="pesquisa-box">
-            <i class="bi bi-search"></i>
-            <input
-                type="text"
-                id="pesquisa"
-                placeholder="Buscar livros por título ou autor..."
-                onkeyup="pesquisarLivros()"
-            >
-        </div>
-    </div>
+                <h1 class="bc-title">Biblioteca Beth Cientista</h1>
 
-<!-- =========================
-     ÁREA DO PROFESSOR
-========================= -->
+                <p class="bc-subtitle">
+                    Gerencie o acervo científico e incentive a leitura dos clubistas!
+                </p>
 
-<section class="area-professor">
+                {{-- PESQUISA --}}
+                <div class="bc-search-wrap">
+                    <label class="bc-search" for="bcBusca">
+                        <i class="bi bi-search" aria-hidden="true"></i>
 
-    <div>
-        <h3>
-            <i class="bi bi-book"></i>
-            Gerenciamento da Biblioteca
-        </h3>
-
-        <p>
-            Cadastre livros e acompanhe as solicitações de empréstimo dos alunos.
-        </p>
-    </div>
-
-    <div style="
-        display:flex;
-        gap:10px;
-        flex-wrap:wrap;
-        justify-content:center;
-    ">
-
-        <button
-            type="button"
-            class="btn-cadastrar"
-            onclick="abrirFormulario()"
-        >
-            <i class="bi bi-plus-lg"></i>
-            Cadastrar Livro
-        </button>
-
-        <button
-            type="button"
-            class="btn-cadastrar"
-            onclick="abrirSolicitacoes()"
-            style="background:#8b2cf5;"
-        >
-            <i class="bi bi-person-lines-fill"></i>
-            Ver solicitações
-        </button>
-
-    </div>
-
-</section>
-
-<!-- LIVROS (DINÂMICOS DO BANCO DE DADOS) -->
-<section class="livros" id="listaLivros">
-        @forelse($livros as $livro)
-            <div class="card card-livro" data-titulo="{{ strtolower($livro->titulo) }}" data-autor="{{ strtolower($livro->autor) }}">
-                <div class="capa">
-                    <i class="bi bi-book"></i>
+                        <input
+                            type="search"
+                            id="bcBusca"
+                            placeholder="Buscar livros por título, autor ou categoria..."
+                            autocomplete="off"
+                        >
+                    </label>
                 </div>
 
-                <div class="conteudo">
-                    <h2>{{ $livro->titulo }}</h2>
-                    <p class="autor">{{ $livro->autor }} • {{ $livro->categoria }}</p>
+            </section>
 
-                    <!-- AQUI É O LUGAR CORRETO DAS TAGS VISÍVEIS DO CARD -->
-                    <div class="status" style="margin-bottom: 10px; min-height: 25px;">
-                        @if(strtolower($livro->status) == 'livre')
-                            <span class="livre">Livre</span>
-                        @elseif(strtolower($livro->status) == 'emprestado')
-                            <span class="emprestado" style="background-color: #e06e00; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block;">
-                                Emprestado
-                            </span>
-                        @elseif(strtolower($livro->status) == 'reservado')
-                            <span class="reservado" style="background-color: #007bff; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block;">
-                                Reservado
-                            </span>
-                        @else
-                            <span style="background-color: #6c757d; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block;">
-                                {{ ucfirst($livro->status) }}
-                            </span>
+            {{-- MENSAGENS DO LARAVEL --}}
+            @if(session('sucesso'))
+                <div class="bc-alert bc-alert-success">
+                    <i class="bi bi-check-circle-fill"></i>
+                    {{ session('sucesso') }}
+                </div>
+            @endif
+
+            @if(session('erro'))
+                <div class="bc-alert bc-alert-error">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    {{ session('erro') }}
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="bc-alert bc-alert-error">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    <div>
+                        @foreach($errors->all() as $erro)
+                            <p>{{ $erro }}</p>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            {{-- PAINEL DE GERENCIAMENTO --}}
+            <section class="bc-management">
+
+                <div class="bc-management-content">
+
+                    <div class="bc-management-icon">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+
+                    <div>
+                        <h2>Gerenciamento da Biblioteca</h2>
+                        <p>
+                            Cadastre novos livros, atualize o acervo e acompanhe
+                            as solicitações de empréstimo dos alunos.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="bc-management-actions">
+
+                    <button
+                        type="button"
+                        class="bc-action-btn bc-add-btn"
+                        onclick="abrirFormulario()"
+                    >
+                        <i class="bi bi-plus-circle"></i>
+                        Cadastrar livro
+                    </button>
+
+                    <button
+                        type="button"
+                        class="bc-action-btn bc-requests-btn"
+                        onclick="abrirSolicitacoes()"
+                    >
+                        <i class="bi bi-person-lines-fill"></i>
+                        Solicitações
+                        @if(isset($solicitacoes) && $solicitacoes->count() > 0)
+                            <span class="bc-request-count">{{ $solicitacoes->count() }}</span>
                         @endif
-                    </div>
+                    </button>
 
-                    <div class="controles" style="display: flex; gap: 10px; margin-top: 15px;">
-                        <!-- Botão Editar que abre o Modal de Edição preenchido -->
-                        <button class="salvar" style="padding: 5px 10px; cursor: pointer;" onclick="abrirEdicao({{ json_encode($livro) }})">
-                            <i class="bi bi-pencil"></i> Editar
-                        </button>
-
-                        <!-- Botão Excluir -->
-                        <button type="button" class="cancelar" style="padding: 5px 10px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 4px;" 
-                            onclick="abrirConfirmacaoExcluir({{ $livro->id }}, '{{ addslashes($livro->titulo) }}')">
-                            <i class="bi bi-trash"></i> Excluir
-                        </button>
-                    </div>
                 </div>
-            </div>
-        @empty
-            <div class="vazio">
-                <i class="bi bi-book" style="font-size:40px"></i>
-                <h3>Nenhum livro cadastrado</h3>
-                <p>O banco de dados está vazio. Cadastre o seu primeiro livro acima.</p>
-            </div>
-        @endforelse
-    </section>
-</main>
 
-<footer>
-    © 2026 Beth Cientista
-</footer>
+            </section>
 
-<!-- =========================
-     MODAL CADASTRO
-========================= -->
-<div class="modal" id="modalCadastro">
-    <div class="formulario">
-        <h2><i class="bi bi-book"></i> Cadastrar Livro</h2>
+            {{-- TÍTULO DO ACERVO --}}
+            <div class="bc-acervo-heading">
+                <div>
+                    <h2>
+                        <i class="bi bi-collection-fill"></i>
+                        Acervo de livros
+                    </h2>
+                    <span>Livros cadastrados na plataforma</span>
+                </div>
 
-        <form id="formLivro" action="{{ route('livros.store') }}" method="POST">
-            @csrf
-            <div class="campo">
-                <label for="tituloLivro">Título do livro</label>
-                <input type="text" id="tituloLivro" name="titulo" placeholder="Digite o título" required>
+                <span class="bc-total">
+                    {{ $livros->count() }} {{ $livros->count() === 1 ? 'livro' : 'livros' }}
+                </span>
             </div>
 
-            <div class="campo">
-                <label for="autorLivro">Autor</label>
-                <input type="text" id="autorLivro" name="autor" placeholder="Digite o autor" required>
-            </div>
+            {{-- LISTA DE LIVROS --}}
+            <section class="bc-books" id="bcListaLivros">
 
-            <div class="campo">
-                <label for="categoriaLivro">Categoria</label>
-                <select id="categoriaLivro" name="categoria" required>
-                    <option value="">Selecione uma categoria</option>
-                    <option value="Astronomia">Astronomia</option>
-                    <option value="Biologia">Biologia</option>
-                    <option value="Física">Física</option>
-                    <option value="Química">Química</option>
-                    <option value="Ciências">Ciências</option>
-                </select>
-            </div>
+                @forelse($livros as $livro)
 
-            <div class="campo">
-                <label for="statusLivro">Status</label>
-                <select id="statusLivro" name="status" required>
-                    <option value="livre">Livre</option>
-                    <option value="emprestado">Emprestado</option>
-                    <option value="reservado">Reservado</option>
-                </select>
-            </div>
+                    @php
+                        $status = strtolower($livro->status ?? '');
+                        $buscaLivro = strtolower(
+                            ($livro->titulo ?? '') . ' ' .
+                            ($livro->autor ?? '') . ' ' .
+                            ($livro->categoria ?? '') . ' ' .
+                            $status
+                        );
+                    @endphp
 
-            <div class="botoes">
-                <button type="button" class="cancelar" onclick="fecharFormulario()">Cancelar</button>
-                <button type="submit" class="salvar"><i class="bi bi-check-lg"></i> Cadastrar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- =========================
-     MODAL EDIÇÃO
-========================= -->
-<div class="modal" id="modalEdicao" style="display: none;">
-    <div class="formulario">
-        <h2><i class="bi bi-pencil"></i> Editar Livro</h2>
-
-        <form id="formEdicao" action="" method="POST">
-            @csrf
-            @method('PUT')
-            
-            <div class="campo">
-                <label for="editTituloLivro">Título do livro</label>
-                <input type="text" id="editTituloLivro" name="titulo" required>
-            </div>
-
-            <div class="campo">
-                <label for="editAutorLivro">Autor</label>
-                <input type="text" id="editAutorLivro" name="autor" required>
-            </div>
-
-            <div class="campo">
-                <label for="editCategoriaLivro">Categoria</label>
-                <select id="editCategoriaLivro" name="categoria" required>
-                    <option value="Astronomia">Astronomia</option>
-                    <option value="Biologia">Biologia</option>
-                    <option value="Física">Física</option>
-                    <option value="Química">Química</option>
-                    <option value="Ciências">Ciências</option>
-                </select>
-            </div>
-
-            <!-- RESTAURADO: Campo select correto para alterar o status no banco -->
-            <div class="campo">
-                <label for="editStatusLivro">Status</label>
-                <select id="editStatusLivro" name="status" required>
-                    <option value="livre">Livre</option>
-                    <option value="emprestado">Emprestado</option>
-                    <option value="reservado">Reservado</option>
-                </select>
-            </div>
-
-            <div class="botoes">
-                <button type="button" class="cancelar" onclick="fecharEdicao()">Cancelar</button>
-                <button type="submit" class="salvar"><i class="bi bi-check-lg"></i> Salvar Alterações</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- =========================
-     MODAL CONFIRMAÇÃO DE EXCLUSÃO
-========================= -->
-<div class="modal" id="modalExcluir" style="display: none;">
-    <div class="formulario" style="text-align: center; max-width: 400px;">
-        <h2><i class="bi bi-exclamation-triangle" style="color: #dc3545;"></i> Excluir Livro</h2>
-        
-        <p style="margin: 20px 0; font-size: 16px;">
-            Tem certeza que deseja excluir o livro <strong id="nomeLivroExcluir"></strong>? Esta ação não poderá ser desfeita.
-        </p>
-
-        <form id="formExcluir" action="" method="POST">
-            @csrf
-            @method('DELETE')
-            
-            <div class="botoes" style="justify-content: center; gap: 15px;">
-                <button type="button" class="salvar" style="background-color: #6c757d;" onclick="fecharConfirmacaoExcluir()">
-                    Cancelar
-                </button>
-                <button type="submit" class="cancelar" style="background-color: #dc3545; color: white;">
-                    Sim, Excluir
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
-<script>
-/* =========================
-   SCRIPTS JAVASCRIPT
-========================= */
-
-// Controle do Modal de Cadastro
-function abrirFormulario() {
-    document.getElementById("modalCadastro").style.display = "flex";
-}
-
-function fecharFormulario() {
-    document.getElementById("modalCadastro").style.display = "none";
-}
-
-// Controle do Modal de Edição Dinâmica
-function abrirEdicao(livro) {
-    document.getElementById("formEdicao").action = `/professor/biblioteca/atualizar/${livro.id}`;
-    
-    document.getElementById("editTituloLivro").value = livro.titulo;
-    document.getElementById("editAutorLivro").value = livro.autor;
-    document.getElementById("editCategoriaLivro").value = livro.categoria;
-    document.getElementById("editStatusLivro").value = livro.status;
-    
-    document.getElementById("modalEdicao").style.display = "flex";
-}
-
-function fecharEdicao() {
-    document.getElementById("modalEdicao").style.display = "none";
-}
-
-// Filtro em tempo real de Pesquisa (Front-end rápido)
-function pesquisarLivros() {
-    const termo = document.getElementById("pesquisa").value.toLowerCase();
-    const cards = document.querySelectorAll(".card-livro");
-
-    cards.forEach(card => {
-        const titulo = card.getAttribute("data-titulo");
-        const autor = card.getAttribute("data-autor");
-
-        if (titulo.includes(termo) || autor.includes(termo)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
-
-// Controle do Modal de Confirmação de Exclusão
-function abrirConfirmacaoExcluir(id, titulo) {
-    document.getElementById("formExcluir").action = `/professor/biblioteca/excluir/${id}`;
-    document.getElementById("nomeLivroExcluir").innerText = titulo;
-    document.getElementById("modalExcluir").style.display = "flex";
-}
-
-function fecharConfirmacaoExcluir() {
-    document.getElementById("modalExcluir").style.display = "none";
-}
-
-// UNIFICADO: Fecha qualquer um dos três modais se clicar no fundo escuro fora deles
-window.onclick = function(event) {
-    const modalCad = document.getElementById("modalCadastro");
-    const modalEdi = document.getElementById("modalEdicao");
-    const modalExc = document.getElementById("modalExcluir");
-    
-    if (event.target === modalCad) modalCad.style.display = "none";
-    if (event.target === modalEdi) modalEdi.style.display = "none";
-    if (event.target === modalExc) modalExc.style.display = "none";
-}
-/* =========================
-   SOLICITAÇÕES
-========================= */
-
-function abrirSolicitacoes() {
-
-    document.getElementById("modalSolicitacoes").style.display = "flex";
-
-}
-
-
-function fecharSolicitacoes() {
-
-    document.getElementById("modalSolicitacoes").style.display = "none";
-
-}
-
-</script>
-<!-- =========================
-     MODAL SOLICITAÇÕES
-========================= -->
-
-<div
-    class="modal"
-    id="modalSolicitacoes"
-    style="display:none;"
->
-    <div
-        class="formulario"
-        style="
-            max-width:900px;
-            max-height:85vh;
-            overflow-y:auto;
-        "
-    >
-
-        <h2>
-            <i class="bi bi-person-lines-fill"></i>
-            Solicitações de Empréstimo
-        </h2>
-
-        @if($solicitacoes->count() > 0)
-
-            <div
-                style="
-                    display:flex;
-                    flex-direction:column;
-                    gap:15px;
-                "
-            >
-
-                @foreach($solicitacoes as $solicitacao)
-
-                    <div
-                        class="solicitacao-card"
-                        style="
-                            background:white;
-                            border-radius:15px;
-                            padding:18px;
-                            box-shadow:0 5px 15px rgba(0,0,0,.12);
-                            color:#222;
-                        "
+                    <article
+                        class="bc-book-card"
+                        data-busca="{{ $buscaLivro }}"
+                        data-livro="{{ json_encode($livro) }}"
                     >
 
-                        <div
-                            style="
-                                display:grid;
-                                grid-template-columns:
-                                    1fr 1fr 1fr auto;
-                                gap:15px;
-                                align-items:center;
-                            "
-                        >
+                        <div class="bc-book-cover">
 
-                            <div>
+                            <div class="bc-cover-dots"></div>
 
-                                <small
-                                    style="
-                                        color:#777;
-                                        font-weight:600;
-                                    "
-                                >
-                                    ALUNO
-                                </small>
+                            <span class="bc-cover-decoration">✦</span>
 
-                                <strong
-                                    style="
-                                        display:block;
-                                        color:#4b1d91;
-                                    "
-                                >
-                                    {{ $solicitacao->nome_aluno }}
-                                </strong>
+                            <i class="bi bi-book-half" aria-hidden="true"></i>
 
-                            </div>
+                            <span class="bc-cover-label">Beth Cientista</span>
 
+                        </div>
 
-                            <div>
+                        <div class="bc-book-info">
 
-                                <small
-                                    style="
-                                        color:#777;
-                                        font-weight:600;
-                                    "
-                                >
-                                    E-MAIL
-                                </small>
+                            <div class="bc-book-top">
 
-                                <span
-                                    style="
-                                        display:block;
-                                        font-size:13px;
-                                    "
-                                >
-                                    {{ $solicitacao->email_aluno }}
+                                <span class="bc-tag bc-category">
+                                    {{ $livro->categoria }}
                                 </span>
 
-                            </div>
-
-
-                            <div>
-
-                                <small
-                                    style="
-                                        color:#777;
-                                        font-weight:600;
-                                    "
-                                >
-                                    LIVRO SOLICITADO
-                                </small>
-
-                                <strong
-                                    style="
-                                        display:block;
-                                        color:#ff7a00;
-                                    "
-                                >
-                                    {{ $solicitacao->titulo_livro }}
-                                </strong>
+                                @if($status === 'livre')
+                                    <span class="bc-tag bc-status">Livre</span>
+                                @elseif($status === 'emprestado')
+                                    <span class="bc-tag bc-status-off">Emprestado</span>
+                                @elseif($status === 'reservado')
+                                    <span class="bc-tag bc-status-reserved">Reservado</span>
+                                @else
+                                    <span class="bc-tag bc-status-other">
+                                        {{ ucfirst($livro->status) }}
+                                    </span>
+                                @endif
 
                             </div>
 
+                            <h3 class="bc-book-title">{{ $livro->titulo }}</h3>
 
-                            <div>
-<form
-    action="{{ route('emprestimo.aprovar', $solicitacao->id) }}"
-    method="POST"
->
-    @csrf
+                            <p class="bc-book-author">
+                                <i class="bi bi-person-fill"></i>
+                                {{ $livro->autor }}
+                            </p>
 
-    <button
-        type="submit"
-        class="btn-aprovar-solicitacao"
-    >
-        <i class="bi bi-check-lg"></i>
-        Aprovar solicitação
-    </button>
-</form>
+                            <div class="bc-book-actions">
+
+                                <button
+                                    type="button"
+                                    class="bc-edit-btn"
+                                    onclick="abrirEdicao(JSON.parse(this.closest('.bc-book-card').dataset.livro))"
+                                >
+                                    <i class="bi bi-pencil-fill"></i>
+                                    Editar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="bc-delete-btn"
+                                    data-id="{{ $livro->id }}"
+                                    data-titulo="{{ $livro->titulo }}"
+                                    onclick="abrirConfirmacaoExcluir(this.dataset.id, this.dataset.titulo)"
+                                >
+                                    <i class="bi bi-trash-fill"></i>
+                                    Excluir
+                                </button>
 
                             </div>
 
                         </div>
 
+                    </article>
 
-                       
+                @empty
 
+                    <div class="bc-empty">
+                        <i class="bi bi-book-half"></i>
+                        <h3>Nenhum livro cadastrado ainda!</h3>
+                        <p>
+                            Seu acervo está esperando os primeiros livros.
+                            Clique em “Cadastrar livro” para começar.
+                        </p>
                     </div>
 
-                @endforeach
+                @endforelse
 
-            </div>
+                <div class="bc-empty" id="bcSemResultado" hidden>
+                    <i class="bi bi-search"></i>
+                    <h3>Nenhum livro encontrado.</h3>
+                    <p>Tente pesquisar usando outro título, autor ou categoria.</p>
+                    <button type="button" class="bc-clear-search" onclick="limparPesquisa()">
+                        Limpar pesquisa
+                    </button>
+                </div>
 
-        @else
-
-            <div
-                style="
-                    text-align:center;
-                    background:white;
-                    color:#666;
-                    padding:40px 20px;
-                    border-radius:15px;
-                "
-            >
-
-                <i
-                    class="bi bi-inbox"
-                    style="
-                        font-size:50px;
-                        color:#8b2cf5;
-                    "
-                ></i>
-
-                <h3>
-                    Nenhuma solicitação de empréstimo
-                </h3>
-
-                <p>
-                    Quando um aluno solicitar um livro,
-                    a solicitação aparecerá aqui.
-                </p>
-
-            </div>
-
-        @endif
-
-
-        <div
-            class="botoes"
-            style="margin-top:25px;"
-        >
-
-            <button
-                type="button"
-                class="cancelar"
-                onclick="fecharSolicitacoes()"
-            >
-                Fechar
-            </button>
+            </section>
 
         </div>
+    </main>
 
+    {{-- TOAST --}}
+    <div id="bcToast" class="bc-toast" role="status" aria-live="polite"></div>
+
+    {{-- FOOTER COMPARTILHADO --}}
+    @include('components.footer')
+
+
+    {{-- ==========================================
+         MODAL CADASTRAR LIVRO
+    ========================================== --}}
+    <div class="bc-modal" id="modalCadastro">
+
+        <div class="bc-modal-content">
+
+            <div class="bc-modal-heading">
+                <div class="bc-modal-icon">
+                    <i class="bi bi-book-half"></i>
+                </div>
+
+                <h2>Cadastrar livro</h2>
+                <p>Adicione uma nova obra ao acervo científico.</p>
+
+                <button type="button" class="bc-modal-close" onclick="fecharFormulario()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <form id="formLivro" action="{{ route('livros.store') }}" method="POST">
+                @csrf
+
+                <div class="bc-field">
+                    <label for="tituloLivro">Título do livro</label>
+                    <input
+                        type="text"
+                        id="tituloLivro"
+                        name="titulo"
+                        placeholder="Digite o título do livro"
+                        required
+                    >
+                </div>
+
+                <div class="bc-field">
+                    <label for="autorLivro">Autor</label>
+                    <input
+                        type="text"
+                        id="autorLivro"
+                        name="autor"
+                        placeholder="Digite o nome do autor"
+                        required
+                    >
+                </div>
+
+                <div class="bc-field">
+                    <label for="categoriaLivro">Categoria</label>
+                    <select id="categoriaLivro" name="categoria" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="Astronomia">Astronomia</option>
+                        <option value="Biologia">Biologia</option>
+                        <option value="Física">Física</option>
+                        <option value="Química">Química</option>
+                        <option value="Ciências">Ciências</option>
+                    </select>
+                </div>
+
+                <div class="bc-field">
+                    <label for="statusLivro">Disponibilidade</label>
+                    <select id="statusLivro" name="status" required>
+                        <option value="livre">Livre</option>
+                        <option value="emprestado">Emprestado</option>
+                        <option value="reservado">Reservado</option>
+                    </select>
+                </div>
+
+                <div class="bc-modal-buttons">
+                    <button type="button" class="bc-cancel-btn" onclick="fecharFormulario()">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="bc-save-btn">
+                        <i class="bi bi-check-lg"></i>
+                        Cadastrar livro
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
     </div>
-</div>
+
+
+    {{-- ==========================================
+         MODAL EDITAR LIVRO
+    ========================================== --}}
+    <div class="bc-modal" id="modalEdicao">
+
+        <div class="bc-modal-content">
+
+            <div class="bc-modal-heading">
+                <div class="bc-modal-icon bc-edit-icon">
+                    <i class="bi bi-pencil-fill"></i>
+                </div>
+
+                <h2>Editar livro</h2>
+                <p>Atualize as informações desta obra.</p>
+
+                <button type="button" class="bc-modal-close" onclick="fecharEdicao()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            <form id="formEdicao" action="" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="bc-field">
+                    <label for="editTituloLivro">Título do livro</label>
+                    <input type="text" id="editTituloLivro" name="titulo" required>
+                </div>
+
+                <div class="bc-field">
+                    <label for="editAutorLivro">Autor</label>
+                    <input type="text" id="editAutorLivro" name="autor" required>
+                </div>
+
+                <div class="bc-field">
+                    <label for="editCategoriaLivro">Categoria</label>
+                    <select id="editCategoriaLivro" name="categoria" required>
+                        <option value="Astronomia">Astronomia</option>
+                        <option value="Biologia">Biologia</option>
+                        <option value="Física">Física</option>
+                        <option value="Química">Química</option>
+                        <option value="Ciências">Ciências</option>
+                    </select>
+                </div>
+
+                <div class="bc-field">
+                    <label for="editStatusLivro">Disponibilidade</label>
+                    <select id="editStatusLivro" name="status" required>
+                        <option value="livre">Livre</option>
+                        <option value="emprestado">Emprestado</option>
+                        <option value="reservado">Reservado</option>
+                    </select>
+                </div>
+
+                <div class="bc-modal-buttons">
+                    <button type="button" class="bc-cancel-btn" onclick="fecharEdicao()">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="bc-save-btn">
+                        <i class="bi bi-check-lg"></i>
+                        Salvar alterações
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    {{-- ==========================================
+         MODAL EXCLUIR LIVRO
+    ========================================== --}}
+    <div class="bc-modal" id="modalExcluir">
+
+        <div class="bc-modal-content bc-confirm-content">
+
+            <div class="bc-confirm-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+
+            <h2>Excluir livro?</h2>
+
+            <p>
+                Tem certeza que deseja excluir
+                <strong id="nomeLivroExcluir"></strong>?
+                Esta ação não poderá ser desfeita.
+            </p>
+
+            <form id="formExcluir" action="" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <div class="bc-modal-buttons">
+                    <button
+                        type="button"
+                        class="bc-cancel-btn"
+                        onclick="fecharConfirmacaoExcluir()"
+                    >
+                        Cancelar
+                    </button>
+
+                    <button type="submit" class="bc-delete-confirm-btn">
+                        <i class="bi bi-trash-fill"></i>
+                        Sim, excluir
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+    {{-- ==========================================
+         MODAL SOLICITAÇÕES DE EMPRÉSTIMO
+    ========================================== --}}
+    <div class="bc-modal" id="modalSolicitacoes">
+
+        <div class="bc-modal-content bc-requests-content">
+
+            <div class="bc-modal-heading">
+                <div class="bc-modal-icon bc-requests-icon">
+                    <i class="bi bi-person-lines-fill"></i>
+                </div>
+
+                <h2>Solicitações de empréstimo</h2>
+                <p>Acompanhe os pedidos enviados pelos alunos.</p>
+
+                <button type="button" class="bc-modal-close" onclick="fecharSolicitacoes()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+
+            @if($solicitacoes->count() > 0)
+
+                <div class="bc-request-list">
+
+                    @foreach($solicitacoes as $solicitacao)
+
+                        <article class="bc-request-card">
+
+                            <div class="bc-request-information">
+
+                                <div class="bc-request-item">
+                                    <span>ALUNO</span>
+                                    <strong>{{ $solicitacao->nome_aluno }}</strong>
+                                </div>
+
+                                <div class="bc-request-item">
+                                    <span>E-MAIL</span>
+                                    <p>{{ $solicitacao->email_aluno }}</p>
+                                </div>
+
+                                <div class="bc-request-item">
+                                    <span>LIVRO SOLICITADO</span>
+                                    <strong class="bc-request-book">
+                                        {{ $solicitacao->titulo_livro }}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                            <form
+                                action="{{ route('emprestimo.aprovar', $solicitacao->id) }}"
+                                method="POST"
+                                class="bc-approve-form"
+                            >
+                                @csrf
+
+                                <button type="submit" class="bc-approve-btn">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Aprovar solicitação
+                                </button>
+                            </form>
+
+                        </article>
+
+                    @endforeach
+
+                </div>
+
+            @else
+
+                <div class="bc-no-requests">
+                    <i class="bi bi-inbox"></i>
+                    <h3>Nenhuma solicitação por enquanto</h3>
+                    <p>
+                        Quando um aluno solicitar um livro,
+                        o pedido aparecerá nesta área.
+                    </p>
+                </div>
+
+            @endif
+
+            <div class="bc-modal-buttons bc-requests-footer">
+                <button type="button" class="bc-cancel-btn" onclick="fecharSolicitacoes()">
+                    Fechar
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    {{-- ==========================================
+         JAVASCRIPT
+    ========================================== --}}
+    <script>
+        // Abrir e fechar cadastro
+        function abrirFormulario() {
+            document.getElementById('modalCadastro').classList.add('ativo');
+        }
+
+        function fecharFormulario() {
+            document.getElementById('modalCadastro').classList.remove('ativo');
+        }
+
+        // Abrir e fechar edição
+        function abrirEdicao(livro) {
+            const formulario = document.getElementById('formEdicao');
+
+            formulario.action = `/professor/biblioteca/atualizar/${livro.id}`;
+
+            document.getElementById('editTituloLivro').value = livro.titulo || '';
+            document.getElementById('editAutorLivro').value = livro.autor || '';
+            document.getElementById('editCategoriaLivro').value = livro.categoria || '';
+            document.getElementById('editStatusLivro').value = livro.status || 'livre';
+
+            document.getElementById('modalEdicao').classList.add('ativo');
+        }
+
+        function fecharEdicao() {
+            document.getElementById('modalEdicao').classList.remove('ativo');
+        }
+
+        // Abrir e fechar exclusão
+        function abrirConfirmacaoExcluir(id, titulo) {
+            document.getElementById('formExcluir').action =
+                `/professor/biblioteca/excluir/${id}`;
+
+            document.getElementById('nomeLivroExcluir').textContent = titulo;
+
+            document.getElementById('modalExcluir').classList.add('ativo');
+        }
+
+        function fecharConfirmacaoExcluir() {
+            document.getElementById('modalExcluir').classList.remove('ativo');
+        }
+
+        // Abrir e fechar solicitações
+        function abrirSolicitacoes() {
+            document.getElementById('modalSolicitacoes').classList.add('ativo');
+        }
+
+        function fecharSolicitacoes() {
+            document.getElementById('modalSolicitacoes').classList.remove('ativo');
+        }
+
+        // Pesquisa por título, autor, categoria e status
+        const campoBusca = document.getElementById('bcBusca');
+        const cardsLivros = Array.from(document.querySelectorAll('.bc-book-card'));
+        const mensagemSemResultado = document.getElementById('bcSemResultado');
+
+        function pesquisarLivros() {
+            const termo = campoBusca.value.trim().toLocaleLowerCase('pt-BR');
+            let encontrados = 0;
+
+            cardsLivros.forEach(card => {
+                const texto = (card.dataset.busca || '').toLocaleLowerCase('pt-BR');
+                const mostrar = texto.includes(termo);
+
+                card.hidden = !mostrar;
+
+                if (mostrar) encontrados++;
+            });
+
+            if (mensagemSemResultado) {
+                mensagemSemResultado.hidden =
+                    cardsLivros.length > 0 && encontrados === 0;
+            }
+        }
+
+        campoBusca?.addEventListener('input', pesquisarLivros);
+
+        function limparPesquisa() {
+            campoBusca.value = '';
+            pesquisarLivros();
+            campoBusca.focus();
+        }
+
+        // Fechar modais ao clicar no fundo
+        document.querySelectorAll('.bc-modal').forEach(modal => {
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.remove('ativo');
+                }
+            });
+        });
+
+        // Fechar modais com ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.querySelectorAll('.bc-modal.ativo').forEach(modal => {
+                    modal.classList.remove('ativo');
+                });
+            }
+        });
+
+        // Toast para mensagens rápidas
+        let toastTimer;
+
+        window.bcMensagem = function(texto) {
+            const toast = document.getElementById('bcToast');
+            if (!toast) return;
+
+            toast.textContent = texto;
+            toast.classList.add('show');
+
+            clearTimeout(toastTimer);
+
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        };
+    </script>
+
 </body>
 </html>

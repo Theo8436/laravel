@@ -25,32 +25,8 @@
         HEADER DO PROFESSOR
     ========================================================== --}}
     <header class="site-header">
-        <div class="header-noise"></div>
-        <div class="header-container">
-
-            {{-- Logo --}}
-            <a href="{{ route('professor.inicio') }}" class="brand">
-                <div class="brand-logo">
-                    <img src="{{ asset('images/beth-logo.jpeg') }}" alt="Beth Cientista">
-                </div>
-                <div class="brand-text">
-                    <h1>Beth Cientista</h1>
-                    <span>Painel do Professor</span>
-                </div>
-            </a>
-
-            {{-- Navegação da Área do Professor --}}
-            <nav class="main-nav">
-                            <a href="{{ route('professor.inicio') }}">Início</a>
-            <a href="{{ route('professor.sobre') }}">Sobre Nós</a>
-            <a href="{{ route('professor.galeria') }}">Galeria</a>
-            <a href="{{ route('professor.biblioteca') }}">Biblioteca</a>
-            <a href="{{ route('professor.mencao') }}">Menções honrosas</a>
-            <a href="{{ route('professor.logado') }}">Minha Área</a>
-            <a href="{{ route('inicio') }}">Sair</a>
-            </nav>
-
-        </div>
+    {{-- NAVBAR DA ÁREA DO PROFESSOR --}}
+@include('components.navbar-professor')
     </header>
 
     {{-- =========================================================
