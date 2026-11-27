@@ -36,6 +36,23 @@
 </head>
 
 <body>
+<div class="sobre-sparkles">
+    <span class="sobre-sparkle sobre-sparkle-1"></span>
+    <span class="sobre-sparkle sobre-sparkle-2"></span>
+    <span class="sobre-sparkle sobre-sparkle-3"></span>
+    <span class="sobre-sparkle sobre-sparkle-4"></span>
+    <span class="sobre-sparkle sobre-sparkle-5"></span>
+    <span class="sobre-sparkle sobre-sparkle-6"></span>
+    <span class="sobre-sparkle sobre-sparkle-7"></span>
+    <span class="sobre-sparkle sobre-sparkle-8"></span>
+    <span class="sobre-sparkle sobre-sparkle-9"></span>
+    <span class="sobre-sparkle sobre-sparkle-10"></span>
+    <span class="sobre-sparkle sobre-sparkle-11"></span>
+    <span class="sobre-sparkle sobre-sparkle-12"></span>
+    <span class="sobre-sparkle sobre-sparkle-13"></span>
+    <span class="sobre-sparkle sobre-sparkle-14"></span>
+    <span class="sobre-sparkle sobre-sparkle-15"></span>
+</div>
 
     {{-- NAVBAR COMPARTILHADO --}}
     @include('components.navbar-aluno')

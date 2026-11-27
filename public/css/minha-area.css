@@ -1,7 +1,8 @@
+
 /* =====================================================
    BETH CIENTISTA - MINHA ÁREA DO ALUNO
    Identidade visual lúdica, colorida e divertida
-   ===================================================== */
+===================================================== */
 
 :root {
     --roxo-escuro: #0e0f2a;
@@ -25,13 +26,6 @@
         #f97316 100%
     );
 
-    --degrade-claro: linear-gradient(
-        120deg,
-        #f1e3f6,
-        #fff8dc,
-        #fff0e5
-    );
-
     --sombra: 0 12px 30px rgba(91, 31, 119, 0.12);
     --sombra-forte: 0 16px 38px rgba(91, 31, 119, 0.18);
 }
@@ -44,53 +38,34 @@ html {
     scroll-behavior: smooth;
 }
 
+/* =====================================================
+   FUNDO DA PÁGINA
+===================================================== */
+
 body {
     min-height: 100vh;
     margin: 0;
     color: var(--texto);
     font-family: 'Fredoka', sans-serif;
 
-    background:
-        radial-gradient(circle at 8% 12%, rgba(134, 20, 164, 0.12), transparent 27%),
-        radial-gradient(circle at 92% 25%, rgba(249, 115, 22, 0.12), transparent 25%),
-        radial-gradient(circle at 50% 90%, rgba(14, 15, 42, 0.08), transparent 35%),
-        linear-gradient(135deg, #f7f2fa 0%, #fffdf2 48%, #fff4ea 100%);
+    background-image:
+        linear-gradient(
+            rgba(250, 246, 252, 0.78),
+            rgba(255, 250, 242, 0.82)
+        ),
+        url('/images/Cabeçalho.png');
 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
+
     overflow-x: hidden;
 }
 
 /* =====================================================
-   BRILHOS DECORATIVOS DO FUNDO
-   ===================================================== */
-
-body::before,
-body::after {
-    content: "✦";
-    position: fixed;
-    z-index: -1;
-    pointer-events: none;
-    font-family: Arial, sans-serif;
-    color: rgba(255, 255, 255, 0.85);
-    text-shadow:
-        0 0 8px rgba(134, 20, 164, 0.28),
-        0 0 20px rgba(249, 115, 22, 0.28);
-    animation: brilhoFlutuante 5s ease-in-out infinite;
-}
-
-body::before {
-    top: 20%;
-    left: 5%;
-    font-size: 40px;
-}
-
-body::after {
-    content: "✧";
-    top: 60%;
-    right: 6%;
-    font-size: 65px;
-    animation-delay: 1.5s;
-}
+   ANIMAÇÕES DECORATIVAS
+===================================================== */
 
 @keyframes brilhoFlutuante {
     0%, 100% {
@@ -106,7 +81,7 @@ body::after {
 
 /* =====================================================
    CABEÇALHO DO ALUNO
-   ===================================================== */
+===================================================== */
 
 .header-aluno {
     width: 100%;
@@ -192,7 +167,7 @@ body::after {
 
 /* =====================================================
    CONTEÚDO PRINCIPAL
-   ===================================================== */
+===================================================== */
 
 .area-aluno {
     position: relative;
@@ -203,7 +178,7 @@ body::after {
 
 /* =====================================================
    PERFIL DO ALUNO
-   ===================================================== */
+===================================================== */
 
 .perfil {
     position: relative;
@@ -217,31 +192,12 @@ body::after {
     border: 2px solid rgba(255, 255, 255, 0.9);
     border-radius: 30px;
 
-    background:
-        radial-gradient(circle at 90% 15%, rgba(253, 224, 71, 0.30), transparent 25%),
-        linear-gradient(115deg, #eee0f4 0%, #fff9df 55%, #ffeadb 100%);
+    /* Fundo lilás com transparência */
+    background: rgba(241, 229, 247, 0.78);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 
     box-shadow: var(--sombra);
-}
-
-.perfil::before {
-    content: "✦";
-    position: absolute;
-    top: 13px;
-    right: 180px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 35px;
-    animation: brilhoFlutuante 4s infinite;
-}
-
-.perfil::after {
-    content: "✧";
-    position: absolute;
-    right: 90px;
-    bottom: 5px;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 55px;
-    animation: brilhoFlutuante 5s infinite reverse;
 }
 
 .foto {
@@ -258,7 +214,7 @@ body::after {
     border: 5px solid rgba(255, 255, 255, 0.9);
     border-radius: 50%;
 
-    background: var(--degrade);
+    background: #8614a4;
     box-shadow: 0 8px 22px rgba(134, 20, 164, 0.25);
 }
 
@@ -326,7 +282,7 @@ body::after {
 
 /* =====================================================
    MENU DE ABAS
-   ===================================================== */
+===================================================== */
 
 .menu-area {
     display: grid;
@@ -347,7 +303,7 @@ body::after {
     border: 2px solid #ead5f5;
     border-radius: 20px;
 
-    background: rgba(255, 255, 255, 0.72);
+    background: #ffffff;
     box-shadow: 0 7px 18px rgba(91, 31, 119, 0.08);
 
     font-family: 'Fredoka', sans-serif;
@@ -372,7 +328,7 @@ body::after {
 .menu-area button.btn-menu-ativo {
     color: #fff;
     border-color: transparent;
-    background: var(--degrade);
+    background: #8614a4;
     box-shadow: 0 9px 22px rgba(134, 20, 164, 0.23);
 }
 
@@ -382,7 +338,7 @@ body::after {
 
 /* =====================================================
    CABEÇALHOS DAS SEÇÕES
-   ===================================================== */
+===================================================== */
 
 .header-top {
     display: flex;
@@ -445,7 +401,7 @@ body::after {
 
 /* =====================================================
    BOTÕES PRINCIPAIS
-   ===================================================== */
+===================================================== */
 
 .btn-novo-post {
     display: inline-flex;
@@ -458,7 +414,7 @@ body::after {
     border: 0;
     border-radius: 30px;
 
-    background: linear-gradient(110deg, #8614a4, #a83ac2 60%, #f97316);
+    background: #8614a4;
     box-shadow: 0 7px 17px rgba(190, 37, 176, 0.23);
 
     font-family: 'Fredoka', sans-serif;
@@ -469,6 +425,7 @@ body::after {
 }
 
 .btn-novo-post:hover {
+    background: #a83ac2;
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 10px 22px rgba(190, 37, 176, 0.32);
 }
@@ -497,7 +454,7 @@ body::after {
 
 /* =====================================================
    ALERTAS
-   ===================================================== */
+===================================================== */
 
 .alerta-sucesso,
 .alerta-erro {
@@ -536,17 +493,17 @@ body::after {
 
 /* =====================================================
    CARDS DE PUBLICAÇÃO
-   ===================================================== */
+===================================================== */
 
 .post-card {
     position: relative;
     margin-bottom: 25px;
     padding: 27px;
 
-    border: 2px solid rgba(226, 197, 240, 0.75);
+    border: 2px solid #ead8f0;
     border-radius: 23px;
 
-    background: rgba(255, 255, 255, 0.78);
+    background: #ffffff;
     box-shadow: var(--sombra);
 
     transition: 0.25s ease;
@@ -676,7 +633,7 @@ body::after {
 
 /* =====================================================
    ESTADO VAZIO
-   ===================================================== */
+===================================================== */
 
 .estado-vazio {
     padding: 55px 25px;
@@ -685,9 +642,7 @@ body::after {
     border: 2px dashed #e4bce9;
     border-radius: 25px;
 
-    background:
-        radial-gradient(circle at top left, rgba(255, 215, 243, 0.55), transparent 45%),
-        rgba(255, 255, 255, 0.72);
+    background: #ffffff;
 }
 
 .estado-vazio > i {
@@ -713,7 +668,7 @@ body::after {
 
 /* =====================================================
    CARROSSEL DE IMAGENS
-   ===================================================== */
+===================================================== */
 
 .carrossel-container {
     position: relative;
@@ -790,7 +745,7 @@ body::after {
 
 /* =====================================================
    AÇÕES DA PUBLICAÇÃO
-   ===================================================== */
+===================================================== */
 
 .post-acoes {
     display: flex;
@@ -825,7 +780,7 @@ body::after {
 
 /* =====================================================
    CALENDÁRIO
-   ===================================================== */
+===================================================== */
 
 .calendario-aluno {
     display: flex;
@@ -841,10 +796,10 @@ body::after {
     padding: 23px;
 
     border: 2px solid #ecd8f2;
-    border-left: 6px solid var(--magenta);
+    border-left: 6px solid #8614a4;
     border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.78);
+    background: #ffffff;
     box-shadow: 0 6px 18px rgba(91, 31, 119, 0.07);
 
     transition: 0.25s ease;
@@ -892,7 +847,7 @@ body::after {
     padding: 9px 16px;
     color: #fff;
     border-radius: 20px;
-    background: linear-gradient(110deg, #8614a4, #f97316);
+    background: #8614a4;
     font-size: 12px;
     font-weight: 700;
 }
@@ -901,7 +856,7 @@ body::after {
     padding: 50px 20px;
     border: 2px dashed #e4bce9;
     border-radius: 22px;
-    background: rgba(255, 255, 255, 0.72);
+    background: #ffffff;
     text-align: center;
 }
 
@@ -927,7 +882,7 @@ body::after {
 
 /* =====================================================
    MATERIAL DE APOIO
-   ===================================================== */
+===================================================== */
 
 .materiais-lista {
     display: grid;
@@ -947,7 +902,7 @@ body::after {
     border: 2px solid #ecd8f2;
     border-radius: 18px;
 
-    background: rgba(255, 255, 255, 0.78);
+    background: #ffffff;
     text-decoration: none;
     box-shadow: 0 5px 15px rgba(91, 31, 119, 0.06);
 
@@ -978,7 +933,7 @@ body::after {
 
     color: #fff;
     border-radius: 15px;
-    background: linear-gradient(140deg, #0e0f2a, #8614a4 65%, #f97316);
+    background: #8614a4;
 
     font-size: 22px;
     box-shadow: 0 5px 12px rgba(165, 26, 178, 0.18);
@@ -1010,7 +965,7 @@ body::after {
 
 /* =====================================================
    MODAIS
-   ===================================================== */
+===================================================== */
 
 .modal-overlay {
     position: fixed;
@@ -1035,7 +990,7 @@ body::after {
     border: 2px solid rgba(255, 255, 255, 0.9);
     border-radius: 25px;
 
-    background: linear-gradient(145deg, #ffffff, #f8f1fa 65%, #fff6e9);
+    background: #fffaff;
 
     box-shadow: 0 22px 60px rgba(35, 8, 49, 0.3);
     animation: modalEntrada 0.25s ease;
@@ -1097,8 +1052,7 @@ body::after {
 
 /* =====================================================
    CAMPOS DE FORMULÁRIO
-   Sem degradê nos campos de texto
-   ===================================================== */
+===================================================== */
 
 .form-group {
     margin-bottom: 18px;
@@ -1210,18 +1164,19 @@ input[type="file"]::file-selector-button:hover {
 
 .btn-salvar {
     color: #fff;
-    background: linear-gradient(110deg, #8614a4, #a83ac2 60%, #f97316);
+    background: #8614a4;
     box-shadow: 0 5px 13px rgba(134, 20, 164, 0.2);
 }
 
 .btn-salvar:hover {
+    background: #a83ac2;
     transform: translateY(-2px);
     box-shadow: 0 8px 18px rgba(134, 20, 164, 0.28);
 }
 
 /* =====================================================
    FOTOS E PRÉ-VISUALIZAÇÃO
-   ===================================================== */
+===================================================== */
 
 .fotos-atuais-grid,
 .preview-grid {
@@ -1291,7 +1246,7 @@ input[type="file"]::file-selector-button:hover {
 
 /* =====================================================
    RESPONSIVIDADE
-   ===================================================== */
+===================================================== */
 
 @media (max-width: 1050px) {
     .header-aluno {
@@ -1309,6 +1264,10 @@ input[type="file"]::file-selector-button:hover {
 }
 
 @media (max-width: 700px) {
+    body {
+        background-attachment: scroll;
+    }
+
     .header-aluno .logo img {
         width: 52px;
         height: 52px;
@@ -1447,7 +1406,7 @@ input[type="file"]::file-selector-button:hover {
 
 /* =====================================================
    ACESSIBILIDADE
-   ===================================================== */
+===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
     *,

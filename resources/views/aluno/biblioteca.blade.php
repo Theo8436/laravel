@@ -23,7 +23,23 @@
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
 <body>
-
+<div class="biblioteca-sparkles">
+    <span class="biblioteca-sparkle biblioteca-sparkle-1"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-2"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-3"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-4"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-5"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-6"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-7"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-8"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-9"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-10"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-11"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-12"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-13"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-14"></span>
+    <span class="biblioteca-sparkle biblioteca-sparkle-15"></span>
+</div>
     {{-- NAVBAR COMPARTILHADO --}}
     @include('components.navbar-aluno')
 

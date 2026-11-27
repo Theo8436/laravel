@@ -1419,3 +1419,53 @@ a {
         flex-direction: column;
     }
 }
+
+/* =========================================================
+   BRILHOS ANIMADOS DE FUNDO
+========================================================= */
+
+.inicio-sparkles {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.inicio-sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 0 12px 3px rgba(255, 255, 255, .42);
+    animation: inicio-piscar 3s ease-in-out infinite;
+}
+
+.inicio-sparkle-1  { top: 8%; left: 8%; animation-delay: .2s; }
+.inicio-sparkle-2  { top: 13%; left: 83%; animation-delay: 1.1s; }
+.inicio-sparkle-3  { top: 28%; left: 18%; animation-delay: .7s; }
+.inicio-sparkle-4  { top: 35%; left: 92%; animation-delay: 1.6s; }
+.inicio-sparkle-5  { top: 48%; left: 6%; animation-delay: .4s; }
+.inicio-sparkle-6  { top: 57%; left: 76%; animation-delay: 1.3s; }
+.inicio-sparkle-7  { top: 68%; left: 14%; animation-delay: 2s; }
+.inicio-sparkle-8  { top: 77%; left: 88%; animation-delay: .9s; }
+.inicio-sparkle-9  { top: 88%; left: 28%; animation-delay: 1.8s; }
+.inicio-sparkle-10 { top: 19%; left: 52%; animation-delay: .5s; }
+.inicio-sparkle-11 { top: 42%; left: 62%; animation-delay: 1.4s; }
+.inicio-sparkle-12 { top: 91%; left: 68%; animation-delay: .3s; }
+.inicio-sparkle-13 { top: 5%; left: 39%; animation-delay: 1.9s; }
+.inicio-sparkle-14 { top: 62%; left: 45%; animation-delay: .8s; }
+.inicio-sparkle-15 { top: 82%; left: 4%; animation-delay: 1.5s; }
+
+@keyframes inicio-piscar {
+    0%, 100% {
+        opacity: .25;
+        transform: scale(.7);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.25);
+    }
+}
