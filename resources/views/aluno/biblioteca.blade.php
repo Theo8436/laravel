@@ -24,7 +24,6 @@
 </head>
 <body>
 
-    {{-- NAVBAR COMPARTILHADO --}}
     @include('components.navbar-aluno')
 
     <main class="bc-library">
@@ -94,26 +93,32 @@
 
                             <div class="bc-book-actions">
                                 <p class="bc-copies">Acervo científico</p>
+
                                 @if($disponivel)
-                                    <button
-                                        type="button"
-                                        class="bc-loan-btn"
-                                        onclick="bcMensagem('Você precisa estar logado para solicitar o empréstimo deste livro.')"
-                                    >
-                                        <i class="bi bi-bookmark-check" aria-hidden="true"></i>
-                                        Emprestar
-                                    </button>
-                                @else
-                                    <button
-                                        type="button"
-                                        class="bc-loan-btn"
-                                        disabled
-                                        title="Livro indisponível"
-                                    >
-                                        <i class="bi bi-clock" aria-hidden="true"></i>
-                                        {{ $status === 'emprestado' ? 'Emprestado' : 'Aguardando' }}
-                                    </button>
-                                @endif
+    <form action="{{ route('emprestimo.solicitar', $livro->id) }}"
+          method="POST">
+        @csrf
+
+        <button
+            type="submit"
+            class="bc-loan-btn"
+        >
+            <i class="bi bi-bookmark-check" aria-hidden="true"></i>
+            Emprestar
+        </button>
+    </form>
+@else
+    <button
+        type="button"
+        class="bc-loan-btn"
+        disabled
+        title="Livro indisponível"
+    >
+        <i class="bi bi-clock" aria-hidden="true"></i>
+        {{ $status === 'emprestado' ? 'Emprestado' : 'Aguardando' }}
+    </button>
+@endif
+
                             </div>
                         </div>
                     </article>
@@ -136,7 +141,6 @@
 
     <div id="bcToast" class="bc-toast" role="status" aria-live="polite"></div>
 
-    {{-- FOOTER COMPARTILHADO --}}
     @include('components.footer')
 
     <script>

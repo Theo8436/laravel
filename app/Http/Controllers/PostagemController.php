@@ -12,15 +12,9 @@ use Illuminate\Support\Facades\Storage;
 
 class PostagemController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | FEED PÚBLICO / ALUNO
-    |--------------------------------------------------------------------------
-    */
 
     public function inicio()
     {
-        // Visitantes e alunos só enxergam publicações aprovadas
         $publicacoes = Postagem::with('user')
             ->where('status', 'aprovada')
             ->latest()
@@ -28,13 +22,6 @@ class PostagemController extends Controller
 
         return view('aluno.inicio', compact('publicacoes'));
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | ÁREA DO ALUNO
-    |--------------------------------------------------------------------------
-    */
 
     public function index()
     {
@@ -49,13 +36,11 @@ class PostagemController extends Controller
                 ->with('erro', 'Sessão não encontrada ou expirada.');
         }
 
-        // Publicações aprovadas para o feed
         $publicacoes = Postagem::with('user')
             ->where('status', 'aprovada')
             ->latest()
             ->get();
 
-        // Todas as publicações do aluno logado
         $minhasPostagens = Postagem::with('user')
             ->where('user_id', $userId)
             ->latest()
@@ -67,19 +52,11 @@ class PostagemController extends Controller
         ));
     }
     public function painelLogado() {
-    // Busca TODOS os eventos, sem filtrar por aluno
     $eventos = EventoCalendario::all(); 
     
 
     return view('aluno.logado', compact('eventos'));
 }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | CRIAR POSTAGEM
-    |--------------------------------------------------------------------------
-    */
 
     public function store(Request $request)
     {
@@ -141,21 +118,8 @@ class PostagemController extends Controller
             );
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | VISUALIZAR POSTAGEM
-    |--------------------------------------------------------------------------
-    */
-
     public function show(Postagem $postagem)
     {
-        /*
-         * Publicação aprovada pode ser vista publicamente.
-         *
-         * Publicação pendente, em ajustes ou rejeitada
-         * pode ser vista pelo próprio aluno.
-         */
 
         $userId = Auth::guard('alunos')->id()
             ?? Auth::id()
@@ -172,13 +136,6 @@ class PostagemController extends Controller
         return view('aluno.showPostagem', compact('postagem'));
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | EDITAR POSTAGEM
-    |--------------------------------------------------------------------------
-    */
-
     public function update(Request $request, Postagem $postagem)
     {
         $userId = Auth::guard('alunos')->id()
@@ -186,12 +143,10 @@ class PostagemController extends Controller
             ?? session('aluno_id')
             ?? session('user_id');
 
-        // Só o dono da postagem pode editar
         if ((int) $postagem->user_id !== (int) $userId) {
             abort(403);
         }
 
-        // Publicação aprovada não pode ser editada
         if ($postagem->status === 'aprovada') {
             return redirect()
                 ->back()
@@ -200,12 +155,6 @@ class PostagemController extends Controller
                     'Uma publicação aprovada não pode ser editada.'
                 );
         }
-
-        /*
-        |--------------------------------------------------------------------------
-        | VALIDAÇÃO
-        |--------------------------------------------------------------------------
-        */
 
         $request->validate([
             'titulo'          => 'required',
@@ -218,29 +167,13 @@ class PostagemController extends Controller
             'imagens.max' => 'Você só pode enviar no máximo 10 imagens novas.',
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | RECUPERAR IMAGENS ATUAIS
-        |--------------------------------------------------------------------------
-        */
-
         $fotosAtuais = json_decode($postagem->imagem, true);
 
-        /*
-         * Se a imagem não estiver em JSON, transforma
-         * a imagem única em array.
-         */
         if (!is_array($fotosAtuais)) {
             $fotosAtuais = $postagem->imagem
                 ? [$postagem->imagem]
                 : [];
         }
-
-        /*
-        |--------------------------------------------------------------------------
-        | REMOVER IMAGENS
-        |--------------------------------------------------------------------------
-        */
 
         if ($request->has('remover_imagens')) {
 
@@ -263,12 +196,6 @@ class PostagemController extends Controller
             );
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | VERIFICAR LIMITE DE IMAGENS
-        |--------------------------------------------------------------------------
-        */
-
         $novasImagens = $request->hasFile('imagens')
             ? count($request->file('imagens'))
             : 0;
@@ -286,12 +213,6 @@ class PostagemController extends Controller
                 );
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | ADICIONAR NOVAS IMAGENS
-        |--------------------------------------------------------------------------
-        */
-
         if ($request->hasFile('imagens')) {
 
             foreach ($request->file('imagens') as $file) {
@@ -302,22 +223,12 @@ class PostagemController extends Controller
             }
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | ATUALIZAR POSTAGEM
-        |--------------------------------------------------------------------------
-        */
-
         $postagem->update([
             'titulo'                => $request->titulo,
             'categoria'             => $request->categoria,
             'comentario'            => $request->comentario,
             'imagem'                => json_encode($fotosAtuais),
-
-            // Depois de editar, volta para análise do professor
             'status'                => 'pendente',
-
-            // Remove a observação anterior do professor
             'observacao_professor'  => null,
         ]);
 
@@ -329,13 +240,6 @@ class PostagemController extends Controller
             );
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | EXCLUIR POSTAGEM
-    |--------------------------------------------------------------------------
-    */
-
     public function destroy(Postagem $postagem)
     {
         $userId = Auth::guard('alunos')->id()
@@ -343,16 +247,9 @@ class PostagemController extends Controller
             ?? session('aluno_id')
             ?? session('user_id');
 
-        // Só o dono pode excluir
         if ((int) $postagem->user_id !== (int) $userId) {
             abort(403);
         }
-
-        /*
-        |--------------------------------------------------------------------------
-        | EXCLUIR IMAGENS DO STORAGE
-        |--------------------------------------------------------------------------
-        */
 
         $fotos = json_decode($postagem->imagem, true);
 
@@ -369,12 +266,6 @@ class PostagemController extends Controller
             }
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | EXCLUIR POSTAGEM
-        |--------------------------------------------------------------------------
-        */
-
         $postagem->delete();
 
         return redirect()
@@ -384,13 +275,6 @@ class PostagemController extends Controller
                 'Postagem removida!'
             );
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | PROFESSOR - LISTAR PUBLICAÇÕES PENDENTES
-    |--------------------------------------------------------------------------
-    */
 
     public function pendentes()
     {
@@ -404,13 +288,6 @@ class PostagemController extends Controller
             compact('postagens')
         );
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | PROFESSOR - APROVAR
-    |--------------------------------------------------------------------------
-    */
 
     public function aprovar(Postagem $postagem)
     {
@@ -427,13 +304,6 @@ class PostagemController extends Controller
             );
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | PROFESSOR - REJEITAR
-    |--------------------------------------------------------------------------
-    */
-
     public function rejeitar(Postagem $postagem)
     {
         $postagem->update([
@@ -448,13 +318,6 @@ class PostagemController extends Controller
             );
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | PROFESSOR - SOLICITAR AJUSTES
-    |--------------------------------------------------------------------------
-    */
-
     public function solicitarAjustes(
         Request $request,
         Postagem $postagem
@@ -468,14 +331,6 @@ class PostagemController extends Controller
             'observacao_professor.max' =>
                 'A observação pode ter no máximo 2000 caracteres.',
         ]);
-
-        /*
-        * Aqui o professor NÃO altera título,
-        * categoria, comentário ou imagens.
-        *
-        * Ele apenas informa ao aluno o que
-        * precisa ser corrigido.
-        */
 
         $postagem->update([
             'status'               => 'ajustes',

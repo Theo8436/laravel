@@ -11,13 +11,11 @@ return new class extends Migration
         Schema::create('eventos_calendario', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('professor_id');
-            $table->unsignedBigInteger('aluno_id')->nullable(); // O aluno que fará o post
+            $table->unsignedBigInteger('aluno_id')->nullable();
             $table->string('categoria');
             $table->text('descricao')->nullable();
             $table->date('data_evento');
             $table->timestamps();
-
-            // Se suas tabelas se chamarem 'professores' e 'alunos'
             $table->foreign('professor_id')->references('id')->on('professores')->onDelete('cascade');
             $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
         });

@@ -13,8 +13,6 @@ return new class extends Migration
             $table->string('nome');
             $table->string('email')->unique();
             $table->string('senha');
-            
-            // ATUALIZADO: Removido o valor default. O banco agora exige a resposta do formulário.
             $table->string('nivel_acesso'); 
             
             $table->rememberToken();

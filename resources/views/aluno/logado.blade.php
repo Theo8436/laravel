@@ -19,7 +19,6 @@
 
 <main class="area-aluno">
 
-    <!-- PERFIL -->
     <section class="perfil">
         <div class="foto">
             <i class="bi bi-person"></i>
@@ -36,7 +35,6 @@
         </div>
     </section>
 
-    <!-- MENU DE ABAS -->
     <section class="menu-area">
         <button id="btnPubs" class="btn-menu-ativo" onclick="mostrarAba('publicacoes')">
             <i class="bi bi-file-earmark-text"></i>
@@ -54,7 +52,6 @@
         </button>
     </section>
 
-    <!-- PUBLICAÇÕES -->
     <section id="publicacoes" class="aba-conteudo">
         <div class="header-top">
             <div>
@@ -215,7 +212,6 @@
         @endif
     </section>
 
-    <!-- CALENDÁRIO -->
     <section id="calendario" class="aba-conteudo" style="display: none;">
         <div class="header-secao-interna">
             <span class="secao-etiqueta">FIQUE POR DENTRO</span>
@@ -249,7 +245,6 @@
         </div>
     </section>
 
-    <!-- MATERIAL DE APOIO -->
     <section id="material" class="aba-conteudo" style="display: none;">
         <div class="header-secao-interna">
             <span class="secao-etiqueta">EXPLORE E APRENDA</span>
@@ -327,7 +322,6 @@
     </section>
 </main>
 
-<!-- MODAL CRIAR -->
 <div id="modalCriar" class="modal-overlay" style="display: none;">
     <div class="modal-card">
         <div class="modal-header">
@@ -375,7 +369,6 @@
     </div>
 </div>
 
-<!-- MODAL EDITAR -->
 <div id="modalEditar" class="modal-overlay" style="display: none;">
     <div class="modal-card">
         <div class="modal-header">
@@ -431,7 +424,6 @@
 </div>
 
 <script>
-    /* TROCA DE ABAS */
     function mostrarAba(abaId) {
         ['publicacoes', 'calendario', 'material'].forEach(id => {
             document.getElementById(id).style.display = id === abaId ? 'block' : 'none';
@@ -442,7 +434,6 @@
         document.getElementById('btnMat').classList.toggle('btn-menu-ativo', abaId === 'material');
     }
 
-    /* MODAL CRIAR */
     function abrirModalCriar() {
         document.getElementById('modalCriar').style.display = 'flex';
     }
@@ -458,7 +449,6 @@
         }
     }
 
-    /* MODAL EDITAR */
     let dtEdit = new DataTransfer();
 
     const inputEditImagens = document.getElementById('edit_imagens');
@@ -563,7 +553,6 @@
         renderizarPreviewEdit();
     }
 
-    /* FECHAR MODAIS AO CLICAR FORA */
     window.addEventListener('click', function(event) {
         const modalCriar = document.getElementById('modalCriar');
         const modalEditar = document.getElementById('modalEditar');
@@ -572,7 +561,6 @@
         if (event.target === modalEditar) fecharModalEditar();
     });
 
-    /* CARROSSEL */
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.carrossel-post').forEach(carrossel => {
             const slides = carrossel.querySelectorAll('.slide');

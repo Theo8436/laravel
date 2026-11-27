@@ -24,8 +24,6 @@
                     #ef6c73 100%);
             min-height: 100vh;
         }
-
-        /* ================= HEADER ================= */
         header {
             width: 100%;
             background: #ff7a00;
@@ -71,8 +69,6 @@
             transform: translateY(-3px);
             color: #ff7a00;
         }
-
-        /* ================= MAIN ================= */
         main {
             width: 90%;
             margin: 45px auto;
@@ -90,8 +86,6 @@
             margin-bottom: 30px;
             font-size: 18px;
         }
-
-        /* ================= MENU ================= */
         .menu-principal {
             display: flex;
             gap: 15px;
@@ -117,8 +111,6 @@
             color: white;
             transform: translateY(-3px);
         }
-
-        /* ================= SEÇÕES ================= */
         .painel {
             background: white;
             padding: 35px;
@@ -130,8 +122,6 @@
             color: #4b1d91;
             margin-bottom: 20px;
         }
-
-        /* ================= BOTÕES ================= */
         .btn-principal {
             background: #ff7a00;
             color: white;
@@ -164,8 +154,6 @@
         .btn-cancelar:hover {
             background: #ddd;
         }
-
-        /* ================= TABELA E BUSCA ================= */
         .header-tabela {
             display: flex;
             justify-content: space-between;
@@ -240,8 +228,6 @@
             cursor: pointer;
             margin-left: 4px;
         }
-
-        /* ================= MODAIS ================= */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -323,8 +309,6 @@
             gap: 10px;
             margin-top: 28px;
         }
-
-        /* ================= POSTS ================= */
         .post-card {
             background: #f7f7f9;
             padding: 25px;
@@ -363,8 +347,6 @@
             cursor: pointer;
             font-weight: 600;
         }
-
-        /* ================= MENSAGEM ================= */
         .mensagem {
             padding: 15px 20px;
             border-radius: 12px;
@@ -383,8 +365,6 @@
             color: #b32626;
             border-left: 5px solid #e53935;
         }
-
-        /* ================= CALENDÁRIO ================= */
         .calendario-container {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -520,8 +500,6 @@
             border-radius: 7px;
             cursor: pointer;
         }
-
-        /* ================= RESPONSIVO ================= */
         @media(max-width:1000px) {
             header {
                 flex-direction: column;
@@ -592,7 +570,6 @@
 
         <div id="mensagemJS" class="mensagem" style="display: none;"></div>
 
-        <!-- MENU -->
         <section class="menu-principal">
             <button type="button" onclick="mostrarAlunos()">
                 👨‍🎓 Alunos
@@ -606,7 +583,6 @@
             </button>
         </section>
 
-        <!-- ================= ALUNOS (DO BANCO DE DADOS) ================= -->
         <section id="alunos" class="painel">
             <h2>Gerenciar Alunos</h2>
 
@@ -668,8 +644,6 @@
                 {{ $alunos->links() }}
             </div>
         </section>
-
-        <!-- ================= POSTS ================= -->
         <section id="posts" class="painel" hidden>
             <h2>Revisão de Posts</h2>
             <p>Posts aguardando aprovação:</p>
@@ -681,7 +655,6 @@
             </button>
         </section>
 
-        <!-- ================= CALENDÁRIO ================= -->
         <section id="calendario" class="painel" hidden>
             <h2>Calendário</h2>
             <p style="color:#666">
@@ -740,7 +713,6 @@
 
     </main>
 
-    <!-- MODAL ADICIONAR ALUNO NO BANCO -->
     <div id="modalCriar" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="modal-header-custom">
@@ -776,7 +748,6 @@
         </div>
     </div>
 
-    <!-- MODAL EDITAR ALUNO NO BANCO -->
     <div id="modalEditar" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="modal-header-custom">
@@ -815,7 +786,6 @@
     </div>
 
     <script>
-        /* ================= MODAIS DE ALUNOS ================= */
         function abrirModalCriar() {
             document.getElementById('modalCriar').style.display = 'flex';
         }
@@ -843,7 +813,6 @@
             if (event.target === modalEditar) fecharModalEditar();
         };
 
-        /* ================= NAVEGAÇÃO DAS SEÇÕES ================= */
         function esconderTudo() {
             document.getElementById("alunos").hidden = true;
             document.getElementById("posts").hidden = true;
@@ -868,7 +837,6 @@
             carregarEventos();
         }
 
-        /* ================= POSTS ================= */
         let posts = [
             { titulo: "A Evolução das Estrelas", autor: "Maria Silva", categoria: "Beth nas Estrelas" },
             { titulo: "Sistema Digestivo", autor: "João Santos", categoria: "Beth Anatomy" }
@@ -917,7 +885,6 @@
             mostrarMensagemJS("Todos os posts foram aprovados!", "sucesso");
         }
 
-        /* ================= CALENDÁRIO ================= */
         let dataAtual = new Date();
         let dataSelecionada = null;
 

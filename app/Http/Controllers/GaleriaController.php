@@ -8,14 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class GaleriaController extends Controller
 {
-    // Exibe a galeria para o Professor (com botão de criar/deletar)
     public function index()
     {
         $fotos = GaleriaModel::latest()->get();
         return view('professor.galeria', compact('fotos'));
     }
 
-    // Exibe a galeria de modo leitura para o Aluno
     public function indexAluno()
     {
         $fotos = GaleriaModel::latest()->get();
@@ -27,7 +25,6 @@ class GaleriaController extends Controller
         return view('galeria', compact('fotos'));
     }
 
-    // Processa a imagem e salva no banco
     public function store(Request $request)
 {
     $request->validate([
@@ -68,7 +65,7 @@ class GaleriaController extends Controller
         ->back()
         ->with('sucesso', 'Galeria adicionada com sucesso!');
 }
-    // Adicione este método dentro do seu GaleriaController
+
 public function update(Request $request, $id)
 {
     $request->validate([
@@ -88,15 +85,8 @@ public function update(Request $request, $id)
 
     $galeria = GaleriaModel::findOrFail($id);
 
-    /*
-    |--------------------------------------------------------------------------
-    | Recupera as imagens atuais
-    |--------------------------------------------------------------------------
-    */
-
     $fotosAtuais = json_decode($galeria->imagem, true);
 
-    // Compatibilidade com galerias antigas
     if (!is_array($fotosAtuais)) {
         $fotosAtuais = $galeria->imagem
             ? [$galeria->imagem]
@@ -107,19 +97,12 @@ public function update(Request $request, $id)
         array_filter($fotosAtuais)
     );
 
-    /*
-    |--------------------------------------------------------------------------
-    | Remove as imagens selecionadas
-    |--------------------------------------------------------------------------
-    */
-
     $removerImagens = $request->input('remover_imagens', []);
 
     if (!empty($removerImagens)) {
 
         foreach ($removerImagens as $imagemRemover) {
 
-            // Remove do array
             $fotosAtuais = array_values(
                 array_filter(
                     $fotosAtuais,
@@ -127,8 +110,6 @@ public function update(Request $request, $id)
                 )
             );
 
-            // Não tenta apagar imagens antigas que estão diretamente
-            // na pasta public, como imagem1.png
             if (
                 !str_contains($imagemRemover, 'imagem') &&
                 Storage::disk('public')->exists($imagemRemover)
@@ -137,12 +118,6 @@ public function update(Request $request, $id)
             }
         }
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Adiciona novas imagens
-    |--------------------------------------------------------------------------
-    */
 
     $novasImagens = $request->file('imagens', []);
 
@@ -166,12 +141,6 @@ public function update(Request $request, $id)
         $fotosAtuais[] = $path;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Atualiza os dados
-    |--------------------------------------------------------------------------
-    */
-
     $galeria->titulo = $request->titulo;
     $galeria->descricao = $request->descricao;
     $galeria->imagem = json_encode($fotosAtuais);
@@ -189,12 +158,10 @@ public function show($id)
     return view('professor.showGaleria', compact('galeria'));
 }
 
-    // Remove do banco e o arquivo físico do servidor
     public function destroy($id)
     {
         $foto = GaleriaModel::findOrFail($id);
 
-        // Se não for imagem padrão estática dos seeders, remove do disco público
         if (Storage::disk('public')->exists($foto->imagem)) {
             Storage::disk('public')->delete($foto->imagem);
         }

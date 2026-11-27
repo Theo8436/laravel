@@ -7,15 +7,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LivroModelFactory extends Factory
 {
-    // Define qual model essa factory representa
     protected $model = LivroModel::class;
 
-    /**
-     * Define o estado padrão dos atributos do modelo.
-     */
     public function definition(): array
     {
-        // Lista de livros reais para o seu acervo científico
         $livrosCientificos = [
             ['titulo' => 'Uma Breve História do Tempo', 'autor' => 'Stephen Hawking', 'categoria' => 'Física'],
             ['titulo' => 'Cosmos', 'autor' => 'Carl Sagan', 'categoria' => 'Astronomia'],
@@ -27,7 +22,6 @@ class LivroModelFactory extends Factory
             ['titulo' => 'Bilionários por Acaso', 'autor' => 'Ben Mezrich', 'categoria' => 'Ciências'],
         ];
 
-        // Sorteia um dos livros da lista acima
         $livroAleatorio = $this->faker->randomElement($livrosCientificos);
 
         return [

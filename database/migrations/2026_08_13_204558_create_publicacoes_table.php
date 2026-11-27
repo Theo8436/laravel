@@ -17,7 +17,7 @@ return new class extends Migration
         $table->string('autor');
         $table->string('categoria');
         $table->date('data');
-        $table->string('status')->default('Pendente'); // Adicionado conforme o padrão visual do seu card
+        $table->string('status')->default('Pendente'); 
         $table->timestamps();
     });
 }

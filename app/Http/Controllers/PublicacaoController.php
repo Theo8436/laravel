@@ -8,29 +8,20 @@ use Illuminate\Http\Request;
 
 class PublicacaoController extends Controller
 {
-    // Método responsável por carregar a página inicial do aluno (aluno.inicio)
     public function inicio()
     {
-        // Caso queira exibir as Publicações principais:
         $publicacoes = Publicacao::latest()->get();
-
-        // NOTA: Se você quiser exibir as Postagens enviadas pelos alunos (com as categorias "Beth Indica", etc),
-        // basta trocar a linha acima por:
-        // $publicacoes = Postagem::with('user')->latest()->get();
 
         return view('aluno.inicio', compact('publicacoes'));
     }
 
-    // Tela pública com a lista de postagens (Visão Visitante/Aluno)
     public function index()
     {
         $publicacoes = Publicacao::latest()->get();
 
-        // Direciona para a view 'publi.blade.php' na raiz de views
         return view('publi', compact('publicacoes'));
     }
 
-    // Tela detalhada da publicação ("Ler mais")
     public function show($id)
     {
         $publicacao = Publicacao::findOrFail($id);
@@ -38,7 +29,6 @@ class PublicacaoController extends Controller
         return view('show', compact('publicacao'));
     }
 
-    // Tela do Professor com o formulário de criar nova publicação
     public function professorIndex()
     {
         $publicacoes = Publicacao::latest()->get();
@@ -46,7 +36,6 @@ class PublicacaoController extends Controller
         return view('professor.publi', compact('publicacoes'));
     }
 
-    // Processa e salva a publicação com foto no banco de dados
     public function store(Request $request)
     {
         $request->validate([

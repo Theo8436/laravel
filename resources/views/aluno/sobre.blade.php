@@ -8,7 +8,6 @@
 
     <title>Sobre Nós | Beth Cientista</title>
 
-    {{-- Fontes --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -17,19 +16,16 @@
         rel="stylesheet"
     >
 
-    {{-- Ícones do navbar --}}
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     >
 
-    {{-- Ícones do conteúdo --}}
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
-    {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sobre.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
@@ -37,13 +33,11 @@
 
 <body>
 
-    {{-- NAVBAR COMPARTILHADO --}}
     @include('components.navbar-aluno')
 
     {{-- CONTEÚDO PRINCIPAL --}}
     <main class="sobre-main">
 
-        {{-- TÍTULO --}}
         <section class="titulo">
             <h1>SOBRE NÓS</h1>
 
@@ -52,7 +46,6 @@
             </p>
         </section>
 
-        {{-- NOSSA HISTÓRIA --}}
         <section class="historia">
 
             <div class="texto">
@@ -89,7 +82,6 @@
 
         </section>
 
-        {{-- MISSÃO, VALORES E VISÃO --}}
         <section class="cards">
 
             <div class="card">
@@ -127,7 +119,6 @@
 
         </section>
 
-        {{-- O QUE FAZEMOS --}}
         <section class="fazemos">
 
             <div class="imagem">
@@ -158,7 +149,6 @@
 
         </section>
 
-        {{-- NOSSA EQUIPE --}}
         <section class="equipe">
 
             <i class="bi bi-people-fill" aria-hidden="true"></i>
@@ -175,7 +165,6 @@
 
     </main>
 
-    {{-- FOOTER COMPARTILHADO --}}
     @include('components.footer')
 
 </body>

@@ -18,13 +18,11 @@ class EventoCalendario extends Model
         'data_evento'
     ];
 
-    // Relacionamento com o aluno
     public function aluno()
     {
         return $this->belongsTo(AlunoModel::class, 'aluno_id');
     }
 
-    // Relacionamento com o professor
     public function professor()
     {
         return $this->belongsTo(ProfessorModel::class, 'professor_id');

@@ -24,8 +24,6 @@
 </head>
 
 <body>
-
-    {{-- NAVBAR DO PROFESSOR --}}
     @include('components.navbar-professor')
 
 
@@ -42,7 +40,6 @@
 
         <main class="galeria-container">
 
-            {{-- INTRODUÇÃO --}}
             <header class="galeria-intro">
 
                 <span class="galeria-selo">
@@ -59,8 +56,6 @@
 
             </header>
 
-
-            {{-- MENSAGEM DE SUCESSO --}}
             @if(session('sucesso'))
                 <div class="galeria-alerta sucesso-alerta">
                     <i class="bi bi-check-circle-fill"></i>
@@ -68,7 +63,6 @@
                 </div>
             @endif
 
-            {{-- ERROS DE VALIDAÇÃO --}}
             @if($errors->any())
                 <div class="galeria-alerta erro-alerta">
                     <i class="bi bi-exclamation-circle-fill"></i>
@@ -81,8 +75,6 @@
                 </div>
             @endif
 
-
-            {{-- BOTÃO ADICIONAR --}}
             <div class="galeria-acoes-topo">
 
                 <div class="galeria-acoes-texto">
@@ -221,8 +213,6 @@
 
             </section>
 
-
-            {{-- GALERIAS CADASTRADAS --}}
             <section class="galeria-listagem">
 
                 <div class="galeria-listagem-titulo">
@@ -298,7 +288,6 @@
 
                         <article class="galeria-card">
 
-                            {{-- IMAGEM DE CAPA --}}
                             <div class="galeria-card-imagem">
 
                                 <img
@@ -327,8 +316,6 @@
 
                             </div>
 
-
-                            {{-- INFORMAÇÕES --}}
                             <div class="galeria-card-conteudo">
 
                                 <h2>{{ $foto->titulo }}</h2>
@@ -343,8 +330,6 @@
                                     <i class="bi bi-camera"></i>
                                 </div>
 
-
-                                {{-- AÇÕES DO PROFESSOR --}}
                                 <div class="galeria-card-acoes">
 
                                     <a
@@ -412,8 +397,6 @@
 
             </section>
 
-
-            {{-- MENSAGEM FINAL --}}
             <section class="galeria-mensagem">
 
                 <span class="galeria-mensagem-icone">
@@ -443,8 +426,6 @@
 
     </div>
 
-
-    {{-- MODAL DE EDIÇÃO --}}
     <div class="modal-galeria" id="modalEdicaoGaleria">
 
         <div class="modal-galeria-conteudo">
@@ -578,8 +559,6 @@
 
     </div>
 
-
-    {{-- MODAL DE EXCLUSÃO --}}
     <div class="modal-galeria" id="modalExcluirGaleria">
 
         <div class="modal-galeria-conteudo modal-excluir-conteudo">
@@ -631,24 +610,14 @@
 
     </div>
 
-
-    {{-- FOOTER COMPARTILHADO --}}
     @include('components.footer')
 
 
 <script>
 
-// ======================================================
-// ELEMENTOS
-// ======================================================
-
 const formulario = document.getElementById("formulario");
 const formFoto = document.getElementById("formFoto");
 
-
-// ======================================================
-// CADASTRO
-// ======================================================
 
 function abrirFormulario() {
 
@@ -672,11 +641,6 @@ function fecharFormulario() {
     ).innerHTML = "";
 
 }
-
-
-// ======================================================
-// VALIDAR IMAGENS DO CADASTRO
-// ======================================================
 
 function validarImagensGaleria(input) {
 
@@ -722,11 +686,6 @@ function validarImagensGaleria(input) {
 
 }
 
-
-// ======================================================
-// CAMINHO DAS IMAGENS
-// ======================================================
-
 function obterUrlImagem(imagem) {
 
     if (!imagem) {
@@ -748,11 +707,6 @@ function obterUrlImagem(imagem) {
     return "/storage/" + imagem.replace(/^\/+/, "");
 
 }
-
-
-// ======================================================
-// EDIÇÃO DA GALERIA
-// ======================================================
 
 function abrirEdicaoGaleria(foto) {
 
@@ -850,11 +804,6 @@ function abrirEdicaoGaleria(foto) {
 
 }
 
-
-// ======================================================
-// PRÉVIA DAS NOVAS IMAGENS
-// ======================================================
-
 function previewNovasImagens(input) {
 
     const preview = document.getElementById(
@@ -899,11 +848,6 @@ function previewNovasImagens(input) {
 
 }
 
-
-// ======================================================
-// FECHAR EDIÇÃO
-// ======================================================
-
 function fecharEdicaoGaleria() {
 
     const modal = document.getElementById(
@@ -927,11 +871,6 @@ function fecharEdicaoGaleria() {
     document.body.style.overflow = "";
 
 }
-
-
-// ======================================================
-// EXCLUSÃO
-// ======================================================
 
 function abrirConfirmacaoExcluir(id, titulo) {
 
@@ -959,11 +898,6 @@ function abrirConfirmacaoExcluir(id, titulo) {
 
 }
 
-
-// ======================================================
-// FECHAR EXCLUSÃO
-// ======================================================
-
 function fecharConfirmacaoExcluir() {
 
     document.getElementById(
@@ -973,11 +907,6 @@ function fecharConfirmacaoExcluir() {
     document.body.style.overflow = "";
 
 }
-
-
-// ======================================================
-// FECHAR MODAIS CLICANDO FORA
-// ======================================================
 
 window.addEventListener("click", function(event) {
 
@@ -998,11 +927,6 @@ window.addEventListener("click", function(event) {
     }
 
 });
-
-
-// ======================================================
-// FECHAR COM ESC
-// ======================================================
 
 document.addEventListener("keydown", function(event) {
 

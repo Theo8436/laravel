@@ -211,8 +211,7 @@
             </section>
         </main>
     </div>
-
-    {{-- FOOTER COMPARTILHADO --}}
+    
     @include('components.footer')
 
 </body>

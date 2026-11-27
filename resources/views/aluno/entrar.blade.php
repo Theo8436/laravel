@@ -21,7 +21,6 @@
 
     <main class="pagina-cadastro">
 
-        <!-- Brilhos decorativos -->
         <div class="cadastro-brilhos" aria-hidden="true">
             @for ($i = 1; $i <= 12; $i++)
                 <span class="brilho brilho-{{ $i }}"></span>
@@ -32,27 +31,22 @@
 
             <section class="cadastro-card">
 
-                <!-- Logo -->
                 <div class="cadastro-logo">
                     <img src="{{ asset('Beth.jpg') }}" alt="Beth Cientista">
                 </div>
 
-                <!-- Etiqueta -->
                 <div class="cadastro-etiqueta">
                     <i class="bi bi-stars"></i>
                     Que bom ter você de volta!
                 </div>
 
-                <!-- Título -->
                 <h1>ÁREA DO ALUNO</h1>
 
-                <!-- Descrição -->
                 <p class="cadastro-descricao">
                     Entre na sua conta e continue sua jornada
                     pelo incrível mundo da ciência!
                 </p>
 
-                <!-- Mensagens de erro -->
                 @if ($errors->any())
                     <div class="cadastro-mensagem" role="alert">
 
@@ -67,11 +61,9 @@
                     </div>
                 @endif
 
-                <!-- Formulário de login -->
                 <form action="{{ route('aluno.logar') }}" method="POST">
                     @csrf
 
-                    <!-- E-mail -->
                     <div class="campo">
 
                         <label for="email">
@@ -90,7 +82,6 @@
 
                     </div>
 
-                    <!-- Senha -->
                     <div class="campo">
 
                         <label for="senha">
@@ -108,7 +99,6 @@
 
                     </div>
 
-                    <!-- Botões -->
                     <div class="cadastro-botoes">
 
                         <a href="{{ route('escolha') }}" class="btn-voltar">
@@ -125,7 +115,6 @@
 
                 </form>
 
-                <!-- Rodapé -->
                 <div class="cadastro-rodape">
                     <i class="bi bi-heart-fill"></i>
                     Aprender, descobrir e transformar através da ciência!

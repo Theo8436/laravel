@@ -12,7 +12,6 @@ class LivroSeeder extends Seeder
      */
     public function run(): void
     {
-        // Chama a factory e diz para criar exatamente 6 livros no banco
         LivroModel::factory()->count(6)->create();
     }
 }

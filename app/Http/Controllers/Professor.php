@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Postagem; // 1. Importa a Model de postagens dos alunos
+use App\Models\Postagem;
 
 class Professor extends Controller
 {
@@ -16,10 +16,8 @@ class Professor extends Controller
     }
 
     function inicio(){
-        // 2. Busca todas as postagens dos alunos do banco de dados (da mais recente para a mais antiga)
         $publicacoes = Postagem::with('user')->latest()->get();
 
-        // 3. Envia a variável $publicacoes para a view inicio.blade.php
         return view('professor.inicio', compact('publicacoes'));
     }
 

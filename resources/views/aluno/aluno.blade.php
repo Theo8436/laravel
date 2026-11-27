@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <style>
@@ -24,8 +23,6 @@ body{
     background:linear-gradient(180deg,#7000a8 0%,#b500d6 55%,#ef6b72 100%);
     min-height:100vh;
 }
-
-/* ================= HEADER ================= */
 
 header{
 
@@ -80,8 +77,6 @@ header{
 
 }
 
-/* ================= NAVBAR ================= */
-
 nav{
 
     display:flex;
@@ -123,8 +118,6 @@ nav .ativo{
 
 }
 
-/* ================= MAIN ================= */
-
 main{
 
     width:85%;
@@ -132,8 +125,6 @@ main{
     margin:40px auto;
 
 }
-
-/* ================= PERFIL ================= */
 
 .perfil{
 
@@ -216,8 +207,6 @@ main{
 
 }
 
-/* ================= MENU ================= */
-
 .menu-area{
 
     display:flex;
@@ -268,8 +257,6 @@ main{
 
 }
 
-/* ================= TÍTULO ================= */
-
 .titulo{
 
     display:flex;
@@ -313,8 +300,6 @@ main{
     background:#ff8b00;
 
 }
-
-/* ================= PUBLICAÇÕES ================= */
 
 .card-publicacao{
 
@@ -405,8 +390,6 @@ main{
 
 }
 
-/* ================= CALENDÁRIO ================= */
-
 #calendario{
 
     background:white;
@@ -441,8 +424,6 @@ main{
 
 }
 
-/* ================= MATERIAL ================= */
-
 #material{
 
     background:white;
@@ -470,8 +451,6 @@ main{
     line-height:28px;
 
 }
-
-/* ================= RESPONSIVO ================= */
 
 @media(max-width:1000px){
 
@@ -535,8 +514,6 @@ main{
 </style>
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header>
 
     <div class="logo">
@@ -575,8 +552,6 @@ main{
 
 </header>
 
-<!-- ================= PERFIL ================= -->
-
 <main>
 
 <section class="perfil">
@@ -598,8 +573,6 @@ main{
     </div>
 
 </section>
-
-<!-- ================= MENU ================= -->
 
 <section class="menu-area">
 
@@ -629,8 +602,6 @@ Material de Apoio
 
 </section>
 
-<!-- ================= PUBLICAÇÕES ================= -->
-
 <section id="publicacoes">
 
 <div class="titulo">
@@ -649,13 +620,9 @@ Nova Publicação
 
 <div id="listaPublicacoes">
 
-<!-- Publicações criadas pelo JavaScript -->
-
 </div>
 
 </section>
-
-<!-- ================= CALENDÁRIO ================= -->
 
 <section id="calendario" hidden>
 
@@ -664,8 +631,6 @@ Nova Publicação
 <input type="date">
 
 </section>
-
-<!-- ================= MATERIAL ================= -->
 
 <section id="material" hidden>
 

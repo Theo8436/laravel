@@ -25,7 +25,6 @@
 
     <main class="pagina-cadastro">
 
-        <!-- Brilhos decorativos -->
         <div class="cadastro-brilhos">
             <span class="brilho brilho-1"></span>
             <span class="brilho brilho-2"></span>
@@ -45,18 +44,15 @@
 
             <div class="cadastro-card">
 
-                <!-- Logo -->
                 <div class="cadastro-logo">
                     <img src="{{ asset('Beth.jpg') }}" alt="Beth Cientista">
                 </div>
 
-                <!-- Etiqueta -->
                 <span class="cadastro-etiqueta">
                     <i class="bi bi-stars"></i>
                     Faça parte dessa aventura!
                 </span>
 
-                <!-- Título -->
                 <h1>CRIAR CONTA</h1>
 
                 <p class="cadastro-descricao">
@@ -64,10 +60,8 @@
                     Escolha como deseja fazer parte da Beth Cientista.
                 </p>
 
-                <!-- Opções de cadastro -->
                 <div class="cadastro-opcoes">
 
-                    <!-- Aluno -->
                     <a href="{{ route('aluno.cadastro') }}"
                        class="cadastro-opcao opcao-aluno">
 
@@ -84,7 +78,6 @@
 
                     </a>
 
-                    <!-- Professor -->
                     <a href="{{ route('professor.cadastro') }}"
                        class="cadastro-opcao opcao-professor">
 
@@ -103,7 +96,6 @@
 
                 </div>
 
-                <!-- Rodapé do cartão -->
                 <div class="cadastro-rodape">
                     <i class="bi bi-heart-fill"></i>
                     <span>Aprender, compartilhar e transformar o futuro!</span>

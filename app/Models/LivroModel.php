@@ -9,10 +9,8 @@ class LivroModel extends Model
 {
     use HasFactory;
 
-    // Define explicitamente o nome da tabela criada na sua migration
     protected $table = 'livro';
 
-    // Campos permitidos para cadastro
     protected $fillable = [
         'titulo',
         'autor',

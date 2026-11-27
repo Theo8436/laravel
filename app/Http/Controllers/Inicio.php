@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Postagem; // Importa o Model correto de postagens
+use App\Models\Postagem;
 
 class Inicio extends Controller
 {

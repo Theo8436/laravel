@@ -8,7 +8,5 @@ class Sobre extends Controller
 {
     function sobre(){
         return view ('sobre');
-    }
-
-    
+    }  
 }

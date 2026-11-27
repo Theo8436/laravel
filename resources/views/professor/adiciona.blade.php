@@ -22,7 +22,6 @@
             min-height: 100vh;
         }
 
-        /* HEADER */
         header {
             width: 100%;
             background: #ff7a00;
@@ -65,7 +64,6 @@
             transform: translateY(-3px);
         }
 
-        /* MAIN */
         main {
             width: 90%;
             margin: 45px auto;
@@ -84,7 +82,6 @@
             font-size: 18px;
         }
 
-        /* MENU */
         .menu-principal {
             display: flex;
             gap: 15px;
@@ -111,7 +108,6 @@
             transform: translateY(-3px);
         }
 
-        /* SEÇÕES */
         .painel {
             background: white;
             padding: 35px;
@@ -124,7 +120,6 @@
             margin-bottom: 20px;
         }
 
-        /* BARRA DE GERENCIAMENTO */
         .header-container {
             display: flex;
             justify-content: space-between;
@@ -159,7 +154,6 @@
             transform: translateY(-2px);
         }
 
-        /* TABELA */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -211,7 +205,6 @@
             margin-left: 4px;
         }
 
-        /* MODAIS */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -295,7 +288,6 @@
             color: #333;
         }
 
-        /* ALERTAS */
         .alert-sucesso {
             background-color: #d1fae5;
             color: #065f46;
@@ -305,7 +297,6 @@
             font-weight: bold;
         }
 
-        /* POSTS */
         .post-card {
             background: #f7f7f9;
             padding: 25px;
@@ -335,7 +326,6 @@
             font-weight: 600;
         }
 
-        /* CALENDÁRIO */
         .calendario-container {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -427,7 +417,6 @@
             </div>
         @endif
 
-        <!-- MENU -->
         <section class="menu-principal">
             <button onclick="mostrarAlunos()">👨‍🎓 Alunos</button>
             <button onclick="mostrarPosts()">
@@ -436,7 +425,6 @@
             <button onclick="mostrarCalendario()">📅 Calendário</button>
         </section>
 
-        <!-- ================= ALUNOS ================= -->
         <section id="alunos" class="painel">
             <h2>Gerenciar Alunos</h2>
 
@@ -499,7 +487,6 @@
             </div>
         </section>
 
-        <!-- ================= POSTS ================= -->
         <section id="posts" class="painel" hidden>
             <h2>Revisão de Posts</h2>
             <p>Posts aguardando aprovação:</p>
@@ -507,7 +494,6 @@
             <button class="btn-aprovar" onclick="aprovarTodos()">Aprovar Todos</button>
         </section>
 
-        <!-- ================= CALENDÁRIO ================= -->
         <section id="calendario" class="painel" hidden>
             <h2>Calendário</h2>
             <p style="color:#666">Selecione uma data no calendário para adicionar um evento.</p>
@@ -551,7 +537,6 @@
         </section>
     </main>
 
-    <!-- MODAL ADICIONAR -->
     <div id="modalCriar" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="modal-header">
@@ -587,7 +572,6 @@
         </div>
     </div>
 
-    <!-- MODAL EDITAR -->
     <div id="modalEditar" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="modal-header">
@@ -626,7 +610,6 @@
     </div>
 
     <script>
-        /* NAVEGAÇÃO ENTRE ABAS */
         function esconderTudo() {
             document.getElementById("alunos").hidden = true;
             document.getElementById("posts").hidden = true;
@@ -651,7 +634,6 @@
             carregarEventos();
         }
 
-        /* MODAIS DE ALUNOS */
         function abrirModalCriar() {
             document.getElementById('modalCriar').style.display = 'flex';
         }
@@ -661,7 +643,6 @@
         }
 
         function abrirModalEditar(id, nome, email, nivelAcesso) {
-            // Atualiza para apontar para a rota do AdicionaController
             document.getElementById('formEditar').action = `/professor/${id}`;
             document.getElementById('edit_nome').value = nome;
             document.getElementById('edit_email').value = email;
@@ -680,7 +661,6 @@
             if (event.target === modalEditar) fecharModalEditar();
         }
 
-        /* POSTS SIMULADOS */
         let posts = [
             { titulo: "A Evolução das Estrelas", autor: "Maria Silva", categoria: "Beth nas Estrelas" },
             { titulo: "Sistema Digestivo", autor: "João Santos", categoria: "Beth Anatomy" }
@@ -726,7 +706,6 @@
             carregarPosts();
         }
 
-        /* CALENDÁRIO */
         let dataAtual = new Date();
         let dataSelecionada = null;
         let eventos = [];

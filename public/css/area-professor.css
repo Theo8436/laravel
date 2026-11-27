@@ -1,5 +1,3 @@
-/* Estilos da página Área do Professor */
-
 main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes * {
             box-sizing: border-box;
         }
@@ -13,7 +11,6 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
             min-height: 100vh;
         }
 
-        /* ================= MAIN ================= */
         main {
             width: min(92%, 1500px);
             margin: 45px auto;
@@ -33,7 +30,6 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
             font-size: 18px;
         }
 
-        /* ================= MENU ================= */
         .menu-principal {
             display: flex;
             gap: 15px;
@@ -60,7 +56,6 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
             transform: translateY(-3px);
         }
 
-        /* ================= SEÇÕES ================= */
         .painel {
             background: white;
             padding: 35px;
@@ -74,7 +69,6 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
             margin-bottom: 20px;
         }
 
-        /* ================= BOTÕES ================= */
         .btn-principal {
             background: #ff7a00;
             color: white;
@@ -108,7 +102,6 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
             background: #ddd;
         }
 
-        /* ================= TABELA E BUSCA ================= */
         .header-tabela {
             display: flex;
             justify-content: space-between;

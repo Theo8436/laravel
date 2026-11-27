@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descricao');
-            $table->string('imagem'); // Salva o caminho do arquivo (Ex: galeria/foto.jpg)
+            $table->string('imagem');
             $table->timestamps();
         });
     }

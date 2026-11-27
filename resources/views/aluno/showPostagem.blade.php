@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $postagem->titulo }} | Beth Cientista</title>
     
-    <!-- Fontes e Ícones -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -29,7 +28,6 @@
             margin: 0 auto;
         }
 
-        /* Botão Voltar */
         .btn-voltar {
             display: inline-flex;
             align-items: center;
@@ -52,7 +50,6 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
 
-        /* Cartão Principal do Artigo */
         .artigo-card {
             background: #ffffff;
             color: #222222;
@@ -100,8 +97,7 @@
             align-items: center;
             gap: 6px;
         }
-
-        /* Carrossel de Imagens */
+        
         .carrossel-container {
             position: relative;
             width: 100%;
@@ -160,7 +156,6 @@
             font-weight: 600;
         }
 
-        /* Conteúdo do Texto */
         .artigo-conteudo {
             font-size: 17px;
             line-height: 1.8;
@@ -175,12 +170,10 @@
 <body>
 
     <div class="container">
-        <!-- BOTÃO VOLTAR (Direciona de volta dinamicamente para a página de onde veio) -->
         <a href="javascript:history.back()" class="btn-voltar">
             <i class="bi bi-arrow-left"></i> Voltar
         </a>
 
-        <!-- CARTÃO DA PUBLICAÇÃO -->
         <article class="artigo-card">
             
             @if($postagem->categoria)
@@ -194,7 +187,6 @@
                 <span><i class="bi bi-calendar3"></i> {{ $postagem->created_at ? $postagem->created_at->format('d/m/Y') : 'Data não informada' }}</span>
             </div>
 
-            <!-- CARROSSEL DE IMAGENS -->
 @if($postagem->imagem)
 
     @php
@@ -284,8 +276,6 @@
     @endif
 
 @endif
-
-            <!-- CONTEÚDO COMPLETO -->
             <div class="artigo-conteudo">
                 {!! nl2br(e($postagem->comentario)) !!}
             </div>

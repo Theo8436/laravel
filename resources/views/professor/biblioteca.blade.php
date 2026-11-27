@@ -364,10 +364,6 @@
         </div>
     </div>
 
-
-    {{-- ==========================================
-         MODAL EDITAR LIVRO
-    ========================================== --}}
     <div class="bc-modal" id="modalEdicao">
 
         <div class="bc-modal-content">
@@ -435,10 +431,6 @@
         </div>
     </div>
 
-
-    {{-- ==========================================
-         MODAL EXCLUIR LIVRO
-    ========================================== --}}
     <div class="bc-modal" id="modalExcluir">
 
         <div class="bc-modal-content bc-confirm-content">
@@ -478,10 +470,6 @@
         </div>
     </div>
 
-
-    {{-- ==========================================
-         MODAL SOLICITAÇÕES DE EMPRÉSTIMO
-    ========================================== --}}
     <div class="bc-modal" id="modalSolicitacoes">
 
         <div class="bc-modal-content bc-requests-content">
@@ -569,12 +557,7 @@
         </div>
     </div>
 
-
-    {{-- ==========================================
-         JAVASCRIPT
-    ========================================== --}}
     <script>
-        // Abrir e fechar cadastro
         function abrirFormulario() {
             document.getElementById('modalCadastro').classList.add('ativo');
         }
@@ -583,7 +566,6 @@
             document.getElementById('modalCadastro').classList.remove('ativo');
         }
 
-        // Abrir e fechar edição
         function abrirEdicao(livro) {
             const formulario = document.getElementById('formEdicao');
 
@@ -601,7 +583,6 @@
             document.getElementById('modalEdicao').classList.remove('ativo');
         }
 
-        // Abrir e fechar exclusão
         function abrirConfirmacaoExcluir(id, titulo) {
             document.getElementById('formExcluir').action =
                 `/professor/biblioteca/excluir/${id}`;
@@ -615,7 +596,6 @@
             document.getElementById('modalExcluir').classList.remove('ativo');
         }
 
-        // Abrir e fechar solicitações
         function abrirSolicitacoes() {
             document.getElementById('modalSolicitacoes').classList.add('ativo');
         }
@@ -624,7 +604,6 @@
             document.getElementById('modalSolicitacoes').classList.remove('ativo');
         }
 
-        // Pesquisa por título, autor, categoria e status
         const campoBusca = document.getElementById('bcBusca');
         const cardsLivros = Array.from(document.querySelectorAll('.bc-book-card'));
         const mensagemSemResultado = document.getElementById('bcSemResultado');
@@ -656,7 +635,6 @@
             campoBusca.focus();
         }
 
-        // Fechar modais ao clicar no fundo
         document.querySelectorAll('.bc-modal').forEach(modal => {
             modal.addEventListener('click', function(event) {
                 if (event.target === modal) {
@@ -665,7 +643,6 @@
             });
         });
 
-        // Fechar modais com ESC
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 document.querySelectorAll('.bc-modal.ativo').forEach(modal => {
@@ -674,7 +651,6 @@
             }
         });
 
-        // Toast para mensagens rápidas
         let toastTimer;
 
         window.bcMensagem = function(texto) {

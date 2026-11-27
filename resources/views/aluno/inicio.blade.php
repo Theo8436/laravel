@@ -7,32 +7,25 @@
     <title>Beth Cientista</title>
     <link rel="icon" type="image/jpeg" href="{{ asset('images/beth-logo.jpeg') }}">
 
-    {{-- CSS da página --}}
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
 
-    {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
 
-    {{-- Ícones --}}
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
 
-    {{-- =========================================================
-        HEADER
-    ========================================================== --}}
     <header class="site-header">
 
         <div class="header-noise"></div>
 
         <div class="header-container">
 
-            {{-- Logo --}}
             <a href="{{ url('/') }}" class="brand">
 
                 <div class="brand-logo">
@@ -49,7 +42,6 @@
 
             </a>
 
-            {{-- Navegação --}}
             <nav class="main-nav">
 
                 <a href="{{ route ('aluno.inicio')}}" class="nav-link active">
@@ -87,7 +79,6 @@
                 <a href="{{ route('inicio')}}">Sair</a>
             </nav>
 
-            {{-- Menu mobile --}}
             <button class="mobile-menu-button" id="mobileMenuButton">
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -96,13 +87,8 @@
 
     </header>
 
-
-    {{-- =========================================================
-        CONTEÚDO PRINCIPAL
-    ========================================================== --}}
     <main class="home-page">
 
-        {{-- Elementos decorativos --}}
         <div class="background-decoration decoration-one"></div>
         <div class="background-decoration decoration-two"></div>
         <div class="background-decoration decoration-three"></div>
@@ -127,15 +113,10 @@
             </svg>
         </div>
 
-
-        {{-- =====================================================
-            HERO
-        ====================================================== --}}
         <section class="hero-section">
 
             <div class="hero-container">
 
-                {{-- Texto --}}
                 <div class="hero-content">
 
                     <h2 class="hero-title">
@@ -147,7 +128,6 @@
                         para jovens
                     </p>
 
-                    {{-- Busca --}}
                     <div class="search-wrapper">
 
                         <div class="search-box">
@@ -167,8 +147,6 @@
 
                 </div>
 
-
-                {{-- Mascote --}}
                 <div class="hero-mascot">
 
                     <div class="mascot-star">
@@ -193,10 +171,6 @@
 
         </section>
 
-
-        {{-- =====================================================
-            CATEGORIAS
-        ====================================================== --}}
         <section class="categories-section">
 
             <div class="content-container">
@@ -286,10 +260,6 @@
 
         </section>
 
-
-        {{-- =====================================================
-            ORDENAR
-        ====================================================== --}}
         <section class="sort-section">
 
             <div class="sort-box">
@@ -320,10 +290,6 @@
 
         </section>
 
-
-        {{-- =====================================================
-            CONTEÚDOS
-        ====================================================== --}}
         <section class="posts-section">
 
             <div class="content-container">
@@ -468,10 +434,6 @@
 
     </main>
 
-
-    {{-- =========================================================
-        FOOTER
-    ========================================================== --}}
     <footer class="site-footer">
 
         <div class="footer-decoration"></div>
@@ -515,10 +477,6 @@
 
     </footer>
 
-
-    {{-- =========================================================
-        JAVASCRIPT
-    ========================================================== --}}
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -548,13 +506,6 @@
 
             let selectedCategory = 'Todos';
             let selectedSort = 'recent';
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Filtrar conteúdos
-            |--------------------------------------------------------------------------
-            */
 
             function filterPosts() {
 
@@ -594,13 +545,6 @@
 
                 });
 
-
-                /*
-                |--------------------------------------------------------------------------
-                | Ordenação
-                |--------------------------------------------------------------------------
-                */
-
                 visiblePosts.sort(function (a, b) {
 
                     const dateA =
@@ -620,13 +564,6 @@
 
                 });
 
-
-                /*
-                |--------------------------------------------------------------------------
-                | Atualizar cards
-                |--------------------------------------------------------------------------
-                */
-
                 posts.forEach(function (post) {
 
                     post.style.display = 'none';
@@ -642,24 +579,10 @@
 
                 });
 
-
-                /*
-                |--------------------------------------------------------------------------
-                | Título
-                |--------------------------------------------------------------------------
-                */
-
                 postsTitle.textContent =
                     selectedCategory === 'Todos'
                         ? 'Todos os Conteúdos'
                         : selectedCategory;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | Nenhum resultado
-                |--------------------------------------------------------------------------
-                */
 
                 if (visiblePosts.length === 0) {
 
@@ -673,24 +596,10 @@
 
             }
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Pesquisa
-            |--------------------------------------------------------------------------
-            */
-
             searchInput.addEventListener(
                 'input',
                 filterPosts
             );
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Categorias
-            |--------------------------------------------------------------------------
-            */
 
             categoryButtons.forEach(function (button) {
 
@@ -723,13 +632,6 @@
 
             });
 
-
-            /*
-            |--------------------------------------------------------------------------
-            | Ordenação
-            |--------------------------------------------------------------------------
-            */
-
             sortButtons.forEach(function (button) {
 
                 button.addEventListener(
@@ -760,13 +662,6 @@
                 );
 
             });
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Menu mobile
-            |--------------------------------------------------------------------------
-            */
 
             const mobileButton =
                 document.getElementById(

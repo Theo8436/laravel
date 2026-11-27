@@ -12,7 +12,6 @@ class LivroSeeder extends Seeder
      */
     public function run(): void
     {
-        // Lista com os 6 livros científicos exatos, sem repetições
         $livrosCientificos = [
             ['titulo' => 'Uma Breve História do Tempo', 'autor' => 'Stephen Hawking', 'categoria' => 'Física'],
             ['titulo' => 'Cosmos', 'autor' => 'Carl Sagan', 'categoria' => 'Astronomia'],
@@ -22,13 +21,12 @@ class LivroSeeder extends Seeder
             ['titulo' => 'A Origem das Espécies', 'autor' => 'Charles Darwin', 'categoria' => 'Biologia'],
         ];
 
-        // Percorre a lista e insere cada um no banco com um status aleatório
         foreach ($livrosCientificos as $livro) {
             LivroModel::create([
                 'titulo'    => $livro['titulo'],
                 'autor'     => $livro['autor'],
                 'categoria' => $livro['categoria'],
-                'status'    => collect(['livre', 'emprestado', 'reservado'])->random(), // Sorteia o status para o teste
+                'status'    => collect(['livre', 'emprestado', 'reservado'])->random(),
             ]);
         }
     }

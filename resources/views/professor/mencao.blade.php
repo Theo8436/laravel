@@ -13,14 +13,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&family=Kavoon&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    {{-- CSS compartilhados e estilos exclusivos da página --}}
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mencoes-professor.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 </head>
 <body class="pagina-mencoes-professor">
 
-    {{-- Navbar compartilhado utilizado na Área do Professor --}}
     @include('components.navbar-professor')
 
     <main class="mencoes-prof-page">
@@ -51,7 +49,6 @@
                 </button>
             </section>
 
-            {{-- Formulário de cadastro --}}
             <section
                 class="mencoes-prof-form {{ session('sucesso') || $errors->any() ? 'aberto' : '' }}"
                 id="formularioContainer"
@@ -158,7 +155,6 @@
                 </form>
             </section>
 
-            {{-- Menções cadastradas no banco de dados --}}
             <section class="mencoes-prof-grid" id="listaMencoes" aria-label="Menções honrosas cadastradas">
                 @forelse($mencoes as $mencao)
                     <article class="mencoes-prof-card">
@@ -181,7 +177,6 @@
                             <p class="mencoes-prof-description">{{ $mencao->descricao }}</p>
                         </div>
 
-                        {{-- Ações exclusivas do professor --}}
                         <div class="mencoes-prof-actions">
                             <a href="{{ route('mencao.edit', $mencao->id) }}" class="mencoes-prof-edit">
                                 <i class="bi bi-pencil-square" aria-hidden="true"></i>

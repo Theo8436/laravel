@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class LivroController extends Controller
 {
-    // Exibe a página da biblioteca do professor
     public function biblioteca()
     {
         $livros = LivroModel::latest()->get();
@@ -23,7 +22,6 @@ class LivroController extends Controller
         ));
     }
 
-    // Salva um novo livro
     public function store(Request $request)
     {
         $request->validate([
@@ -38,7 +36,6 @@ class LivroController extends Controller
         return redirect()->back()->with('sucesso', 'Livro cadastrado com sucesso!');
     }
 
-    // Atualiza um livro
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -55,7 +52,6 @@ class LivroController extends Controller
         return redirect()->back()->with('sucesso', 'Livro atualizado com sucesso!');
     }
 
-    // Exclui um livro
     public function destroy($id)
     {
         $livro = LivroModel::findOrFail($id);
@@ -65,7 +61,6 @@ class LivroController extends Controller
         return redirect()->back()->with('sucesso', 'Livro excluído com sucesso!');
     }
 
-    // Biblioteca do aluno
     public function bibliotecaAluno()
     {
         $livros = LivroModel::all();
@@ -73,7 +68,6 @@ class LivroController extends Controller
         return view('aluno.biblioteca', compact('livros'));
     }
 
-    // Biblioteca pública
     public function bibliotecaa()
     {
         $livros = LivroModel::all();

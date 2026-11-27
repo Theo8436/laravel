@@ -21,7 +21,6 @@
 
     <main class="pagina-cadastro">
 
-        <!-- Brilhos decorativos -->
         <div class="cadastro-brilhos" aria-hidden="true">
             @for ($i = 1; $i <= 12; $i++)
                 <span class="brilho brilho-{{ $i }}"></span>
@@ -32,27 +31,22 @@
 
             <section class="cadastro-card">
 
-                <!-- Logo -->
                 <div class="cadastro-logo">
                     <img src="{{ asset('Beth.jpg') }}" alt="Beth Cientista">
                 </div>
 
-                <!-- Etiqueta -->
                 <div class="cadastro-etiqueta">
                     <i class="bi bi-stars"></i>
                     Faça parte da nossa equipe
                 </div>
 
-                <!-- Título -->
                 <h1>Cadastro de Professor</h1>
 
-                <!-- Descrição -->
                 <p class="cadastro-descricao">
                     Crie sua conta e faça parte da missão de
                     inspirar novas descobertas através da ciência!
                 </p>
 
-                <!-- Mensagens de erro -->
                 @if ($errors->any())
                     <div class="cadastro-mensagem" role="alert">
 
@@ -67,11 +61,9 @@
                     </div>
                 @endif
 
-                <!-- Formulário de cadastro -->
                 <form action="{{ route('professor.adicionar') }}" method="POST">
                     @csrf
 
-                    <!-- Nome completo -->
                     <div class="campo">
 
                         <label for="nome">
@@ -90,7 +82,6 @@
 
                     </div>
 
-                    <!-- E-mail -->
                     <div class="campo">
 
                         <label for="email">
@@ -109,7 +100,6 @@
 
                     </div>
 
-                    <!-- Senha -->
                     <div class="campo">
 
                         <label for="senha">
@@ -127,7 +117,6 @@
 
                     </div>
 
-                    <!-- Código exclusivo -->
                     <div class="campo">
 
                         <label for="code">
@@ -149,7 +138,6 @@
 
                     </div>
 
-                    <!-- Botões -->
                     <div class="cadastro-botoes">
 
                         <a href="{{ route('escolha') }}" class="btn-voltar">
@@ -166,7 +154,6 @@
 
                 </form>
 
-                <!-- Rodapé -->
                 <div class="cadastro-rodape">
                     <i class="bi bi-heart-fill"></i>
                     Aprender, descobrir e transformar através da ciência!

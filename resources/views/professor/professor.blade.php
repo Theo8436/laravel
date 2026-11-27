@@ -35,9 +35,6 @@ body{
 
 }
 
-
-/* ================= HEADER ================= */
-
 header{
 
     width:100%;
@@ -114,9 +111,6 @@ nav a:hover{
 
 }
 
-
-/* ================= MAIN ================= */
-
 main{
 
     width:90%;
@@ -146,9 +140,6 @@ main > p{
     font-size:18px;
 
 }
-
-
-/* ================= MENU ================= */
 
 .menu-principal{
 
@@ -196,9 +187,6 @@ main > p{
 
 }
 
-
-/* ================= SEÇÕES ================= */
-
 .painel{
 
     background:white;
@@ -218,9 +206,6 @@ main > p{
     margin-bottom:20px;
 
 }
-
-
-/* ================= BOTÕES ================= */
 
 .btn-principal{
 
@@ -273,9 +258,6 @@ main > p{
     background:#ddd;
 
 }
-
-
-/* ================= TABELA ================= */
 
 table{
 
@@ -369,9 +351,6 @@ td button{
 
 }
 
-
-/* ================= FORMULÁRIOS ================= */
-
 .formulario{
 
     background:#f7f7f9;
@@ -456,9 +435,6 @@ td button{
 
 }
 
-
-/* ================= POSTS ================= */
-
 .post-card{
 
     background:#f7f7f9;
@@ -527,9 +503,6 @@ td button{
 
 }
 
-
-/* ================= MENSAGEM ================= */
-
 .mensagem{
 
     display:none;
@@ -568,9 +541,6 @@ td button{
 
 }
 
-
-/* ================= CALENDÁRIO ================= */
-
 .calendario-container{
 
     display:grid;
@@ -580,9 +550,6 @@ td button{
     gap:30px;
 
 }
-
-
-/* calendário */
 
 .calendario{
 
@@ -720,9 +687,6 @@ td button{
 
 }
 
-
-/* formulário do calendário */
-
 .evento-form{
 
     background:#f7f7f9;
@@ -756,9 +720,6 @@ td button{
     font-weight:600;
 
 }
-
-
-/* lista de eventos */
 
 .lista-eventos{
 
@@ -813,9 +774,6 @@ td button{
     cursor:pointer;
 
 }
-
-
-/* ================= RESPONSIVO ================= */
 
 @media(max-width:1000px){
 
@@ -906,13 +864,7 @@ td button{
 
 <p>Painel de gerenciamento e aprovação</p>
 
-
-<!-- MENSAGEM -->
-
 <div id="mensagem" class="mensagem"></div>
-
-
-<!-- MENU -->
 
 <section class="menu-principal">
 
@@ -938,9 +890,6 @@ td button{
 
 </section>
 
-
-<!-- ================= ALUNOS ================= -->
-
 <section id="alunos" class="painel">
 
 <h2>Gerenciar Alunos</h2>
@@ -950,9 +899,6 @@ td button{
     + Adicionar Aluno
 
 </button>
-
-
-<!-- FORMULÁRIO ALUNO -->
 
 <div id="formularioAluno" class="formulario" hidden>
 
@@ -1046,9 +992,6 @@ td button{
 
 </section>
 
-
-<!-- ================= POSTS ================= -->
-
 <section id="posts" class="painel" hidden>
 
 <h2>Revisão de Posts</h2>
@@ -1071,9 +1014,6 @@ Posts aguardando aprovação:
 
 </section>
 
-
-<!-- ================= CALENDÁRIO ================= -->
-
 <section id="calendario" class="painel" hidden>
 
 <h2>Calendário</h2>
@@ -1086,9 +1026,6 @@ Selecione uma data no calendário para adicionar um evento.
 
 
 <div class="calendario-container">
-
-
-<!-- CALENDÁRIO -->
 
 <div class="calendario">
 
@@ -1127,9 +1064,6 @@ Selecione uma data no calendário para adicionar um evento.
     <div id="dias" class="dias"></div>
 
 </div>
-
-
-<!-- FORMULÁRIO EVENTO -->
 
 <div class="evento-form">
 
@@ -1185,9 +1119,6 @@ Selecione uma data no calendário para adicionar um evento.
 
 </div>
 
-
-<!-- EVENTOS -->
-
 <div class="lista-eventos">
 
     <h3 style="color:#4b1d91;margin-bottom:15px">
@@ -1207,11 +1138,6 @@ Selecione uma data no calendário para adicionar um evento.
 
 
 <script>
-
-
-/* ==================================================
-   ALUNOS
-================================================== */
 
 
 let alunos = [
@@ -1456,12 +1382,6 @@ function formatarData(data){
 
 }
 
-
-/* ==================================================
-   NAVEGAÇÃO DAS SEÇÕES
-================================================== */
-
-
 function esconderTudo(){
 
     document.getElementById("alunos").hidden=true;
@@ -1504,12 +1424,6 @@ function mostrarCalendario(){
     carregarEventos();
 
 }
-
-
-/* ==================================================
-   POSTS
-================================================== */
-
 
 let posts=[
 
@@ -1642,12 +1556,6 @@ function aprovarTodos(){
 
 }
 
-
-/* ==================================================
-   CALENDÁRIO
-================================================== */
-
-
 let dataAtual = new Date();
 
 let dataSelecionada = null;
@@ -1713,9 +1621,6 @@ function renderizarCalendario(){
 
     dias.innerHTML="";
 
-
-    /* espaços antes do primeiro dia */
-
     for(let i=0;i<primeiroDia;i++){
 
         const vazio=document.createElement("div");
@@ -1723,9 +1628,6 @@ function renderizarCalendario(){
         dias.appendChild(vazio);
 
     }
-
-
-    /* dias do mês */
 
     for(let dia=1;dia<=ultimoDia;dia++){
 
@@ -1741,26 +1643,17 @@ function renderizarCalendario(){
             String(mes+1).padStart(2,"0")+"-"+
             String(dia).padStart(2,"0");
 
-
-        /* eventos */
-
         if(eventos.some(evento=>evento.data===dataString)){
 
             botao.classList.add("tem-evento");
 
         }
 
-
-        /* data selecionada */
-
         if(dataSelecionada===dataString){
 
             botao.classList.add("selecionado");
 
         }
-
-
-        /* hoje */
 
         const hoje=new Date();
 
@@ -1828,12 +1721,6 @@ function mesProximo(){
     renderizarCalendario();
 
 }
-
-
-/* ==================================================
-   EVENTOS
-================================================== */
-
 
 function salvarEvento(){
 
@@ -1964,12 +1851,6 @@ function excluirEvento(indice){
 
 }
 
-
-/* ==================================================
-   MENSAGEM
-================================================== */
-
-
 function mostrarMensagem(texto,tipo){
 
     const mensagem=
@@ -1991,12 +1872,6 @@ function mostrarMensagem(texto,tipo){
     },4000);
 
 }
-
-
-/* ==================================================
-   NAVBAR
-================================================== */
-
 
 function abrirPagina(pagina){
 

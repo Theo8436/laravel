@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\ProfessorModel;
 use App\Models\AlunoModel;
 use App\Models\AdicionaModel;
-use App\Models\Postagem; // Adicione esta linha no topo do arquivo
-use App\Models\EventoCalendario; // Certifique-se de que este model está importado
+use App\Models\Postagem;
+use App\Models\EventoCalendario;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -22,7 +22,6 @@ class LoginProfessorController extends Controller
     public function cadastro() {
         return view('professor.cadastro');
     }
-    // Exibe a lista de alunos e as publicações pendentes
     public function index(Request $request)
     {
         $query = AdicionaModel::query();
@@ -41,13 +40,11 @@ class LoginProfessorController extends Controller
             ->paginate(10)
             ->appends($request->all());
 
-        // PUBLICAÇÕES QUE JÁ FORAM APROVADAS
         $publicacoes = Postagem::with('user')
             ->where('status', 'aprovada')
             ->latest()
             ->get();
 
-        // PUBLICAÇÕES QUE O PROFESSOR PRECISA REVISAR
         $postagens = Postagem::with('user')
             ->where('status', 'pendente')
             ->latest()
@@ -60,13 +57,11 @@ class LoginProfessorController extends Controller
         ));
     }
 
-    // Exibe a tela/modal de formulário para adicionar aluno
     public function create()
     {
         return view('professor.adiciona');
     }
 
-    // Processa a gravação do novo aluno
     public function store(Request $request)
     {
         $request->validate([
@@ -87,7 +82,6 @@ class LoginProfessorController extends Controller
             ->with('sucesso', 'Aluno cadastrado com sucesso!');
     }
 
-    // Atualiza os dados do aluno
     public function update(Request $request, AdicionaModel $aluno)
     {
         $request->validate([
@@ -107,7 +101,6 @@ class LoginProfessorController extends Controller
             ->with('sucesso', 'Aluno atualizado com sucesso!');
     }
 
-    // Remove o aluno
     public function destroy(AdicionaModel $aluno)
     {
         $aluno->delete();
@@ -116,7 +109,6 @@ class LoginProfessorController extends Controller
             ->route('professor.index')
             ->with('sucesso', 'Aluno removido com sucesso!');
     }
-
 
     public function adicionar(Request $request)
     {
@@ -131,10 +123,8 @@ class LoginProfessorController extends Controller
             'code.required'  => 'O código de acesso é obrigatório.'
         ]);
 
-        // Código mestre exigido para o cadastro de professores
         $codigoAcessoProfessor = env('CODIGO_ACESSO_PROFESSOR');
 
-        // Verifica o código de acesso
         if ($request->code !== $codigoAcessoProfessor) {
             return redirect()->back()
                 ->withErrors([
@@ -143,7 +133,6 @@ class LoginProfessorController extends Controller
                 ->withInput();
         }
 
-        // CADASTRO DIRETO SEM VERIFICAÇÃO
         $professor = ProfessorModel::create([
             'nome'  => $request->nome,
             'email' => $request->email,
@@ -151,55 +140,43 @@ class LoginProfessorController extends Controller
             'code'  => $request->code,
         ]);
 
-        // Faz login automático do professor
         Auth::guard('professores')->login($professor, true);
 
-        // Regenera a sessão por segurança
         $request->session()->regenerate();
 
-        // Redireciona para a área do professor
         return redirect()->route('professor.logado');
     }
 
-public function painelLogado(Request $request) // <-- IMPORTANTE: Adicione o Request aqui
+public function painelLogado(Request $request)
 {
-    // 1. Pega o ID do professor logado
     $professorId = Auth::guard('professores')->id();
 
-    // 2. CORREÇÃO: Busca os alunos usando paginação (ex: 10 por página)
     $alunos = AlunoModel::latest()
         ->paginate(10)
-        ->appends($request->all()); // Mantém os filtros/parâmetros na URL se houver
+        ->appends($request->all());
 
-    // 3. Busca os eventos cadastrados por este professor
     $eventos = EventoCalendario::with('aluno')
     ->where('professor_id', Auth::guard('professores')->id())
     ->latest('data_evento')
     ->get();
 
-    // 4. Busca as postagens pendentes
     $postagens = Postagem::with('user')
         ->where('status', 'pendente')
         ->latest()
         ->get();
 
-    // 5. Retorna a view enviando as variáveis
     return view('professor.logado', compact('alunos', 'eventos', 'postagens', 'eventos'));
 }
 public function excluirEventoCalendario($id)
 {
-    // Busca o evento pelo ID
     $evento = EventoCalendario::findOrFail($id);
 
-    // Opcional: Garante que apenas o professor que criou o evento pode excluí-lo
     if ($evento->professor_id !== Auth::guard('professores')->id()) {
         return redirect()->back()->withErrors(['erro' => 'Você não tem permissão para excluir este evento.']);
     }
 
-    // Deleta o evento
     $evento->delete();
 
-    // Redireciona de volta com uma mensagem de sucesso
     return redirect()->back()->with('sucesso', 'Evento removido com sucesso!');
 }
 
@@ -207,15 +184,13 @@ public function excluirEventoCalendario($id)
 
     public function salvarEventoCalendario(Request $request)
     {
-        // Validação estrita exigindo aluno_id e data válida (bloqueando datas passadas)
         $request->validate([
             'categoria'  => 'required|string|in:Beth Indica,Beth nas Estrelas,Beth Anatomy',
-            'aluno_id' => 'required|exists:alunos,id', // Garante que o aluno existe
+            'aluno_id' => 'required|exists:alunos,id',
             'data_evento' => 'required|date|after_or_equal:today',
             'descricao' => 'required|string'
         ]);
 
-        // Salva o evento vinculado ao professor logado e ao aluno escolhido
         EventoCalendario::create([
             'professor_id' => Auth::guard('professores')->id(),
             'aluno_id' => $request->aluno_id,
@@ -230,7 +205,6 @@ public function excluirEventoCalendario($id)
         ]);
     }
 
-    // Processa o Login
     public function logar(Request $request) {
         $credenciais = $request->validate([
             'email' => 'required|email',

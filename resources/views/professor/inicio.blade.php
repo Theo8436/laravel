@@ -20,21 +20,12 @@
 </head>
 
 <body>
-
-    {{-- =========================================================
-        HEADER DO PROFESSOR
-    ========================================================== --}}
     <header class="site-header">
-    {{-- NAVBAR DA ÁREA DO PROFESSOR --}}
 @include('components.navbar-professor')
     </header>
 
-    {{-- =========================================================
-        CONTEÚDO PRINCIPAL
-    ========================================================== --}}
     <main class="home-page">
 
-        {{-- Elementos decorativos --}}
         <div class="background-decoration decoration-one"></div>
         <div class="background-decoration decoration-two"></div>
         <div class="background-decoration decoration-three"></div>
@@ -51,7 +42,6 @@
             </svg>
         </div>
 
-        {{-- HERO --}}
         <section class="hero-section">
             <div class="hero-container">
                 <div class="hero-content">
@@ -75,7 +65,6 @@
             </div>
         </section>
 
-        {{-- CATEGORIAS --}}
         <section class="categories-section">
             <div class="content-container">
                 <h3 class="section-title"><span>Categorias dos Trabalhos</span></h3>
@@ -115,7 +104,6 @@
             </div>
         </section>
 
-        {{-- ORDENAR --}}
         <section class="sort-section">
             <div class="sort-box">
                 <i class="fa-regular fa-calendar"></i>
@@ -127,7 +115,6 @@
             </div>
         </section>
 
-        {{-- CONTEÚDOS DOS ALUNOS (DINÂMICO) --}}
         <section class="posts-section">
             <div class="content-container">
                 <h3 class="posts-title" id="postsTitle">Publicações dos Alunos</h3>
@@ -251,7 +238,6 @@
 
     </main>
 
-    {{-- FOOTER --}}
     <footer class="site-footer">
         <div class="footer-decoration"></div>
         <div class="footer-container">
@@ -269,7 +255,6 @@
         </div>
     </footer>
 
-    {{-- JAVASCRIPT DE FILTROS --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('searchInput');

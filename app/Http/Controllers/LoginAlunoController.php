@@ -40,10 +40,6 @@ class LoginAlunoController extends Controller
             'nivel_acesso.in'  => 'O nível de acesso selecionado é inválido.'
         ]);
 
-        // ==================================================
-        // CADASTRO DIRETO SEM VERIFICAÇÃO (COMO VOCÊ DEIXOU)
-        // ==================================================
-
         $aluno = AlunoModel::create([
             'nome'         => $request->nome,
             'email'        => $request->email,
@@ -52,17 +48,13 @@ class LoginAlunoController extends Controller
             'nivel_acesso' => $request->nivel_acesso,
         ]);
 
-        // Faz login automático do aluno
         Auth::guard('alunos')->login($aluno, true);
 
-        // Regenera a sessão por segurança
         $request->session()->regenerate();
 
-        // Redireciona para a área logada do aluno
         return redirect()->route('aluno.logado');
     }
 
-    // Processa o Login convencional
     public function logar(Request $request) {
         $credenciais = $request->validate([
             'email' => 'required|email',
@@ -74,7 +66,6 @@ class LoginAlunoController extends Controller
             'password' => $credenciais['senha']
         ];
 
-        // Executa a tentativa de login guardando a sessão (true)
         if (Auth::guard('alunos')->attempt($tentativa, true)) {
             $request->session()->regenerate();
             return redirect()->route('aluno.logado'); 
@@ -83,24 +74,21 @@ class LoginAlunoController extends Controller
         return back()->withErrors(['email' => 'E-mail ou senha incorretos.'])->withInput();
     }
 
-    // Processa o Logout
     public function logout(Request $request) {
         Auth::guard('alunos')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('aluno');
     }
+
     public function painelLogado()
     {
-        // ID do aluno que está logado
         $alunoId = Auth::guard('alunos')->id();
     
-        // Busca somente os eventos destinados a esse aluno
         $eventos = EventoCalendario::where('aluno_id', $alunoId)
             ->orderBy('data_evento', 'asc')
             ->get();
     
-        // Busca as publicações do aluno
         $minhasPostagens = Postagem::where('user_id', $alunoId)
             ->latest()
             ->get();
@@ -110,21 +98,13 @@ class LoginAlunoController extends Controller
             'minhasPostagens'
         ));
     
-
-    // 2. Busca unicamente os eventos direcionados a este aluno
+    
     $eventos = EventoCalendario::where('aluno_id', $alunoId)->get();
 
-    // 3. ATENÇÃO: Descomente esta linha para buscar as postagens do aluno
     $minhasPostagens = Postagem::where('aluno_id', $alunoId)->get();
 
-    // 4. ATENÇÃO: Inclua 'minhasPostagens' dentro do compact()
     return view('aluno.logado', compact('eventos', 'minhasPostagens'));
 }
-
-
-    // Exibe a tela logada do aluno com os eventos do calendário dele
-
-
     public function remover(Request $dados) {  }
     public function atualizar(Request $dados) {  }
     public function consultar() {  }

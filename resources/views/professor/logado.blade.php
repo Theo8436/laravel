@@ -42,7 +42,6 @@
 
         <div id="mensagemJS" class="mensagem" style="display: none;"></div>
 
-        <!-- MENU -->
         <section class="menu-principal">
             <button type="button" onclick="mostrarAlunos()">
                 👨‍🎓 Alunos
@@ -58,7 +57,6 @@
             </button>
         </section>
 
-        <!-- ================= ALUNOS (DO BANCO DE DADOS) ================= -->
         <section id="alunos" class="painel">
             <h2>Gerenciar Alunos</h2>
 
@@ -170,9 +168,6 @@
                 {{ $postagem->comentario }}
             </p>
 
-
-            {{-- ================= IMAGEM DO POST ================= --}}
-
             @if($postagem->imagem)
 
                 @php
@@ -219,12 +214,8 @@
 
             @endif
 
-
-            {{-- ================= AÇÕES ================= --}}
-
             <div class="acoes-postagem">
 
-                {{-- APROVAR --}}
                 <form
                     action="{{ route('postagens.aprovar', $postagem->id) }}"
                     method="POST"
@@ -237,8 +228,6 @@
                     </button>
                 </form>
 
-
-                {{-- SOLICITAR AJUSTES --}}
                 <button
                     type="button"
                     class="btn-ajustes"
@@ -247,8 +236,6 @@
                     ✎ Solicitar Ajustes
                 </button>
 
-
-                {{-- REJEITAR --}}
                 <form
                     action="{{ route('postagens.rejeitar', $postagem->id) }}"
                     method="POST"
@@ -277,7 +264,6 @@
 
 </section>
 
-<!-- ================= CALENDÁRIO ================= -->
 <section id="calendario" class="painel" hidden>
     <h2>Calendário</h2>
     <p style="color:#666">
@@ -285,7 +271,6 @@
     </p>
 
     <div class="calendario-container">
-        <!-- Lado Esquerdo: Calendário -->
         <div class="calendario">
             <div class="calendario-header">
                 <button type="button" onclick="mesAnterior()">‹</button>
@@ -306,7 +291,6 @@
             <div id="dias" class="dias"></div>
         </div>
 
-        <!-- Lado Direito: Formulário de Evento / Post -->
         <div class="evento-form">
             <h3>Novo Evento / Post</h3>
             <div class="data-selecionada">
@@ -314,7 +298,6 @@
                 <span id="dataSelecionada">Nenhuma</span>
             </div>
 
-            <!-- Selecionar o Aluno Obrigatório -->
             <div class="form-group">
                 <label for="alunoIdEvento">Aluno Responsável</label>
                 <select id="alunoIdEvento" class="form-control-custom" required>
@@ -401,7 +384,6 @@
 
     </main>
 
-    <!-- MODAL ADICIONAR ALUNO NO BANCO -->
     <div id="modalCriar" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="modal-header-custom">
@@ -437,7 +419,6 @@
         </div>
     </div>
 
-    <!-- MODAL EDITAR ALUNO NO BANCO -->
     <div id="modalEditar" class="modal-overlay" style="display: none;">
         <div class="modal-card">
             <div class="modal-header-custom">
@@ -474,7 +455,6 @@
             </form>
         </div>
     </div>
-    <!-- ================= MODAL EXCLUIR ALUNO ================= -->
 
 <div
     id="modalExcluirAluno"
@@ -529,7 +509,6 @@
 
 
     <script>
-        /* ================= AUXILIARES ================= */
         function mostrarMensagemJS(texto, tipo) {
             const el = document.getElementById('mensagemJS');
             el.className = `mensagem ${tipo}`;
@@ -544,7 +523,6 @@
             return `${partes[2]}/${partes[1]}/${partes[0]}`;
         }
 
-        /* ================= MODAIS DE ALUNOS ================= */
         function abrirModalCriar() {
             document.getElementById('modalCriar').style.display = 'flex';
         }
@@ -589,8 +567,6 @@ if (event.target === modalExcluir) {
 }
 };
 
-
-        /* ================= NAVEGAÇÃO DAS SEÇÕES ================= */
         function esconderTudo() {
             document.getElementById("alunos").hidden = true;
             document.getElementById("posts").hidden = true;
@@ -613,7 +589,6 @@ function mostrarCalendario() {
             renderizarCalendario();
         }
 
-        /* ================= CALENDÁRIO ================= */
         let dataAtual = new Date();
         let dataSelecionada = null;
 
@@ -688,8 +663,6 @@ function mostrarCalendario() {
             dataAtual.setMonth(dataAtual.getMonth() + 1);
             renderizarCalendario();
         }
-
-        /* ================= SALVAR EVENTO (PERSISTÊNCIA VIA FETCH) ================= */
         
 async function salvarEvento() {
 
@@ -802,21 +775,16 @@ try {
 }
 }
 
-        /* ================= EXCLUSÃO DE ALUNO ================= */
-
 function abrirConfirmacaoExcluirAluno(id, nome) {
 
 const modal = document.getElementById('modalExcluirAluno');
 const form = document.getElementById('formExcluirAluno');
 const nomeElemento = document.getElementById('nomeAlunoExcluir');
 
-// Define EXATAMENTE o aluno que foi clicado
 form.action = `/alunos/${id}`;
 
-// Mostra o nome no modal
 nomeElemento.innerText = nome;
 
-// Abre o modal
 modal.style.display = 'flex';
 }
 
@@ -827,7 +795,6 @@ const modal = document.getElementById('modalExcluirAluno');
 
 modal.style.display = 'none';
 
-// Limpa o formulário
 document.getElementById('formExcluirAluno').reset();
 }
 

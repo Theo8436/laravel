@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class MencaoController extends Controller
 {
-    // Tela PÚBLICA (Alunos / Visitantes) - Apenas visualização
     public function index()
     {
         $mencoes = Mencao::latest()->get();
@@ -15,7 +14,6 @@ class MencaoController extends Controller
         return view('mencao', compact('mencoes'));
     }
 
-    // Tela do PROFESSOR - Com botão e formulário de cadastro
     public function professorIndex()
     {
         $mencoes = Mencao::latest()->get();
@@ -23,7 +21,6 @@ class MencaoController extends Controller
         return view('mencao-professor', compact('mencoes'));
     }
 
-    // Salvar nova menção
     public function store(Request $request)
     {
         $request->validate([

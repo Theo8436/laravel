@@ -8,17 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class MencaoController extends Controller
 {
-    // Painel do Professor (Views/professor/mencao.blade.php)
-    // function mencao(){
-    //     return view('mencao');
-    // }
     public function indexProfessor()
     {
         $mencoes = Mencao::latest()->get();
         return view('professor.mencao', compact('mencoes'));
     }
 
-    // Painel do Aluno (Views/aluno/mencao.blade.php)
     public function indexAluno()
     {
         $mencoes = Mencao::latest()->get();
@@ -26,7 +21,6 @@ class MencaoController extends Controller
         return view('aluno.mencao', compact('mencoes', 'postagens'));
     }
 
-    // Visualização Pública (Views/mencao.blade.php)
     public function indexPublico()
     {
         $mencoes = Mencao::latest()->get();
@@ -34,7 +28,6 @@ class MencaoController extends Controller
         return view('mencao', compact('mencoes', 'postagens'));
     }
 
-    // Salva a menção criada exclusivamente pelo Professor
     public function store(Request $request)
     {
         $request->validate([
@@ -57,14 +50,12 @@ class MencaoController extends Controller
         return redirect()->route('professor.mencao')->with('sucesso', 'Menção criada com sucesso!');
     }
 
-    // Abre a tela de edição (Exclusivo Professor)
     public function edit($id)
     {
         $mencao = Mencao::findOrFail($id);
         return view('professor.edit', compact('mencao'));
     }
 
-    // Atualiza os dados no banco de dados
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -87,7 +78,6 @@ class MencaoController extends Controller
         return redirect()->route('professor.mencao')->with('sucesso', 'Menção atualizada com sucesso!');
     }
 
-    // Exclui a menção do banco de dados (Afeta todas as páginas)
     public function destroy($id)
     {
         $mencao = Mencao::findOrFail($id);
@@ -96,7 +86,6 @@ class MencaoController extends Controller
         return redirect()->route('professor.mencao')->with('sucesso', 'Menção excluída com sucesso!');
     }
 
-    // Exibe o detalhe da menção
     public function show($id)
     {
         $postagem = Mencao::findOrFail($id);
