@@ -1,174 +1,554 @@
-/* Estilos da página Área do Professor */
 
-main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes * {
-            box-sizing: border-box;
-        }
+:root {
+    --roxo-escuro: #0e0f2a;
+    --roxo: #8614a4;
+    --roxo-principal: #8614a4;
+    --roxo-claro: #b963cb;
+    --magenta: #8614a4;
+    --rosa: #c783d4;
+    --laranja: #f97316;
+    --amarelo: #fde047;
+    --lilas: #f1e5f7;
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(180deg,
-                    #7000a8 0%,
-                    #b400d4 55%,
-                    #ef6c73 100%);
-            min-height: 100vh;
-        }
+    --texto: #0e0f2a;
+    --texto-suave: #514b6b;
 
-        /* ================= MAIN ================= */
-        main {
-            width: min(92%, 1500px);
-            margin: 45px auto;
-            padding-bottom: 45px;
-        }
+    --degrade: linear-gradient(
+        120deg,
+        #0e0f2a 0%,
+        #8614a4 42%,
+        #a83ac2 72%,
+        #f97316 100%
+    );
 
-        main h1 {
-            color: white;
-            font-size: 48px;
-            font-weight: 700;
-        }
-
-        main>p {
-            color: #f5f5f5;
-            margin-top: 8px;
-            margin-bottom: 30px;
-            font-size: 18px;
-        }
-
-        /* ================= MENU ================= */
-        .menu-principal {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 35px;
-        }
-
-        .menu-principal button {
-            flex: 1;
-            border: none;
-            background: white;
-            color: #444;
-            padding: 18px;
-            border-radius: 18px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: .3s;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, .15);
-        }
-
-        .menu-principal button:hover {
-            background: #ff8b00;
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* ================= SEÇÕES ================= */
-        .painel {
-            background: white;
-            padding: 35px;
-            border-radius: 25px;
-            box-shadow: 0 14px 35px rgba(35, 12, 64, .18);
-            border: 1px solid rgba(255, 255, 255, .65);
-        }
-
-.painel h2 {
-    margin: 0 0 15px;
-    color: var(--roxo-principal);
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 2rem;
-    letter-spacing: .5px;
+    --sombra: 0 12px 30px rgba(91, 31, 119, 0.12);
+    --sombra-forte: 0 16px 38px rgba(91, 31, 119, 0.18);
+    --sombra-hover: 0 12px 28px rgba(91, 31, 119, 0.18);
 }
 
-        /* ================= BOTÕES ================= */
-        .btn-principal {
-            background: #ff7a00;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: .3s;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-        }
+/* =====================================================
+   CONFIGURAÇÕES GERAIS
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--texto);
+    font-family: 'Fredoka', sans-serif;
+
+    background-image:
+        linear-gradient(
+            rgba(250, 246, 252, 0.78),
+            rgba(255, 250, 242, 0.82)
+        ),
+        url('/images/Cabe%C3%A7alho.png');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: 'Fredoka', sans-serif;
+}
+
+button {
+    transition: .25s ease;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* =====================================================
+   ÁREA PRINCIPAL
+===================================================== */
+
+.area-professor {
+    position: relative;
+    isolation: isolate;
+
+    width: min(100% - 40px, 1100px);
+    margin: 42px auto 75px;
+    padding: 0;
+
+    color: var(--texto);
+}
+
+/* =====================================================
+   PERFIL DO PROFESSOR
+===================================================== */
+
+.perfil-professor {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 28px;
+
+    width: 100%;
+    margin-bottom: 32px;
+    padding: 38px 42px;
+
+    overflow: hidden;
+
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 30px;
+
+    background: rgba(241, 229, 247, 0.82);
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    box-shadow: var(--sombra);
+}
+
+.perfil-professor::after {
+    content: "\f19d";
+
+    position: absolute;
+    top: -25px;
+    right: 25px;
+
+    color: rgba(134, 20, 164, 0.08);
+
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 150px;
+
+    transform: rotate(12deg);
+    pointer-events: none;
+}
+
+.perfil-foto-container {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 125px;
+    height: 125px;
+
+    padding: 5px;
+
+    border: 4px solid #fff;
+    border-radius: 50%;
+
+    background: var(--roxo);
+    box-shadow: 0 8px 22px rgba(134, 20, 164, 0.25);
+}
+
+.perfil-foto {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+    object-fit: cover;
+
+    background: #fff;
+}
+
+.perfil-informacoes {
+    position: relative;
+    z-index: 1;
+
+    min-width: 0;
+}
+
+.perfil-identificacao {
+    display: inline-block;
+
+    margin-bottom: 9px;
+    padding: 6px 13px;
+
+    color: #fff;
+    border-radius: 20px;
+    background: var(--magenta);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+.perfil-informacoes h1 {
+    margin: 0 0 8px;
+
+    color: var(--roxo);
+
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(28px, 4vw, 39px);
+    font-weight: 400;
+    letter-spacing: .5px;
+
+    text-shadow: 2px 3px 0 rgba(255, 255, 255, .8);
+}
+
+.perfil-informacoes p {
+    max-width: 600px;
+
+    margin: 0 0 13px;
+
+    color: #72577e;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.perfil-cargo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 14px;
+
+    color: #fff;
+    border-radius: 20px;
+    background: var(--laranja);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.perfil-cargo i {
+    font-size: 15px;
+}
+
+/* =====================================================
+   MENSAGENS E ALERTAS
+===================================================== */
+
+.mensagem,
+.alert {
+    display: block;
+
+    margin: 15px 0 22px;
+    padding: 15px 19px;
+
+    border: 1px solid transparent;
+    border-radius: 15px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.mensagem.sucesso,
+.alert-success {
+    color: #286c4b;
+    border-color: #a8e9c5;
+    background: #e2f9eb;
+}
+
+.mensagem.erro,
+.alert-danger {
+    color: #a52d48;
+    border-color: #ffc2d0;
+    background: #fff0f3;
+}
+
+.alert-warning {
+    color: #956000;
+    background: #fff8d6;
+}
+
+.alert-info {
+    color: #424b9b;
+    background: #e8eaff;
+}
+
+.mensagem ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* =====================================================
+   MENU DE ABAS
+===================================================== */
+
+.menu-principal {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+
+    margin-bottom: 40px;
+}
+
+.menu-principal .aba-professor {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+
+    min-height: 76px;
+    padding: 15px;
+
+    color: #79518d;
+
+    border: 2px solid #ead5f5;
+    border-radius: 20px;
+
+    background: #fff;
+    box-shadow: 0 7px 18px rgba(91, 31, 119, 0.08);
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.menu-principal .aba-professor i {
+    color: var(--magenta);
+    font-size: 23px;
+}
+
+.menu-principal .aba-professor:hover {
+    color: var(--roxo);
+    border-color: var(--rosa);
+    background: #fbf5fc;
+
+    transform: translateY(-4px);
+    box-shadow: var(--sombra);
+}
+
+.menu-principal .aba-professor.ativa {
+    color: #fff;
+    border-color: transparent;
+    background: var(--roxo);
+
+    box-shadow: 0 9px 22px rgba(134, 20, 164, 0.23);
+}
+
+.menu-principal .aba-professor.ativa i {
+    color: var(--amarelo);
+}
+
+#contadorPosts {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
+
+    color: var(--roxo);
+    border-radius: 50px;
+    background: var(--amarelo);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* =====================================================
+   PAINÉIS
+===================================================== */
+
+.painel {
+    width: 100%;
+
+    padding: 35px;
+
+    border: 2px solid rgba(255, 255, 255, .9);
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, .94);
+
+    box-shadow: var(--sombra);
+    backdrop-filter: blur(4px);
+
+    animation: aparecer .35s ease;
+}
+
+.painel h2 {
+    margin: 0 0 9px;
+
+    color: var(--roxo);
+
+    font-family: 'Luckiest Guy', cursive;
+    font-size: clamp(25px, 4vw, 33px);
+    font-weight: 400;
+    letter-spacing: .5px;
+
+    text-shadow: 1px 2px 0 rgba(255, 255, 255, .8);
+}
+
+.painel > p {
+    margin: 0 0 28px;
+
+    color: var(--texto-suave);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* =====================================================
+   BOTÕES PRINCIPAIS
+===================================================== */
+
+.btn-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    padding: 13px 22px;
+
+    color: #fff;
+    border: 0;
+    border-radius: 30px;
+
+    background: var(--roxo);
+    box-shadow: 0 7px 17px rgba(134, 20, 164, .23);
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+    text-decoration: none;
+}
 
 .btn-principal:hover {
-    background: var(--laranja);
-    color: white;
+    color: #fff;
+    background: #a83ac2;
+
     transform: translateY(-3px);
     box-shadow: var(--sombra-hover);
 }
 
 .btn-acao {
-    width: 37px;
-    height: 37px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
     margin: 3px;
-    border: none;
-    border-radius: 9px;
-    background: var(--roxo-principal);
-    color: white;
+
+    color: #9433a8;
+    border: 0;
+    border-radius: 10px;
+
+    background: #f6e5fa;
+
+    cursor: pointer;
 }
 
 .btn-acao:hover {
-    background: var(--laranja);
+    color: #fff;
+    background: var(--roxo);
+
     transform: translateY(-2px);
 }
 
-        /* ================= TABELA E BUSCA ================= */
-        .header-tabela {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+/* =====================================================
+   TABELA E BUSCA
+===================================================== */
+
+.header-tabela {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.header-tabela form {
+    width: min(100%, 350px);
+    margin: 0;
+}
 
 .input-busca {
+    display: block;
+
     width: 100%;
+    min-height: 46px;
     padding: 12px 16px;
+
+    color: var(--texto);
+
     border: 2px solid #e5d5ef;
     border-radius: 12px;
     outline: none;
-    background: white;
+
+    background: #fff;
+
+    font-size: 14px;
 }
 
 .input-busca:focus {
     border-color: var(--roxo);
-    box-shadow: 0 0 0 3px rgba(134,20,164,.12);
+    box-shadow: 0 0 0 3px rgba(134, 20, 164, .12);
 }
-
-/* =========================================
-   TABELA
-========================================= */
 
 .painel table {
     width: 100%;
     margin: 22px 0;
-    overflow: hidden;
+
     border-collapse: separate;
     border-spacing: 0;
+
     border-radius: 15px;
-    background: white;
-    box-shadow: 0 5px 18px rgba(40,10,65,.07);
+    background: #fff;
+
+    box-shadow: 0 5px 18px rgba(40, 10, 65, .07);
 }
 
 .painel table thead {
-    background: var(--roxo-principal);
-    color: white;
+    color: #fff;
+    background: var(--roxo);
 }
 
 .painel table th {
     padding: 16px 13px;
+
     border: none;
+
+    font-size: 14px;
     font-weight: 600;
     text-align: left;
+    white-space: nowrap;
+}
+
+.painel table th:first-child {
+    border-radius: 15px 0 0 0;
+}
+
+.painel table th:last-child {
+    border-radius: 0 15px 0 0;
 }
 
 .painel table td {
     padding: 14px 13px;
-    border-bottom: 1px solid #eee5f5;
+
     color: var(--texto-suave);
+    border-bottom: 1px solid #eee5f5;
+
+    font-size: 14px;
     vertical-align: middle;
+}
+
+.painel table tbody tr {
+    transition: .2s ease;
 }
 
 .painel table tbody tr:hover {
@@ -181,22 +561,25 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
 
 .badge-nivel {
     display: inline-block;
+
     padding: 5px 12px;
+
+    color: var(--roxo);
     border-radius: 30px;
     background: var(--lilas);
-    color: var(--roxo-principal);
-    font-size: .85rem;
+
+    font-size: 12px;
     font-weight: 600;
 }
 
 .badge-monitor {
-    background: #fff0df;
     color: #c45b0b;
+    background: #fff0df;
 }
 
-/* =========================================
+/* =====================================================
    PAGINAÇÃO
-========================================= */
+===================================================== */
 
 .pagination {
     display: flex;
@@ -206,86 +589,133 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
 }
 
 .pagination .page-link {
+    color: var(--roxo);
+
     border: 1px solid #e5d5ef;
     border-radius: 9px;
-    color: var(--roxo-principal);
+}
+
+.pagination .page-link:hover {
+    color: #fff;
+    background: var(--roxo);
+    border-color: var(--roxo);
 }
 
 .pagination .page-item.active .page-link {
-    border-color: var(--roxo-principal);
-    background: var(--roxo-principal);
-    color: white;
+    color: #fff;
+    border-color: var(--roxo);
+    background: var(--roxo);
 }
 
-/* =========================================
-   CARDS DE POSTS
-========================================= */
+/* =====================================================
+   CARDS DE PUBLICAÇÕES
+===================================================== */
 
 #listaPosts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 22px;
+
     margin-top: 25px;
 }
 
 .post-card {
     position: relative;
+
+    padding: 27px;
     overflow: hidden;
-    padding: 25px;
-    border: 2px solid #eadcf2;
+
+    border: 2px solid #ead8f0;
     border-radius: 23px;
-    background: white;
-    box-shadow: 0 7px 20px rgba(40,10,65,.09);
-    transition: .3s ease;
+
+    background: #fff;
+    box-shadow: var(--sombra);
+
+    transition: .25s ease;
 }
 
 .post-card::before {
+    content: "";
+
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 6px;
-    background: var(--roxo-principal);
-    content: "";
+
+    background: var(--roxo);
 }
 
 .post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--sombra-hover);
+    border-color: #e8b8ed;
+    box-shadow: var(--sombra-forte);
+
+    transform: translateY(-3px);
 }
 
 .post-card h3 {
     margin: 7px 0 18px;
-    color: var(--roxo-principal);
-    font-size: 1.4rem;
-    font-weight: 700;
+
+    color: var(--roxo);
+
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.3;
+
     overflow-wrap: anywhere;
 }
 
 .post-card p {
     margin: 9px 0;
+
     color: var(--texto-suave);
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
 }
 
 .post-card strong {
     color: var(--roxo-escuro);
 }
 
-.post-card img {
-    max-width: 100%;
-    border: 3px solid white;
-    border-radius: 13px;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+.imagens-post {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 18px;
 }
+
+.post-card img.imagem-post {
+    display: block;
+
+    width: 100%;
+    max-width: 190px;
+    height: 150px;
+
+    object-fit: cover;
+
+    border: 3px solid #f1d5f2;
+    border-radius: 13px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .10);
+}
+
+/* =====================================================
+   AÇÕES DOS POSTS
+===================================================== */
 
 .acoes-postagem {
     display: flex;
     flex-wrap: wrap;
     gap: 9px;
+
     margin-top: 22px;
     padding-top: 16px;
+
     border-top: 1px solid #eadcf2;
 }
 
@@ -294,12 +724,22 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
 }
 
 .acoes-postagem button {
-    padding: 10px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 10px 15px;
+
+    color: #fff;
     border: none;
-    border-radius: 10px;
-    color: white;
-    font-size: .9rem;
+    border-radius: 12px;
+
+    font-size: 13px;
     font-weight: 600;
+
+    cursor: pointer;
+    transition: .2s ease;
 }
 
 .btn-aprovar {
@@ -319,25 +759,29 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
     transform: translateY(-2px);
 }
 
-/* =========================================
+/* =====================================================
    CALENDÁRIO
-========================================= */
+===================================================== */
 
 .calendario-container {
     display: grid;
     grid-template-columns: 1.15fr .85fr;
     gap: 25px;
     align-items: start;
+
     margin-top: 25px;
 }
 
 .calendario,
 .evento-form {
+    min-width: 0;
     padding: 23px;
+
     border: 2px solid #eadcf2;
     border-radius: 22px;
-    background: white;
-    box-shadow: 0 7px 20px rgba(40,10,65,.07);
+
+    background: #fff;
+    box-shadow: 0 7px 20px rgba(40, 10, 65, .07);
 }
 
 .calendario-header {
@@ -345,6 +789,7 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+
     margin-bottom: 20px;
 }
 
@@ -352,27 +797,42 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
 .evento-form h3,
 .lista-eventos h3 {
     margin: 0 0 18px;
-    color: var(--roxo-principal);
+
+    color: var(--roxo);
+
     font-family: 'Luckiest Guy', cursive;
     font-size: 1.5rem;
+    font-weight: 400;
 }
 
 .calendario-header h3 {
     margin: 0;
+    text-align: center;
 }
 
 .calendario-header button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
     width: 38px;
     height: 38px;
+
+    color: #fff;
     border: none;
     border-radius: 10px;
-    background: var(--roxo-principal);
-    color: white;
-    font-size: 1.5rem;
+
+    background: var(--roxo);
+
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .calendario-header button:hover {
     background: var(--laranja);
+    transform: scale(1.06);
 }
 
 .dias-semana,
@@ -380,12 +840,15 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 6px;
+
     text-align: center;
 }
 
 .dias-semana {
     margin-bottom: 10px;
-    color: var(--roxo-principal);
+
+    color: var(--roxo);
+    font-size: 13px;
     font-weight: 700;
 }
 
@@ -394,65 +857,110 @@ main, main *, .modal-overlay, .modal-overlay *, .modal-ajustes, .modal-ajustes *
     display: flex;
     align-items: center;
     justify-content: center;
+
+    min-width: 0;
     min-height: 40px;
+
+    color: var(--roxo-escuro);
     border: none;
     border-radius: 10px;
+
     background: #f1e7f7;
-    color: var(--roxo-escuro);
+
+    font-size: 14px;
 }
 
-.dias button:hover,
+.dias button {
+    cursor: pointer;
+}
+
+.dias button:hover {
+    color: #fff;
+    background: var(--laranja);
+}
+
 .dias button.selecionado,
 .dias button.active,
 .dias button.ativo {
-    background: var(--roxo-principal);
-    color: white;
+    color: #fff;
+    background: var(--roxo);
     font-weight: 700;
 }
 
-/* =========================================
-   FORMULÁRIOS
-========================================= */
+.dias button.hoje {
+    border: 2px solid var(--laranja);
+    font-weight: 700;
+}
+
+/* =====================================================
+   FORMULÁRIO DE EVENTOS
+===================================================== */
 
 .data-selecionada {
     margin-bottom: 18px;
     padding: 12px;
+
+    color: var(--roxo);
     border-radius: 11px;
     background: var(--lilas);
-    color: var(--roxo-principal);
+
+    font-size: 14px;
     font-weight: 600;
+}
+
+#dataSelecionada {
+    font-weight: 700;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 7px;
-    margin-bottom: 16px;
+
+    margin-bottom: 17px;
 }
 
 .form-group label {
-    color: var(--texto);
-    font-weight: 600;
+    color: #775285;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .form-control-custom {
+    display: block;
+
     width: 100%;
-    min-height: 45px;
+    min-height: 46px;
     padding: 11px 13px;
+
+    color: #51415f;
+
     border: 2px solid #e5d5ef;
-    border-radius: 11px;
+    border-radius: 12px;
     outline: none;
-    background: white;
-    color: var(--texto);
+
+    background: #fff;
+
+    font-size: 14px;
+
+    transition: .2s ease;
+}
+
+.form-control-custom::placeholder {
+    color: #b5a5bd;
+}
+
+.form-control-custom:hover {
+    border-color: #d9a7e5;
 }
 
 .form-control-custom:focus {
     border-color: var(--roxo);
-    box-shadow: 0 0 0 3px rgba(134,20,164,.12);
+    box-shadow: 0 0 0 4px rgba(134, 20, 164, .12);
 }
 
 textarea.form-control-custom {
-    min-height: 110px;
+    min-height: 115px;
     resize: vertical;
 }
 
@@ -460,14 +968,19 @@ textarea.form-control-custom {
     width: 100%;
 }
 
-/* =========================================
-   EVENTOS
-========================================= */
+/* =====================================================
+   EVENTOS CADASTRADOS
+===================================================== */
 
 .lista-eventos {
     margin-top: 30px;
     padding-top: 25px;
-    border-top: 1px solid #eadcf2;
+
+    border-top: 2px solid #f1dff2;
+}
+
+.lista-eventos h3 {
+    color: var(--roxo) !important;
 }
 
 .evento {
@@ -475,106 +988,99 @@ textarea.form-control-custom {
     align-items: center;
     justify-content: space-between;
     gap: 15px;
+
     margin: 12px 0;
-    padding: 17px;
-    border: 1px solid #eadcf2;
-    border-left: 5px solid var(--laranja);
-    border-radius: 14px;
-    background: white;
-    box-shadow: 0 4px 12px rgba(40,10,65,.06);
+    padding: 20px;
+
+    border: 2px solid #ecd8f2;
+    border-left: 6px solid var(--roxo);
+    border-radius: 16px;
+
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(40, 10, 65, .06);
+
+    transition: .25s ease;
+}
+
+.evento:hover {
+    border-left-color: var(--laranja);
+    box-shadow: var(--sombra);
+
+    transform: translateY(-2px);
 }
 
 .evento > div {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 7px;
 }
 
 .evento strong {
-    color: var(--roxo-principal);
+    color: var(--roxo);
 }
 
 .evento small {
     color: var(--texto-suave);
+    font-size: 13px;
 }
 
 .evento-categoria {
     display: inline-flex;
     align-self: flex-start;
+
     margin-top: 5px;
-    padding: 5px 12px;
-    border-radius: 30px;
+    padding: 6px 13px;
+
+    color: var(--roxo);
+    border-radius: 20px;
     background: var(--lilas);
-    color: var(--roxo-principal);
-    font-size: .82rem;
+
+    font-size: 12px;
     font-weight: 600;
 }
 
-/* =========================================
-   MENSAGENS
-========================================= */
-
-.mensagem,
-.alert {
-    margin: 15px 0;
-    padding: 14px 18px;
-    border: none;
-    border-radius: 13px;
-    font-weight: 500;
-}
-
-.mensagem.sucesso,
-.alert-success {
-    background: #e1f7e9;
-    color: #176b3b;
-}
-
-.alert-danger,
-.mensagem.erro {
-    background: #fde5e7;
-    color: #a12636;
-}
-
-.alert-warning {
-    background: #fff2d6;
-    color: #8a5700;
-}
-
-.alert-info {
-    background: #e8eaff;
-    color: #424b9b;
-}
-
-/* =========================================
+/* =====================================================
    MODAIS
-========================================= */
+===================================================== */
 
 .modal-overlay,
 .modal-ajustes {
     position: fixed;
-    z-index: 9999;
     inset: 0;
+    z-index: 9999;
+
     display: none;
     align-items: center;
     justify-content: center;
+
     overflow-y: auto;
     padding: 20px;
-    background: rgba(30, 8, 45, .72);
-    backdrop-filter: blur(5px);
+
+    background: rgba(62, 20, 82, .65);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
 }
 
 .modal-card,
 .modal-exclusao-card,
 .modal-ajustes-conteudo {
-    width: min(500px, 100%);
+    position: relative;
+
+    width: min(570px, 100%);
     max-height: 90vh;
-    overflow-y: auto;
+
     padding: 30px;
-    border: 2px solid white;
-    border-radius: 24px;
-    background: #faf5fd;
-    box-shadow: 0 20px 55px rgba(0,0,0,.25);
-    animation: modalEntrar .3s ease;
+    overflow-y: auto;
+
+    border: 2px solid rgba(255, 255, 255, .9);
+    border-radius: 25px;
+
+    background: #fffaff;
+
+    box-shadow: 0 22px 60px rgba(35, 8, 49, .3);
+
+    animation: modalEntrar .25s ease;
 }
 
 .modal-header-custom {
@@ -582,29 +1088,48 @@ textarea.form-control-custom {
     align-items: center;
     justify-content: space-between;
     gap: 15px;
-    margin-bottom: 22px;
+
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+
+    border-bottom: 2px solid #f1dff2;
 }
 
 .modal-header-custom h2,
 .modal-exclusao-titulo,
 .modal-ajustes-conteudo h2 {
     margin: 0;
-    color: var(--roxo-principal);
+
+    color: var(--roxo);
+
     font-family: 'Luckiest Guy', cursive;
+    font-size: 25px;
+    font-weight: 400;
 }
 
 .btn-fechar {
-    width: 35px;
-    height: 35px;
-    border: none;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    color: var(--roxo);
+    border: 0;
     border-radius: 50%;
+
     background: var(--lilas);
-    color: var(--roxo-principal);
+
+    font-size: 17px;
+    cursor: pointer;
 }
 
 .btn-fechar:hover {
-    background: var(--laranja);
-    color: white;
+    color: #fff;
+    background: var(--roxo);
+    transform: rotate(90deg);
 }
 
 .modal-footer-custom,
@@ -613,61 +1138,165 @@ textarea.form-control-custom {
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 22px;
+    gap: 11px;
+
+    margin-top: 24px;
+    padding-top: 18px;
+
+    border-top: 2px solid #f1dff2;
 }
 
 .btn-cancelar,
 .btn-modal-cancelar {
-    padding: 11px 20px;
-    border: none;
-    border-radius: 10px;
-    background: #e8dced;
-    color: var(--roxo-principal);
+    padding: 11px 21px;
+
+    color: #795d84;
+    border: 0;
+    border-radius: 25px;
+
+    background: #f1e7f5;
+
+    font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-cancelar:hover,
+.btn-modal-cancelar:hover {
+    background: #e6d4ed;
 }
 
 .btn-modal-excluir {
-    padding: 11px 20px;
-    border: none;
-    border-radius: 10px;
+    padding: 11px 21px;
+
+    color: #fff;
+    border: 0;
+    border-radius: 25px;
+
     background: #df4755;
-    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-modal-excluir:hover {
+    background: #c92f40;
 }
 
 .btn-confirmar-ajustes {
-    padding: 11px 20px;
-    border: none;
-    border-radius: 10px;
-    background: var(--roxo-principal);
-    color: white;
+    padding: 11px 21px;
+
+    color: #fff;
+    border: 0;
+    border-radius: 25px;
+
+    background: var(--roxo);
+
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.modal-ajustes-conteudo {
-    position: relative;
+.btn-confirmar-ajustes:hover {
+    background: #a83ac2;
+    transform: translateY(-2px);
+}
+
+/* Modal de exclusão */
+
+.modal-exclusao-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.modal-exclusao-titulo i {
+    color: #df4755;
+}
+
+.modal-exclusao-texto {
+    color: var(--texto-suave);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.modal-exclusao-texto strong {
+    color: var(--roxo);
+}
+
+/* Modal de ajustes */
+
+.modal-ajustes-conteudo h2 {
+    margin-bottom: 12px;
+}
+
+.modal-ajustes-conteudo > p {
+    margin-bottom: 20px;
+
+    color: var(--texto-suave);
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .modal-ajustes-conteudo textarea {
+    display: block;
+
     width: 100%;
+    min-height: 130px;
     padding: 13px;
+
+    color: var(--texto);
+
     border: 2px solid #e5d5ef;
     border-radius: 12px;
+    outline: none;
+
+    background: #fff;
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+
     resize: vertical;
+}
+
+.modal-ajustes-conteudo textarea:focus {
+    border-color: var(--roxo);
+    box-shadow: 0 0 0 3px rgba(134, 20, 164, .12);
 }
 
 .fechar-modal {
     position: absolute;
     top: 15px;
     right: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35px;
+    height: 35px;
+
+    color: var(--roxo);
     border: none;
-    background: transparent;
-    color: var(--roxo-principal);
-    font-size: 1.7rem;
+    border-radius: 50%;
+
+    background: var(--lilas);
+
+    font-size: 17px;
+    cursor: pointer;
 }
 
-/* =========================================
+.fechar-modal:hover {
+    color: #fff;
+    background: var(--roxo);
+}
+
+/* =====================================================
    ANIMAÇÕES
-========================================= */
+===================================================== */
 
 @keyframes aparecer {
     from {
@@ -684,7 +1313,7 @@ textarea.form-control-custom {
 @keyframes modalEntrar {
     from {
         opacity: 0;
-        transform: translateY(20px) scale(.97);
+        transform: translateY(15px) scale(.98);
     }
 
     to {
@@ -693,9 +1322,9 @@ textarea.form-control-custom {
     }
 }
 
-/* =========================================
+/* =====================================================
    ACESSIBILIDADE
-========================================= */
+===================================================== */
 
 button:focus-visible,
 a:focus-visible,
@@ -706,56 +1335,78 @@ textarea:focus-visible {
     outline-offset: 3px;
 }
 
-/* =========================================
+/* =====================================================
    RESPONSIVIDADE
-========================================= */
+===================================================== */
+
+@media (max-width: 1050px) {
+    .area-professor {
+        width: min(100% - 30px, 850px);
+    }
+
+    .perfil-professor {
+        padding: 30px;
+    }
+}
 
 @media (max-width: 900px) {
-
     .calendario-container {
         grid-template-columns: 1fr;
     }
 
-    .perfil-professor {
-        padding: 25px;
-    }
-
     .painel {
-        padding: 25px;
+        padding: 27px;
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
+    body {
+        background-attachment: scroll;
+    }
 
     .area-professor {
-        width: 94%;
-        padding: 25px 0 50px;
+        width: calc(100% - 28px);
+        margin-top: 25px;
+        margin-bottom: 45px;
     }
 
     .perfil-professor {
         flex-direction: column;
+        gap: 22px;
+
+        padding: 30px 20px;
+
+        border-radius: 25px;
         text-align: center;
-        gap: 18px;
-        padding: 25px 20px;
-        border-radius: 24px;
     }
 
-    .perfil-foto {
-        width: 110px;
-        height: 110px;
+    .perfil-foto-container {
+        width: 115px;
+        height: 115px;
     }
 
     .perfil-informacoes h1 {
-        font-size: 2rem;
+        font-size: 30px;
     }
 
     .perfil-informacoes p {
-        font-size: .95rem;
+        font-size: 14px;
+    }
+
+    .perfil-cargo {
+        justify-content: center;
+    }
+
+    .perfil-professor::after {
+        top: -10px;
+        right: -15px;
+        font-size: 110px;
     }
 
     .menu-principal {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 11px;
+        margin-bottom: 30px;
     }
 
     .menu-principal .aba-professor {
@@ -763,12 +1414,12 @@ textarea:focus-visible {
     }
 
     .painel {
-        padding: 19px;
+        padding: 21px;
         border-radius: 21px;
     }
 
     .painel h2 {
-        font-size: 1.7rem;
+        font-size: 26px;
     }
 
     .header-tabela {
@@ -777,7 +1428,11 @@ textarea:focus-visible {
     }
 
     .header-tabela form {
+        width: 100%;
         max-width: none;
+    }
+
+    .header-tabela .btn-principal {
         width: 100%;
     }
 
@@ -789,6 +1444,10 @@ textarea:focus-visible {
 
     #listaPosts {
         grid-template-columns: 1fr;
+    }
+
+    .post-card {
+        padding: 21px;
     }
 
     .acoes-postagem {
@@ -803,27 +1462,44 @@ textarea:focus-visible {
 
     .calendario,
     .evento-form {
-        padding: 17px;
+        padding: 18px;
     }
 
     .dias-semana {
-        font-size: .75rem;
+        font-size: 12px;
     }
 
     .dias button,
     .dias div {
-        min-height: 35px;
-        font-size: .85rem;
+        min-height: 36px;
+        font-size: 13px;
+    }
+
+    .evento {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px;
     }
 
     .modal-card,
     .modal-exclusao-card,
     .modal-ajustes-conteudo {
-        padding: 22px;
+        padding: 23px;
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 420px) {
+    .perfil-informacoes h1 {
+        font-size: 27px;
+    }
+
+    .painel {
+        padding: 17px;
+    }
+
+    .painel h2 {
+        font-size: 23px;
+    }
 
     .dias-semana,
     .dias {
@@ -832,11 +1508,44 @@ textarea:focus-visible {
 
     .dias button,
     .dias div {
-        min-height: 31px;
-        font-size: .78rem;
+        min-height: 32px;
+        font-size: 12px;
     }
 
     .calendario-header h3 {
         font-size: 1.2rem;
+    }
+
+    .modal-footer-custom,
+    .modal-exclusao-botoes,
+    .acoes-modal {
+        flex-direction: column-reverse;
+    }
+
+    .modal-footer-custom button,
+    .modal-exclusao-botoes button,
+    .acoes-modal button {
+        width: 100%;
+    }
+
+    .modal-header-custom h2,
+    .modal-exclusao-titulo,
+    .modal-ajustes-conteudo h2 {
+        font-size: 21px;
+    }
+}
+
+/* =====================================================
+   REDUÇÃO DE MOVIMENTO
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
     }
 }

@@ -67,29 +67,37 @@
         <!-- ================= MENSAGENS ================= -->
 
         @if(session('sucesso'))
+
             <div class="mensagem sucesso">
                 {{ session('sucesso') }}
             </div>
+
         @endif
 
+
         @if($errors->any())
+
             <div class="mensagem erro">
+
                 <ul style="margin: 0; padding-left: 20px;">
+
                     @foreach($errors->all() as $error)
+
                         <li>{{ $error }}</li>
+
                     @endforeach
+
                 </ul>
+
             </div>
+
         @endif
 
         <div id="mensagemJS" class="mensagem" style="display: none;"></div>
 
-<<<<<<< HEAD
-=======
 
         <!-- ================= MENU PRINCIPAL ================= -->
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
         <section class="menu-principal">
 
             <button
@@ -112,6 +120,7 @@
                 <span id="contadorPosts">
                     {{ $postagens->count() }}
                 </span>
+
             </button>
 
             <button
@@ -125,17 +134,16 @@
 
         </section>
 
-<<<<<<< HEAD
-=======
 
         <!-- ================= ALUNOS ================= -->
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
         <section id="alunos" class="painel">
 
             <h2>Gerenciar Alunos</h2>
 
-            <p>Gerencie os estudantes cadastrados na plataforma.</p>
+            <p>
+                Gerencie os estudantes cadastrados na plataforma.
+            </p>
 
             <div class="header-tabela">
 
@@ -166,6 +174,7 @@
             <table>
 
                 <thead>
+
                     <tr>
                         <th>Nome</th>
                         <th>Email</th>
@@ -173,6 +182,7 @@
                         <th>Data de Cadastro</th>
                         <th style="text-align: right;">Ações</th>
                     </tr>
+
                 </thead>
 
                 <tbody>
@@ -216,10 +226,7 @@
                                     type="button"
                                     class="btn-acao"
                                     title="Excluir aluno"
-                                    onclick='abrirConfirmacaoExcluirAluno(
-                                        {{ $aluno->id }},
-                                        @json($aluno->nome)
-                                    )'
+                                    onclick='abrirConfirmacaoExcluirAluno({{ $aluno->id }}, @json($aluno->nome))'
                                 >
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
@@ -231,9 +238,11 @@
                     @empty
 
                         <tr>
+
                             <td colspan="5" style="text-align: center; padding: 30px;">
                                 Nenhum aluno cadastrado no banco de dados.
                             </td>
+
                         </tr>
 
                     @endforelse
@@ -256,7 +265,9 @@
 
             <h2>Revisão de Posts</h2>
 
-            <p>Confira as publicações enviadas pelos alunos e aprove ou solicite ajustes.</p>
+            <p>
+                Confira as publicações enviadas pelos alunos e aprove ou solicite ajustes.
+            </p>
 
             <div id="listaPosts">
 
@@ -341,6 +352,7 @@
                                 action="{{ route('postagens.aprovar', $postagem->id) }}"
                                 method="POST"
                             >
+
                                 @csrf
                                 @method('PUT')
 
@@ -370,6 +382,7 @@
                                 action="{{ route('postagens.rejeitar', $postagem->id) }}"
                                 method="POST"
                             >
+
                                 @csrf
                                 @method('PUT')
 
@@ -407,14 +420,9 @@
                 Selecione uma data no calendário para adicionar um evento.
             </p>
 
-<<<<<<< HEAD
-            @if($postagem->imagem)
-=======
-
             <div class="calendario-container">
 
                 <!-- CALENDÁRIO -->
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
 
                 <div class="calendario">
 
@@ -434,6 +442,7 @@
 
 
                     <div class="dias-semana">
+
                         <div>Dom</div>
                         <div>Seg</div>
                         <div>Ter</div>
@@ -441,6 +450,7 @@
                         <div>Qui</div>
                         <div>Sex</div>
                         <div>Sáb</div>
+
                     </div>
 
                     <div id="dias" class="dias"></div>
@@ -464,16 +474,6 @@
 
                     </div>
 
-<<<<<<< HEAD
-            <div class="acoes-postagem">
-
-                <form
-                    action="{{ route('postagens.aprovar', $postagem->id) }}"
-                    method="POST"
-                >
-                    @csrf
-                    @method('PUT')
-=======
 
                     <div class="form-group">
 
@@ -486,7 +486,6 @@
                             class="form-control-custom"
                             required
                         >
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
 
                             <option value="" disabled selected>
                                 Selecione um aluno...
@@ -564,29 +563,7 @@
                         Salvar Evento
                     </button>
 
-<<<<<<< HEAD
-                <button
-                    type="button"
-                    class="btn-ajustes"
-                    onclick="abrirModalAjustes({{ $postagem->id }})"
-                >
-                    ✎ Solicitar Ajustes
-                </button>
-
-                <form
-                    action="{{ route('postagens.rejeitar', $postagem->id) }}"
-                    method="POST"
-                >
-                    @csrf
-                    @method('PUT')
-
-                    <button type="submit" class="btn-rejeitar">
-                        ✕ Rejeitar
-                    </button>
-                </form>
-=======
                 </div>
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
 
             </div>
 
@@ -595,134 +572,14 @@
 
             <div class="lista-eventos">
 
-                <h3>Eventos cadastrados</h3>
+                <h3 style="color:#4b1d91; margin-bottom:20px;">
+                    Eventos cadastrados
+                </h3>
 
                 @forelse($eventos ?? [] as $evento)
 
                     <div class="evento">
 
-<<<<<<< HEAD
-<section id="calendario" class="painel" hidden>
-    <h2>Calendário</h2>
-    <p style="color:#666">
-        Selecione uma data no calendário para adicionar um evento.
-    </p>
-
-    <div class="calendario-container">
-        <div class="calendario">
-            <div class="calendario-header">
-                <button type="button" onclick="mesAnterior()">‹</button>
-                <h3 id="mesAno"></h3>
-                <button type="button" onclick="mesProximo()">›</button>
-            </div>
-
-            <div class="dias-semana">
-                <div>Dom</div>
-                <div>Seg</div>
-                <div>Ter</div>
-                <div>Qua</div>
-                <div>Qui</div>
-                <div>Sex</div>
-                <div>Sáb</div>
-            </div>
-
-            <div id="dias" class="dias"></div>
-        </div>
-
-        <div class="evento-form">
-            <h3>Novo Evento / Post</h3>
-            <div class="data-selecionada">
-                Data selecionada:
-                <span id="dataSelecionada">Nenhuma</span>
-            </div>
-
-            <div class="form-group">
-                <label for="alunoIdEvento">Aluno Responsável</label>
-                <select id="alunoIdEvento" class="form-control-custom" required>
-                    <option value="" disabled selected>Selecione um aluno...</option>
-                    @foreach($alunos as $aluno)
-                        <option value="{{ $aluno->id }}">{{ $aluno->nome }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-    <label for="categoriaEvento">Categoria</label>
-
-    <select
-        id="categoriaEvento"
-        name="categoriaEvento"
-        class="form-control-custom"
-        required
-    >
-        <option value="" selected disabled>
-            Selecione uma categoria
-        </option>
-
-        <option value="Beth Indica">Beth Indica</option>
-        <option value="Beth nas Estrelas">Beth nas Estrelas</option>
-        <option value="Beth Anatomy">Beth Anatomy</option>
-    </select>
-</div>
-
-            <div class="form-group">
-                <label for="descricaoEvento" required>Descrição</label>
-                <textarea id="descricaoEvento" class="form-control-custom" placeholder="Descreva as diretrizes do post..." required></textarea>
-            </div>
-
-            <button type="button" class="btn-principal" onclick="salvarEvento()">
-                Salvar Evento
-            </button>
-        </div>
-    </div>
-
-    
-<div class="lista-eventos">
-
-<h3 style="color:#4b1d91; margin-bottom:20px;">
-    Eventos cadastrados
-</h3>
-
-@forelse($eventos ?? [] as $evento)
-
-    <div class="evento">
-
-        <div>
-
-            <strong>
-                {{ \Carbon\Carbon::parse($evento->data_evento)->format('d/m/Y') }}
-            </strong>
-
-            <small>Aluno:
-                {{ $evento->aluno->nome ?? 'Aluno não identificado' }}
-            </small>
-            <small>Descrição:
-                {{ $evento->descricao }}
-            </small>
-
-            <span class="evento-categoria">
-                {{ $evento->categoria }}
-            </span>
-
-        </div>
-
-    </div>
-
-@empty
-
-    <p style="color:#777;">
-        Nenhum evento cadastrado no momento.
-    </p>
-
-@endforelse
-
-</div>
-
-</section>
-
-    </main>
-
-=======
                         <div>
 
                             <strong>
@@ -750,7 +607,7 @@
 
                 @empty
 
-                    <p>
+                    <p style="color:#777;">
                         Nenhum evento cadastrado no momento.
                     </p>
 
@@ -765,7 +622,6 @@
 
     <!-- ================= MODAL ADICIONAR ALUNO ================= -->
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
     <div id="modalCriar" class="modal-overlay" style="display: none;">
 
         <div class="modal-card">
@@ -870,12 +726,9 @@
 
     </div>
 
-<<<<<<< HEAD
-=======
 
     <!-- ================= MODAL EDITAR ALUNO ================= -->
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
     <div id="modalEditar" class="modal-overlay" style="display: none;">
 
         <div class="modal-card">
@@ -978,12 +831,9 @@
         </div>
 
     </div>
-<<<<<<< HEAD
-=======
 
 
     <!-- ================= MODAL EXCLUIR ALUNO ================= -->
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
 
     <div
         id="modalExcluirAluno"
@@ -1114,12 +964,9 @@
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
-<<<<<<< HEAD
-=======
 
         /* ================= AUXILIARES ================= */
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
         function mostrarMensagemJS(texto, tipo) {
 
             const el = document.getElementById('mensagemJS');
@@ -1131,7 +978,9 @@
             el.style.display = 'block';
 
             setTimeout(() => {
+
                 el.style.display = 'none';
+
             }, 4000);
 
         }
@@ -1147,12 +996,9 @@
 
         }
 
-<<<<<<< HEAD
-=======
 
         /* ================= MODAIS DE ALUNOS ================= */
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
         function abrirModalCriar() {
 
             document.getElementById('modalCriar').style.display = 'flex';
@@ -1198,6 +1044,37 @@
         }
 
 
+        /* ================= EXCLUSÃO DE ALUNO ================= */
+
+        function abrirConfirmacaoExcluirAluno(id, nome) {
+
+            const modal = document.getElementById('modalExcluirAluno');
+
+            const form = document.getElementById('formExcluirAluno');
+
+            const nomeElemento = document.getElementById('nomeAlunoExcluir');
+
+
+            form.action = `/alunos/${id}`;
+
+            nomeElemento.innerText = nome;
+
+            modal.style.display = 'flex';
+
+        }
+
+
+        function fecharConfirmacaoExcluirAluno() {
+
+            const modal = document.getElementById('modalExcluirAluno');
+
+            modal.style.display = 'none';
+
+            document.getElementById('formExcluirAluno').reset();
+
+        }
+
+
         /* ================= FECHAR MODAIS ================= */
 
         window.onclick = function(event) {
@@ -1209,27 +1086,38 @@
             const modalExcluir = document.getElementById('modalExcluirAluno');
 
             if (event.target === modalCriar) {
+
                 fecharModalCriar();
+
             }
 
             if (event.target === modalEditar) {
+
                 fecharModalEditar();
+
             }
 
             if (event.target === modalExcluir) {
+
                 fecharConfirmacaoExcluirAluno();
+
             }
 
         };
 
-<<<<<<< HEAD
-        function esconderTudo() {
-            document.getElementById("alunos").hidden = true;
-            document.getElementById("posts").hidden = true;
-            document.getElementById("calendario").hidden = true;
-=======
 
         /* ================= NAVEGAÇÃO DAS SEÇÕES ================= */
+
+        function esconderTudo() {
+
+            document.getElementById("alunos").hidden = true;
+
+            document.getElementById("posts").hidden = true;
+
+            document.getElementById("calendario").hidden = true;
+
+        }
+
 
         function atualizarAbaAtiva(botao) {
 
@@ -1240,18 +1128,6 @@
             });
 
             botao.classList.add('ativa');
-
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
-        }
-
-
-        function esconderTudo() {
-
-            document.getElementById("alunos").hidden = true;
-
-            document.getElementById("posts").hidden = true;
-
-            document.getElementById("calendario").hidden = true;
 
         }
 
@@ -1281,8 +1157,6 @@
 
         }
 
-<<<<<<< HEAD
-=======
 
         function mostrarCalendario() {
 
@@ -1301,7 +1175,6 @@
 
         /* ================= CALENDÁRIO ================= */
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
         let dataAtual = new Date();
 
         let dataSelecionada = null;
@@ -1315,9 +1188,13 @@
 
 
             const meses = [
+
                 "Janeiro", "Fevereiro", "Março", "Abril",
+
                 "Maio", "Junho", "Julho", "Agosto",
+
                 "Setembro", "Outubro", "Novembro", "Dezembro"
+
             ];
 
 
@@ -1342,6 +1219,8 @@
             dias.innerHTML = "";
 
 
+            // Espaços antes do primeiro dia do mês
+
             for (let i = 0; i < primeiroDia; i++) {
 
                 const vazio = document.createElement("div");
@@ -1350,6 +1229,8 @@
 
             }
 
+
+            // Criar os dias do mês
 
             for (let dia = 1; dia <= ultimoDia; dia++) {
 
@@ -1363,7 +1244,9 @@
 
 
                 const dataString = ano + "-" +
+
                     String(mes + 1).padStart(2, "0") + "-" +
+
                     String(dia).padStart(2, "0");
 
 
@@ -1377,8 +1260,11 @@
                 const hoje = new Date();
 
                 const hojeString =
+
                     hoje.getFullYear() + "-" +
+
                     String(hoje.getMonth() + 1).padStart(2, "0") + "-" +
+
                     String(hoje.getDate()).padStart(2, "0");
 
 
@@ -1433,12 +1319,7 @@
             renderizarCalendario();
 
         }
-<<<<<<< HEAD
-        
-async function salvarEvento() {
-=======
 
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
 
         /* ================= SALVAR EVENTO ================= */
 
@@ -1490,7 +1371,9 @@ async function salvarEvento() {
             try {
 
                 const resposta = await fetch(
+
                     "{{ url('/professor/eventos/salvar') }}",
+
                     {
 
                         method: 'POST',
@@ -1520,6 +1403,7 @@ async function salvarEvento() {
                         })
 
                     }
+
                 );
 
 
@@ -1541,8 +1425,11 @@ async function salvarEvento() {
                 } catch (erro) {
 
                     throw new Error(
+
                         'O Laravel não retornou JSON. Verifique a rota, a sessão e os erros do servidor. Resposta: ' +
+
                         texto.substring(0, 300)
+
                     );
 
                 }
@@ -1553,7 +1440,9 @@ async function salvarEvento() {
                     if (resposta.status === 419) {
 
                         throw new Error(
+
                             'Sessão expirada ou token CSRF inválido. Atualize a página e tente novamente.'
+
                         );
 
                     }
@@ -1562,7 +1451,9 @@ async function salvarEvento() {
                     if (resposta.status === 401 || resposta.status === 403) {
 
                         throw new Error(
+
                             'Você não está autenticado ou não tem permissão para cadastrar eventos.'
+
                         );
 
                     }
@@ -1571,7 +1462,9 @@ async function salvarEvento() {
                     if (resposta.status === 404) {
 
                         throw new Error(
+
                             'A rota de cadastro de eventos não foi encontrada.'
+
                         );
 
                     }
@@ -1582,14 +1475,18 @@ async function salvarEvento() {
                         const erros = Object.values(resultado.errors || {}).flat();
 
                         throw new Error(
+
                             erros.join('\n') || resultado.message
+
                         );
 
                     }
 
 
                     throw new Error(
+
                         resultado.message || 'Erro HTTP ' + resposta.status
+
                     );
 
                 }
@@ -1604,7 +1501,9 @@ async function salvarEvento() {
                 } else {
 
                     throw new Error(
+
                         resultado.message || 'Não foi possível cadastrar o evento.'
+
                     );
 
                 }
@@ -1616,55 +1515,6 @@ async function salvarEvento() {
                 alert('Erro ao salvar evento:\n' + erro.message);
 
             }
-
-        }
-
-
-<<<<<<< HEAD
-function abrirConfirmacaoExcluirAluno(id, nome) {
-=======
-        /* ================= EXCLUSÃO DE ALUNO ================= */
-
-        function abrirConfirmacaoExcluirAluno(id, nome) {
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
-
-            const modal = document.getElementById('modalExcluirAluno');
-
-<<<<<<< HEAD
-form.action = `/alunos/${id}`;
-
-nomeElemento.innerText = nome;
-
-modal.style.display = 'flex';
-}
-=======
-            const form = document.getElementById('formExcluirAluno');
-
-            const nomeElemento = document.getElementById('nomeAlunoExcluir');
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
-
-
-            form.action = `/alunos/${id}`;
-
-            nomeElemento.innerText = nome;
-
-            modal.style.display = 'flex';
-
-<<<<<<< HEAD
-document.getElementById('formExcluirAluno').reset();
-}
-=======
-        }
->>>>>>> a986ac0ec2c4abad9ef1fc29a92cf1bb8d9d604b
-
-
-        function fecharConfirmacaoExcluirAluno() {
-
-            const modal = document.getElementById('modalExcluirAluno');
-
-            modal.style.display = 'none';
-
-            document.getElementById('formExcluirAluno').reset();
 
         }
 

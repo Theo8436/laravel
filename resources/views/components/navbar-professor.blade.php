@@ -82,7 +82,7 @@
 
             <!-- MINHA ÁREA -->
             <a
-                href="{{ route('professor.inicio') }}"
+                href="{{ route('professor.logado') }}"
                 class="nav-link nav-aluno-area"
             >
                 <i class="fa-solid fa-user"></i>
